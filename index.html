@@ -148,7 +148,41 @@ body {
             border-radius: 5px;
             border-left: 3px solid #ddd;
         }
-		
+		footer {
+    text-align: center;
+    padding: 40px 0;
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+    margin-top: 50px;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.footer-btn {
+    text-decoration: none;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+}
+
+.footer-btn:hover {
+    background-color: var(--primary-color);
+    color: white !important;
+}
+
+/* Ομαλό σκρόλαρισμα (Smooth Scroll) */
+html {
+    scroll-behavior: smooth;
+}
 		
         footer {
             text-align: center;
@@ -167,8 +201,8 @@ body {
 <div class="sticky-contact-bar">
     <div class="bar-content">
         <span>Επικοινωνήστε μαζί μου:</span>
-        <a href="tel:+306900000000" class="bar-link">📞 Κλήση</a>
-        <a href="mailto:το-email-σου@gmail.com" class="bar-link">📧 Email</a>
+        <a href="tel:+306932648344" class="bar-link">📞 Κλήση</a>
+        <a href="mailto:k.kotsionopoulos@gmail.com" class="bar-link">📧 Email</a>
     </div>
 </div>
 
@@ -304,7 +338,15 @@ body {
 </section>
 
     <footer>
-        <p>Κωνσταντίνος Κωτσιονόπουλος HTML.</p>
+        <div class="footer-nav">
+        <a href="#about" class="footer-btn">Προφίλ</a>
+        <a href="#experience" class="footer-btn">Εμπειρία</a>
+        <a href="#education" class="footer-btn">Εκπαίδευση</a>
+        <a href="#skills" class="footer-btn">Δεξιότητες</a>
+        <a href="#projects" class="footer-btn">Projects</a>
+    </div>
+    <p>© 2025 Κωνσταντίνος Κοτσιονόπουλος | Δημιουργήθηκε με HTML & CSS</p>
+
     </footer>
 </div>
 
