@@ -12,6 +12,57 @@
             --text-color: #333;
             --bg-color: #f4f7f6;
         }
+		
+		.sticky-contact-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Χρησιμοποιούμε rgba για 60% διαφάνεια στο σκούρο μπλε χρώμα σας */
+    background-color: rgba(44, 62, 80, 0.6); 
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    /* Προσθήκη blur για πιο επαγγελματικό εφέ (προαιρετικά) */
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+}
+.bar-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.9em;
+}
+
+.bar-link {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+    font-weight: bold;
+    background: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.bar-link:hover {
+    background: var(--accent-color);
+    color: white !important;
+}
+
+/* Διόρθωση για να μην κρύβεται το περιεχόμενο κάτω από το banner */
+body {
+    padding-top: 50px; 
+}
+
+@media (max-width: 600px) {
+    .bar-content span { display: none; } /* Κρύβει το κείμενο σε κινητά για οικονομία χώρου */
+    .bar-content { gap: 10px; }
+}
+		
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -112,6 +163,14 @@
     </style>
 </head>
 <body>
+
+<div class="sticky-contact-bar">
+    <div class="bar-content">
+        <span>Επικοινωνήστε μαζί μου:</span>
+        <a href="tel:+306900000000" class="bar-link">📞 Κλήση</a>
+        <a href="mailto:το-email-σου@gmail.com" class="bar-link">📧 Email</a>
+    </div>
+</div>
 
 <div class="container">
     <header>
