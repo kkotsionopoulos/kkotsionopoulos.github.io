@@ -194,9 +194,31 @@ html {
             margin-top: 40px;
         }
         @media print {
-            body { background: white; }
-            .container { box-shadow: none; margin: 0; max-width: 100%; }
-        }
+    /* Εξαφανίζουμε την μπάρα επικοινωνίας και το footer στην εκτύπωση */
+    .sticky-contact-bar, footer, .footer-nav {
+        display: none !important;
+    }
+
+    /* Αφαιρούμε το padding που είχαμε βάλει για την μπάρα */
+    body {
+        padding-top: 0 !important;
+        background: white;
+    }
+
+    /* Διασφαλίζουμε ότι το λευκό πλαίσιο πιάνει όλο το πλάτος */
+    .container {
+        box-shadow: none;
+        margin: 0;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /* Ρυθμίζουμε τα κουμπιά επικοινωνίας να μην φαίνονται ως μπλε σύνδεσμοι */
+    .contact-link, .bar-link {
+        text-decoration: none;
+        color: black;
+    }
+}
     </style>
 </head>
 <body>
@@ -312,12 +334,13 @@ html {
             <span class="skill-badge">Pegasus-Tesae ERP Software</span>
             <span class="skill-badge">E-commerce Management</span>
             <span class="skill-badge">Agricultural Consulting</span>
+			<span class="skill-badge">Customer Service</span>
 			<span class="skill-badge">AGRO 2.1 & 2.2 </span>
 			<span class="skill-badge">Πρωτόκολλο EUREPGAP </span>
-			<span class="skill-badge">Πρόγραμμα εκπαίδευσης Επιθεωρητών Βιολογικής Γεωργίας - QWAYS</span>
-            <span class="skill-badge">Integrated Pest Management</span>
+			<span class="skill-badge">Integrated Pest Management</span>
             <span class="skill-badge">G.I.S. Systems</span>
-            <span class="skill-badge">Customer Service</span>
+			<span class="skill-badge">Proficiency in English (ECPE)</span>
+			<span class="skill-badge">Πρόγραμμα εκπαίδευσης Επιθεωρητών Βιολογικής Γεωργίας - QWAYS</span>
         </div>
     </section>
 
@@ -354,6 +377,11 @@ html {
 		<a href="#contact" class="footer-btn">Επικοινωνία</a>
 		
     </div>
+	<button onclick="window.print()" class="download-btn">
+    🖨️ Εκτύπωση / Αποθήκευση σε PDF
+</button>
+	
+	
     <p>© 2025 Κωτσιονόπουλος Κωνσταντίνος  | Δημιουργήθηκε με HTML & CSS</p>
 
     </footer>
