@@ -1,29 +1,78 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Επικοινωνία | Κωνσταντίνος Κωτσιονόπουλος</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .contact-card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { color: #2c3e50; border-left: 5px solid #27ae60; padding-left: 15px; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        /* Χρησιμοποιούμε min-height αντί για height για να μην κόβεται η φόρμα αν είναι μεγάλη */
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 15px; /* Κενό γύρω από την κάρτα στα κινητά */
+            box-sizing: border-box;
+        }
+
+        .contact-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+            
+            /* ΔΙΟΡΘΩΣΗ ΓΙΑ ΚΙΝΗΤΑ: */
+            width: 100%;       /* Πιάνει όλο το πλάτος σε μικρές οθόνες */
+            max-width: 450px;  /* Δεν ξεπερνά τα 450px σε υπολογιστές */
+            
+            border-top: 5px solid #27ae60;
+            box-sizing: border-box;
+        }
+
+        h2 { color: #2c3e50; border-left: 5px solid #27ae60; padding-left: 15px; font-size: 1.5em; }
+        
+        input, textarea { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 16px; /* 16px εμποδίζει το αυτόματο "ζουμ" του iPhone όταν γράφεις */
+        }
+
+        button { 
+            width: 100%; 
+            padding: 15px; 
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
         button:hover { background-color: #219150; }
-        .back-link { display: block; text-align: center; margin-top: 20px; color: #666; text-decoration: none; font-size: 0.9em; }
+        .back-link { display: block; text-align: center; margin-top: 25px; color: #666; text-decoration: none; font-size: 1em; font-weight: 500; }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="contact-card">
-    <h2>Φόρμα Επικοινωνίας</h2>
+    <h2>Επικοινωνία - Contact</h2>
     <form action="https://formspree.io/f/xrejrabl" method="POST">
         <input type="text" name="name" placeholder="Το όνομά σας" required>
         <input type="email" name="_replyto" placeholder="Το email σας" required>
         <textarea name="message" rows="5" placeholder="Το μήνυμά σας" required></textarea>
-        <button type="submit">Αποστολή Μηνύματος</button>
+        <button type="submit">Αποστολή Μηνύματος - Send Mail</button>
     </form>
-    <a href="index.html" class="back-link">← Επιστροφή στο Βιογραφικό</a>
+    <a href="index.html" class="back-link">← Επιστροφή στο Βιογραφικό - Return to cv</a>
 </div>
 
 </body>
