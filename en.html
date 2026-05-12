@@ -219,6 +219,36 @@ html {
         color: black;
     }
 }
+
+.contact-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start; /* Στοίχιση αριστερά */
+    margin: 20px 0;
+}
+
+.contact-btn {
+    /* Αφαιρούμε το flex: 1 για να μην απλώνουν σε όλο το πλάτος */
+    padding: 8px 15px; /* Μικρότερο padding για να δείχνουν πιο κομψά */
+    background-color: white;
+    color: #27ae60 !important;
+    border: 2px solid #27ae60;
+    text-decoration: none;
+    border-radius: 20px; /* Λίγο πιο μικρή καμπύλη */
+    font-weight: bold;
+    font-size: 0.85em; /* Μικρότερη γραμματοσειρά */
+    text-align: center;
+    transition: 0.3s;
+    display: inline-flex; /* Χρησιμοποιούμε inline-flex για να παίρνει το μέγεθος του κειμένου */
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Για να μην σπάει το κείμενο σε δύο γραμμές */
+}
+
+.contact-btn:hover {
+    background-color: #27ae60;
+    color: white !important;
+}
     </style>
 </head>
 <body>
@@ -248,9 +278,9 @@ html {
 <section id="contact">
     <h2>Contact me</h2>
     <div class="contact-buttons">
-	    <a href="tel:+306932648344" class="contact-link">📞 Mobile Call</a>
-		<a href="contact.html" target="_blank" class="bar-link">📩 Contact Form</a>
-    </div>
+    <a href="tel:+306932648344" class="contact-btn">📞 Mobile Call</a>
+    <a href="contact.html" target="_blank" class="contact-btn">📩 Contact Form</a>
+</div>
 </section>
 
     <section id="about">
@@ -364,9 +394,9 @@ html {
 <section id="contact">
     <h2>CONTACT</h2>
     <div class="contact-buttons">
-        <a href="tel:+306932648344" class="contact-link">📞 Call Mobile</a>
-		<a href="contact.html" target="_blank" class="bar-link">📩 Contact Form</a>
-    </div>
+    <a href="tel:+306932648344" class="contact-btn">📞 Mobile Call</a>
+    <a href="contact.html" target="_blank" class="contact-btn">📩 Contact Form</a>
+</div>
 </section>
 
     <footer>
