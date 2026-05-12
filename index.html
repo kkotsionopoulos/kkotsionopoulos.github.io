@@ -222,32 +222,32 @@ html {
 
 .contact-buttons {
     display: flex;
-    gap: 10px;
-    justify-content: flex-start; /* Στοίχιση αριστερά */
+    flex-wrap: wrap; /* Πολύ σημαντικό: Επιτρέπει στα κουμπιά να αλλάζουν σειρά */
+    gap: 10px; /* Απόσταση μεταξύ τους */
+    justify-content: center;
+    width: 100%;
+    max-width: 100%; /* Περιορίζει τα κουμπιά μέσα στην οθόνη */
     margin: 20px 0;
+    box-sizing: border-box;
 }
 
-.contact-btn {
-    /* Αφαιρούμε το flex: 1 για να μην απλώνουν σε όλο το πλάτος */
-    padding: 8px 15px; /* Μικρότερο padding για να δείχνουν πιο κομψά */
+.contact-link, .contact-btn {
+    flex: 1; /* Τα κουμπιά θα προσπαθούν να έχουν το ίδιο πλάτος */
+    min-width: 140px; /* Αν η οθόνη είναι μικρότερη από 300px περίπου, θα μπουν το ένα κάτω από το άλλο */
+    padding: 12px 5px;
     background-color: white;
     color: #27ae60 !important;
     border: 2px solid #27ae60;
     text-decoration: none;
-    border-radius: 20px; /* Λίγο πιο μικρή καμπύλη */
+    border-radius: 25px;
     font-weight: bold;
-    font-size: 0.85em; /* Μικρότερη γραμματοσειρά */
+    font-size: 0.85em; /* Μειώνουμε λίγο το μέγεθος για να χωράνε καλύτερα */
     text-align: center;
     transition: 0.3s;
-    display: inline-flex; /* Χρησιμοποιούμε inline-flex για να παίρνει το μέγεθος του κειμένου */
+    display: flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap; /* Για να μην σπάει το κείμενο σε δύο γραμμές */
-}
-
-.contact-btn:hover {
-    background-color: #27ae60;
-    color: white !important;
+    box-sizing: border-box; /* Διασφαλίζει ότι το padding δεν μεγαλώνει το κουμπί */
 }
 
     </style>
