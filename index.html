@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Βιογραφικό σημείωμα Κωνσταντίνου Κωτσιονόπουλου - Γεωπόνος MSc & Web Development Enthusiast">
+    <meta name="description" content="Βιογραφικό σημείωμα Κωνσταντίνου Κωτσιονόπουλου - Γεωπόνος MSc & Web Development Enthusiast">
     <title>Konstantinos Kotsionopoulos | Agronomist & Tech Enthusiast</title>
     <style>
         :root {
@@ -12,57 +12,7 @@
             --text-color: #333;
             --bg-color: #f4f7f6;
         }
-		
-		.sticky-contact-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Χρησιμοποιούμε rgba για 60% διαφάνεια στο σκούρο μπλε χρώμα σας */
-    background-color: rgba(44, 62, 80, 0.6); 
-    color: white;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 10px 0;
-    /* Προσθήκη blur για πιο επαγγελματικό εφέ (προαιρετικά) */
-    backdrop-filter: blur(5px); 
-    -webkit-backdrop-filter: blur(5px);
-}
-.bar-content {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    font-size: 0.9em;
-}
 
-.bar-link {
-    color: var(--accent-color) !important;
-    text-decoration: none;
-    font-weight: bold;
-    background: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-
-.bar-link:hover {
-    background: var(--accent-color);
-    color: white !important;
-}
-
-/* Διόρθωση για να μην κρύβεται το περιεχόμενο κάτω από το banner */
-body {
-    padding-top: 50px; 
-}
-
-@media (max-width: 600px) {
-    .bar-content span { display: none; } /* Κρύβει το κείμενο σε κινητά για οικονομία χώρου */
-    .bar-content { gap: 10px; }
-}
-		
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -71,6 +21,51 @@ body {
             margin: 0;
             padding: 0;
         }
+
+        /* NAVBAR - ΣΤΑΘΕΡΟ ΣΤΗΝ ΚΟΡΥΦΗ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            z-index: 1050;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* CONTAINER ΠΕΡΙΕΧΟΜΕΝΟΥ */
         .container {
             max-width: 900px;
             margin: 30px auto;
@@ -79,7 +74,9 @@ body {
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             border-radius: 8px;
         }
+
         header {
+            margin-top: 80px; /* Κενό για να μην κρύβεται κάτω από το Navbar */
             border-bottom: 3px solid var(--accent-color);
             padding-bottom: 20px;
             margin-bottom: 30px;
@@ -87,25 +84,25 @@ body {
             justify-content: space-between;
             align-items: center;
         }
+
         .header-text h1 {
             margin: 0;
             color: var(--primary-color);
             font-size: 2.2em;
         }
+
         .contact-info {
             font-size: 0.9em;
             color: #666;
         }
+
         .contact-info a {
             color: var(--accent-color);
             text-decoration: none;
         }
-        section {
-            margin-bottom: 30px;
-        }
-		.project-card {
-    margin-bottom: 15px; /* Προσθέτει κενό ανάμεσα στα projects */
-}
+
+        section { margin-bottom: 30px; }
+
         h2 {
             color: var(--primary-color);
             border-left: 5px solid var(--accent-color);
@@ -114,29 +111,27 @@ body {
             font-size: 1.2em;
             margin-bottom: 20px;
         }
-        .job, .edu-item {
-            margin-bottom: 20px;
-        }
+
+        /* ΚΑΡΤΕΣ & BADGES */
+        .job, .edu-item { margin-bottom: 20px; }
+        
         .job-title {
             font-weight: bold;
             font-size: 1.1em;
             display: flex;
             justify-content: space-between;
-			flex-wrap: wrap;
+            flex-wrap: wrap;
         }
-        .company {
-            color: var(--accent-color);
-            font-style: italic;
-        }
-        .date {
-            color: #777;
-            font-size: 0.9em;
-        }
+
+        .company { color: var(--accent-color); font-style: italic; }
+        .date { color: #777; font-size: 0.9em; }
+
         .skills-container {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
+
         .skill-badge {
             background: #e8f5e9;
             color: #2e7d32;
@@ -145,147 +140,109 @@ body {
             font-size: 0.85em;
             border: 1px solid #c8e6c9;
         }
+
         .project-card {
             background: #fafafa;
             padding: 15px;
             border-radius: 5px;
             border-left: 3px solid #ddd;
+            margin-bottom: 15px;
         }
-		footer {
-    text-align: center;
-    padding: 40px 0;
-    background: #f9f9f9;
-    border-top: 1px solid #ddd;
-    margin-top: 50px;
-}
 
-.footer-nav {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+        /* ΚΟΥΜΠΙΑ ΕΠΙΚΟΙΝΩΝΙΑΣ */
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+            margin: 20px 0;
+        }
 
-.footer-btn {
-    text-decoration: none;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    transition: all 0.3s ease;
-}
+        .contact-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 5px;
+            background-color: white;
+            color: var(--accent-color) !important;
+            border: 2px solid var(--accent-color);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85em;
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.footer-btn:hover {
-    background-color: var(--primary-color);
-    color: white !important;
-}
+        .contact-btn:hover {
+            background-color: var(--accent-color);
+            color: white !important;
+        }
 
-/* Ομαλό σκρόλαρισμα (Smooth Scroll) */
-html {
-    scroll-behavior: smooth;
-}
-		
+        /* FOOTER & ΕΚΤΥΠΩΣΗ */
         footer {
             text-align: center;
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 40px;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
         }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-btn {
+            text-decoration: none;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            transition: 0.3s;
+        }
+
+        .footer-btn:hover { background: var(--primary-color); color: white !important; }
+
+        .download-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        @media (min-width: 600px) {
+            .nav-container { flex-direction: row; justify-content: space-between; }
+            .nav-links { margin-top: 0; }
+            .nav-links a { font-size: 1em; margin-left: 15px; }
+        }
+
         @media print {
-    /* Εξαφανίζουμε την μπάρα επικοινωνίας και το footer στην εκτύπωση */
-    .sticky-contact-bar, footer, .footer-nav {
-        display: none !important;
-    }
-
-    /* Αφαιρούμε το padding που είχαμε βάλει για την μπάρα */
-    body {
-        padding-top: 0 !important;
-        background: white;
-    }
-
-    /* Διασφαλίζουμε ότι το λευκό πλαίσιο πιάνει όλο το πλάτος */
-    .container {
-        box-shadow: none;
-        margin: 0;
-        max-width: 100%;
-        padding: 0;
-    }
-
-    /* Ρυθμίζουμε τα κουμπιά επικοινωνίας να μην φαίνονται ως μπλε σύνδεσμοι */
-    .contact-link, .bar-link {
-        text-decoration: none;
-        color: black;
-    }
-}
-
-.contact-buttons {
-    display: flex;
-    flex-wrap: wrap; /* Πολύ σημαντικό: Επιτρέπει στα κουμπιά να αλλάζουν σειρά */
-    gap: 10px; /* Απόσταση μεταξύ τους */
-    justify-content: center;
-    width: 100%;
-    max-width: 100%; /* Περιορίζει τα κουμπιά μέσα στην οθόνη */
-    margin: 20px 0;
-    box-sizing: border-box;
-}
-
-.contact-link, .contact-btn {
-    flex: 1; /* Τα κουμπιά θα προσπαθούν να έχουν το ίδιο πλάτος */
-    min-width: 140px; /* Αν η οθόνη είναι μικρότερη από 300px περίπου, θα μπουν το ένα κάτω από το άλλο */
-    padding: 12px 5px;
-    background-color: white;
-    color: #27ae60 !important;
-    border: 2px solid #27ae60;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 0.85em; /* Μειώνουμε λίγο το μέγεθος για να χωράνε καλύτερα */
-    text-align: center;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box; /* Διασφαλίζει ότι το padding δεν μεγαλώνει το κουμπί */
-}
-
-.navbar {
-    background-color: #2c3e50;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1001;
-}
-.nav-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-}
-.nav-links a:hover { color: #27ae60; }
-
-@media (max-width: 600px) {
-    .nav-container { flex-direction: column; }
-    .nav-links { margin-top: 10px; }
-    .nav-links a { margin: 0 10px; font-size: 0.9em; }
-}
-
+            .navbar, footer, .contact-buttons, .bar-link { display: none !important; }
+            body { padding-top: 0 !important; }
+            .container { box-shadow: none; margin: 0; max-width: 100%; padding: 0; }
+            header { margin-top: 0; }
+        }
+    
     </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="nav-container">
-        <a href="index.html" class="nav-logo">Κ. Κωτσιονόπουλος</a>
+        <a href="index.html" class="nav-logo" style="color: white; text-decoration: none; font-weight: bold;">Κ. Κωτσιονόπουλος</a>
         <div class="nav-links">
             <a href="index.html">Βιογραφικό</a>
             <a href="portfolio.html">Blog & Projects</a>
@@ -294,13 +251,7 @@ html {
     </div>
 </nav>
 
-<div class="sticky-contact-bar">
-    <div class="bar-content">
-        <span>Επικοινωνήστε μαζί μου:</span>
-        <a href="tel:+306932648344" class="bar-link">📞 Κλήση</a>
-        <a href="contact.html" target="_blank" class="bar-link">📩 Φόρμα Επικοινωνίας</a>
-    </div>
-</div>
+
 
 <div class="container">
     <header>
