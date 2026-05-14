@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="CV Konstantinos Kotsionopoulos - Agronomist MSc & Web Development Enthusiast">
+    <meta name="description" content="CV of Konstantinos Kotsionopoulos - Agronomist MSc & Web Development Enthusiast">
     <title>Konstantinos Kotsionopoulos | Agronomist & Tech Enthusiast</title>
     <style>
         :root {
@@ -12,57 +12,7 @@
             --text-color: #333;
             --bg-color: #f4f7f6;
         }
-		
-		.sticky-contact-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* Χρησιμοποιούμε rgba για 60% διαφάνεια στο σκούρο μπλε χρώμα σας */
-    background-color: rgba(44, 62, 80, 0.6); 
-    color: white;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 10px 0;
-    /* Προσθήκη blur για πιο επαγγελματικό εφέ (προαιρετικά) */
-    backdrop-filter: blur(5px); 
-    -webkit-backdrop-filter: blur(5px);
-}
-.bar-content {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    font-size: 0.9em;
-}
 
-.bar-link {
-    color: var(--accent-color) !important;
-    text-decoration: none;
-    font-weight: bold;
-    background: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-
-.bar-link:hover {
-    background: var(--accent-color);
-    color: white !important;
-}
-
-/* Διόρθωση για να μην κρύβεται το περιεχόμενο κάτω από το banner */
-body {
-    padding-top: 50px; 
-}
-
-@media (max-width: 600px) {
-    .bar-content span { display: none; } /* Κρύβει το κείμενο σε κινητά για οικονομία χώρου */
-    .bar-content { gap: 10px; }
-}
-		
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -71,6 +21,51 @@ body {
             margin: 0;
             padding: 0;
         }
+
+        /* NAVBAR - FIXED AT TOP */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            z-index: 1050;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* MAIN CONTAINER */
         .container {
             max-width: 900px;
             margin: 30px auto;
@@ -79,33 +74,37 @@ body {
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             border-radius: 8px;
         }
+
         header {
+            margin-top: 80px; /* Space for Navbar */
             border-bottom: 3px solid var(--accent-color);
             padding-bottom: 20px;
             margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
+
         .header-text h1 {
             margin: 0;
             color: var(--primary-color);
             font-size: 2.2em;
         }
+
         .contact-info {
             font-size: 0.9em;
             color: #666;
         }
+
         .contact-info a {
             color: var(--accent-color);
             text-decoration: none;
         }
-        section {
-            margin-bottom: 30px;
-        }
-		.project-card {
-    margin-bottom: 15px; /* Προσθέτει κενό ανάμεσα στα projects */
-}
+
+        section { margin-bottom: 30px; }
+
         h2 {
             color: var(--primary-color);
             border-left: 5px solid var(--accent-color);
@@ -114,29 +113,28 @@ body {
             font-size: 1.2em;
             margin-bottom: 20px;
         }
-        .job, .edu-item {
-            margin-bottom: 20px;
-        }
+
+        /* CARDS & BADGES */
+        .job, .edu-item { margin-bottom: 20px; }
+        
         .job-title {
             font-weight: bold;
             font-size: 1.1em;
             display: flex;
             justify-content: space-between;
-			flex-wrap: wrap;
+            flex-wrap: wrap;
+            gap: 5px;
         }
-        .company {
-            color: var(--accent-color);
-            font-style: italic;
-        }
-        .date {
-            color: #777;
-            font-size: 0.9em;
-        }
+
+        .company { color: var(--accent-color); font-style: italic; }
+        .date { color: #777; font-size: 0.9em; }
+
         .skills-container {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
+
         .skill-badge {
             background: #e8f5e9;
             color: #2e7d32;
@@ -145,197 +143,148 @@ body {
             font-size: 0.85em;
             border: 1px solid #c8e6c9;
         }
+
         .project-card {
             background: #fafafa;
             padding: 15px;
             border-radius: 5px;
             border-left: 3px solid #ddd;
+            margin-bottom: 15px;
         }
-		footer {
-    text-align: center;
-    padding: 40px 0;
-    background: #f9f9f9;
-    border-top: 1px solid #ddd;
-    margin-top: 50px;
-}
 
-.footer-nav {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+        /* CONTACT BUTTONS */
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+            margin: 20px 0;
+        }
 
-.footer-btn {
-    text-decoration: none;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    transition: all 0.3s ease;
-}
+        .contact-btn {
+            flex: 1;
+            min-width: 145px;
+            padding: 12px 5px;
+            background-color: white;
+            color: var(--accent-color) !important;
+            border: 2px solid var(--accent-color);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.85em;
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.footer-btn:hover {
-    background-color: var(--primary-color);
-    color: white !important;
-}
+        .contact-btn:hover {
+            background-color: var(--accent-color);
+            color: white !important;
+        }
 
-/* Ομαλό σκρόλαρισμα (Smooth Scroll) */
-html {
-    scroll-behavior: smooth;
-}
-		
+        /* FOOTER & PRINT */
         footer {
             text-align: center;
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 40px;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
         }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-btn {
+            text-decoration: none;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            transition: 0.3s;
+        }
+
+        .footer-btn:hover { background: var(--primary-color); color: white !important; }
+
+        .download-btn {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        @media (min-width: 600px) {
+            .nav-container { flex-direction: row; justify-content: space-between; }
+            .nav-links { margin-top: 0; }
+            .nav-links a { font-size: 1em; margin-left: 15px; }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; margin: 10px; }
+            .header-text h1 { font-size: 1.8em; }
+        }
+
         @media print {
-    /* Εξαφανίζουμε την μπάρα επικοινωνίας και το footer στην εκτύπωση */
-    .sticky-contact-bar, footer, .footer-nav {
-        display: none !important;
-    }
-
-    /* Αφαιρούμε το padding που είχαμε βάλει για την μπάρα */
-    body {
-        padding-top: 0 !important;
-        background: white;
-    }
-
-    /* Διασφαλίζουμε ότι το λευκό πλαίσιο πιάνει όλο το πλάτος */
-    .container {
-        box-shadow: none;
-        margin: 0;
-        max-width: 100%;
-        padding: 0;
-    }
-
-    /* Ρυθμίζουμε τα κουμπιά επικοινωνίας να μην φαίνονται ως μπλε σύνδεσμοι */
-    .contact-link, .bar-link {
-        text-decoration: none;
-        color: black;
-    }
-}
-
-.contact-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start; /* Στοίχιση αριστερά */
-    margin: 20px 0;
-}
-
-.contact-btn {
-    /* Αφαιρούμε το flex: 1 για να μην απλώνουν σε όλο το πλάτος */
-    padding: 8px 15px; /* Μικρότερο padding για να δείχνουν πιο κομψά */
-    background-color: white;
-    color: #27ae60 !important;
-    border: 2px solid #27ae60;
-    text-decoration: none;
-    border-radius: 20px; /* Λίγο πιο μικρή καμπύλη */
-    font-weight: bold;
-    font-size: 0.85em; /* Μικρότερη γραμματοσειρά */
-    text-align: center;
-    transition: 0.3s;
-    display: inline-flex; /* Χρησιμοποιούμε inline-flex για να παίρνει το μέγεθος του κειμένου */
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap; /* Για να μην σπάει το κείμενο σε δύο γραμμές */
-}
-
-.contact-btn:hover {
-    background-color: #27ae60;
-    color: white !important;
-}
-
-.navbar {
-    background-color: #2c3e50;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1001;
-}
-.nav-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-}
-.nav-links a:hover { color: #27ae60; }
-
-@media (max-width: 600px) {
-    .nav-container { flex-direction: column; }
-    .nav-links { margin-top: 10px; }
-    .nav-links a { margin: 0 10px; font-size: 0.9em; }
-}
-
+            .navbar, footer, .contact-buttons, .download-btn { display: none !important; }
+            body { padding-top: 0 !important; background: white; }
+            .container { box-shadow: none; margin: 0; max-width: 100%; padding: 0; }
+            header { margin-top: 0; }
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="nav-container">
-        <a href="index.html" class="nav-logo">Κ. Κωτσιονόπουλος</a>
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.1em;">K. Kotsionopoulos</a>
         <div class="nav-links">
-            <a href="index.html">Βιογραφικό</a>
+            <a href="index.html">Greek Version</a>
             <a href="portfolio.html">Blog & Projects</a>
-            <a href="contact.html">Επικοινωνία</a>
+            <a href="contact.html">Contact</a>
         </div>
     </div>
 </nav>
 
-<div class="sticky-contact-bar">
-    <div class="bar-content">
-        <span>Contact me</span>
-        <a href="tel:+306932648344" class="bar-link">📞 Mobile Call</a>
-        <a href="contact.html" target="_blank" class="bar-link">📩 Contact Form</a>
-    </div>
-</div>
-
 <div class="container">
     <header>
         <div class="header-text">
-            <h1>Kotsionopoulos konstantinos</h1>
+            <h1>Konstantinos Kotsionopoulos</h1>
             <p><strong>Agronomist (MSc) | Sales Consultant | E-commerce & Tech Enthusiast</strong></p>
             <div class="contact-info">
                 Tripoli, Greece | 
                 <a href="https://www.linkedin.com/in/kotsionopoulos/" target="_blank">LinkedIn Profile</a>
             </div>
         </div>
+        <div class="lang-switch">
+            <a href="index.html" style="text-decoration: none; color: var(--accent-color); font-weight: bold; border: 1px solid var(--accent-color); padding: 5px 10px; border-radius: 5px;">🇬🇷 Ελληνική Έκδοση</a>
+        </div>
     </header>
-
-<a href="index.html" class="bar-link">🇬🇷 Ελληνική Έκδοση</a>	
-
-<section id="contact">
-    <h2>Contact me</h2>
-    <div class="contact-buttons">
-    <a href="tel:+306932648344" class="contact-btn">📞 Mobile Call</a>
-    <a href="contact.html" target="_blank" class="contact-btn">📩 Contact Form</a>
-</div>
-</section>
 
     <section id="about">
         <h2>Profile</h2>
-        <p>Agronomist & Plant Production Technologist with eight years of experience in retail sales and agricultural store management. As the owner of my own commercial business, I have gained deep knowledge in direct customer service, sales (B2C & B2B), and store organization. My practical experience has taught me to provide solutions, handle ERP systems, and develop sales through e-commerce (Skroutz Marketplace). I possess a strong research background with postgraduate studies in Agricultural Economics and Development, while simultaneously expanding my skills in Web Development and E-commerce (website and e-shop construction and management).</p>
+        <p>Agronomist & Plant Production Technologist with eight years of experience in retail sales and agricultural store management. As the owner of my own commercial business, I have gained deep knowledge in direct customer service, sales (B2C & B2B), and store organization. My practical experience has taught me to provide solutions, handle ERP systems, and develop sales through e-commerce (Skroutz Marketplace). I possess a strong research background with postgraduate studies in Agricultural Economics and Development, while simultaneously expanding my skills in Web Development and E-commerce.</p>
     </section>
 
     <section id="experience">
         <h2>Professional Experience</h2>
-        
         <div class="job">
             <div class="job-title">
                 <span>Agronomist / Store Manager</span>
-                <span class="date">2017 – 2026</span>
+                <span class="date">July 2017 – Feb 2026</span>
             </div>
             <div class="company">AGROS - Kotsionopoulos Konstantinos</div>
             <ul>
@@ -343,7 +292,7 @@ html {
                 <li>E-commerce management via Skroutz Marketplace.</li>
                 <li>Use of ERP systems (Pegasus) for invoicing and inventory management.</li>
                 <li>Providing specialized agronomic advice and trading of pesticides, fertilizers, plants, and seeds.</li>
-				<li>Pest & Rodent Control (pest management).</li>
+                <li>Pest & Rodent Control services.</li>
             </ul>
         </div>
 
@@ -361,13 +310,13 @@ html {
                 <span>EU Agricultural Subsidies Management</span>
                 <span class="date">2008 – 2009</span>
             </div>
-            <div class="company">O.P.E.K.E.P.E. (Payment and Control Agency for Guidance and Guarantee Community Aid)</div>
+            <div class="company">O.P.E.K.E.P.E.</div>
             <p>Conducting on-site inspections in Arcadia, Messinia, and Argolida.</p>
         </div>
     </section>
 
     <section id="education">
-        <h2>EDUCATION</h2>
+        <h2>Education</h2>
         <div class="edu-item">
             <div class="job-title">
                 <span>MSc in Integrated Development and Management of Rural Areas</span>
@@ -375,88 +324,74 @@ html {
             </div>
             <div class="company">Agricultural University of Athens</div>
         </div>
-		
-		<div class="edu-item">
+        
+        <div class="edu-item">
             <div class="job-title">
                 <span>BSc in Plant Production Technology</span>
-                <span class="date">2001-2005</span>
+                <span class="date">2001 - 2005</span>
             </div>
-            <div class="company">TEI of Kalamata (School of Agricultural Technology)</div>
-            
+            <div class="company">TEI of Kalamata</div>
         </div>
-	
+
         <div class="edu-item">
             <div class="job-title">
                 <div style="display: flex; flex-direction: column;">
-				<span>E-commerce Manager</span>
-				<span>Web Page & Digital/Multimedia Design </span>
-				</div>
+                    <span>E-commerce Manager,</span>
+                    <span>Web Page & Digital/Multimedia Design</span>
+                </div>
                 <span class="date">2025 – 2027</span>
             </div>
-            <div class="company">SAEK (Vocational Training Institute) of Tripoli</div>
+            <div class="company">SAEK Tripoli</div>
             <p>Specialization in HTML, WordPress, Python, and E-commerce management.</p>
         </div>
     </section>
 
     <section id="skills">
-        <h2>SKILLS & CERTIFICATIONS</h2>
+        <h2>Skills & Certifications</h2>
         <div class="skills-container">
             <span class="skill-badge">HTML / Web Development</span>
             <span class="skill-badge">WordPress</span>
             <span class="skill-badge">Python</span>
-            <span class="skill-badge">Pegasus-Tesae ERP Software</span>
-            <span class="skill-badge">E-commerce Management</span>
+            <span class="skill-badge">ERP Pegasus</span>
+            <span class="skill-badge">E-commerce</span>
             <span class="skill-badge">Agricultural Consulting</span>
-			<span class="skill-badge">Customer Service</span>
-			<span class="skill-badge">AGRO 2.1 & 2.2 </span>
-			<span class="skill-badge">EUREPGAP Protocol</span>
-			<span class="skill-badge">Integrated Pest Management</span>
-            <span class="skill-badge">G.I.S. Systems</span>
-			<span class="skill-badge">Proficiency in English (ECPE)</span>
-			<span class="skill-badge">Organic Farming Inspectors Training Program - QWAYS</span>
+            <span class="skill-badge">Pest Control</span>
+            <span class="skill-badge">AGRO 2.1 & 2.2</span>
+            <span class="skill-badge">English (ECPE)</span>
         </div>
     </section>
 
     <section id="projects">
-        <h2>PROJECTS & AWARDS</h2>
+        <h2>Projects & Awards</h2>
         <div class="project-card">
-			<strong><a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746" target="_blank">Master's Thesis: </a></strong>The competitiveness of Greek exports: The case of agricultural products (indicators – measurement of competitiveness).
-		</div>        
-	
-		<div class="project-card">
-			<strong><a href="https://mainalontrekking.great-site.net/"target="_blank" > Mainalon Trekking (2025):<a></strong> Website creation in WordPress and social media management for the promotion of Arcadia's trails.
+            <strong><a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746" target="_blank">Master's Thesis:</a></strong> The competitiveness of Greek agricultural exports.
         </div>
-      
         <div class="project-card">
-            <strong><a href="https://tinyurl.com/2dsc4uwu/"target="_blank"> Breathing Salad (2014):<a> </strong> Award in competition for innovative business plans: Fresh salad prodaction with the use of floating hydroponic system. 
+            <strong><a href="https://mainalontrekking.great-site.net/" target="_blank">Mainalon Trekking (2025):</a></strong> Digitizing trails in Arcadia and TikTok marketing development.
+        </div>
+        <div class="project-card">
+            <strong><a href="https://tinyurl.com/2dsc4uwu/" target="_blank">Breathing Salad (2014):</a></strong> Innovative business plan award for hydroponic salad production.
         </div>
     </section>
-	
-<section id="contact">
-    <h2>CONTACT</h2>
-    <div class="contact-buttons">
-    <a href="tel:+306932648344" class="contact-btn">📞 Mobile Call</a>
-    <a href="contact.html" target="_blank" class="contact-btn">📩 Contact Form</a>
-</div>
-</section>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-buttons">
+            <a href="tel:+306932648344" class="contact-btn">📞 Call Mobile</a>
+            <a href="contact.html" target="_blank" class="contact-btn">📩 Contact Form</a>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-nav">
-        <a href="#about" class="footer-btn">Profile</a>
-        <a href="#experience" class="footer-btn">Experience</a>
-        <a href="#education" class="footer-btn">Education</a>
-        <a href="#skills" class="footer-btn">Skills</a>
-        <a href="#projects" class="footer-btn">Projects</a>
-		<a href="#contact" class="footer-btn">Contact</a>
-		
-    </div>
-	<button onclick="window.print()" class="download-btn">
-    🖨️ Print / Save as PDF
-</button>
-	
-	
-    <p>© 2025 Kotsionopoulos Konstantinos | Created with HTML & CSS</p>
-
+            <a href="#about" class="footer-btn">Profile</a>
+            <a href="#experience" class="footer-btn">Experience</a>
+            <a href="#education" class="footer-btn">Education</a>
+            <a href="#skills" class="footer-btn">Skills</a>
+            <a href="#projects" class="footer-btn">Projects</a>
+        </div>
+        <button onclick="window.print()" class="download-btn">🖨️ Print / Save as PDF</button>
+        <p>© 2026 Kotsionopoulos Konstantinos | Created with HTML & CSS</p>
     </footer>
 </div>
 

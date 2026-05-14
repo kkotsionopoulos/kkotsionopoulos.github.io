@@ -1,24 +1,92 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Επικοινωνία | Κωνσταντίνος Κωτσιονόπουλος</title>
     <style>
-        /* Χρησιμοποιούμε min-height αντί για height για να μην κόβεται η φόρμα αν είναι μεγάλη */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --bg-color: #f4f7f6;
+        }
+
         body { 
-    font-family: 'Segoe UI', sans-serif; 
-    background-color: #f4f7f6; 
-    margin: 0; 
-    display: flex; 
-    flex-direction: column; /* Τα στοιχεία μπαίνουν το ένα κάτω από το άλλο */
-    align-items: center; 
-    min-height: 100vh; 
-}
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-color); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
 
-        
+        /* NAVBAR */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 10px 0;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-        h2 { color: #2c3e50; border-left: 5px solid #27ae60; padding-left: 15px; font-size: 1.5em; }
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85em;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* CONTACT CARD */
+        .contact-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+            width: 90%; 
+            max-width: 450px; 
+            border-top: 5px solid var(--accent-color);
+            box-sizing: border-box;
+            margin: 50px 20px; /* Κενό από το navbar και τα πλάγια */
+        }
+
+        h2 { 
+            color: var(--primary-color); 
+            border-left: 5px solid var(--accent-color); 
+            padding-left: 15px; 
+            font-size: 1.5em; 
+            margin-top: 0;
+        }
         
         input, textarea { 
             width: 100%; 
@@ -27,13 +95,20 @@
             border: 1px solid #ddd; 
             border-radius: 6px; 
             box-sizing: border-box; 
-            font-size: 16px; /* 16px εμποδίζει το αυτόματο "ζουμ" του iPhone όταν γράφεις */
+            font-size: 16px; /* Εμποδίζει το αυτόματο zoom σε iOS */
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(39, 174, 96, 0.2);
         }
 
         button { 
             width: 100%; 
             padding: 15px; 
-            background-color: #27ae60; 
+            background-color: var(--accent-color); 
             color: white; 
             border: none; 
             border-radius: 6px; 
@@ -41,53 +116,37 @@
             font-weight: bold; 
             font-size: 1.1em;
             margin-top: 10px;
+            transition: background 0.3s;
         }
 
         button:hover { background-color: #219150; }
-        .back-link { display: block; text-align: center; margin-top: 25px; color: #666; text-decoration: none; font-size: 1em; font-weight: 500; }
+
+        .back-link { 
+            display: block; 
+            text-align: center; 
+            margin-top: 25px; 
+            color: #666; 
+            text-decoration: none; 
+            font-size: 0.9em; 
+            font-weight: 500; 
+        }
+
         .back-link:hover { text-decoration: underline; }
-		
-		.navbar {
-    width: 100%; /* Το μενού να πιάνει όλο το πλάτος */
-    background-color: #2c3e50;
-    padding: 15px 0;
-    position: static; /* Ή sticky αν θέλεις να μένει καθώς σκρολάρεις */
-    margin-bottom: 50px; /* Κενό ανάμεσα στο μενού και την κάρτα */
-}
 
-.contact-card { 
-    background: white; 
-    padding: 30px; 
-    border-radius: 12px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-    width: 90%; 
-    max-width: 450px; 
-    border-top: 5px solid #27ae60;
-    box-sizing: border-box;
-    /* Αφαιρούμε το αυτόματο κεντράρισμα που την πήγαινε στη μέση */
-}
-.nav-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: bold;
-}
-.nav-links a:hover { color: #27ae60; }
-
-@media (max-width: 600px) {
-    .nav-container { flex-direction: column; }
-    .nav-links { margin-top: 10px; }
-    .nav-links a { margin: 0 10px; font-size: 0.9em; }
-}
-		
+        /* Tablet/Desktop Styles */
+        @media (min-width: 600px) {
+            .nav-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .nav-links {
+                margin-top: 0;
+            }
+            .nav-links a {
+                font-size: 1em;
+                margin-left: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -111,7 +170,7 @@
         <textarea name="message" rows="5" placeholder="Το μήνυμά σας" required></textarea>
         <button type="submit">Αποστολή Μηνύματος - Send Mail</button>
     </form>
-    <a href="index.html" class="back-link">← Επιστροφή στο Βιογραφικό - Return to cv</a>
+    <a href="index.html" class="back-link">← Επιστροφή στο Βιογραφικό - Return to CV</a>
 </div>
 
 </body>
