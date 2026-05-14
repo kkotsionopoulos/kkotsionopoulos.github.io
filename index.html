@@ -24,46 +24,45 @@
 
         /* NAVBAR - ΣΤΑΘΕΡΟ ΣΤΗΝ ΚΟΡΥΦΗ */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #2c3e50;
-            z-index: 1050;
-            padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    background-color: #2c3e50 !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+    padding: 5px 0; /* Μικρότερο padding για πιο λεπτή μπάρα */
+}
 
         .nav-container {
     max-width: 1000px;
     margin: 0 auto;
     display: flex;
-    justify-content: center; /* Πάντα κέντρο */
+    justify-content: center; /* Κεντράρισμα */
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px;
 }
 
         .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 8px;
-        }
+    display: flex;
+    flex-wrap: wrap; /* Αλλαγή σειράς αν δεν χωράνε στο κινητό */
+    justify-content: center;
+    gap: 15px;
+}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85em;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    padding: 8px 15px;
+    border: 1.5px solid #27ae60; /* Διακριτικό περίγραμμα */
+    border-radius: 20px;
+    transition: 0.3s;
+}
 
-        .nav-links a:hover {
-            background-color: var(--accent-color);
-        }
+.nav-links a:hover {
+    background-color: var(--accent-color);
+    color: white !important;
+}
 
         /* CONTAINER ΠΕΡΙΕΧΟΜΕΝΟΥ */
         .container {
@@ -76,14 +75,14 @@
         }
 
         header {
-            margin-top: 80px; /* Κενό για να μην κρύβεται κάτω από το Navbar */
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    margin-top: 60px; /* Μειώθηκε για να ανέβει το κείμενο πιο ψηλά */
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
         .header-text h1 {
             margin: 0;
