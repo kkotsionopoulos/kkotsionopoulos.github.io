@@ -25,43 +25,52 @@
         /* NAVBAR - ΣΤΑΘΕΡΟ ΣΤΗΝ ΚΟΡΥΦΗ */
         .navbar {
     background-color: #2c3e50 !important;
+    padding: 10px 0;
+    width: 100%;
     position: fixed;
     top: 0;
-    width: 100%;
+    left: 0;
     z-index: 1050;
-    padding: 5px 0; /* Μικρότερο padding για πιο λεπτή μπάρα */
 }
 
-        .nav-container {
+/* 2. Το κοντέινερ για κεντράρισμα */
+.nav-container {
     max-width: 1000px;
     margin: 0 auto;
     display: flex;
-    justify-content: center; /* Κεντράρισμα */
+    justify-content: center;
     align-items: center;
-    padding: 10px;
 }
 
-        .nav-links {
+/* 3. Τα κουμπιά (Links) */
+.nav-links {
     display: flex;
-    flex-wrap: wrap; /* Αλλαγή σειράς αν δεν χωράνε στο κινητό */
-    justify-content: center;
-    gap: 15px;
+    gap: 8px; /* Μικρό κενό για το κινητό */
 }
 
 .nav-links a {
-    color: white;
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: transparent;
+    color: white !important;
+    border: 1.5px solid #27ae60; /* Το πράσινο περίγραμμα */
+    border-radius: 20px; /* Στρογγυλεμένες γωνίες */
     text-decoration: none;
     font-weight: bold;
-    font-size: 0.9em;
-    padding: 8px 15px;
-    border: 1.5px solid #27ae60; /* Διακριτικό περίγραμμα */
-    border-radius: 20px;
+    font-size: 0.8em;
+    white-space: nowrap;
     transition: 0.3s;
 }
 
+/* Εφέ Hover */
 .nav-links a:hover {
-    background-color: var(--accent-color);
+    background-color: #27ae60;
     color: white !important;
+}
+
+/* 4. Κενό στην κορυφή του περιεχομένου για να μην κρύβεται πίσω από το navbar */
+header, .portfolio-grid, .contact-card {
+    margin-top: 80px !important;
 }
 
         /* CONTAINER ΠΕΡΙΕΧΟΜΕΝΟΥ */
