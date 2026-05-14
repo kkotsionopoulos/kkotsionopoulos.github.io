@@ -168,10 +168,19 @@ header, .portfolio-grid, .contact-card {
         .read-more:hover { border-bottom: 2px solid #27ae60; }
 
         @media (max-width: 600px) {
-            .nav-container { flex-direction: column; }
-            .nav-links { margin-top: 10px; }
-            .nav-links a { margin: 0 10px; font-size: 0.9em; }
-        }
+    .nav-container { 
+        flex-direction: row !important; /* Κρατάει τα κουμπιά δίπλα-δίπλα */
+        justify-content: center;
+    }
+    .nav-links { 
+        margin-top: 0 !important; 
+        gap: 5px; 
+    }
+    .nav-links a { 
+        font-size: 0.75em; 
+        padding: 5px 8px; 
+    }
+
     </style>
 </head>
 <body>
