@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio & Blog | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        /* Βασικό στυλ σελίδας */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* CSS για το Navbar (πρέπει να είναι ίδιο σε όλες τις σελίδες) */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        .nav-links a:hover { color: #27ae60; }
+
+        /* CSS για το Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .post-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #27ae60;
+            transition: transform 0.3s;
+        }
+
+        .post-card:hover { transform: translateY(-5px); }
+
+        .post-category {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            color: #27ae60;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h3 { color: #2c3e50; margin-top: 0; }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+        
+        .read-more:hover { border-bottom: 2px solid #27ae60; }
+
+        @media (max-width: 600px) {
+            .nav-container { flex-direction: column; }
+            .nav-links { margin-top: 10px; }
+            .nav-links a { margin: 0 10px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2em;">Κ. Κωτσιονόπουλος</a>
+            <div class="nav-links">
+                <a href="index.html">Βιογραφικό</a>
+                <a href="portfolio.html">Blog & Projects</a>
+                <a href="contact.html">Επικοινωνία</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="portfolio-grid">
+        <article class="post-card">
+            <div class="post-category">Άρθρο</div>
+            <h3>Η Ανταγωνιστικότητα των Ελληνικών Προϊόντων</h3>
+            <p>Μια ανάλυση των εξαγωγών με βάση τα στοιχεία της μεταπτυχιακής μου διατριβής στο Γεωπονικό Πανεπιστήμιο Αθηνών[cite: 43].</p>
+            <a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746" target="_blank" class="read-more">Διαβάστε την εργασία</a>
+        </article>
+
+        <article class="post-card">
+            <div class="post-category">Project</div>
+            <h3>Mainalon Trekking</h3>
+            <p>Ψηφιοποίηση μονοπατιών στην Αρκαδία και ανάπτυξη TikTok καμπάνιας για την ανάδειξη της περιοχής[cite: 44].</p>
+            <a href="https://mainalontrekking.great-site.net/" target="_blank" class="read-more">Δείτε το Project</a>
+        </article>
+
+        <article class="post-card">
+            <div class="post-category">Διάκριση</div>
+            <h3>Breathing Salad</h3>
+            <p>Βραβευμένο επιχειρηματικό σχέδιο για παραγωγή σαλάτας με υδροπονικό σύστημα[cite: 45].</p>
+            <a href="https://tinyurl.com/2dsc4uwu/" target="_blank" class="read-more">Λεπτομέρειες</a>
+        </article>
+    </section>
+
+</body>
+</html>
