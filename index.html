@@ -114,6 +114,43 @@
             color: #2980b9;
             font-weight: bold;
         }
+		
+		/* --- QR CODES CONFIGURATION --- */
+.qr-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.qr-box {
+    text-align: center;
+    background: #fafafa;
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.qr-box:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-color);
+}
+
+.qr-box img {
+    width: 85px;
+    height: 85px;
+    display: block;
+    margin: 0 auto 4px auto;
+}
+
+.qr-box p {
+    margin: 0 !important;
+    font-size: 0.75em !important;
+    font-weight: bold;
+    color: var(--primary-color);
+}
 
         /* --- SECTIONS & CONTENT --- */
         section { margin-bottom: 30px; }
@@ -280,6 +317,17 @@
             <div class="contact-info">
                 Τρίπολη, Ελλάδα | 
                 <a href="https://www.linkedin.com/in/kotsionopoulos/" target="_blank">LinkedIn Profile</a>
+            </div>
+        </div>
+
+        <div class="qr-container">
+            <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/kotsionopoulos/" alt="LinkedIn QR">
+                <p>LinkedIn</p>
+            </div>
+            <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://kkotsionopoulos.github.io" alt="Online CV QR">
+                <p>Online CV</p>
             </div>
         </div>
     </header>
