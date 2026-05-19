@@ -152,6 +152,11 @@
     color: var(--primary-color);
 }
 
+.qr-link {
+    text-decoration: none; /* Αφαιρεί την υπογράμμιση του συνδέσμου */
+    color: inherit;
+}
+
         /* --- SECTIONS & CONTENT --- */
         section { margin-bottom: 30px; }
 
@@ -321,15 +326,29 @@
         </div>
 
         <div class="qr-container">
-            <div class="qr-box">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/kotsionopoulos/" alt="LinkedIn QR">
-                <p>LinkedIn</p>
-            </div>
-            <div class="qr-box">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://kkotsionopoulos.github.io" alt="Online CV QR">
-                <p>Online CV</p>
-            </div>
+    
+    <a href="https://www.linkedin.com/in/kotsionopoulos/" target="_blank" class="qr-link">
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/kotsionopoulos/" alt="LinkedIn QR">
+            <p>LinkedIn</p>
         </div>
+    </a>
+
+    <a href="https://kkotsionopoulos.github.io/" target="_blank" class="qr-link">
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://kkotsionopoulos.github.io/" alt="Online CV QR">
+            <p>Online CV</p>
+        </div>
+    </a>
+
+    <a href="CV_Kotsionopoulos.pdf" download class="qr-link">
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://kkotsionopoulos.github.io/CV_Kotsionopoulos.pdf" alt="Download CV QR">
+            <p>Download PDF</p>
+        </div>
+    </a>
+    
+</div>
     </header>
 
 <a href="en.html" class="bar-link">🇺🇸 English Version</a>	
