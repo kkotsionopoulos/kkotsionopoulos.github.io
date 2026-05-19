@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Γεωπονικό Blog | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR (Ίδιο με την αρχική) --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- HEADER --- */
+        header {
+            margin-top: 50px !important; 
+            padding: 30px 0 10px 0 !important;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 !important;
+            color: var(--primary-color);
+            font-size: 2.2em;
+        }
+
+        /* --- BLOG GRID --- */
+        .blog-container {
+            max-width: 1000px;
+            margin: 20px auto 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- ΚΑΛΟΥΠΙ ΑΡΘΡΟΥ (POST CARD) --- */
+        .post-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-top: 5px solid var(--accent-color);
+            transition: 0.3s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .post-date {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .post-card h2 {
+            margin: 0 0 15px 0;
+            color: var(--primary-color);
+            font-size: 1.4em;
+        }
+
+        .post-card p {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        /* --- RESPONSIVE & FOOTER --- */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 10px; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <h1>Γεωπονικό Blog</h1>
+    <p>Άρθρα, συμβουλές και νέα για τη γεωργία και τις καλλιέργειες.</p>
+</header>
+
+<div class="blog-container">
+
+    <article class="post-card">
+        <span class="post-date">19 Μαΐου 2026</span>
+        <h2>Βασικές Αρχές Λίπανσης στην Ελιά</h2>
+        <p>Η σωστή λίπανση της ελιάς την άνοιξη είναι καθοριστική για την ανθοφορία και την καρπόδεση. Αναλύουμε τις απαιτήσεις σε άζωτο, φώσφορο και κάλιο, καθώς και τη σημασία του βορίου για τη μεγιστοποίηση της παραγωγής.</p>
+    </article>
+    <article class="post-card">
+        <span class="post-date">12 Μαΐου 2026</span>
+        <h2>Καταπολέμηση του Δάκου: Προληπτικά Μέτρα</h2>
+        <p>Ο δάκος αποτελεί τον σημαντικότερο εχθρό της ελαιοκαλλιέργειας. Μάθετε πώς να οργανώσετε ένα αποτελεσματικό δίκτυο παγίδων και ποιες είναι οι βέλτιστες πρακτικές για τους πρώτους ψεκασμούς της σεζόν.</p>
+    </article>
+    </div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος</p>
+</footer>
+
+</body>
+</html>

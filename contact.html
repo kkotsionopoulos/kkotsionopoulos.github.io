@@ -15,64 +15,55 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--bg-color); 
             margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            min-height: 100vh; 
+            padding: 0;
         }
 
-        /* NAVBAR */
+        /* --- NAVBAR - ΑΚΡΙΒΩΣ ΟΠΩΣ ΣΤΗΝ ΑΡΧΙΚΗ --- */
         .navbar {
-    background-color: #2c3e50 !important;
-    padding: 10px 0;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1050;
-}
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
 
-/* 2. Το κοντέινερ για κεντράρισμα */
-.nav-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
 
-/* 3. Τα κουμπιά (Links) */
-.nav-links {
-    display: flex;
-    gap: 8px; /* Μικρό κενό για το κινητό */
-}
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
 
-.nav-links a {
-    display: inline-block;
-    padding: 6px 12px;
-    background-color: transparent;
-    color: white !important;
-    border: 1.5px solid #27ae60; /* Το πράσινο περίγραμμα */
-    border-radius: 20px; /* Στρογγυλεμένες γωνίες */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.8em;
-    white-space: nowrap;
-    transition: 0.3s;
-}
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
 
-/* Εφέ Hover */
-.nav-links a:hover {
-    background-color: #27ae60;
-    color: white !important;
-}
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
 
-/* 4. Κενό στην κορυφή του περιεχομένου για να μην κρύβεται πίσω από το navbar */
-header, .portfolio-grid, .contact-card {
-    margin-top: 80px !important;
-}
-
-        /* CONTACT CARD */
+        /* --- CONTACT CARD --- */
         .contact-card { 
             background: white; 
             padding: 30px; 
@@ -82,7 +73,7 @@ header, .portfolio-grid, .contact-card {
             max-width: 450px; 
             border-top: 5px solid var(--accent-color);
             box-sizing: border-box;
-            margin: 50px 20px; /* Κενό από το navbar και τα πλάγια */
+            margin: 100px auto 50px auto; /* Το 100px δημιουργεί την απόσταση από το Navbar */
         }
 
         h2 { 
@@ -138,18 +129,14 @@ header, .portfolio-grid, .contact-card {
 
         .back-link:hover { text-decoration: underline; }
 
-        /* Tablet/Desktop Styles */
-        @media (min-width: 600px) {
-            .nav-container {
-                flex-direction: row;
-                justify-content: space-between;
+        /* Media Queries για κινητά */
+        @media (max-width: 600px) {
+            .nav-links a { 
+                font-size: 0.75em; 
+                padding: 5px 8px; 
             }
-            .nav-links {
-                margin-top: 0;
-            }
-            .nav-links a {
-                font-size: 1em;
-                margin-left: 15px;
+            .nav-links { 
+                gap: 5px; 
             }
         }
     </style>
@@ -158,10 +145,10 @@ header, .portfolio-grid, .contact-card {
 
 <nav class="navbar">
     <div class="nav-container">
-        
         <div class="nav-links">
             <a href="index.html">Βιογραφικό</a>
-            <a href="portfolio.html">Blog & Projects</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
             <a href="contact.html">Επικοινωνία</a>
         </div>
     </div>
