@@ -69,7 +69,7 @@
         /* --- HEADER --- */
         header {
             margin-top: 50px !important; 
-            padding: 30px 0 10px 0 !important;
+            padding: 40px 0 10px 0 !important;
             text-align: center;
         }
 
@@ -77,6 +77,11 @@
             margin: 0 !important;
             color: var(--primary-color);
             font-size: 2.2em;
+        }
+
+        header p {
+            margin: 10px 0 0 0 !important;
+            color: #666;
         }
 
         /* --- BLOG GRID --- */
@@ -95,8 +100,10 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             padding: 25px;
-            border-top: 5px solid var(--accent-color);
+            border-left: 5px solid var(--accent-color); /* Πράσινη γραμμή αριστερά όπως στο portfolio */
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
         .post-card:hover {
@@ -104,36 +111,66 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        .post-date {
-            font-size: 0.85em;
-            color: #7f8c8d;
+        .post-category {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            color: #27ae60;
             font-weight: bold;
             margin-bottom: 10px;
-            display: block;
         }
 
-        .post-card h2 {
+        .post-card h3 {
             margin: 0 0 15px 0;
             color: var(--primary-color);
             font-size: 1.4em;
+            line-height: 1.3;
         }
 
         .post-card p {
             color: #555;
             font-size: 0.95em;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Σπρώχνει το "Διαβάστε περισσότερα" στο κάτω μέρος για στοίχιση */
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+            align-self: flex-start;
+        }
+        
+        .read-more:hover { 
+            border-bottom: 2px solid #27ae60; 
+        }
+
+        /* --- ΕΙΚΟΝΕΣ ΓΙΑ ΤΙΣ ΚΑΡΤΕΣ (THUMBNAILS) --- */
+        .card-thumbnail {
+            width: 100%;
+            height: 160px;
+            object-fit: cover; 
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
         }
 
         /* --- RESPONSIVE & FOOTER --- */
         @media (max-width: 600px) {
             header h1 { font-size: 1.8em; }
-            .nav-links a { font-size: 0.75em; padding: 5px 10px; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+            .blog-container { padding: 0 15px; }
         }
 
         footer {
             text-align: center;
-            padding: 20px 0;
-            background: #f9f9f9;
-            border-top: 1px solid #ddd;
+            padding: 30px 0;
+            background: #2c3e50;
+            color: white;
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -157,25 +194,26 @@
 
 <div class="blog-container">
 
-<article class="post-card">
-            <div class="post-category">Άρθρο</div>
-            <h3>Γεωργία Ακριβείας: Η Ψηφιακή Επανάσταση που Μεταμορφώνει τα Χωράφια μας</h3>
-            <p>Η παραδοσιακή γεωργία, βασισμένη στην ομοιόμορφη διαχείριση ολόκληρων αγροτεμαχίων, δίνει σταδιακά τη θέση της σε μια νέα, έξυπνη προσέγγιση...</p>
-            <a href="precision-agriculture.html" class="read-more">Διαβάστε το άρθρο</a>
-        </article>
-		
-		<article class="post-card">
-            <div class="post-category">Άρθρο</div>
-            <h3>"Έξυπνη" Βιολογική Προστασία – Το Μέλλον των Καλλιεργειών</h3>
-            <p>Η παραδοσιακή καταπολέμηση εχθρών και ασθενειών βασιζόταν συχνά σε προληπτικούς ψεκασμούς. Όμως, ένα νέο μοντέλο συνδυάζει πλέον την Τεχνητή Νοημοσύνη (AI) με τη Βιολογική Καταπολέμηση...</p>
-            <a href="smart-biocontrol.html" class="read-more">Διαβάστε το άρθρο</a>
-        </article>
-
-    
-    </div>
+    <article class="post-card">
+        <img src="info.jpg" alt="Γεωργία Ακριβείας" class="card-thumbnail">
+        <div class="post-category">Άρθρο</div>
+        <h3>Γεωργία Ακριβείας: Η Ψηφιακή Επανάσταση που Μεταμορφώνει τα Χωράφια μας</h3>
+        <p>Η παραδοσιακή γεωργία, βασισμένη στην ομοιόμορφη διαχείριση ολόκληρων αγροτεμαχίων, δίνει σταδιακά τη θέση της σε μια νέα, έξυπνη προσέγγιση...</p>
+        <a href="precision-agriculture.html" class="read-more">Διαβάστε το άρθρο</a>
+    </article>
+            
+    <article class="post-card">
+        <img src="organ.jpg" alt="Έξυπνη Βιολογική Προστασία" class="card-thumbnail">
+        <div class="post-category">Άρθρο</div>
+        <h3>"Έξυπνη" Βιολογική Προστασία – Το Μέλλον των Καλλιεργειών</h3>
+        <p>Η παραδοσιακή καταπολέμηση εχθρών και ασθενειών βασιζόταν συχνά σε προληπτικούς ψεκασμούς. Όμως, ένα νέο μοντέλο συνδυάζει πλέον την Τεχνητή Νοημοσύνη (AI) με τη Βιολογική Καταπολέμηση...</p>
+        <a href="smart-biocontrol.html" class="read-more">Διαβάστε το άρθρο</a>
+    </article>
+        
+</div>
 
 <footer>
-    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος</p>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
 </footer>
 
 </body>
