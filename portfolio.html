@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio & Blog | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        /* Βασικό στυλ σελίδας */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR - ΑΚΡΙΒΩΣ ΟΠΩΣ ΣΤΗΝ ΑΡΧΙΚΗ --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* CSS για το Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 70px !important; /* Κενό για να μην κρύβεται πίσω από το navbar */
+        }
+
+        .post-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #27ae60;
+            transition: transform 0.3s;
+        }
+
+        .post-card:hover { transform: translateY(-5px); }
+
+        .post-category {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            color: #27ae60;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h3 { color: #2c3e50; margin-top: 0; }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+        
+        .read-more:hover { border-bottom: 2px solid #27ae60; }
+
+        /* Media Queries για κινητά */
+        @media (max-width: 600px) {
+            .nav-links a { 
+                font-size: 0.75em; 
+                padding: 5px 8px; 
+            }
+            .nav-links {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">Βιογραφικό</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Επικοινωνία</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="portfolio-grid">
+        <article class="post-card">
+            <div class="post-category">Μεταπτυχιακή εργασία</div>
+            <h3>Ανταγωνιστικότητα των ελληνικών εξαγωγών: η περίπτωση των αγροτικών προϊόντων</h3>
+            <p>Σκοπός της εργασίας αυτής είναι να διερευνηθεί η ανταγωνιστικότητα κάποιων από τους πιο σημαντικούς κλάδους διεθνώς εμπορεύσιμων γεωργικών προϊόντων της Ελλάδας. Η ανάλυση εστιάζει περισσότερο στον εντοπισμό συγκριτικών πλεονεκτημάτων κατά κλάδο παραγωγής χρησιμοποιώντας στοιχεία της οικονομικής περιόδου 1997 – 2010, όπως αυτά προσδιορίζονται από την διάρθρωση του ισοζυγίου εξωτερικών συναλλαγών και της εξέλιξης των εμπορευματικών ροών στην διάρκεια αυτής της περιόδου.</p>
+            <a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746" target="_blank" class="read-more">Διαβάστε την εργασία</a>
+        </article>
+
+        <article class="post-card">
+            <div class="post-category">Project</div>
+            <h3>Mainalon Trekking</h3>
+            <p>Δημιουργία της ιστοσελίδας Mainalon Trekking σε Wordpress και δημιουργία περιεχομένου σε social media Youtube, Tik Tok και Instagram.</p>
+            <a href="https://mainalontrekking.great-site.net/" target="_blank" class="read-more">Δείτε το Project</a>
+        </article>
+
+        <article class="post-card">
+            <div class="post-category">Διάκριση</div>
+            <h3>Breathing Salad</h3>
+            <p>Βραβευμένο επιχειρηματικό σχέδιο για παραγωγή σαλάτας με υδροπονικό σύστημα. Παραγωγή πράσινων σαλατών με χρήση συστήματος επιπλέουσας υδροπονίας, καθώς και εφαρμογή μιας καινοτόμου μεθόδου συσκευασίας, η οποία επιτρέπει στις πράσινες σαλάτες να αναπνέουν μετά τη συγκομιδή. Πρόκριση στα 15 κορυφαία επιχειρηματικά σχέδια του τελικού. Διαγωνισμός καινοτόμων επιχειρηματικών σχεδίων για νέους επιχειρηματίες, με διοργανωτή το (ΙΝΕΔΙΒΙΜ).</p>
+            <a href="https://tinyurl.com/2dsc4uwu/" target="_blank" class="read-more">Λεπτομέρειες</a>
+        </article>
+    </section>
+    
+<footer style="text-align: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px;">
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
+</footer>
+
+</body>
+</html>

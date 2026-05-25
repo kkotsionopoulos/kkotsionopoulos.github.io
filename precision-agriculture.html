@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Γεωργία Ακριβείας | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; /* Ελαφρώς πιο στενό για καλύτερη ανάγνωση άρθρου */
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+/* --- ΣΤΥΛ ΓΙΑ ΤΙΣ ΕΙΚΟΝΕΣ ΜΕΣΑ ΣΤΟ ΑΡΘΡΟ --- */
+        .article-image {
+            display: block;
+            width: 100%; /* Πιάνει όλο το πλάτος του πλαισίου του κειμένου */
+            max-width: 650px; /* Δεν την αφήνει να μεγαλώσει υπερβολικά σε μεγάλες οθόνες */
+            height: auto; /* Διατηρεί τις σωστές αναλογίες της εικόνας */
+            margin: 35px auto; /* Δημιουργεί όμορφο κενό πάνω-κάτω και την κεντράρει */
+            border-radius: 8px; /* Στρογγυλεύει ελαφρώς τις γωνίες */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Προσθέτει μια διακριτική σκιά */
+            border: 1px solid #eee; /* Ένα απαλό περίγραμμα */
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Γεωργία Ακριβείας: Η Ψηφιακή Επανάσταση που Μεταμορφώνει τα Χωράφια μας</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc</div>
+		
+    </div>
+
+    <div class="article-content">
+	
+	<img src="info.jpg" alt="Infographic Γεωργίας Ακριβείας" class="article-image">
+	
+        <p>Η παραδοσιακή γεωργία, βασισμένη στην ομοιόμορφη διαχείριση ολόκληρων αγροτεμαχίων, δίνει σταδιακά τη θέση της σε μια νέα, έξυπνη προσέγγιση: τη <strong>Γεωργία Ακριβείας</strong>. Η τεχνολογία αυτή δεν αποτελεί πλέον σενάριο επιστημονικής φαντασίας, αλλά μια απτή πραγματικότητα που υπόσχεται να λύσει μερικές από τις μεγαλύτερες προκλήσεις του πρωτογενούς τομέα.</p>
+
+        <p>Τι ακριβώς είναι όμως; Η Γεωργία Ακριβείας χρησιμοποιεί ένα πλέγμα προηγμένων τεχνολογιών, όπως GPS, αισθητήρες εδάφους, drones (UAVs) και δορυφορικές εικόνες, για να συλλέξει δεδομένα σε πραγματικό χρόνο. Αυτά τα δεδομένα αναλύονται για να κατανοήσουμε την παραλλακτικότητα του χωραφιού. Αντί να ποτίζουμε ή να λιπαίνουμε ομοιόμορφα, πλέον επεμβαίνουμε στοχευμένα, στο σωστό σημείο, τη σωστή στιγμή και με την ακριβή ποσότητα που χρειάζεται η καλλιέργεια.</p>
+
+        <p>Τα οφέλη είναι πολλαπλά και σημαντικά:</p>
+
+        <ul>
+            <li><strong>Οικονομική Αποδοτικότητα:</strong> Η ορθολογική χρήση εισροών (νερό, λιπάσματα, φυτοφάρμακα) μειώνει δραστικά το κόστος παραγωγής.</li>
+            <li><strong>Περιβαλλοντική Προστασία:</strong> Αποφεύγεται η υπερλίπανση και η απορροή χημικών στα υπόγεια ύδατα, προστατεύοντας το οικοσύστημα.</li>
+            <li><strong>Βελτίωση Αποδόσεων:</strong> Τα φυτά λαμβάνουν την ιδανική φροντίδα, γεγονός που οδηγεί σε υγιέστερες καλλιέργειες και αυξημένη παραγωγή ανά στρέμμα.</li>
+        </ul>
+
+        <p>Η μετάβαση στην ψηφιακή γεωργία απαιτεί επένδυση σε εξοπλισμό και γνώση, αλλά τα μακροπρόθεσμα οφέλη για τον παραγωγό και τον πλανήτη είναι αναμφισβήτητα. Η Γεωργία Ακριβείας δεν είναι απλώς μια τάση· είναι το μέλλον της βιώσιμης διατροφικής ασφάλειας.</p>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
+</footer>
+
+</body>
+</html>

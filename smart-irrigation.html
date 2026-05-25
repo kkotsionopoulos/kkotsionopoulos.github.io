@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Έξυπνη Άρδευση & IoT | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+		
+		/* --- ΣΤΥΛ ΓΙΑ ΤΙΣ ΕΙΚΟΝΕΣ ΜΕΣΑ ΣΤΟ ΑΡΘΡΟ --- */
+        .article-image {
+            display: block;
+            width: 100%; /* Πιάνει όλο το πλάτος του κειμένου */
+            max-width: 650px; /* Δεν μεγαλώνει υπερβολικά σε μεγάλες οθόνες PC */
+            height: auto; /* Διατηρεί τις σωστές αναλογίες */
+            margin: 35px auto; /* Ωραίο κενό πάνω-κάτω και κεντράρισμα */
+            border-radius: 8px; /* Στρογγυλεμένες γωνίες */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Διακριτική σκιά για βάθος */
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Έξυπνη Άρδευση: Η Σύγκλιση IoT και Επιστήμης Δεδομένων στη Βιώσιμη Γεωργία</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Μάιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ορθολογική διαχείριση του νερού αποτελεί τη μεγαλύτερη πρόκληση για την παγκόσμια γεωργία. Σύμφωνα με τον Οργανισμό Τροφίμων και Γεωργίας (FAO), ο πρωτογενής τομέας καταναλώνει περίπου το 70% των παγκόσμιων αποθεμάτων γλυκού νερού. Η κλιματική αλλαγή και η συχνότητα των περιόδων ξηρασίας επιβάλλουν τη μετάβαση από τα παραδοσιακά, σταθερά χρονικά προγράμματα ποτίσματος σε δυναμικά, "έξυπνα" συστήματα άρδευσης (Smart Irrigation) βασισμένα στο <strong>Internet of Things (IoT)</strong> και σε δεδομένα πεδίου.</p>
+
+<p>Η αρχιτεκτονική ενός σύγχρονου συστήματος έξυπνης άρδευσης στηρίζεται στην αδιάλειπτη συλλογή φυσικών παραμέτρων...</p>
+
+        <img src="irrigation.jpg" alt="Αρχιτεκτονική Έξυπνης Άρδευσης και IoT" class="article-image">
+
+        <p>Η πραγματική καινοτομία έγκειται στην επεξεργασία αυτών των δεδομένων...</p>
+
+        <p>Η αρχιτεκτονική ενός σύγχρονου συστήματος έξυπνης άρδευσης στηρίζεται στην αδιάλειπτη συλλογή φυσικών παραμέτρων. Αισθητήρες εδάφους (TDR/FDR) τοποθετούνται σε στρατηγικά βάθη εντός της ριζοσφαίρας για τη μέτρηση της <strong>ογκομετρικής υγρασίας εδάφους (VWC)</strong> και της ηλεκτρικής αγωγιμότητας. Ταυτόχρονα, μικροκλιματικοί σταθμοί αγρού καταγράφουν τη θερμοκρασία, τη σχετική υγρασία του αέρα και την ηλιακή ακτινοβολία.</p>
+
+        <p>Η πραγματική καινοτομία έγκειται στην επεξεργασία αυτών των δεδομένων. Αντί για απλή ενεργοποίηση των ηλεκτροβανών με βάση ένα κατώφλι υγρασίας, τα σύγχρονα υπολογιστικά μοντέλα ενσωματώνουν την εξίσωση <strong>Penman-Monteith (FAO-56)</strong> για τον ακριβή υπολογισμό της δυναμικής εξατμισοδιαπνοής της καλλιέργειας (ETc) σε πραγματικό χρόνο. Με τη χρήση αλγορίθμων Μηχανικής Μάθησης (Machine Learning), το σύστημα συνδυάζει τα δεδομένα του εδάφους με τις μετεωρολογικές προγνώσεις, προβλέποντας τις μελλοντικές ανάγκες του φυτού σε νερό προτού εμφανιστεί οποιοδήποτε σύμπτωμα υδατικού στρες.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα οφέλη αυτής της προσέγγισης περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Μείωση Υδατικού Αποτυπώματος:</strong> Μελέτες δείχνουν εξοικονόμηση νερού που κυμαίνεται από 20% έως και 45% σε σύγκριση με τη συμβατική άρδευση, χωρίς καμία μείωση της τελικής απόδοσης.</li>
+            <li><strong>Προστασία Ριζικού Συστήματος:</strong> Η αποφυγή του υπερκορεσμού αποτρέπει συνθήκες ασφυξίας των ριζών και μειώνει δραστικά την ανάπτυξη εδαφογενών μυκητολογικών ασθενειών (π.χ. Phytophthora spp.).</li>
+            <li><strong>Εξοικονόμηση Ενέργειας:</strong> Η μείωση των ωρών λειτουργίας των αντλητικών συγκροτημάτων επιφέρει άμεση πτώση στην κατανάλωση ηλεκτρικού ρεύματος ή καυσίμων.</li>
+        </ul>
+
+        <p>Η εφαρμογή της έξυπνης άρδευσης μετατρέπει τη λήψη αποφάσεων από εμπειρική σε απόλυτα ποσοτική. Για τον σύγχρονο γεωπόνο και παραγωγό, η υιοθέτηση αυτών των τεχνολογιών δεν αποτελεί απλώς μια οικολογική αναγκαιότητα, αλλά το βασικότερο εργαλείο διασφάλισης της βιωσιμότητας και της οικονομικής αποδοτικότητας της αγροτικής εκμετάλλευσης.</p>
+    </div>
+
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>FAO (2023).</strong> <em>The State of Food and Agriculture: Water security in global farming systems.</em> Food and Agriculture Organization of the United Nations.</li>
+            <li><strong>Allen, R. G., Pereira, L. S., Raes, D., & Smith, M. (1998).</strong> <em>Crop evapotranspiration-Guidelines for computing crop water requirements.</em> FAO Irrigation and drainage paper, 56.</li>
+            <li><strong>Kamienski, C., et al. (2019).</strong> <em>Smart Water Management Systems for Precision Agriculture in Brazil.</em> IEEE Internet of Things Journal, 6(2), 2761-2773.</li>
+            <li><strong>Goap, A., et al. (2018).</strong> <em>An IoT based smart irrigation management system using Machine Learning and open data.</em> Computers and Electronics in Agriculture, 155, 41-49.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>

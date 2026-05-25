@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Γεωπονικό Blog | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR (Ίδιο με την αρχική) --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- HEADER --- */
+        header {
+            margin-top: 50px !important; 
+            padding: 40px 0 10px 0 !important;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 !important;
+            color: var(--primary-color);
+            font-size: 2.2em;
+        }
+
+        header p {
+            margin: 10px 0 0 0 !important;
+            color: #666;
+        }
+
+        /* --- BLOG GRID --- */
+        .blog-container {
+            max-width: 1000px;
+            margin: 20px auto 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- ΚΑΛΟΥΠΙ ΑΡΘΡΟΥ (POST CARD) --- */
+        .post-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-left: 5px solid var(--accent-color); /* Πράσινη γραμμή αριστερά όπως στο portfolio */
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .post-category {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            color: #27ae60;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post-card h3 {
+            margin: 0 0 15px 0;
+            color: var(--primary-color);
+            font-size: 1.4em;
+            line-height: 1.3;
+        }
+
+        .post-card p {
+            color: #555;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Σπρώχνει το "Διαβάστε περισσότερα" στο κάτω μέρος για στοίχιση */
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #2c3e50;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+            align-self: flex-start;
+        }
+        
+        .read-more:hover { 
+            border-bottom: 2px solid #27ae60; 
+        }
+
+        /* --- ΕΙΚΟΝΕΣ ΓΙΑ ΤΙΣ ΚΑΡΤΕΣ (THUMBNAILS) --- */
+        .card-thumbnail {
+            width: 100%;
+            height: 160px;
+            object-fit: cover; 
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        /* --- RESPONSIVE & FOOTER --- */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+            .blog-container { padding: 0 15px; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background: #2c3e50;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <h1>Γεωπονικό Blog</h1>
+    <p>Άρθρα, συμβουλές και νέα για τη γεωργία και τις καλλιέργειες.</p>
+</header>
+
+<div class="blog-container">
+
+<article class="post-card">
+        <img src="irrigation.jpg" alt="Έξυπνη Άρδευση και IoT" class="card-thumbnail">
+        <div class="post-category">Επιστημονικό Άρθρο</div>
+        <h3>Έξυπνη Άρδευση: Η Σύγκλιση IoT και Επιστήμης Δεδομένων στη Βιώσιμη Γεωργία</h3>
+        <p>Η κλιματική αλλαγή και η εξάντληση των υδάτινων πόρων επιβάλλουν τη μετάβαση από τα παραδοσιακά προγράμματα ποτίσματος σε δυναμικά συστήματα λήψης αποφάσεων βάσει δεδομένων...</p>
+        <a href="smart-irrigation.html" class="read-more">Διαβάστε το άρθρο</a>
+    </article>
+
+    <article class="post-card">
+        <img src="info.jpg" alt="Γεωργία Ακριβείας" class="card-thumbnail">
+        <div class="post-category">Άρθρο</div>
+        <h3>Γεωργία Ακριβείας: Η Ψηφιακή Επανάσταση που Μεταμορφώνει τα Χωράφια μας</h3>
+        <p>Η παραδοσιακή γεωργία, βασισμένη στην ομοιόμορφη διαχείριση ολόκληρων αγροτεμαχίων, δίνει σταδιακά τη θέση της σε μια νέα, έξυπνη προσέγγιση...</p>
+        <a href="precision-agriculture.html" class="read-more">Διαβάστε το άρθρο</a>
+    </article>
+            
+    <article class="post-card">
+        <img src="organ.jpg" alt="Έξυπνη Βιολογική Προστασία" class="card-thumbnail">
+        <div class="post-category">Άρθρο</div>
+        <h3>"Έξυπνη" Βιολογική Προστασία – Το Μέλλον των Καλλιεργειών</h3>
+        <p>Η παραδοσιακή καταπολέμηση εχθρών και ασθενειών βασιζόταν συχνά σε προληπτικούς ψεκασμούς. Όμως, ένα νέο μοντέλο συνδυάζει πλέον την Τεχνητή Νοημοσύνη (AI) με τη Βιολογική Καταπολέμηση...</p>
+        <a href="smart-biocontrol.html" class="read-more">Διαβάστε το άρθρο</a>
+    </article>
+        
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
