@@ -6,7 +6,7 @@ import google.generativeai as genai
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 
-ddef get_weather():
+def get_weather():
     url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli"
     response = requests.get(url).json()
     
