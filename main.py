@@ -6,13 +6,19 @@ import google.generativeai as genai
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 
-def get_weather():
-    # Παίρνει τον καιρό για την Τρίπολη
+ddef get_weather():
     url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli"
     response = requests.get(url).json()
+    
+    # Προσθήκη ελέγχου για το τι επιστρέφει το API
+    print("API Response:", response) 
+    
+    if 'current' not in response:
+        raise KeyError(f"Το κλειδί 'current' δεν βρέθηκε. Η απάντηση του API ήταν: {response}")
+        
     temp = response['current']['temp_c']
     humidity = response['current']['humidity']
-    return f"Θερμοκρασία: {temp}°C, Υγρασία: {humidity}%"
+    return f"θερμοκρασία: {temp}°C, Υγρασία: {humidity}%"
 
 def analyze_risk(weather_data):
     model = genai.GenerativeModel('gemini-1.5-flash')
