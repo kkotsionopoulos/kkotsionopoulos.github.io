@@ -2,14 +2,16 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <title>VineWatch - Πρόγνωση</title>
+    <title>VineWatch - Πρόγνωση Περονοσπόρου</title>
     <style>
-        body { font-family: sans-serif; text-align: center; background: #f4f7f6; padding: 50px; }
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #f4f7f6; padding: 40px; }
         .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        .status-box { padding: 30px; border-radius: 15px; color: white; font-weight: bold; font-size: 1.8em; margin: 25px 0; }
+        .status-box { padding: 30px; border-radius: 15px; color: white; font-weight: bold; font-size: 1.5em; margin: 25px 0; }
         .danger { background-color: #d9534f; }
         .safe { background-color: #5cb85c; }
-        button { background: #333; color: white; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; font-size: 1.1em; }
+        .info-text { font-size: 0.9em; color: #666; margin-top: 20px; text-align: left; line-height: 1.5; }
+        button { background: #333; color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 1em; transition: 0.3s; }
+        button:hover { background: #555; }
     </style>
 </head>
 <body>
@@ -17,6 +19,11 @@
         <h1>VineWatch AI</h1>
         <div id="display-area" class="status-box" style="display: none;"></div>
         <button onclick="updateStatus()">Προβολή Αποτελέσματος</button>
+        
+        <div class="info-text">
+            <strong>Επεξήγηση συστήματος:</strong><br>
+            Το σύστημα ανέλυσε τα δεδομένα θερμοκρασίας και υγρασίας των τελευταίων 24 ωρών για την περιοχή της Τρίπολης και εντόπισε (ή όχι) συνθήκες ευνοϊκές για την ανάπτυξη του μύκητα.
+        </div>
     </div>
 
     <script>
@@ -25,17 +32,24 @@
                 const response = await fetch('result.txt');
                 const data = await response.text();
                 const area = document.getElementById('display-area');
+                const today = new Date().toLocaleDateString('el-GR');
                 
                 area.style.display = 'block';
+                
                 if (data.includes("ΚΙΝΔΥΝΟΣ")) {
                     area.className = 'status-box danger';
-                    area.innerHTML = "⚠️ ΚΙΝΔΥΝΟΣ";
+                    area.innerHTML = `⚠️ ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ<br><small style="font-size: 0.5em;">Συστήνεται προληπτικός έλεγχος</small>`;
                 } else {
                     area.className = 'status-box safe';
-                    area.innerHTML = "✅ ΑΣΦΑΛΕΣ";
+                    area.innerHTML = `✅ ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ<br><small style="font-size: 0.5em;">Δεν απαιτούνται ενέργειες</small>`;
                 }
+
+                area.innerHTML += `<div style="font-size: 0.4em; margin-top: 15px; border-top: 1px solid white; padding-top: 10px;">
+                    <strong>Τελευταία Ενημέρωση:</strong> ${today}<br>
+                    <strong>Ανάλυση βάσει:</strong> Μέση θερμοκρασία & υγρασία τελευταίου 24ώρου (Τρίπολη).
+                </div>`;
             } catch (error) {
-                alert("Το αρχείο αποτελεσμάτων δεν βρέθηκε. Βεβαιώσου ότι το GitHub Action έτρεξε!");
+                alert("Σφάλμα ανάγνωσης δεδομένων. Δοκιμάστε αργότερα.");
             }
         }
     </script>
