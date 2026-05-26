@@ -1,36 +1,38 @@
+import os
 import requests
 import google.generativeai as genai
-import os
 
-# Λήψη κλειδιών από τα GitHub Secrets
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-CHAT_ID = os.environ.get("CHAT_ID")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-
-genai.configure(api_key=GEMINI_API_KEY)
+# Ρύθμιση API Keys
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 
 def get_weather():
-    # Δεδομένα για Τρίπολη
-    url = "https://api.open-meteo.com/v1/forecast?latitude=37.51&longitude=22.37&hourly=temperature_2m,relative_humidity_2m,precipitation&forecast_days=1"
-    return requests.get(url).json()
+    # Παίρνει τον καιρό για την Τρίπολη
+    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli"
+    response = requests.get(url).json()
+    temp = response['current']['temp_c']
+    humidity = response['current']['humidity']
+    return f"Θερμοκρασία: {temp}°C, Υγρασία: {humidity}%"
 
 def analyze_risk(weather_data):
     model = genai.GenerativeModel('gemini-1.5-flash')
-    prompt = f"Ανάλυσε τα εξής καιρικά δεδομένα: {weather_data}. Υπάρχει κίνδυνος για περονόσπορο; Απάντησε ΜΟΝΟ με 'ΚΙΝΔΥΝΟΣ' ή 'ΑΣΦΑΛΕΣ' και μια σύντομη αιτιολόγηση."
+    # Ζητάμε από το AI συγκεκριμένη μορφή απάντησης
+    prompt = f"""Ανάλυσε τα δεδομένα: {weather_data}. 
+    Υπάρχει κίνδυνος για περονόσπορο στην Τρίπολη; 
+    Απάντησε ΜΟΝΟ με αυτή τη δομή, χωρίς άλλα σχόλια:
+    ΑΠΟΤΕΛΕΣΜΑ: [ΚΙΝΔΥΝΟΣ ή ΑΣΦΑΛΕΣ]
+    ΤΙΜΕΣ: [{weather_data}]
+    ΑΙΤΙΟΛΟΓΙΑ: [Εξήγησε σύντομα γιατί πάρθηκε αυτή η απόφαση βάσει των τιμών]"""
+    
     response = model.generate_content(prompt)
     return response.text
 
-def send_telegram_alert(message):
-    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={CHAT_ID}&text={message}"
-    requests.get(url)
-
-# Εκτέλεση
+# Κύρια εκτέλεση
 data = get_weather()
-report = analyze_risk(data)
+result = analyze_risk(data)
 
-# Αποθήκευση στο αρχείο για την ιστοσελίδα
+# Αποθήκευση στο αρχείο που διαβάζει η ιστοσελίδα
 with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(report)
+    f.write(result)
 
-# Αποστολή στο Telegram
-send_telegram_alert(f"📋 Καθημερινή ενημέρωση:\n{report}")
+print("Το αρχείο result.txt ενημερώθηκε με επιτυχία!")

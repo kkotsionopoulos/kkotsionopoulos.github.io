@@ -5,13 +5,12 @@
     <title>VineWatch - Πρόγνωση Περονοσπόρου</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #f4f7f6; padding: 40px; }
-        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        .status-box { padding: 30px; border-radius: 15px; color: white; font-weight: bold; font-size: 1.5em; margin: 25px 0; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        .status-box { padding: 25px; border-radius: 15px; color: white; font-weight: bold; font-size: 1.4em; margin: 20px 0; }
         .danger { background-color: #d9534f; }
         .safe { background-color: #5cb85c; }
-        .info-text { font-size: 0.9em; color: #666; margin-top: 20px; text-align: left; line-height: 1.5; }
-        button { background: #333; color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 1em; transition: 0.3s; }
-        button:hover { background: #555; }
+        .details { font-size: 0.9em; color: #333; text-align: left; margin-top: 15px; padding: 10px; background: #f9f9f9; border-left: 4px solid #333; }
+        button { background: #333; color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-size: 1em; }
     </style>
 </head>
 <body>
@@ -19,37 +18,40 @@
         <h1>VineWatch AI</h1>
         <div id="display-area" class="status-box" style="display: none;"></div>
         <button onclick="updateStatus()">Προβολή Αποτελέσματος</button>
-        
-        <div class="info-text">
-            <strong>Επεξήγηση συστήματος:</strong><br>
-            Το σύστημα ανέλυσε τα δεδομένα θερμοκρασίας και υγρασίας των τελευταίων 24 ωρών για την περιοχή της Τρίπολης και εντόπισε (ή όχι) συνθήκες ευνοϊκές για την ανάπτυξη του μύκητα.
-        </div>
+        <div id="details-area" class="details" style="display: none;"></div>
     </div>
 
     <script>
         async function updateStatus() {
             try {
                 const response = await fetch('result.txt');
-                const data = await response.text();
+                const text = await response.text();
+                
+                // Εξαγωγή δεδομένων με Regular Expressions
+                const result = text.match(/ΑΠΟΤΕΛΕΣΜΑ: (.*)/)[1];
+                const values = text.match(/ΤΙΜΕΣ: (.*)/)[1];
+                const reason = text.match(/ΑΙΤΙΟΛΟΓΙΑ: (.*)/)[1];
+                
                 const area = document.getElementById('display-area');
-                const today = new Date().toLocaleDateString('el-GR');
+                const details = document.getElementById('details-area');
                 
                 area.style.display = 'block';
+                details.style.display = 'block';
                 
-                if (data.includes("ΚΙΝΔΥΝΟΣ")) {
+                if (result.includes("ΚΙΝΔΥΝΟΣ")) {
                     area.className = 'status-box danger';
-                    area.innerHTML = `⚠️ ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ<br><small style="font-size: 0.5em;">Συστήνεται προληπτικός έλεγχος</small>`;
+                    area.innerHTML = `⚠️ ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ`;
                 } else {
                     area.className = 'status-box safe';
-                    area.innerHTML = `✅ ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ<br><small style="font-size: 0.5em;">Δεν απαιτούνται ενέργειες</small>`;
+                    area.innerHTML = `✅ ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ`;
                 }
 
-                area.innerHTML += `<div style="font-size: 0.4em; margin-top: 15px; border-top: 1px solid white; padding-top: 10px;">
-                    <strong>Τελευταία Ενημέρωση:</strong> ${today}<br>
-                    <strong>Ανάλυση βάσει:</strong> Μέση θερμοκρασία & υγρασία τελευταίου 24ώρου (Τρίπολη).
-                </div>`;
+                details.innerHTML = `
+                    <strong>Μετρήσεις:</strong> ${values}<br><br>
+                    <strong>Αιτιολόγηση:</strong> ${reason}
+                `;
             } catch (error) {
-                alert("Σφάλμα ανάγνωσης δεδομένων. Δοκιμάστε αργότερα.");
+                alert("Το αρχείο αποτελεσμάτων δεν βρέθηκε. Βεβαιώσου ότι το GitHub Action ολοκληρώθηκε!");
             }
         }
     </script>
