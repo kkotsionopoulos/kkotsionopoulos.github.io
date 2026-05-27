@@ -7,11 +7,9 @@ genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 
 def get_weather():
-    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli"
+    # Προσθήκη Greece για να μην παίρνουμε την Τρίπολη της Λιβύης
+    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli,Greece"
     response = requests.get(url).json()
-    
-    # Προσθήκη ελέγχου για το τι επιστρέφει το API
-    print("API Response:", response) 
     
     if 'current' not in response:
         raise KeyError(f"Το κλειδί 'current' δεν βρέθηκε. Η απάντηση του API ήταν: {response}")
@@ -21,8 +19,8 @@ def get_weather():
     return f"θερμοκρασία: {temp}°C, Υγρασία: {humidity}%"
 
 def analyze_risk(weather_data):
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    # Ζητάμε από το AI συγκεκριμένη μορφή απάντησης
+    # Χρησιμοποιούμε gemini-pro που είναι πιο σταθερό για το παλιό SDK
+    model = genai.GenerativeModel('gemini-pro')
     prompt = f"""Ανάλυσε τα δεδομένα: {weather_data}. 
     Υπάρχει κίνδυνος για περονόσπορο στην Τρίπολη; 
     Απάντησε ΜΟΝΟ με αυτή τη δομή, χωρίς άλλα σχόλια:
@@ -34,11 +32,12 @@ def analyze_risk(weather_data):
     return response.text
 
 # Κύρια εκτέλεση
-data = get_weather()
-result = analyze_risk(data)
-
-# Αποθήκευση στο αρχείο που διαβάζει η ιστοσελίδα
-with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(result)
-
-print("Το αρχείο result.txt ενημερώθηκε με επιτυχία!")
+try:
+    data = get_weather()
+    result = analyze_risk(data)
+    with open("result.txt", "w", encoding="utf-8") as f:
+        f.write(result)
+    print("Το αρχείο result.txt ενημερώθηκε με επιτυχία!")
+except Exception as e:
+    print(f"Σφάλμα κατά την εκτέλεση: {e}")
+    exit(1)
