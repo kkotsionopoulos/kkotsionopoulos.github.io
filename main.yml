@@ -14,10 +14,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Αναβάθμιση σε 3.11
+          python-version: '3.11'
       - name: Install dependencies
         run: |
           pip install --upgrade pip
+          pip uninstall -y google-generativeai
           pip install requests google-genai
       - name: Run main.py
         env:
