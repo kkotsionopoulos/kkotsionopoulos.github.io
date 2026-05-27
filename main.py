@@ -1,30 +1,23 @@
 import os
 import requests
-from google.genai import Client # Αυτό είναι το σωστό import για το google-genai
+import google.generativeai as genai
 
-# Ρύθμιση Client
-client = Client(api_key=os.environ["GEMINI_API_KEY"])
-WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
+# Ρύθμιση
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
 def get_weather():
-    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli,Greece"
+    url = f"http://api.weatherapi.com/v1/current.json?key={os.environ['WEATHER_API_KEY']}&q=Tripoli,Greece"
     response = requests.get(url).json()
-    if 'current' not in response:
-        raise KeyError("Αδυναμία λήψης καιρού")
-    return f"Θερμοκρασία: {response['current']['temp_c']}°C, Υγρασία: {response['current']['humidity']}%"
+    temp = response['current']['temp_c']
+    return f"Θερμοκρασία: {temp}°C"
 
-def analyze_risk(weather_data):
-    prompt = f"Ανάλυσε τα δεδομένα: {weather_data}. Υπάρχει κίνδυνος για περονόσπορο; Απάντησε ΜΟΝΟ: ΑΠΟΤΕΛΕΣΜΑ, ΤΙΜΕΣ, ΑΙΤΙΟΛΟΓΙΑ."
+def analyze():
+    weather = get_weather()
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    response = model.generate_content(f"Ανάλυσε τον καιρό: {weather}. Υπάρχει κίνδυνος περονόσπορου; Πες μόνο ΝΑΙ ή ΟΧΙ και γιατί.")
     
-    # Χρήση του gemini-2.0-flash
-    response = client.models.generate_content(
-        model='gemini-2.0-flash',
-        contents=prompt
-    )
-    return response.text
+    with open("result.txt", "w", encoding="utf-8") as f:
+        f.write(response.text)
 
-# Εκτέλεση
-data = get_weather()
-result = analyze_risk(data)
-with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(result)
+if __name__ == "__main__":
+    analyze()

@@ -1,4 +1,4 @@
-name: Vine Alert
+name: VineWatch
 on:
   schedule:
     - cron: '0 7 * * *'
@@ -14,12 +14,9 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.10'
       - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip uninstall -y google-generativeai
-          pip install requests google-genai
+        run: pip install requests google-generativeai
       - name: Run main.py
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
@@ -30,5 +27,5 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add result.txt
-          git commit -m "Auto update report" || echo "No changes"
+          git commit -m "Update" || echo "No changes"
           git push
