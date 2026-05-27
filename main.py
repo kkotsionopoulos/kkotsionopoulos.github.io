@@ -1,14 +1,15 @@
 import os
 import requests
+import datetime
 
-# Ρύθμιση API KEY από τα GitHub Secrets
+# Ρύθμιση API KEY
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
 def get_weather():
+    # Τρίπολη, Ελλάδα
     url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli,Greece"
     response = requests.get(url).json()
     
-    # Έλεγχος αν πήραμε σωστά δεδομένα
     if 'current' not in response:
         print(f"Σφάλμα API: {response}")
         return None, None
@@ -25,16 +26,18 @@ def calculate_risk(temp, humidity):
     else:
         return "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
 
-# Κύρια ροή
+# Κύρια εκτέλεση
 temp, humidity = get_weather()
 
 if temp is not None:
     risk = calculate_risk(temp, humidity)
-    content = f"Τελευταία ενημέρωση: 2026-05-27\nΘερμοκρασία: {temp}°C\nΥγρασία: {humidity}%\nΚατάσταση: {risk}"
+    # Προσθήκη ώρας για να αλλάζει πάντα το αρχείο και να γίνεται push
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    content = f"Τελευταία ενημέρωση: {now}\nΘερμοκρασία: {temp}°C\nΥγρασία: {humidity}%\nΚατάσταση: {risk}"
     
     with open("result.txt", "w", encoding="utf-8") as f:
         f.write(content)
-    print("Το αρχείο result.txt ενημερώθηκε:")
+    print("Το αρχείο result.txt ενημερώθηκε με:")
     print(content)
 else:
     print("Αποτυχία λήψης δεδομένων.")

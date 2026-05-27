@@ -30,6 +30,5 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add result.txt
-          # Το || echo επιτρέπει στο script να συνεχίσει αν δεν υπάρχει αλλαγή
-          git commit -m "Auto-update weather risk" || echo "No changes to commit"
+          git commit -m "Update weather result.txt" || echo "No changes to commit"
           git push
