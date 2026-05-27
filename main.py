@@ -2,43 +2,46 @@ import os
 import requests
 import google.generativeai as genai
 
-# Ρύθμιση API Keys
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
-
 def get_weather():
-    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli"
-    response = requests.get(url).json()
+    api_key = os.getenv('WEATHER_API_KEY')
+    if not api_key:
+        raise ValueError("Δεν βρέθηκε το WEATHER_API_KEY")
     
-    # Προσθήκη ελέγχου για το τι επιστρέφει το API
-    print("API Response:", response) 
+    # Προσθήκη ,Greece για να μην πηγαίνει στη Λιβύη
+    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q=Tripoli,Greece"
+    response = requests.get(url)
+    data = response.json()
     
-    if 'current' not in response:
-        raise KeyError(f"Το κλειδί 'current' δεν βρέθηκε. Η απάντηση του API ήταν: {response}")
-        
-    temp = response['current']['temp_c']
-    humidity = response['current']['humidity']
-    return f"θερμοκρασία: {temp}°C, Υγρασία: {humidity}%"
+    if 'current' not in data:
+        raise KeyError(f"Αποτυχία λήψης καιρού: {data}")
+    
+    return data['current']
 
 def analyze_risk(weather_data):
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    # Ζητάμε από το AI συγκεκριμένη μορφή απάντησης
-    prompt = f"""Ανάλυσε τα δεδομένα: {weather_data}. 
-    Υπάρχει κίνδυνος για περονόσπορο στην Τρίπολη; 
-    Απάντησε ΜΟΝΟ με αυτή τη δομή, χωρίς άλλα σχόλια:
-    ΑΠΟΤΕΛΕΣΜΑ: [ΚΙΝΔΥΝΟΣ ή ΑΣΦΑΛΕΣ]
-    ΤΙΜΕΣ: [{weather_data}]
-    ΑΙΤΙΟΛΟΓΙΑ: [Εξήγησε σύντομα γιατί πάρθηκε αυτή η απόφαση βάσει των τιμών]"""
+    # Ρύθμιση του Gemini
+    genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+    model = genai.GenerativeModel('gemini-1.5-pro')
+    
+    prompt = f"Ανάλυσε τον κίνδυνο για τους πεζοπόρους στον Μαινάλιο Δρυμό με βάση τα εξής δεδομένα: {weather_data}"
     
     response = model.generate_content(prompt)
     return response.text
 
-# Κύρια εκτέλεση
-data = get_weather()
-result = analyze_risk(data)
-
-# Αποθήκευση στο αρχείο που διαβάζει η ιστοσελίδα
-with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(result)
-
-print("Το αρχείο result.txt ενημερώθηκε με επιτυχία!")
+if __name__ == "__main__":
+    try:
+        # Λήψη δεδομένων καιρού
+        weather = get_weather()
+        print("Επιτυχής λήψη καιρού για Τρίπολη, Ελλάδα.")
+        
+        # Ανάλυση με AI
+        risk_report = analyze_risk(weather)
+        print("\n--- Αναφορά Κινδύνου ---\n")
+        print(risk_report)
+        
+        # Αποθήκευση αποτελέσματος σε αρχείο για το GitHub
+        with open("result.txt", "w", encoding="utf-8") as f:
+            f.write(risk_report)
+            
+    except Exception as e:
+        print(f"Σφάλμα κατά την εκτέλεση: {e}")
+        exit(1)

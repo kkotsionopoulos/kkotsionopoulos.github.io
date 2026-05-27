@@ -1,59 +1,49 @@
-<!DOCTYPE html>
-<html lang="el">
-<head>
-    <meta charset="UTF-8">
-    <title>VineWatch - Πρόγνωση Περονοσπόρου</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #f4f7f6; padding: 40px; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        .status-box { padding: 25px; border-radius: 15px; color: white; font-weight: bold; font-size: 1.4em; margin: 20px 0; }
-        .danger { background-color: #d9534f; }
-        .safe { background-color: #5cb85c; }
-        .details { font-size: 0.9em; color: #333; text-align: left; margin-top: 15px; padding: 10px; background: #f9f9f9; border-left: 4px solid #333; }
-        button { background: #333; color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-size: 1em; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h1>VineWatch AI</h1>
-        <div id="display-area" class="status-box" style="display: none;"></div>
-        <button onclick="updateStatus()">Προβολή Αποτελέσματος</button>
-        <div id="details-area" class="details" style="display: none;"></div>
-    </div>
+import os
+import requests
+import google.generativeai as genai
 
-    <script>
-        async function updateStatus() {
-            try {
-                const response = await fetch('result.txt');
-                const text = await response.text();
-                
-                // Εξαγωγή δεδομένων με Regular Expressions
-                const result = text.match(/ΑΠΟΤΕΛΕΣΜΑ: (.*)/)[1];
-                const values = text.match(/ΤΙΜΕΣ: (.*)/)[1];
-                const reason = text.match(/ΑΙΤΙΟΛΟΓΙΑ: (.*)/)[1];
-                
-                const area = document.getElementById('display-area');
-                const details = document.getElementById('details-area');
-                
-                area.style.display = 'block';
-                details.style.display = 'block';
-                
-                if (result.includes("ΚΙΝΔΥΝΟΣ")) {
-                    area.className = 'status-box danger';
-                    area.innerHTML = `⚠️ ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ`;
-                } else {
-                    area.className = 'status-box safe';
-                    area.innerHTML = `✅ ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ`;
-                }
+def get_weather():
+    # Λήψη του κλειδιού από τις μεταβλητές περιβάλλοντος του GitHub Actions
+    api_key = os.getenv('WEATHER_API_KEY')
+    
+    if not api_key:
+        raise ValueError("Το WEATHER_API_KEY δεν βρέθηκε στις μεταβλητές περιβάλλοντος.")
 
-                details.innerHTML = `
-                    <strong>Μετρήσεις:</strong> ${values}<br><br>
-                    <strong>Αιτιολόγηση:</strong> ${reason}
-                `;
-            } catch (error) {
-                alert("Το αρχείο αποτελεσμάτων δεν βρέθηκε. Βεβαιώσου ότι το GitHub Action ολοκληρώθηκε!");
-            }
-        }
-    </script>
-</body>
-</html>
+    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q=Tripoli"
+    
+    try:
+        response = requests.get(url)
+        data = response.json()
+        
+        # Έλεγχος αν το API επέστρεψε error (π.χ. Invalid Key)
+        if 'error' in data:
+            raise Exception(f"Σφάλμα από το WeatherAPI: {data['error']['message']} (Code: {data['error']['code']})")
+            
+        return data['current']
+    except Exception as e:
+        raise Exception(f"Αποτυχία σύνδεσης με το WeatherAPI: {str(e)}")
+
+def main():
+    # 1. Λήψη δεδομένων καιρού
+    weather_data = get_weather()
+    print("Τα δεδομένα καιρού λήφθηκαν επιτυχώς.")
+    
+    # 2. Ρύθμιση του Gemini
+    gemini_key = os.getenv('GEMINI_API_KEY')
+    if not gemini_key:
+        raise ValueError("Το GEMINI_API_KEY δεν βρέθηκε.")
+        
+    genai.configure(api_key=gemini_key)
+    model = genai.GenerativeModel('gemini-pro')
+    
+    # 3. Δημιουργία περιεχομένου με βάση τον καιρό
+    prompt = f"Ο καιρός στην Τρίπολη είναι: {weather_data['temp_c']} βαθμοί Κελσίου με {weather_data['condition']['text']}. Δώσε μια σύντομη γεωργική συμβουλή για την αμπελοκαλλιέργεια."
+    response = model.generate_content(prompt)
+    
+    # 4. Αποθήκευση του αποτελέσματος στο αρχείο result.txt
+    with open("result.txt", "w", encoding="utf-8") as f:
+        f.write(response.text)
+        print("Το αποτέλεσμα γράφτηκε στο result.txt")
+
+if __name__ == "__main__":
+    main()
