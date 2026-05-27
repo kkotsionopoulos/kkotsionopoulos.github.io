@@ -1,4 +1,4 @@
-name: VineWatch
+name: VineWatch Simple
 on:
   schedule:
     - cron: '0 7 * * *'
@@ -12,21 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: |
-          pip install requests google-genai
+        run: pip install requests
       - name: Run main.py
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
       - name: Commit result.txt
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add result.txt
-          git commit -m "Update" || echo "No changes"
+          git commit -m "Update weather risk" || echo "No changes"
           git push
