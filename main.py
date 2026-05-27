@@ -1,9 +1,9 @@
 import os
 import requests
-from google import genai
+from google.genai import Client # Αυτό είναι το σωστό import για το google-genai
 
-# Ρύθμιση του Client με το νέο SDK
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+# Ρύθμιση Client
+client = Client(api_key=os.environ["GEMINI_API_KEY"])
 WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
 
 def get_weather():
@@ -16,7 +16,7 @@ def get_weather():
 def analyze_risk(weather_data):
     prompt = f"Ανάλυσε τα δεδομένα: {weather_data}. Υπάρχει κίνδυνος για περονόσπορο; Απάντησε ΜΟΝΟ: ΑΠΟΤΕΛΕΣΜΑ, ΤΙΜΕΣ, ΑΙΤΙΟΛΟΓΙΑ."
     
-    # Η σωστή κλήση για το μοντέλο gemini-2.0-flash στο νέο SDK
+    # Χρήση του gemini-2.0-flash
     response = client.models.generate_content(
         model='gemini-2.0-flash',
         contents=prompt
