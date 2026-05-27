@@ -2,7 +2,7 @@ import os
 import requests
 import datetime
 
-# Ρύθμιση API
+# Ρύθμιση
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
 def get_weather():
@@ -28,14 +28,9 @@ if temp is not None:
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     content = f"Τελευταία ενημέρωση: {now}\nΘερμοκρασία: {temp}°C\nΥγρασία: {humidity}%\nΚατάσταση: {risk}"
     
-    # Γράψιμο στο αρχείο με ασφάλεια
+    # Γράψιμο
     with open("result.txt", "w", encoding="utf-8") as f:
         f.write(content)
-        f.flush()
-        os.fsync(f.fileno())
-    
-    # Εκτύπωση στο log για να δούμε τι έγινε
-    print("Περιεχόμενο που γράφτηκε:")
-    print(content)
+    print("Το αρχείο result.txt ενημερώθηκε.")
 else:
     print("Αποτυχία λήψης δεδομένων.")

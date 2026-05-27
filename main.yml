@@ -23,14 +23,14 @@ jobs:
       - name: Run main.py
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-        run: python main.py
+        run: |
+          rm -f result.txt
+          python main.py
         
       - name: Commit result.txt
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          # Force add για να σιγουρευτούμε ότι το βλέπει
           git add -f result.txt
-          # Commit μόνο αν υπάρχει όντως αλλαγή
-          git commit -m "Update result.txt" || echo "No changes to commit"
+          git commit -m "Force update result.txt" || echo "No changes"
           git push
