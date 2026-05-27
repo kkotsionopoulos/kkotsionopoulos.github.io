@@ -11,21 +11,27 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+          
       - name: Install dependencies
-        run: pip install requests google-generativeai
+        run: |
+          pip install requests
+          pip install google-genai
+        
       - name: Run main.py
         env:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
+        
       - name: Commit result.txt
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add result.txt
-          git commit -m "Auto update report" || echo "No changes"
+          git commit -m "Auto update report" || echo "No changes to commit"
           git push
