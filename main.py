@@ -1,16 +1,23 @@
 import os
 import requests
 
+# Ρύθμιση API KEY από τα GitHub Secrets
+WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
+
 def get_weather():
-    url = f"http://api.weatherapi.com/v1/current.json?key={os.environ['WEATHER_API_KEY']}&q=Tripoli,Greece"
+    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli,Greece"
     response = requests.get(url).json()
+    
+    # Έλεγχος αν πήραμε σωστά δεδομένα
+    if 'current' not in response:
+        print(f"Σφάλμα API: {response}")
+        return None, None
+        
     temp = response['current']['temp_c']
     humidity = response['current']['humidity']
     return temp, humidity
 
 def calculate_risk(temp, humidity):
-    # Απλοϊκός κανόνας για περονόσπορο:
-    # Υψηλή υγρασία (>75%) και μέτρια θερμοκρασία (15-25°C)
     if humidity > 75 and 15 <= temp <= 25:
         return "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
     elif humidity > 60:
@@ -18,8 +25,16 @@ def calculate_risk(temp, humidity):
     else:
         return "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
 
+# Κύρια ροή
 temp, humidity = get_weather()
-risk = calculate_risk(temp, humidity)
 
-with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(f"Θερμοκρασία: {temp}°C, Υγρασία: {humidity}%\nΚίνδυνος Περονόσπορου: {risk}")
+if temp is not None:
+    risk = calculate_risk(temp, humidity)
+    content = f"Τελευταία ενημέρωση: 2026-05-27\nΘερμοκρασία: {temp}°C\nΥγρασία: {humidity}%\nΚατάσταση: {risk}"
+    
+    with open("result.txt", "w", encoding="utf-8") as f:
+        f.write(content)
+    print("Το αρχείο result.txt ενημερώθηκε:")
+    print(content)
+else:
+    print("Αποτυχία λήψης δεδομένων.")
