@@ -1,9 +1,9 @@
 import os
 import requests
-import google.generativeai as genai
+from google import genai
 
-# Ρύθμιση
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+# Ρύθμιση Client (νέο SDK)
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
 def get_weather():
     url = f"http://api.weatherapi.com/v1/current.json?key={os.environ['WEATHER_API_KEY']}&q=Tripoli,Greece"
@@ -13,9 +13,11 @@ def get_weather():
 
 def analyze():
     weather = get_weather()
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content(f"Ανάλυσε τον καιρό: {weather}. Υπάρχει κίνδυνος περονόσπορου; Πες μόνο ΝΑΙ ή ΟΧΙ και γιατί.")
-    
+    # Κλήση μοντέλου μέσω του νέου client
+    response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=f"Ανάλυσε τον καιρό: {weather}. Υπάρχει κίνδυνος περονόσπορου; Πες μόνο ΝΑΙ ή ΟΧΙ και γιατί."
+    )
     with open("result.txt", "w", encoding="utf-8") as f:
         f.write(response.text)
 
