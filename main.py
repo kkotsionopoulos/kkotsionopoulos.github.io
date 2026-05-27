@@ -1,30 +1,34 @@
-import os
-import requests
-from google import genai # Δοκίμασε αυτό το import
+name: Vine Alert
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
 
-# Ρύθμιση Client - Αυτή είναι η σωστή σύνταξη
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
-WEATHER_API_KEY = os.environ["WEATHER_API_KEY"]
-
-def get_weather():
-    url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q=Tripoli,Greece"
-    response = requests.get(url).json()
-    if 'current' not in response:
-        raise KeyError("Αδυναμία λήψης καιρού")
-    return f"Θερμοκρασία: {response['current']['temp_c']}°C, Υγρασία: {response['current']['humidity']}%"
-
-def analyze_risk(weather_data):
-    prompt = f"Ανάλυσε τα δεδομένα: {weather_data}. Υπάρχει κίνδυνος για περονόσπορο; Απάντησε ΜΟΝΟ: ΑΠΟΤΕΛΕΣΜΑ, ΤΙΜΕΣ, ΑΙΤΙΟΛΟΓΙΑ."
-    
-    # Η σωστή κλήση για το μοντέλο
-    response = client.models.generate_content(
-        model='gemini-2.0-flash',
-        contents=prompt
-    )
-    return response.text
-
-# Εκτέλεση
-data = get_weather()
-result = analyze_risk(data)
-with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(result)
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip uninstall -y google-genai google-generativeai
+          pip install requests google-generativeai
+      - name: Run main.py
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
+      - name: Commit result.txt
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add result.txt
+          git commit -m "Auto update report" || echo "No changes"
+          git push
