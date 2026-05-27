@@ -1,9 +1,46 @@
-<div id="weather-report">Φόρτωση δεδομένων...</div>
+<!-- Το κουμπί -->
+<button onclick="loadWeather()" style="padding: 10px 20px; font-size: 16px; cursor: pointer; background-color: #2c3e50; color: white; border: none; border-radius: 5px;">
+  Εμφάνιση πρόβλεψης για σήμερα
+</button>
+
+<!-- Αποτέλεσμα -->
+<div id="weather-report" style="margin-top: 20px; background: #e8f6f3; padding: 15px; border-radius: 8px; font-family: sans-serif; display: none; border-left: 5px solid #27ae60;">
+  <strong>Αποτέλεσμα:</strong><br>
+  <pre id="data-content" style="white-space: pre-line;"></pre>
+</div>
+
+<!-- Αναλυτική Περιγραφή -->
+<div id="methodology" style="margin-top: 20px; font-size: 0.9em; color: #555; line-height: 1.6;">
+  <h4>Πώς προκύπτουν τα αποτελέσματα;</h4>
+  <p>Η πρόβλεψη βασίζεται σε αλγοριθμική ανάλυση των παρακάτω δεδομένων:</p>
+  <ul>
+    <li><strong>Θερμοκρασία (15-25°C):</strong> Είναι το ιδανικό εύρος για την ανάπτυξη του μύκητα του περονόσπορου.</li>
+    <li><strong>Υγρασία (>75%):</strong> Η αυξημένη υγρασία είναι ο κρισιμότερος παράγοντας, καθώς η παρουσία σταγόνων νερού στα φύλλα επιτρέπει τη βλάστηση των σπορίων.</li>
+    <li><strong>Κανόνας Κινδύνου:</strong>
+      <ul>
+        <li><strong>ΥΨΗΛΟΣ:</strong> Όταν η υγρασία υπερβαίνει το 75% και η θερμοκρασία κυμαίνεται στο ευνοϊκό εύρος (15-25°C).</li>
+        <li><strong>ΜΕΤΡΙΟΣ:</strong> Όταν η υγρασία ξεπερνά το 60%, υποδηλώνοντας συνθήκες που απαιτούν προσοχή.</li>
+        <li><strong>ΧΑΜΗΛΟΣ:</strong> Όταν οι συνθήκες δεν είναι ευνοϊκές για την ανάπτυξη του παθογόνου.</li>
+      </ul>
+    </li>
+  </ul>
+  <p><em>Τα δεδομένα λαμβάνονται καθημερινά μέσω μετεωρολογικού API για την περιοχή της Τρίπολης.</em></p>
+</div>
 
 <script>
-  fetch('https://raw.githubusercontent.com/kkotsionopoulos/kkotsionopoulos.github.io/main/result.txt')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('weather-report').innerText = data;
-    });
+  function loadWeather() {
+    const reportDiv = document.getElementById('weather-report');
+    const contentPre = document.getElementById('data-content');
+    reportDiv.style.display = 'block';
+    contentPre.innerText = "Φόρτωση δεδομένων...";
+
+    fetch('https://raw.githubusercontent.com/kkotsionopoulos/kkotsionopoulos.github.io/main/result.txt?t=' + new Date().getTime())
+      .then(response => response.text())
+      .then(data => {
+        contentPre.innerText = data;
+      })
+      .catch(error => {
+        contentPre.innerText = "Αδυναμία σύνδεσης με τον διακομιστή.";
+      });
+  }
 </script>
