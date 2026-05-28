@@ -31,12 +31,8 @@ if temp is not None:
 else:
     content = f"Τελευταία ενημέρωση: {now}\nΤα δεδομένα δεν κατέστη δυνατό να ανακτηθούν."
 
-# Εγγυημένο γράψιμο
+# Εγγυημένο γράψιμο μία φορά
 with open("result.txt", "w", encoding="utf-8") as f:
     f.write(content)
-print("Το αρχείο result.txt ενημερώθηκε.")
 
-# Στο τέλος του main.py, μετά το write
-with open("result.txt", "w", encoding="utf-8") as f:
-    f.write(content)
-print("--- ΤΕΛΟΣ ΕΚΤΕΛΕΣΗΣ: Το αρχείο γράφτηκε ---")
+print("--- ΤΕΛΟΣ ΕΚΤΕΛΕΣΗΣ: Το αρχείο result.txt γράφτηκε με επιτυχία ---")
