@@ -35,3 +35,8 @@ else:
 with open("result.txt", "w", encoding="utf-8") as f:
     f.write(content)
 print("Το αρχείο result.txt ενημερώθηκε.")
+
+# Στο τέλος του main.py, μετά το write
+with open("result.txt", "w", encoding="utf-8") as f:
+    f.write(content)
+print("--- ΤΕΛΟΣ ΕΚΤΕΛΕΣΗΣ: Το αρχείο γράφτηκε ---")
