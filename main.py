@@ -11,28 +11,34 @@ def get_weather():
         if 'current' in response:
             return response['current']['temp_c'], response['current']['humidity']
     except Exception as e:
-        print(f"Σφάλμα σύνδεσης: {e}")
+        return None, None
     return None, None
 
 def calculate_risk(temp, humidity):
+    reasoning = f"Ανάλυση δεδομένων: Θερμοκρασία {temp}°C, Υγρασία {humidity}%."
+    
     if humidity > 75 and 15 <= temp <= 25:
-        return "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        risk = "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        explanation = "Οι συνθήκες είναι ιδανικές για την ανάπτυξη του μύκητα (υψηλή υγρασία και κατάλληλο θερμικό εύρος)."
     elif humidity > 60:
-        return "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ"
-    return "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        risk = "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ"
+        explanation = "Η υγρασία είναι αυξημένη, απαιτείται παρακολούθηση καθώς πλησιάζουμε το όριο κινδύνου."
+    else:
+        risk = "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        explanation = "Οι τρέχουσες συνθήκες δεν ευνοούν την ανάπτυξη παθογόνων."
+        
+    return risk, f"{reasoning}\nΕπεξήγηση: {explanation}"
 
 # Κύρια εκτέλεση
 temp, humidity = get_weather()
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 if temp is not None:
-    risk = calculate_risk(temp, humidity)
-    content = f"Τελευταία ενημέρωση: {now}\nΘερμοκρασία: {temp}°C\nΥγρασία: {humidity}%\nΚατάσταση: {risk}"
+    risk, explanation = calculate_risk(temp, humidity)
+    content = f"Τελευταία ενημέρωση: {now}\nΘερμοκρασία: {temp}°C\nΥγρασία: {humidity}%\nΚατάσταση: {risk}\n\n{explanation}"
 else:
     content = f"Τελευταία ενημέρωση: {now}\nΤα δεδομένα δεν κατέστη δυνατό να ανακτηθούν."
 
-# Εγγυημένο γράψιμο μία φορά
 with open("result.txt", "w", encoding="utf-8") as f:
     f.write(content)
-
-print("--- ΤΕΛΟΣ ΕΚΤΕΛΕΣΗΣ: Το αρχείο result.txt γράφτηκε με επιτυχία ---")
+print("--- ΤΕΛΟΣ ΕΚΤΕΛΕΣΗΣ: Το αρχείο result.txt ενημερώθηκε ---")
