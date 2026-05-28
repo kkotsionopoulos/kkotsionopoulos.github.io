@@ -1,69 +1,36 @@
-<!DOCTYPE html>
-<html lang="el">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VineWatch | Γεωργία Ακριβείας</title>
-    <!-- Χρησιμοποιούμε το ίδιο στυλ με το υπόλοιπο site σου -->
-    <link rel="stylesheet" href="style.css"> 
-    <style>
-        .report-box { background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid #27ae60; margin: 20px 0; }
-        .method-section { margin-top: 30px; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-    </style>
-</head>
-<body>
+<style>
+    .vine-container { border: 1px solid #ddd; padding: 30px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .vine-btn { background: #2c3e50; color: #fff; padding: 18px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; width: 100%; transition: background 0.3s; }
+    .vine-btn:hover { background: #34495e; }
+    #weather-report { margin-top: 25px; display: none; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; }
+    .methodology { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; font-size: 0.95em; color: #555; }
+</style>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-links">
-            <a href="index.html">Βιογραφικό</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="vine_watch.html" style="background-color: #27ae60; color: white !important;">AI</a>
-            <a href="blog.html">Blog</a>
-            <a href="contact.html">Επικοινωνία</a>
-        </div>
-    </div>
-</nav>
-
-<div class="container" style="margin-top: 80px;">
-    <header>
-        <h1>VineWatch</h1>
-        <p><strong>Ψηφιακή Γεωπονική Παρακολούθηση</strong></p>
-    </header>
-
-    <div class="vine-container">
-        <button class="download-btn" onclick="loadWeather()">Ενημέρωση Ανάλυσης</button>
-        <div id="weather-report" class="report-box" style="display: none;">
-            <pre id="data-content" style="white-space: pre-wrap; font-family: inherit;"></pre>
-        </div>
+<div class="vine-container">
+    <h2>VineWatch</h2>
+    <button class="vine-btn" onclick="loadWeather()">Εμφάνιση Ανάλυσης Κινδύνου</button>
+    
+    <div id="weather-report">
+        <pre id="data-content" style="white-space: pre-wrap;"></pre>
     </div>
 
-    <section class="method-section">
-        <h2>Μεθοδολογία & Πώς λειτουργεί</h2>
-        <p>Το VineWatch αποτελεί ένα καινοτόμο σύστημα γεωργίας ακριβείας, σχεδιασμένο για να προσφέρει άμεση πληροφόρηση σχετικά με την πίεση ασθενειών στον αμπελώνα (περονόσπορος - <em>Plasmopara viticola</em>).</p>
-        <p><strong>Όρια Παρακολούθησης:</strong></p>
-        <ul>
-            <li><strong>Υψηλός Κίνδυνος:</strong> Υγρασία > 75% & Θερμοκρασία 15-25°C (Ιδανικές συνθήκες βλάστησης σπορίων).</li>
-            <li><strong>Μέτριος Κίνδυνος:</strong> Υγρασία > 60% (Απαιτείται επιτήρηση του αμπελώνα).</li>
-            <li><strong>Άνεμος:</strong> Ταχύτητες > 20 km/h ευνοούν τη διασπορά, ενώ άπνοια (<2 km/h) ευνοεί τη στασιμότητα υγρασίας.</li>
-        </ul>
-        <p>Το σύστημα αντλεί πραγματικά μετεωρολογικά δεδομένα για την περιοχή της Τρίπολης, συγκρίνοντας τρέχουσες, ιστορικές και προγνωστικές τιμές για την έγκαιρη λήψη αποφάσεων.</p>
-    </section>
+    <div class="methodology">
+        <h3>Μεθοδολογία & Όρια</h3>
+        <p><strong>Υψηλός Κίνδυνος:</strong> Υγρασία > 75% και Θερμοκρασία 15-25°C.</p>
+        <p><strong>Μέτριος Κίνδυνος:</strong> Υγρασία > 60%.</p>
+        <p><strong>Άνεμος:</strong> > 20 km/h αυξάνει τη διασπορά σπορίων.</p>
+        <p>Το σύστημα λειτουργεί ως υποστηρικτικό εργαλείο γεωργίας ακριβείας, παρέχοντας δεδομένα για την έγκαιρη αντιμετώπιση του περονόσπορου.</p>
+    </div>
 </div>
 
 <script>
   function loadWeather() {
-    const reportDiv = document.getElementById('weather-report');
-    const contentPre = document.getElementById('data-content');
-    reportDiv.style.display = 'block';
-    contentPre.innerText = "Φόρτωση δεδομένων...";
-    
-    fetch('result.txt?_=' + new Date().getTime(), { cache: "no-store" })
+    const report = document.getElementById('weather-report');
+    const content = document.getElementById('data-content');
+    report.style.display = 'block';
+    content.innerText = "Ανάκτηση δεδομένων...";
+    fetch('result.txt?t=' + new Date().getTime(), { cache: "no-store" })
       .then(r => r.text())
-      .then(data => { contentPre.innerText = data; })
-      .catch(() => { contentPre.innerText = "Σφάλμα φόρτωσης."; });
+      .then(data => { content.innerText = data; });
   }
 </script>
-
-</body>
-</html>
