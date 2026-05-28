@@ -1,18 +1,20 @@
-<div class="vine-container" style="border: 1px solid #ccc; padding: 20px; max-width: 600px; margin: auto; font-family: sans-serif;">
-    <h3>VineWatch - Γεωργία Ακριβείας</h3>
-    <button onclick="loadWeather()" style="padding: 10px; background: #2c3e50; color: white; border: none; cursor: pointer;">
-        Ενημέρωση Δεδομένων
+<div style="border: 1px solid #ccc; padding: 25px; border-radius: 8px; background: #fff; max-width: 650px; margin: auto;">
+    <h3>VineWatch - Ψηφιακή Γεωπονική Παρακολούθηση</h3>
+    <button onclick="loadWeather()" style="background: #2c3e50; color: white; padding: 10px 15px; border: none; cursor: pointer;">
+        Ενημέρωση Ανάλυσης
     </button>
-    <pre id="data-content" style="margin-top: 20px; white-space: pre-wrap; font-family: monospace;"></pre>
+    <div id="weather-report" style="margin-top: 20px; display: none;">
+        <pre id="data-content" style="white-space: pre-wrap; font-family: sans-serif;"></pre>
+    </div>
 </div>
 
 <script>
   function loadWeather() {
-    const pre = document.getElementById('data-content');
-    pre.innerText = "Φόρτωση...";
-    // Το random number εξασφαλίζει ότι θα φέρει ΠΑΝΤΑ το νέο αρχείο
-    fetch('result.txt?t=' + new Date().getTime(), { cache: "no-store" })
+    const reportDiv = document.getElementById('weather-report');
+    const contentPre = document.getElementById('data-content');
+    reportDiv.style.display = 'block';
+    fetch('result.txt?_=' + new Date().getTime(), { cache: "no-store" })
       .then(r => r.text())
-      .then(data => { pre.innerText = data; });
+      .then(data => { contentPre.innerText = data; });
   }
 </script>
