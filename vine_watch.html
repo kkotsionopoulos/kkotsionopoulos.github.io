@@ -1,26 +1,18 @@
-<div class="vine-container" style="border: 1px solid #ccc; border-radius: 8px; padding: 25px; background: #ffffff; max-width: 650px; margin: 20px auto; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <h3 style="margin-top: 0; color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 10px;">VineWatch - Ψηφιακή Γεωπονική Παρακολούθηση</h3>
-    <p>Εργαλείο ανάλυσης κινδύνου περονόσπορου (Plasmopara viticola) βασισμένο σε μετεωρολογικά δεδομένα.</p>
-    
-    <button onclick="loadWeather()" style="background-color: #2c3e50; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
-        Εμφάνιση ανάλυσης κινδύνου
+<div class="vine-container" style="border: 1px solid #ccc; padding: 20px; max-width: 600px; margin: auto; font-family: sans-serif;">
+    <h3>VineWatch - Γεωργία Ακριβείας</h3>
+    <button onclick="loadWeather()" style="padding: 10px; background: #2c3e50; color: white; border: none; cursor: pointer;">
+        Ενημέρωση Δεδομένων
     </button>
-    
-    <div id="weather-report" style="margin-top: 20px; display: none; background: #f9f9f9; padding: 15px; border-left: 5px solid #27ae60;">
-        <pre id="data-content" style="white-space: pre-wrap; font-family: 'Segoe UI', sans-serif; margin: 0;"></pre>
-    </div>
+    <pre id="data-content" style="margin-top: 20px; white-space: pre-wrap; font-family: monospace;"></pre>
 </div>
 
 <script>
   function loadWeather() {
-    const reportDiv = document.getElementById('weather-report');
-    const contentPre = document.getElementById('data-content');
-    reportDiv.style.display = 'block';
-    contentPre.innerText = "Επεξεργασία δεδομένων...";
-    
-    fetch('https://raw.githubusercontent.com/kkotsionopoulos/kkotsionopoulos.github.io/main/result.txt?_=' + new Date().getTime())
+    const pre = document.getElementById('data-content');
+    pre.innerText = "Φόρτωση...";
+    // Το random number εξασφαλίζει ότι θα φέρει ΠΑΝΤΑ το νέο αρχείο
+    fetch('result.txt?t=' + new Date().getTime(), { cache: "no-store" })
       .then(r => r.text())
-      .then(data => { contentPre.innerText = data; })
-      .catch(() => { contentPre.innerText = "Σφάλμα φόρτωσης."; });
+      .then(data => { pre.innerText = data; });
   }
 </script>

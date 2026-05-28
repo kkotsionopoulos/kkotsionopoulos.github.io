@@ -5,12 +5,14 @@ import datetime
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
 def get_weather_data():
+    # Χρήση συντεταγμένων για απόλυτη ακρίβεια Τρίπολης
+    lat, lon = "37.51", "22.38"
     base_url = "http://api.weatherapi.com/v1"
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
     
     try:
-        curr = requests.get(f"{base_url}/current.json?key={WEATHER_API_KEY}&q=Tripoli,Greece", timeout=10).json()
-        hist = requests.get(f"{base_url}/history.json?key={WEATHER_API_KEY}&q=Tripoli,Greece&dt={yesterday}", timeout=10).json()
+        curr = requests.get(f"{base_url}/current.json?key={WEATHER_API_KEY}&q={lat},{lon}", timeout=10).json()
+        hist = requests.get(f"{base_url}/history.json?key={WEATHER_API_KEY}&q={lat},{lon}&dt={yesterday}", timeout=10).json()
         
         c_t = curr['current']['temp_c']
         c_h = curr['current']['humidity']
@@ -26,37 +28,33 @@ def get_weather_data():
         return None, None, None, None, None, None
 
 def get_risk_analysis(temp, hum, wind=None):
-    # Λογική για τον κίνδυνο
     if hum > 75 and 15 <= temp <= 25: risk = "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
     elif hum > 60: risk = "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ"
     else: risk = "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
     
-    # Προσθήκη αιτιολόγησης αν δοθεί άνεμος
-    analysis = f"Υγρασία {hum}%"
-    if wind:
-        if wind > 20: analysis += f", Άνεμος {wind}km/h (Υψηλή διασπορά)"
-        elif wind < 2: analysis += ", Άπνοια (Στασιμότητα υγρασίας)"
-        
+    reasons = []
+    if hum > 75: reasons.append(f"Υγρασία {hum}% (>75%)")
+    if 15 <= temp <= 25: reasons.append(f"Θερμοκρασία {temp}°C (Ιδανική)")
+    if wind and wind > 20: reasons.append(f"Άνεμος {wind}km/h (Υψηλή διασπορά)")
+    
+    analysis = " | ".join(reasons) if reasons else "Συνθήκες εντός ορίων."
     return risk, analysis
 
 c_t, c_h, c_w, h_t, h_h, h_w = get_weather_data()
 now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+risk, analysis = get_risk_analysis(c_t, c_h, c_w)
 
-c_risk, c_analysis = get_risk_analysis(c_t, c_h, c_w)
-h_risk, h_analysis = get_risk_analysis(h_t, h_h) # Χωρίς άνεμο για τα ιστορικά
-
-content = f"""Τελευταία ενημέρωση: {now}
+# Εγγραφή στο αρχείο με timestamp για να μην υπάρχει καμία αμφιβολία
+content = f"""Τελευταία ενημέρωση (Ελλάδα): {now}
 
 --- ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ (ΤΩΡΑ) ---
-Κατάσταση: {c_risk}
-Αιτιολόγηση: {c_analysis}
+Κατάσταση: {risk}
+Αιτιολόγηση: {analysis}
 Θερμοκρασία: {c_t}°C, Υγρασία: {c_h}%, Άνεμος: {c_w} km/h
 
 --- ΜΕΣΟΙ ΟΡΟΙ ΠΡΟΗΓΟΥΜΕΝΗΣ ΗΜΕΡΑΣ ---
-Κατάσταση: {h_risk}
-Αιτιολόγηση: {h_analysis}
-Θερμοκρασία: {h_t}°C, Υγρασία: {h_h}%
-Μέγιστος Άνεμος: {h_w} km/h
+Κατάσταση: {get_risk_analysis(h_t, h_h)[0]}
+Θερμοκρασία: {h_t}°C, Υγρασία: {h_h}%, Μέγιστος Άνεμος: {h_w} km/h
 """
 
 with open("result.txt", "w", encoding="utf-8") as f:
