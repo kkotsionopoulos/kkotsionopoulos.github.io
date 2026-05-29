@@ -1,31 +1,25 @@
 <style>
-    .vine-container { border: 1px solid #ddd; padding: 30px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .vine-btn { background: #2c3e50; color: #fff; padding: 18px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; width: 100%; transition: background 0.3s; }
-    .vine-btn:hover { background: #34495e; }
-    #weather-report { margin-top: 25px; display: none; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; }
-    .methodology { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; font-size: 0.95em; color: #555; }
+    .vine-container { border: 1px solid #ddd; padding: 25px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .vine-btn { background: #2c3e50; color: #fff; padding: 20px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; width: 100%; cursor: pointer; }
+    #weather-report { margin-top: 20px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
 </style>
 
 <div class="vine-container">
-    <h2>Έγκαιρη πρόβλεψη των κινδύνων που σχετίζονται με τον περονόσπορο της αμπέλου (Plasmopara viticola).</h2>
+    <h2>VineWatch: Πρόβλεψη Περονόσπορου</h2>
     <button class="vine-btn" onclick="loadWeather()">Εμφάνιση Ανάλυσης Κινδύνου</button>
-    
     <div id="weather-report">
-        <pre id="data-content" style="white-space: pre-wrap;"></pre>
+        <pre id="data-content" style="white-space: pre-wrap; font-family: sans-serif;"></pre>
     </div>
-
-    <div class="methodology">
-        <h3>Μεθοδολογία & Όρια</h3>
-        <p><strong>Υψηλός Κίνδυνος:</strong> Υγρασία > 75% και Θερμοκρασία 15-25°C.</p>
-        <p><strong>Μέτριος Κίνδυνος:</strong> Υγρασία > 60%.</p>
-        <p><strong>Άνεμος:</strong> > 20 km/h αυξάνει τη διασπορά σπορίων.</p>
-        <p>Το σύστημα βασίζεται σε έναν εξελιγμένο αλγόριθμο ανάλυσης δεδομένων που αξιολογεί τρεις χρονικές παραμέτρους:
-
-Στιγμιαία Κατάσταση: Καταγράφει τις τρέχουσες συνθήκες στον αμπελώνα, εντοπίζοντας άμεσους κινδύνους.
-
-Ιστορικότητα (24ωρο): Αναλύει τη συσσώρευση υγρασίας και θερμοκρασίας του προηγούμενου 24ωρου, καθώς η διάρκεια των συνθηκών είναι κρισιμότερη από τις μεμονωμένες τιμές για την έναρξη της πρωτογενούς μόλυνσης.
-
-Πρόβλεψη: Επεξεργάζεται τις μετεωρολογικές προβλέψεις της επόμενης ημέρας, επιτρέποντας στον παραγωγό να προγραμματίσει προληπτικές επεμβάσεις πριν από την εμφάνιση των πρώτων συμπτωμάτων.<br>Το σύστημα λειτουργεί ως υποστηρικτικό εργαλείο γεωργίας ακριβείας, παρέχοντας δεδομένα για την έγκαιρη αντιμετώπιση του περονόσπορου.</p>
+    
+    <div style="margin-top: 30px; font-size: 0.9em; color: #666;">
+        <h3>Μεθοδολογία & Πιθανότητες</h3>
+        <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα. 
+        <ul>
+            <li><strong>>70%:</strong> Υψηλή πιθανότητα μόλυνσης.</li>
+            <li><strong>40-70%:</strong> Μέτρια πίεση, απαιτείται παρακολούθηση.</li>
+            <li><strong><40%:</strong> Χαμηλή δραστηριότητα παθογόνου.</li>
+        </ul>
+        </p>
     </div>
 </div>
 
