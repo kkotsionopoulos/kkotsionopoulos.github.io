@@ -3,7 +3,8 @@
     .vine-btn { background: #2c3e50; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; flex: 1; }
     .vine-btn.secondary { background: #27ae60; }
     #weather-report { margin-top: 25px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
-    .info-section { margin-top: 30px; line-height: 1.6; color: #444; }
+    .info-section { margin-top: 30px; line-height: 1.6; color: #444; text-align: justify; }
+    .info-section h3 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 5px; }
 </style>
 
 <div class="vine-container">
@@ -21,7 +22,15 @@
 
     <div class="info-section">
         <h3>Μεθοδολογία & Αιτιολόγηση</h3>
-        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>.</p>
+        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Οι τιμές σε παρένθεση δείχνουν τη μεταβολή σε σχέση με την προηγούμενη ημέρα.</p>
+        
+        <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
+        <ul>
+            <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμη για τη βλάστηση σπορίων.</li>
+            <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικό 15-25°C.</li>
+            <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς (>20 km/h υψηλός κίνδυνος).</li>
+        </ul>
+        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις.</em></p>
     </div>
 </div>
 
@@ -31,7 +40,6 @@
     const report = document.getElementById('weather-report');
     report.style.display = 'block';
     fetch('result.txt?t=' + new Date().getTime()).then(r => r.text()).then(d => {
-        // Η μαγεία του κόκκινου badge
         let formatted = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span style="background:#e74c3c; color:white; padding:2px 6px; border-radius:4px;">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>');
         document.getElementById('data-content').innerHTML = formatted;
     });
