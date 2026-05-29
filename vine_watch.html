@@ -1,6 +1,5 @@
 <style>
     .vine-container { border: 1px solid #ddd; padding: 25px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .button-group { display: flex; gap: 10px; margin-top: 20px; }
     .vine-btn { background: #2c3e50; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; flex: 1; }
     .vine-btn.secondary { background: #27ae60; }
     #weather-report { margin-top: 25px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
@@ -9,21 +8,20 @@
 
 <div class="vine-container">
     <h2>VineWatch: Πρόβλεψη Περονόσπορου</h2>
-    <div class="button-group">
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
         <button class="vine-btn" onclick="loadWeather()">Ανάλυση</button>
         <button class="vine-btn secondary" onclick="updateChart()">Γράφημα</button>
     </div>
-    <div id="weather-report"><pre id="data-content" style="white-space: pre-wrap; font-family: sans-serif;"></pre></div>
+    
+    <div id="weather-report">
+        <div id="data-content" style="white-space: pre-wrap; font-family: sans-serif;"></div>
+    </div>
+    
     <div id="chart-container" style="display:none; margin-top:20px;"><canvas id="vineChart"></canvas></div>
 
     <div class="info-section">
-        <h3>Αιτιολόγηση Κινδύνου</h3>
-        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Οι τιμές σε παρένθεση δείχνουν τη μεταβολή σε σχέση με την προηγούμενη ημέρα.</p>
-        <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
-        <ul>
-            <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμη για τη βλάστηση σπορίων.</li>
-            <li><strong>Θερμοκρασία:</strong> Ιδανικό εύρος 15-25°C.</li>
-        </ul>
+        <h3>Μεθοδολογία & Αιτιολόγηση</h3>
+        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>.</p>
     </div>
 </div>
 
@@ -32,20 +30,20 @@
   function loadWeather() {
     const report = document.getElementById('weather-report');
     report.style.display = 'block';
-    fetch('result.txt?t=' + new Date().getTime()).then(r => r.text()).then(d => { document.getElementById('data-content').innerText = d; });
+    fetch('result.txt?t=' + new Date().getTime()).then(r => r.text()).then(d => {
+        // Η μαγεία του κόκκινου badge
+        let formatted = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span style="background:#e74c3c; color:white; padding:2px 6px; border-radius:4px;">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>');
+        document.getElementById('data-content').innerHTML = formatted;
+    });
   }
 
   let chartInstance = null;
   async function updateChart() {
     document.getElementById('chart-container').style.display = 'block';
     const text = await (await fetch('result.txt?t=' + new Date().getTime())).text();
-    const matches = text.match(/Υγρασία: (\d+)%/g);
-    const humData = matches.map(m => parseInt(m.match(/\d+/)[0]));
+    const humData = text.match(/Υγρασία: (\d+)%/g).map(m => parseInt(m.match(/\d+/)[0]));
     const ctx = document.getElementById('vineChart').getContext('2d');
     if (chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Υγρασία (%)', data: humData, borderColor: '#27ae60', fill: true }] }
-    });
+    chartInstance = new Chart(ctx, { type: 'line', data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Υγρασία (%)', data: humData, borderColor: '#27ae60', fill: true }] } });
   }
 </script>

@@ -29,13 +29,15 @@ def get_weather_data():
         content = f"""Τελευταία ενημέρωση: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}
 
 --- ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---
-Κατάσταση: {get_risk_score(c['temp_c'], c['humidity'])}
+Κίνδυνος: {get_risk_score(c['temp_c'], c['humidity'])}
 Θερμοκρασία: {c['temp_c']}°C ({'+' if d_temp > 0 else ''}{d_temp:.1f}°) | Υγρασία: {c['humidity']}% ({'+' if d_hum > 0 else ''}{d_hum:.0f}%) | Άνεμος: {c['wind_kph']} km/h
 
 --- ΠΡΟΒΛΕΨΗ ΓΙΑ ΣΗΜΕΡΑ ({f_today['date']}) ---
+Κίνδυνος: {get_risk_score(f_today['day']['avgtemp_c'], f_today['day']['avghumidity'])}
 Θερμοκρασία: {f_today['day']['avgtemp_c']}°C | Υγρασία: {f_today['day']['avghumidity']}% | Μέγ. Άνεμος: {f_today['day']['maxwind_kph']} km/h
 
 --- ΠΡΟΒΛΕΨΗ ΓΙΑ ΑΥΡΙΟ ({f_tom['date']}) ---
+Κίνδυνος: {get_risk_score(f_tom['day']['avgtemp_c'], f_tom['day']['avghumidity'])}
 Θερμοκρασία: {f_tom['day']['avgtemp_c']}°C | Υγρασία: {f_tom['day']['avghumidity']}% | Μέγ. Άνεμος: {f_tom['day']['maxwind_kph']} km/h
 """
         with open("result.txt", "w", encoding="utf-8") as f:
