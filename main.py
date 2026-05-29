@@ -4,41 +4,41 @@ import datetime
 
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
-def get_risk_score(temp, hum):
-    # Υπολογισμός ποσοστού: Ιδανική υγρασία 75%, Θερμοκρασία 20°C
-    hum_score = min(hum / 0.75, 100)
-    temp_diff = abs(20 - temp)
-    temp_score = max(0, 100 - (temp_diff * 5))
-    score = int((hum_score * 0.6) + (temp_score * 0.4))
-    
-    if score > 70: label = "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
-    elif score > 40: label = "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ"
-    else: label = "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
-    return f"{label} ({score}%)"
-
 def get_weather_data():
     lat, lon = "37.51", "22.38"
     base_url = "http://api.weatherapi.com/v1"
+    
     try:
         curr = requests.get(f"{base_url}/current.json?key={WEATHER_API_KEY}&q={lat},{lon}").json()
-        fore = requests.get(f"{base_url}/forecast.json?key={WEATHER_API_KEY}&q={lat},{lon}&days=1").json()
+        hist = requests.get(f"{base_url}/history.json?key={WEATHER_API_KEY}&q={lat},{lon}&dt={(datetime.datetime.now()-datetime.timedelta(days=1)).strftime('%Y-%m-%d')}").json()
+        # Ζητάμε πρόβλεψη για 3 ημέρες για να έχουμε το αύριο
+        fore = requests.get(f"{base_url}/forecast.json?key={WEATHER_API_KEY}&q={lat},{lon}&days=3").json()
         
         c = curr['current']
-        f = fore['forecast']['forecastday'][0]['day']
+        h_prev = hist['forecast']['forecastday'][0]['day']
+        f_today = fore['forecast']['forecastday'][0]
+        f_tom = fore['forecast']['forecastday'][1]
+        
+        d_temp = c['temp_c'] - h_prev['avgtemp_c']
+        d_hum = c['humidity'] - h_prev['avghumidity']
         
         content = f"""Τελευταία ενημέρωση: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}
 
---- ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---
+--- ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ (vs ΧΘΕΣ) ---
 Κατάσταση: {get_risk_score(c['temp_c'], c['humidity'])}
-Θερμοκρασία: {c['temp_c']}°C | Υγρασία: {c['humidity']}% | Άνεμος: {c['wind_kph']} km/h
+Θερμοκρασία: {c['temp_c']}°C ({'+' if d_temp > 0 else ''}{d_temp:.1f}°)
+Υγρασία: {c['humidity']}% ({'+' if d_hum > 0 else ''}{d_hum:.0f}%) | Άνεμος: {c['wind_kph']} km/h
 
---- ΠΡΟΒΛΕΨΗ ΓΙΑ ΣΗΜΕΡΑ ---
-Κατάσταση: {get_risk_score(f['avgtemp_c'], f['avghumidity'])}
-Θερμοκρασία: {f['avgtemp_c']}°C | Υγρασία: {f['avghumidity']}% | Μέγ. Άνεμος: {f['maxwind_kph']} km/h
+--- ΠΡΟΒΛΕΨΗ ΓΙΑ ΣΗΜΕΡΑ ({f_today['date']}) ---
+Θερμοκρασία: {f_today['day']['avgtemp_c']}°C | Υγρασία: {f_today['day']['avghumidity']}% | Μέγ. Άνεμος: {f_today['day']['maxwind_kph']} km/h
+
+--- ΠΡΟΒΛΕΨΗ ΓΙΑ ΑΥΡΙΟ ({f_tom['date']}) ---
+Θερμοκρασία: {f_tom['day']['avgtemp_c']}°C | Υγρασία: {f_tom['day']['avghumidity']}% | Μέγ. Άνεμος: {f_tom['day']['maxwind_kph']} km/h
 """
         with open("result.txt", "w", encoding="utf-8") as f:
             f.write(content)
     except Exception as e:
         print(f"Σφάλμα: {e}")
 
+# Μην ξεχάσεις να διατηρήσεις και τη συνάρτηση get_risk_score() που είχαμε πριν!
 get_weather_data()
