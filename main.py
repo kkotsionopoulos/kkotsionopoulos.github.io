@@ -8,6 +8,7 @@ def get_weather_data():
     lat, lon = "37.51", "22.38"
     base_url = "http://api.weatherapi.com/v1"
     
+    
     try:
         curr = requests.get(f"{base_url}/current.json?key={WEATHER_API_KEY}&q={lat},{lon}").json()
         hist = requests.get(f"{base_url}/history.json?key={WEATHER_API_KEY}&q={lat},{lon}&dt={(datetime.datetime.now()-datetime.timedelta(days=1)).strftime('%Y-%m-%d')}").json()
