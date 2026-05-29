@@ -1,25 +1,40 @@
 <style>
-    .vine-container { border: 1px solid #ddd; padding: 25px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .vine-btn { background: #2c3e50; color: #fff; padding: 20px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; width: 100%; cursor: pointer; }
-    #weather-report { margin-top: 20px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
+    .vine-container { border: 1px solid #ddd; padding: 30px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .vine-btn { background: #2c3e50; color: #fff; padding: 20px; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; }
+    .vine-btn:hover { background: #34495e; }
+    #weather-report { margin-top: 25px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
+    .info-section { margin-top: 30px; line-height: 1.6; color: #444; }
+    .info-section h3 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 5px; }
 </style>
 
 <div class="vine-container">
     <h2>VineWatch: Πρόβλεψη Περονόσπορου</h2>
     <button class="vine-btn" onclick="loadWeather()">Εμφάνιση Ανάλυσης Κινδύνου</button>
+    
     <div id="weather-report">
         <pre id="data-content" style="white-space: pre-wrap; font-family: sans-serif;"></pre>
     </div>
-    
-    <div style="margin-top: 30px; font-size: 0.9em; color: #666;">
+
+    <div class="info-section">
         <h3>Μεθοδολογία & Πιθανότητες</h3>
-        <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα. 
+        <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα:</p>
         <ul>
             <li><strong>>70%:</strong> Υψηλή πιθανότητα μόλυνσης.</li>
             <li><strong>40-70%:</strong> Μέτρια πίεση, απαιτείται παρακολούθηση.</li>
             <li><strong><40%:</strong> Χαμηλή δραστηριότητα παθογόνου.</li>
         </ul>
-        </p>
+
+        <h3>Αιτιολόγηση Κινδύνου</h3>
+        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για το μύκητα <em>Plasmopara viticola</em>. Η υγρασία αποτελεί τον κυρίαρχο παράγοντα καθώς τα σποριάγγεια απαιτούν σταγόνες νερού για τη βλάστηση και την απελευθέρωση των κινητών σπορίων.</p>
+
+        <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
+        <ul>
+            <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμος παράγοντας για τη διατήρηση της υδατικής μεμβράνης.</li>
+            <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικές συνθήκες ανάπτυξης 15-25°C.</li>
+            <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς των μολυσμάτων.</li>
+            <li><strong>Διάρκεια Διαβροχής:</strong> Η χρονική διάρκεια παραμονής υγρασίας στο φύλλωμα.</li>
+        </ul>
+        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις.</em></p>
     </div>
 </div>
 
