@@ -1,17 +1,31 @@
-<style>
-    /* CSS για το μενού */
-    .navbar { background: #2c3e50; padding: 15px 0; color: white; margin-bottom: 20px; }
-    .nav-links { display: flex; justify-content: center; gap: 20px; }
-    .nav-links a { color: white; text-decoration: none; font-weight: bold; font-family: sans-serif; }
-    .nav-links a:hover { color: #27ae60; }
-
-    /* Το υπόλοιπο στυλ για το VineWatch */
-    .vine-container { border: 1px solid #ddd; padding: 25px; border-radius: 12px; background: #fff; max-width: 700px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .vine-btn { background: #2c3e50; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; flex: 1; }
-    .vine-btn.secondary { background: #27ae60; }
-    #weather-report { margin-top: 25px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
-    .info-section { margin-top: 30px; line-height: 1.6; color: #444; text-align: justify; }
-</style>
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VineWatch | AI Agronomy</title>
+    <style>
+        /* CSS για το μενού και το layout */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; }
+        
+        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a { display: inline-block; padding: 6px 12px; color: white !important; border: 1.5px solid #27ae60; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; white-space: nowrap; }
+        .nav-links a:hover { background-color: #27ae60; }
+        
+        .vine-container { border: 1px solid #ddd; padding: 25px; border-radius: 12px; background: #fff; max-width: 700px; margin: 80px auto 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .button-group { display: flex; gap: 10px; margin-top: 20px; }
+        .vine-btn { background: #2c3e50; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; flex: 1; }
+        .vine-btn.secondary { background: #27ae60; }
+        #weather-report { margin-top: 25px; background: #f4f7f6; padding: 20px; border-left: 6px solid #27ae60; display: none; }
+        .info-section { margin-top: 30px; line-height: 1.6; color: #444; text-align: justify; }
+        .info-section h3 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 5px; }
+        
+        @media (max-width: 600px) { .nav-links a { font-size: 0.75em; padding: 5px 8px; } }
+    </style>
+</head>
+<body>
 
 <nav class="navbar">
     <div class="nav-container">
@@ -20,14 +34,14 @@
             <a href="portfolio.html">Portfolio</a>
             <a href="vine_watch.html">AI</a>
             <a href="blog.html">Blog</a>
-            <a href=" επικοινωνία.html">Επικοινωνία</a>
+            <a href="contact.html">Επικοινωνία</a>
         </div>
     </div>
 </nav>
 
 <div class="vine-container">
     <h2>VineWatch: Πρόβλεψη Περονόσπορου</h2>
-    <div style="display: flex; gap: 10px; margin-top: 20px;">
+    <div class="button-group">
         <button class="vine-btn" onclick="loadWeather()">Ανάλυση</button>
         <button class="vine-btn secondary" onclick="updateChart()">Γράφημα</button>
     </div>
@@ -40,17 +54,24 @@
 
     <div class="info-section">
         <h3>Μεθοδολογία & Πιθανότητες</h3>
-        <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα.</p>
-        
+        <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα:</p>
+        <ul>
+            <li><strong>>70%:</strong> Υψηλή πιθανότητα μόλυνσης.</li>
+            <li><strong>40-70%:</strong> Μέτρια πίεση, απαιτείται παρακολούθηση.</li>
+            <li><strong><40%:</strong> Χαμηλή δραστηριότητα παθογόνου.</li>
+        </ul>
+
         <h3>Αιτιολόγηση Κινδύνου</h3>
-        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Οι τιμές σε παρένθεση δείχνουν τη μεταβολή σε σχέση με την προηγούμενη ημέρα.</p>
-        
+        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Η υγρασία αποτελεί τον κυρίαρχο παράγοντα καθώς τα σποριάγγεια απαιτούν σταγόνες νερού για τη βλάστηση και την απελευθέρωση των κινητών σπορίων.</p>
+
         <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
         <ul>
             <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμος παράγοντας για τη διατήρηση της υδατικής μεμβράνης.</li>
             <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικές συνθήκες ανάπτυξης 15-25°C.</li>
-            <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς.</li>
+            <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς (>20 km/h υψηλός κίνδυνος).</li>
+            <li><strong>Διάρκεια Διαβροχής:</strong> Η χρονική διάρκεια παραμονής υγρασίας στο φύλλωμα.</li>
         </ul>
+        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις.</em></p>
     </div>
 </div>
 
@@ -68,10 +89,18 @@
   async function updateChart() {
     document.getElementById('chart-container').style.display = 'block';
     const text = await (await fetch('result.txt?t=' + new Date().getTime())).text();
-    const matches = text.match(/Υγρασία:\s*(\d+)%/g);
-    const humData = matches.map(m => parseInt(m.match(/\d+/)[0]));
+    const regex = /Υγρασία:\s*(\d+)%/g;
+    let matches = [];
+    let match;
+    while ((match = regex.exec(text)) !== null) { matches.push(parseInt(match[1])); }
     const ctx = document.getElementById('vineChart').getContext('2d');
     if (chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(ctx, { type: 'line', data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Υγρασία (%)', data: humData, borderColor: '#27ae60', fill: true }] }, options: { scales: { y: { min: 0, max: 100 } } } });
+    chartInstance = new Chart(ctx, { 
+        type: 'line', 
+        data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Υγρασία (%)', data: matches, borderColor: '#27ae60', fill: true }] },
+        options: { responsive: true, scales: { y: { min: 0, max: 100 } } }
+    });
   }
 </script>
+</body>
+</html>
