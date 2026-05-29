@@ -58,9 +58,24 @@
   async function updateChart() {
     document.getElementById('chart-container').style.display = 'block';
     const text = await (await fetch('result.txt?t=' + new Date().getTime())).text();
-    const humData = text.match(/Υγρασία: (\d+)%/g).map(m => parseInt(m.match(/\d+/)[0]));
+    
+    const regex = /Υγρασία:\s*(\d+)%/g;
+    let matches = [];
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+        matches.push(parseInt(match[1]));
+    }
+
     const ctx = document.getElementById('vineChart').getContext('2d');
     if (chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(ctx, { type: 'line', data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Υγρασία (%)', data: humData, borderColor: '#27ae60', fill: true }] } });
+    
+    chartInstance = new Chart(ctx, { 
+        type: 'line', 
+        data: { 
+            labels: ['Χθες', 'Σήμερα', 'Αύριο'], 
+            datasets: [{ label: 'Υγρασία (%)', data: matches, borderColor: '#27ae60', fill: true }] 
+        },
+        options: { responsive: true, scales: { y: { min: 0, max: 100 } } }
+    });
   }
 </script>
