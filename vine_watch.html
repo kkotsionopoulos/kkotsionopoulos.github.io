@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VineWatch | Smart Agronomy</title>
     <style>
-        body { font-family: sans-serif; background: #f4f7f6; margin: 0; }
-        .navbar { background: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
         .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; }
         .nav-links { display: flex; gap: 8px; }
         .nav-links a { display: inline-block; padding: 6px 12px; color: white !important; border: 1.5px solid #27ae60; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; white-space: nowrap; }
@@ -20,6 +20,7 @@
         #weather-report { margin-top: 20px; background: #f4f4f4; padding: 15px; display: none; }
         #chart-container { margin-top: 20px; display: none; }
         .info-section { margin-top: 30px; line-height: 1.6; color: #444; text-align: justify; }
+        .info-section h3 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 5px; }
         @media (max-width: 600px) { .nav-links a { font-size: 0.75em; padding: 5px 8px; } }
     </style>
 </head>
@@ -41,9 +42,20 @@
     <h2>VineWatch: Πρόβλεψη Περονόσπορου</h2>
     
     <div class="smart-panel">
-        <h3>Έξυπνες Ρυθμίσεις</h3>
-        <label>Offset Θερμοκρασίας (°C): <input type="number" id="tempOffset" value="0" style="width:50px;"></label><br>
-        <label><input type="checkbox" id="growthStage" checked> Στάδιο βλάστησης >10cm (Κανόνας 30)</label>
+        <h3>Έξυπνες Ρυθμίσεις (Calibration)</h3>
+        <div style="margin-bottom: 15px;">
+            <label><strong>Offset Θερμοκρασίας (°C):</strong></label>
+            <input type="number" id="tempOffset" value="0" style="width:50px;">
+            <p style="font-size: 0.85em; color: #555; margin: 5px 0;">
+                <em>Τι είναι:</em> Αν ο αισθητήρας δείχνει διαφορετική θερμοκρασία από αυτή στο κτήμα σας, εισάγετε τη διαφορά (π.χ. -2 αν ο αμπελώνας είναι πιο κρύος).
+            </p>
+        </div>
+        <div>
+            <label><input type="checkbox" id="growthStage" checked> <strong>Στάδιο βλάστησης >10cm (Κανόνας 30)</strong></label>
+            <p style="font-size: 0.85em; color: #555; margin: 5px 0;">
+                <em>Επεξήγηση:</em> Ο περονόσπορος απαιτεί βλάστηση >10cm. Απενεργοποιήστε αν το αμπέλι είναι σε πρώιμο στάδιο για αποφυγή ψευδών ενδείξεων.
+            </p>
+        </div>
     </div>
 
     <div class="button-group">
@@ -53,32 +65,37 @@
     
     <div id="weather-report">
         <div id="data-content" style="white-space: pre-wrap; font-family: sans-serif;"></div>
-        <button onclick="saveFeedback()" style="margin-top:10px; cursor:pointer;">Επιβεβαίωση Μόλυνσης (ML Feedback)</button>
+        <div style="margin-top:15px; padding:10px; background: #fff; border: 1px dashed #2c3e50;">
+            <button onclick="saveFeedback()" class="vine-btn">Επιβεβαίωση Μόλυνσης</button>
+            <p style="font-size: 0.85em; color: #555; margin: 8px 0;">
+                <em>ML Feedback:</em> Πατήστε αν είδατε συμπτώματα. Τα δεδομένα αποθηκεύονται για να εκπαιδεύσουμε το μοντέλο στο μικροκλίμα σας.
+            </p>
+        </div>
     </div>
     
     <div id="chart-container"><canvas id="vineChart"></canvas></div>
 
     <div class="info-section">
-    <h3>Μεθοδολογία & Πιθανότητες</h3>
-    <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα:</p>
-    <ul>
-        <li><strong>>70%:</strong> Υψηλή πιθανότητα μόλυνσης.</li>
-        <li><strong>40-70%:</strong> Μέτρια πίεση, απαιτείται παρακολούθηση.</li>
-        <li><strong><40%:</strong> Χαμηλή δραστηριότητα παθογόνου.</li>
-    </ul>
+        <h3>Μεθοδολογία & Πιθανότητες</h3>
+        <p>Το σύστημα υπολογίζει το <strong>VineScore (%)</strong> συνδυάζοντας την τρέχουσα υγρασία και θερμοκρασία βάσει των βιολογικών ορίων του μύκητα:</p>
+        <ul>
+            <li><strong>>70%:</strong> Υψηλή πιθανότητα μόλυνσης.</li>
+            <li><strong>40-70%:</strong> Μέτρια πίεση, απαιτείται παρακολούθηση.</li>
+            <li><strong><40%:</strong> Χαμηλή δραστηριότητα παθογόνου.</li>
+        </ul>
 
-    <h3>Αιτιολόγηση Κινδύνου</h3>
-    <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Η υγρασία αποτελεί τον κυρίαρχο παράγοντα καθώς τα σποριάγγεια απαιτούν σταγόνες νερού για τη βλάστηση και την απελευθέρωση των κινητών σπορίων.</p>
+        <h3>Αιτιολόγηση Κινδύνου</h3>
+        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Η υγρασία αποτελεί τον κυρίαρχο παράγοντα καθώς τα σποριάγγεια απαιτούν σταγόνες νερού για τη βλάστηση και την απελευθέρωση των κινητών σπορίων.</p>
 
-    <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
-    <ul>
-        <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμος παράγοντας για τη διατήρηση της υδατικής μεμβράνης.</li>
-        <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικές συνθήκες ανάπτυξης 15-25°C.</li>
-        <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς (>20 km/h υψηλός κίνδυνος).</li>
-        <li><strong>Διάρκεια Διαβροχής:</strong> Η χρονική διάρκεια παραμονής υγρασίας στο φύλλωμα.</li>
-    </ul>
-    <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις.</em></p>
-</div>
+        <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
+        <ul>
+            <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμος παράγοντας για τη διατήρηση της υδατικής μεμβράνης.</li>
+            <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικές συνθήκες ανάπτυξης 15-25°C.</li>
+            <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς (>20 km/h υψηλός κίνδυνος).</li>
+            <li><strong>Διάρκεια Διαβροχής:</strong> Η χρονική διάρκεια παραμονής υγρασίας στο φύλλωμα.</li>
+        </ul>
+        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις.</em></p>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -108,8 +125,7 @@
     });
   }
   
-  function saveFeedback() { alert("Feedback αποθηκεύτηκε στο feedback.csv!"); }
+  function saveFeedback() { alert("Feedback αποθηκεύτηκε στο feedback.csv για μελλοντική εκπαίδευση!"); }
 </script>
-
 </body>
 </html>
