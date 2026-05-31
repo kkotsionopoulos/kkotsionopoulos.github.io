@@ -17,9 +17,11 @@
         .button-group { display: flex; gap: 10px; margin-bottom: 20px; }
         .vine-btn { background: #2c3e50; color: #fff; padding: 10px; border: none; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold; }
         .vine-btn.secondary { background: #27ae60; }
-        #weather-report { display:none; margin-bottom: 20px; padding: 15px; background: #eee; }
-        #chart-container { display: none; margin-bottom: 20px; }
-        .info-section { line-height: 1.6; color: #444; }
+        #weather-report { display:none; margin-top:20px; padding:15px; background:#f9f9f9; border-radius:8px; line-height: 1.8; }
+        .risk-high { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .risk-med { background: #f1c40f; color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .info-section { margin-top: 30px; line-height: 1.6; color: #444; text-align: justify; }
+        .info-section h3 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -48,12 +50,29 @@
         <button class="vine-btn secondary" onclick="updateChart()">Γράφημα</button>
     </div>
     
-    <div id="weather-report"><div id="data-content"></div></div>
-    <div id="chart-container"><canvas id="vineChart"></canvas></div>
+    <div id="weather-report"><div id="data-content" style="white-space: pre-wrap;"></div></div>
+    <div id="chart-container" style="display:none;"><canvas id="vineChart"></canvas></div>
 
     <div class="info-section">
         <h3>Μεθοδολογία</h3>
         <p>Το σύστημα χρησιμοποιεί <strong>Leaf Wetness Estimation</strong>: Συνδυάζει την υγρασία (>85%) και τη βροχόπτωση για να εκτιμήσει αν υπάρχει υδατική μεμβράνη στο φύλλωμα, κρίσιμη για τη βλάστηση των σπορίων του <em>Plasmopara viticola</em>.</p>
+        
+        <h3>Πιθανότητες</h3>
+        <ul>
+            <li><strong>>70%:</strong> Υψηλή πιθανότητα μόλυνσης.</li>
+            <li><strong>40-70%:</strong> Μέτρια πίεση, απαιτείται παρακολούθηση.</li>
+            <li><strong><40%:</strong> Χαμηλή δραστηριότητα παθογόνου.</li>
+        </ul>
+        <h3>Αιτιολόγηση Κινδύνου</h3>
+        <p>Ο κίνδυνος υπολογίζεται βάσει των ευνοϊκών συνθηκών για τον <em>Plasmopara viticola</em>. Η υγρασία αποτελεί τον κυρίαρχο παράγοντα καθώς τα σποριάγγεια απαιτούν σταγόνες νερού για τη βλάστηση και την απελευθέρωση των κινητών σπορίων.</p>
+        <h3>Τίτλοι Παραγόντων Ελέγχου</h3>
+        <ul>
+            <li><strong>Υγρασία Φύλλων:</strong> Κρίσιμος παράγοντας για τη διατήρηση της υδατικής μεμβράνης.</li>
+            <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικές συνθήκες ανάπτυξης 15-25°C.</li>
+            <li><strong>Ταχύτητα Ανέμου:</strong> Ρυθμιστής διασποράς (>20 km/h υψηλός κίνδυνος).</li>
+            <li><strong>Διάρκεια Διαβροχής:</strong> Η χρονική διάρκεια παραμονής υγρασίας στο φύλλωμα.</li>
+        </ul>
+        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις.</em></p>
     </div>
 </div>
 
@@ -61,12 +80,14 @@
   function loadWeather() {
     document.getElementById('weather-report').style.display = 'block';
     fetch('result.txt?t=' + new Date().getTime()).then(r => r.text()).then(d => {
-        document.getElementById('data-content').innerHTML = d;
+        let formatted = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
+                         .replace(/ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-med">ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ</span>');
+        document.getElementById('data-content').innerHTML = formatted;
         const temp = d.match(/Θερμοκρασία:\s*(-?\d+)/)[1];
         const hum = d.match(/Υγρασία:\s*(\d+)/)[1];
         document.getElementById('val-temp').innerText = temp;
         document.getElementById('val-hum').innerText = hum;
-        document.getElementById('val-wet').innerText = (hum > 85) ? "Ναι" : "Όχι";
+        document.getElementById('val-wet').innerText = (parseInt(hum) > 85) ? "Ναι" : "Όχι";
     });
   }
 
@@ -75,21 +96,16 @@
     document.getElementById('chart-container').style.display = 'block';
     const text = await (await fetch('result.txt?t=' + new Date().getTime())).text();
     const matches = Array.from(text.matchAll(/Υγρασία:\s*(\d+)%/g)).map(m => parseInt(m[1]));
-    
     const ctx = document.getElementById('vineChart').getContext('2d');
     if (chartInstance) chartInstance.destroy();
     chartInstance = new Chart(ctx, { 
         type: 'line', 
         data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Υγρασία (%)', data: matches, borderColor: '#27ae60', fill: true }] },
         options: {
-            plugins: {
-                annotation: {
-                    annotations: {
-                        line1: { type: 'line', yMin: 40, yMax: 40, borderColor: 'yellow', borderWidth: 2, label: { content: 'Μέτριο (40%)', enabled: true } },
-                        line2: { type: 'line', yMin: 70, yMax: 70, borderColor: 'red', borderWidth: 2, label: { content: 'Υψηλό (70%)', enabled: true } }
-                    }
-                }
-            },
+            plugins: { annotation: { annotations: {
+                line1: { type: 'line', yMin: 40, yMax: 40, borderColor: 'yellow', borderWidth: 2 },
+                line2: { type: 'line', yMin: 70, yMax: 70, borderColor: 'red', borderWidth: 2 }
+            }}},
             scales: { y: { min: 0, max: 100 } }
         }
     });
