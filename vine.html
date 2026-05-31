@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VineWatch Project | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .project-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .project-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .project-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* --- TECHNICAL PIPELINE BOX --- */
+        .pipeline-container {
+            background: #fdfdfd;
+            padding: 20px 20px 20px 30px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+
+        .pipeline-container ul {
+            margin: 0;
+            padding-left: 10px;
+            font-size: 1.05em;
+        }
+
+        .pipeline-container li {
+            margin-bottom: 12px;
+            list-style-type: none;
+            position: relative;
+        }
+
+        .pipeline-container li::before {
+            content: "▹";
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        .pipeline-container strong {
+            color: var(--primary-color);
+        }
+
+        /* --- BENEFITS LIST --- */
+        .benefits-list {
+            padding-left: 20px;
+            font-size: 1.1em;
+        }
+
+        .benefits-list li {
+            margin-bottom: 10px;
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #2c3e50;
+            color: white;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .project-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="project-header">
+        <h1>VineWatch – Σύστημα Υποστήριξης Αποφάσεων για την Αμπελουργία</h1>
+        <div class="project-meta">Κατηγορία: Γεωργία Ακριβείας & Ανάπτυξη Λογισμικού | Μάιος 2026</div>
+    </div>
+
+    <h2>Τι είναι το VineWatch;</h2>
+    <p>Το VineWatch είναι μια ψηφιακή εφαρμογή Γεωργίας Ακριβείας (Precision Agriculture) που σχεδιάστηκε για την έγκαιρη πρόβλεψη του περονόσπουρου (<em>Plasmopara viticola</em>). Συνδυάζει μετεωρολογικά δεδομένα σε πραγματικό χρόνο με βιοκλιματικούς αλγόριθμους για να προσφέρει στον αμπελουργό ακριβείς πληροφορίες σχετικά με τον κίνδυνο εμφάνισης της ασθένειας στο κτήμα του.</p>
+
+    <h2>Πώς δουλεύει; (Τεχνική Προσέγγιση)</h2>
+    <p>Η εφαρμογή λειτουργεί μέσω μιας αυτοματοποιημένης ροής δεδομένων (Pipeline):</p>
+    
+    <div class="pipeline-container">
+        <ul>
+            <li><strong>Data Acquisition:</strong> Μέσω Python και WeatherAPI, το σύστημα αντλεί δεδομένα (θερμοκρασία, υγρασία, βροχόπτωση) για την ακριβή τοποθεσία του αμπελώνα.</li>
+            <li><strong>Smart Modeling:</strong> Ο αλγόριθμος "VineScore" αξιολογεί τον κίνδυνο λαμβάνοντας υπόψη:
+                <ul>
+                    <li style="list-style-type: circle; margin: 5px 0 5px 20px; font-size: 0.95em;"><em>Leaf Wetness Estimation:</em> Εκτίμηση διαβροχής φύλλων βάσει υγρασίας και βροχόπτωσης.</li>
+                    <li style="list-style-type: circle; margin: 5px 0 5px 20px; font-size: 0.95em;"><em>Calibration (Offset):</em> Δυνατότητα προσαρμογής του αλγορίθμου στο μικροκλίμα του συγκεκριμένου κτήματος.</li>
+                    <li style="list-style-type: circle; margin: 5px 0 5px 20px; font-size: 0.95em;"><em>Growth Stage Logic:</em> Φιλτράρισμα δεδομένων βάσει του σταδίου βλάστησης (Κανόνας των 3 Δεκάδων).</li>
+                </ul>
+            </li>
+            <li><strong>Visualization:</strong> Τα αποτελέσματα οπτικοποιούνται σε ένα διαδραστικό dashboard με χρήση Chart.js, όπου ο χρήστης βλέπει την πορεία της υγρασίας και τα κρίσιμα όρια κινδύνου (40% και 70%).</li>
+            <li><strong>Automation:</strong> Το σύστημα τρέχει αυτόνομα μέσω GitHub Actions, προσφέροντας ενημερώσεις χωρίς ανθρώπινη παρέμβαση.</li>
+        </ul>
+    </div>
+
+    <h2>Τι αποτελέσματα προσφέρει;</h2>
+    <ul class="benefits-list">
+        <li><strong>Έγκαιρη Ειδοποίηση:</strong> Ο παραγωγός γνωρίζει πότε οι συνθήκες ευνοούν την ανάπτυξη του μύκητα πριν εμφανιστούν τα πρώτα συμπτώματα.</li>
+        <li><strong>Μείωση Κόστους & Περιβαλλοντικού Αποτυπώματος:</strong> Επιτρέπει τη διενέργεια ψεκασμών μόνο όταν είναι απαραίτητο, περιορίζοντας τη σπατάλη φυτοφαρμάκων και το κόστος παραγωγής.</li>
+        <li><strong>Data-Driven Decisions:</strong> Μετατρέπει την εμπειρική αμπελουργία σε επιστημονικά τεκμηριωμένη διαχείριση.</li>
+    </ul>
+
+    <h2>Πώς βοηθάει τον Παραγωγό;</h2>
+    <p>Το VineWatch δεν υποκαθιστά τον γεωπόνο, αλλά λειτουργεί ως το "έξυπνο μάτι" στο κτήμα του. Βοηθά τον παραγωγό:</p>
+    <ul class="benefits-list">
+        <li>Να προγραμματίζει τις εργασίες του (π.χ. ψεκασμούς) με βάση την πρόβλεψη για την επόμενη ημέρα.</li>
+        <li>Να προσαρμόζει το σύστημα στα δεδομένα του δικού του κτήματος μέσω του Calibration.</li>
+        <li>Να συμβάλλει στη συλλογή δεδομένων (Machine Learning Feedback), βοηθώντας το σύστημα να "μαθαίνει" τις ιδιαιτερότητες της περιοχής του και να γίνεται πιο ακριβές κάθε χρόνο.</li>
+    </ul>
+
+    <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Projects</p>
+</footer>
+
+</body>
+</html>
