@@ -21,16 +21,22 @@ def get_weather_data():
         fore = requests.get(f"{base_url}/forecast.json?key={WEATHER_API_KEY}&q={lat},{lon}&days=3").json()
         c, f_today, f_tom = curr['current'], fore['forecast']['forecastday'][0], fore['forecast']['forecastday'][1]
         
+        # Λογική Διαβροχής για το κείμενο
+        wet_today = "Ναι" if f_today['day']['avghumidity'] > 85 and f_today['day']['totalprecip_mm'] > 0 else "Όχι"
+        wet_tom = "Ναι" if f_tom['day']['avghumidity'] > 85 and f_tom['day']['totalprecip_mm'] > 0 else "Όχι"
+        
         content = f"""Τελευταία ενημέρωση: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}
 --- ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---
 Κίνδυνος: {get_risk_score(c['temp_c'], c['humidity'], c.get('precip_mm', 0), 0, True)}
 Θερμοκρασία: {c['temp_c']}°C | Υγρασία: {c['humidity']}% | Άνεμος: {c['wind_kph']} km/h
+
 --- ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---
 Κίνδυνος: {get_risk_score(f_today['day']['avgtemp_c'], f_today['day']['avghumidity'], f_today['day']['totalprecip_mm'], 0, True)}
-Θερμοκρασία: {f_today['day']['avgtemp_c']}°C | Υγρασία: {f_today['day']['avghumidity']}%
+Θερμοκρασία: {f_today['day']['avgtemp_c']}°C | Υγρασία: {f_today['day']['avghumidity']}% | Άνεμος: {f_today['day']['maxwind_kph']} km/h | Διαβροχή: {wet_today}
+
 --- ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---
 Κίνδυνος: {get_risk_score(f_tom['day']['avgtemp_c'], f_tom['day']['avghumidity'], f_tom['day']['totalprecip_mm'], 0, True)}
-Θερμοκρασία: {f_tom['day']['avgtemp_c']}°C | Υγρασία: {f_tom['day']['avghumidity']}%"""
+Θερμοκρασία: {f_tom['day']['avgtemp_c']}°C | Υγρασία: {f_tom['day']['avghumidity']}% | Άνεμος: {f_tom['day']['maxwind_kph']} km/h | Διαβροχή: {wet_tom}"""
         with open("result.txt", "w", encoding="utf-8") as f: f.write(content)
     except Exception as e: print(e)
 
