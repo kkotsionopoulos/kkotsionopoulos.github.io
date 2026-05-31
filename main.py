@@ -1,9 +1,8 @@
 import os
 import requests
 import datetime
-import json
 
-# Ρύθμιση API και παραμέτρων
+# Το API Key πρέπει να είναι ορισμένο στα GitHub Secrets
 WEATHER_API_KEY = os.environ.get("WEATHER_API_KEY")
 
 def get_risk_score(temp, hum, precip, offset, growth_stage):
@@ -21,7 +20,7 @@ def get_risk_score(temp, hum, precip, offset, growth_stage):
     # Βασική βαθμολογία με βάση την υγρασία (60%) και θερμοκρασία (40%)
     score = (hum * 0.6) + (max(0, 100 - (abs(20 - adj_temp) * 5)) * 0.4)
     
-    # Προσθήκη επιβάρυνσης αν υπάρχει Leaf Wetness
+    # Προσθήκη επιβάρυνσης αν υπάρχει Leaf Wetness (συνθήκη μύκητα)
     if leaf_wetness: 
         score += 20
     
@@ -32,10 +31,10 @@ def get_risk_score(temp, hum, precip, offset, growth_stage):
     return f"ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ ({score:.0f}%)"
 
 def get_weather_data():
-    lat, lon = "37.51", "22.38"
+    lat, lon = "37.51", "22.38" # Συντεταγμένες Τρίπολης
     base_url = "http://api.weatherapi.com/v1"
     
-    # Υποθετικές ρυθμίσεις χρήστη (για το prototype)
+    # Ρυθμίσεις (Προεπιλεγμένες τιμές για το prototype)
     user_offset = 0 
     user_growth_stage = True
     
@@ -65,7 +64,7 @@ def get_weather_data():
             f.write(content)
             
     except Exception as e:
-        print(f"Σφάλμα: {e}")
+        print(f"Σφάλμα κατά την άντληση δεδομένων: {e}")
 
 if __name__ == "__main__":
     get_weather_data()
