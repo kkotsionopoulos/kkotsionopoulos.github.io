@@ -12,7 +12,6 @@
             --bg-color: #f4f7f6;
         }
 
-        /* Βασικό στυλ σελίδας */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
@@ -20,7 +19,6 @@
             padding: 0;
         }
 
-        /* --- NAVBAR - ΑΚΡΙΒΩΣ ΟΠΩΣ ΣΤΗΝ ΑΡΧΙΚΗ --- */
         .navbar {
             background-color: #2c3e50 !important;
             width: 100%;
@@ -65,15 +63,13 @@
             background-color: #27ae60;
         }
 
-        /* CSS για το Portfolio Grid */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             padding: 40px 20px;
             max-width: 1200px;
-            margin: 0 auto;
-            margin-top: 70px !important; /* Κενό για να μην κρύβεται πίσω από το navbar */
+            margin: 70px auto 0 auto;
         }
 
         .post-card {
@@ -86,6 +82,14 @@
         }
 
         .post-card:hover { transform: translateY(-5px); }
+
+        .card-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
 
         .post-category {
             font-size: 0.8em;
@@ -108,17 +112,6 @@
         }
         
         .read-more:hover { border-bottom: 2px solid #27ae60; }
-
-        /* Media Queries για κινητά */
-        @media (max-width: 600px) {
-            .nav-links a { 
-                font-size: 0.75em; 
-                padding: 5px 8px; 
-            }
-            .nav-links {
-                gap: 5px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -135,19 +128,18 @@
     </nav>
 
     <section class="portfolio-grid">
-	
-	<article class="post-card">
+        <article class="post-card">
             <img src="vinewatch.jpg" alt="VineWatch Project" class="card-thumbnail">
             <div class="post-category">Project</div>
             <h3>VineWatch – Σύστημα Υποστήριξης Αποφάσεων για την Αμπελουργία</h3>
-            <p>Ψηφιακή εφαρμογή Γεωργίας Ακριβείας που συνδυάζει Python, Weather APIs και GitHub Actions για την έγκαιρη πρόβλεψη του περονόσπουρου στα αμπέλια...</p>
+            <p>Ψηφιακή εφαρμογή Γεωργίας Ακριβείας που συνδυάζει Python, Weather APIs και GitHub Actions για την έγκαιρη πρόβλεψη του περονόσπορου στα αμπέλια...</p>
             <a href="vine.html" class="read-more">Δείτε το Project</a>
         </article>
-	
+        
         <article class="post-card">
             <div class="post-category">Μεταπτυχιακή εργασία</div>
             <h3>Ανταγωνιστικότητα των ελληνικών εξαγωγών: η περίπτωση των αγροτικών προϊόντων</h3>
-            <p>Σκοπός της εργασίας αυτής είναι να διερευνηθεί η ανταγωνιστικότητα κάποιων από τους πιο σημαντικούς κλάδους διεθνώς εμπορεύσιμων γεωργικών προϊόντων της Ελλάδας. Η ανάλυση εστιάζει περισσότερο στον εντοπισμό συγκριτικών πλεονεκτημάτων κατά κλάδο παραγωγής χρησιμοποιώντας στοιχεία της οικονομικής περιόδου 1997 – 2010, όπως αυτά προσδιορίζονται από την διάρθρωση του ισοζυγίου εξωτερικών συναλλαγών και της εξέλιξης των εμπορευματικών ροών στην διάρκεια αυτής της περιόδου.</p>
+            <p>Σκοπός της εργασίας αυτής είναι να διερευνηθεί η ανταγωνιστικότητα κλάδων διεθνώς εμπορεύσιμων γεωργικών προϊόντων της Ελλάδας για την περίοδο 1997 – 2010.</p>
             <a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746" target="_blank" class="read-more">Διαβάστε την εργασία</a>
         </article>
 
@@ -161,14 +153,14 @@
         <article class="post-card">
             <div class="post-category">Διάκριση</div>
             <h3>Breathing Salad</h3>
-            <p>Βραβευμένο επιχειρηματικό σχέδιο για παραγωγή σαλάτας με υδροπονικό σύστημα. Παραγωγή πράσινων σαλατών με χρήση συστήματος επιπλέουσας υδροπονίας, καθώς και εφαρμογή μιας καινοτόμου μεθόδου συσκευασίας, η οποία επιτρέπει στις πράσινες σαλάτες να αναπνέουν μετά τη συγκομιδή. Πρόκριση στα 15 κορυφαία επιχειρηματικά σχέδια του τελικού. Διαγωνισμός καινοτόμων επιχειρηματικών σχεδίων για νέους επιχειρηματίες, με διοργανωτή το (ΙΝΕΔΙΒΙΜ).</p>
+            <p>Βραβευμένο επιχειρηματικό σχέδιο για παραγωγή σαλάτας με υδροπονικό σύστημα και καινοτόμο μέθοδο συσκευασίας. Πρόκριση στα 15 κορυφαία επιχειρηματικά σχέδια.</p>
             <a href="https://tinyurl.com/2dsc4uwu/" target="_blank" class="read-more">Λεπτομέρειες</a>
         </article>
     </section>
     
-<footer style="text-align: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px;">
-    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
-</footer>
+    <footer style="text-align: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px;">
+        <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
+    </footer>
 
 </body>
 </html>
