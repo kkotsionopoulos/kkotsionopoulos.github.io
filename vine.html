@@ -66,7 +66,7 @@
             background-color: #27ae60;
         }
 
-        /* --- ΠΡΟΣΘΗΚΗ ΚΟΥΜΠΙΟΥ --- */
+        /* --- ΚΟΥΜΠΙ ΚΑΙ LINKS --- */
         .hero-btn {
             display: inline-block;
             margin: 20px 0;
@@ -81,6 +81,18 @@
         .hero-btn:hover { background-color: #219150; }
         .link-style { color: var(--accent-color); text-decoration: none; font-weight: bold; }
         .link-style:hover { text-decoration: underline; }
+
+        /* --- ΕΙΚΟΝΑ --- */
+        .responsive-img {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
+        }
 
         /* --- CONTAINER --- */
         .container {
@@ -127,7 +139,6 @@
             text-align: justify;
         }
 
-        /* --- TECHNICAL PIPELINE BOX --- */
         .pipeline-container {
             background: #fdfdfd;
             padding: 20px 20px 20px 30px;
@@ -136,39 +147,13 @@
             margin-bottom: 25px;
         }
 
-        .pipeline-container ul {
-            margin: 0;
-            padding-left: 10px;
-            font-size: 1.05em;
-        }
+        .pipeline-container ul { margin: 0; padding-left: 10px; font-size: 1.05em; }
+        .pipeline-container li { margin-bottom: 12px; list-style-type: none; position: relative; }
+        .pipeline-container li::before { content: "▹"; color: var(--accent-color); font-weight: bold; position: absolute; left: -20px; }
+        .pipeline-container strong { color: var(--primary-color); }
 
-        .pipeline-container li {
-            margin-bottom: 12px;
-            list-style-type: none;
-            position: relative;
-        }
-
-        .pipeline-container li::before {
-            content: "▹";
-            color: var(--accent-color);
-            font-weight: bold;
-            position: absolute;
-            left: -20px;
-        }
-
-        .pipeline-container strong {
-            color: var(--primary-color);
-        }
-
-        /* --- BENEFITS LIST --- */
-        .benefits-list {
-            padding-left: 20px;
-            font-size: 1.1em;
-        }
-
-        .benefits-list li {
-            margin-bottom: 10px;
-        }
+        .benefits-list { padding-left: 20px; font-size: 1.1em; }
+        .benefits-list li { margin-bottom: 10px; }
 
         .back-link {
             display: inline-block;
@@ -181,13 +166,8 @@
             border-radius: 5px;
             transition: 0.3s;
         }
+        .back-link:hover { background: var(--accent-color); color: white; }
 
-        .back-link:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 40px 0;
@@ -196,7 +176,6 @@
             margin-top: 50px;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             .container { padding: 25px; width: 90%; margin-top: 80px; }
             .project-header h1 { font-size: 1.6em; }
@@ -227,6 +206,8 @@
 
     <h2>Τι είναι το <a href="vine_watch.html" class="link-style">VineWatch</a>;</h2>
     <p>Το <a href="vine_watch.html" class="link-style">VineWatch</a> είναι μια ψηφιακή εφαρμογή Γεωργίας Ακριβείας (Precision Agriculture) που σχεδιάστηκε για την έγκαιρη πρόβλεψη του περονόσπορου (<em>Plasmopara viticola</em>). Συνδυάζει μετεωρολογικά δεδομένα σε πραγματικό χρόνο με βιοκλιματικούς αλγόριθμους για να προσφέρει στον αμπελουργό ακριβείς πληροφορίες σχετικά με τον κίνδυνο εμφάνισης της ασθένειας στο κτήμα του.</p>
+    
+    <img src="vinewatch.jpg" alt="VineWatch Dashboard" class="responsive-img">
 
     <h2>Πώς δουλεύει; (Τεχνική Προσέγγιση)</h2>
     <p>Η εφαρμογή λειτουργεί μέσω μιας αυτοματοποιημένης ροής δεδομένων (Pipeline):</p>
@@ -254,7 +235,7 @@
     </ul>
 
     <h2>Πώς βοηθάει τον Παραγωγό;</h2>
-    <p>Το <a href="vine_watch.html" class="link-style">VineWatch</a> δεν υποκαθιστά τον γεωπόνο, αλλά λειτουργεί ως το "έξυπνο μάτι" στο κτήμα του. Βοηθά τον παραγωγό:</p>
+    <p>Το <a href="vine_watch.html" class="link-style">VineWatch</a> δεν υποκαθιστά τον γεωπόνο, αλλά λειτουργεί ως το "έξυπνο μάτι" στο κτήμα του.</p>
     <ul class="benefits-list">
         <li>Να προγραμματίζει τις εργασίες του (π.χ. ψεκασμούς) με βάση την πρόβλεψη για την επόμενη ημέρα.</li>
         <li>Να προσαρμόζει το σύστημα στα δεδομένα του δικού του κτήματος μέσω του Calibration.</li>
