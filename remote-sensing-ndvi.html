@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Τηλεπισκόπηση & NDVI | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Δείκτες Βλάστησης (NDVI): Η Δορυφορική Τηλεπισκόπηση στην Υπηρεσία της Λίπανσης Ακριβείας</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούνιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ανομοιομορφία των εδαφικών χαρακτηριστικών και η χωρική παραλλακτικότητα εντός ενός αγροτεμαχίου αποτελούν θεμελιώδη δεδομένα στη σύγχρονη γεωργική πράξη. Παραδοσιακά, η λίπανση εφαρμοζόταν ομοιόμορφα σε όλη την έκταση του χωραφιού, οδηγώντας συχνά σε υπερλίπανση ορισμένων ζωνών και υπολίπανση άλλων. Η σύγχρονη Αγροτική Τεχνολογία λύνει αυτό το πρόβλημα μέσω της <strong>Δορυφορικής Τηλεπισκόπησης (Remote Sensing)</strong>, προσφέροντας εργαλεία για τη χαρτογράφηση της ζωτικότητας των καλλιεργειών με μηδενικό κόστος πεδίου.</p>
+
+        <p>Το σημαντικότερο και πιο ευρέως χρησιμοποιούμενο εργαλείο σε αυτή την προσέγγιση είναι ο <strong>Κανονικοποιημένος Δείκτης Διαφοράς Βλάστησης (NDVI - Normalized Difference Vegetation Index)</strong>. Ο δείκτης αυτός βασίζεται στον τρόπο με τον οποίο τα φυτά αλληλεπιδρούν με την ηλιακή ακτινοβολία. Η υγιής χλωροφύλλη απορροφά έντονα το ορατό ερυθρό φως (Red band) για να εκτελέσει τη φωτοσύνθεση, ενώ αντανακλά ισχυρά το εγγύς υπέρυθρο φως (Near-Infrared, NIR) για να αποφύγει την υπερθέρμανση των ιστών.</p>
+
+        <img src="remote-sensing.jpg" alt="Δορυφορική ανάλυση αγρού και δείκτης NDVI" class="article-image">
+
+        <p>Ο μαθηματικός τύπος για τον υπολογισμό του δείκτη είναι: <code>NDVI = (NIR - Red) / (NIR + Red)</code>. Οι τιμές του κυμαίνονται από -1 έως +1. Στις καλλιέργειες, τιμές κοντά στο 0 υποδηλώνουν γυμνό έδαφος ή μη ζωτική βλάστηση, ενώ τιμές από 0.6 έως 0.9 φανερώνουν πυκνή, υγιή και αναπτυγμένη φυλλική επιφάνεια. Αναλύοντας πολυφασματικές εικόνες από δορυφόρους ελεύθερης πρόσβασης (όπως οι Ευρωπαϊκοί <strong>Sentinel-2</strong> ή οι Αμερικανικοί <strong>Landsat</strong>), οι γεωπόνοι μπορούν να δημιουργήσουν χάρτες ζωτικότητας σε πραγματικό χρόνο.</p>
+
+        <p>Τα πλεονεκτήματα της ενσωμάτωσης του NDVI στη διαχείριση των καλλιεργειών είναι επιστημονικά τεκμηριωμένα:</p>
+
+        <ul>
+            <li><strong>Λίπανση Μεταβλητής Δόσης (VRA):</strong> Οι χάρτες NDVI μετατρέπονται σε χάρτες συνταγής λίπανσης. Τα μηχανήματα του τρακτέρ, καθοδηγούμενα από GPS, εφαρμόζουν την ακριβή ποσότητα αζώτου που απαιτείται σε κάθε ζώνη, μειώνοντας τις απώλειες λόγω έκπλυσης.</li>
+            <li><strong>Έγκαιρος Εντοπισμός Στρες:</strong> Μια ξαφνική πτώση των τιμών του δείκτη NDVI σε συγκεκριμένο σημείο του αγρού προειδοποιεί για πιθανή προσβολή από εχθρό ή ασθένεια, τροφοπενία, ή ελλιπή άρδευση, προτού τα συμπτώματα γίνουν ορατά δια γυμνού οφθαλμού.</li>
+            <li><strong>Πρόβλεψη Απόδοσης:</strong> Η συσχέτιση των διαχρονικών τιμών του δείκτη με τη συσσώρευση βιομάζας επιτρέπει την ανάπτυξη έγκυρων προγνωστικών μοντέλων για την τελική στρεμματική απόδοση.</li>
+        </ul>
+
+        <p>Η Τηλεπισκόπηση και ο δείκτης NDVI εκδημοκρατίζουν τη Γεωργία Ακριβείας, καθώς δίνουν πρόσβαση σε προηγμένα ψηφιακά δεδομένα ακόμη και σε μικροκαλλιεργητές. Η επιστημονική ανάλυση της ανακλαστικότητας των φυτών αποτελεί το κλειδί για μια βιώσιμη, οικονομικά αποδοτική και περιβαλλοντικά υπεύθυνη γεωργική παραγωγή.</p>
+    </div>
+
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Rouse, J. W., Haas, R. H., Schell, J. A., & Deering, D. W. (1974).</strong> <em>Monitoring vegetation systems in the Great Plains with ERTS.</em> Third ERTS-1 Symposium, NASA SP-351, 309-317.</li>
+            <li><strong>Mulla, D. J. (2013).</strong> <em>Twenty-five years of remote sensing in precision agriculture: Key advances and remaining knowledge gaps.</em> Biosystems Engineering, 114(4), 358-371.</li>
+            <li><strong>Segarra, J., et al. (2020).</strong> <em>Remote sensing for precision agriculture: Sentinel-2 improved assessment of nitrogen status in crops.</em> Sensors, 20(9), 2545.</li>
+            <li><strong>European Space Agency (ESA).</strong> <em>Sentinel-2 User Handbook.</em> Standard Document of the Copernicus Program.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
