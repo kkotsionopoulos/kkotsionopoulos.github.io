@@ -66,6 +66,22 @@
             background-color: #27ae60;
         }
 
+        /* --- ΠΡΟΣΘΗΚΗ ΚΟΥΜΠΙΟΥ --- */
+        .hero-btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 25px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .hero-btn:hover { background-color: #219150; }
+        .link-style { color: var(--accent-color); text-decoration: none; font-weight: bold; }
+        .link-style:hover { text-decoration: underline; }
+
         /* --- CONTAINER --- */
         .container {
             max-width: 800px; 
@@ -80,6 +96,7 @@
             margin-bottom: 30px;
             border-bottom: 2px solid #eee;
             padding-bottom: 20px;
+            text-align: center;
         }
 
         .project-header h1 {
@@ -153,17 +170,6 @@
             margin-bottom: 10px;
         }
 
-        .article-image {
-            display: block;
-            width: 100%;
-            max-width: 650px;
-            height: auto;
-            margin: 35px auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-        }
-
         .back-link {
             display: inline-block;
             margin-top: 30px;
@@ -214,12 +220,13 @@
 
 <div class="container">
     <div class="project-header">
-        <h1>VineWatch – Σύστημα Υποστήριξης Αποφάσεων για την Αμπελουργία</h1>
+        <h1><a href="vine_watch.html" style="text-decoration:none; color:inherit;">VineWatch</a> – Σύστημα Υποστήριξης Αποφάσεων για την Αμπελουργία</h1>
+        <a href="vine_watch.html" class="hero-btn">Είσοδος στο VineWatch</a>
         <div class="project-meta">Κατηγορία: Γεωργία Ακριβείας & Ανάπτυξη Λογισμικού | Μάιος 2026</div>
     </div>
 
-    <h2>Τι είναι το VineWatch;</h2>
-    <p>Το VineWatch είναι μια ψηφιακή εφαρμογή Γεωργίας Ακριβείας (Precision Agriculture) που σχεδιάστηκε για την έγκαιρη πρόβλεψη του περονόσπουρου (<em>Plasmopara viticola</em>). Συνδυάζει μετεωρολογικά δεδομένα σε πραγματικό χρόνο με βιοκλιματικούς αλγόριθμους για να προσφέρει στον αμπελουργό ακριβείς πληροφορίες σχετικά με τον κίνδυνο εμφάνισης της ασθένειας στο κτήμα του.</p>
+    <h2>Τι είναι το <a href="vine_watch.html" class="link-style">VineWatch</a>;</h2>
+    <p>Το <a href="vine_watch.html" class="link-style">VineWatch</a> είναι μια ψηφιακή εφαρμογή Γεωργίας Ακριβείας (Precision Agriculture) που σχεδιάστηκε για την έγκαιρη πρόβλεψη του περονόσπορου (<em>Plasmopara viticola</em>). Συνδυάζει μετεωρολογικά δεδομένα σε πραγματικό χρόνο με βιοκλιματικούς αλγόριθμους για να προσφέρει στον αμπελουργό ακριβείς πληροφορίες σχετικά με τον κίνδυνο εμφάνισης της ασθένειας στο κτήμα του.</p>
 
     <h2>Πώς δουλεύει; (Τεχνική Προσέγγιση)</h2>
     <p>Η εφαρμογή λειτουργεί μέσω μιας αυτοματοποιημένης ροής δεδομένων (Pipeline):</p>
@@ -247,7 +254,7 @@
     </ul>
 
     <h2>Πώς βοηθάει τον Παραγωγό;</h2>
-    <p>Το VineWatch δεν υποκαθιστά τον γεωπόνο, αλλά λειτουργεί ως το "έξυπνο μάτι" στο κτήμα του. Βοηθά τον παραγωγό:</p>
+    <p>Το <a href="vine_watch.html" class="link-style">VineWatch</a> δεν υποκαθιστά τον γεωπόνο, αλλά λειτουργεί ως το "έξυπνο μάτι" στο κτήμα του. Βοηθά τον παραγωγό:</p>
     <ul class="benefits-list">
         <li>Να προγραμματίζει τις εργασίες του (π.χ. ψεκασμούς) με βάση την πρόβλεψη για την επόμενη ημέρα.</li>
         <li>Να προσαρμόζει το σύστημα στα δεδομένα του δικού του κτήματος μέσω του Calibration.</li>
