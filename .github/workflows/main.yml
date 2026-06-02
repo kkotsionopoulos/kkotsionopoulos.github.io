@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # ΑΠΑΡΑΙΤΗΤΟ για να μπορεί να γράψει στο repo
-    steps:
+   
     
     steps:
       - uses: actions/checkout@v3
