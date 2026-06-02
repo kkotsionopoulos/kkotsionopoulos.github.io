@@ -5,35 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OidioWatch Project | Κωνσταντίνος Κωτσιονόπουλος</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #e67e22; /* Πορτοκαλί για το Ωίδιο */
-            --text-color: #333;
-            --bg-color: #f4f7f6;
-        }
-
+        :root { --primary-color: #2c3e50; --accent-color: #e67e22; --text-color: #333; --bg-color: #f4f7f6; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; }
-
-        /* --- NAVBAR --- */
+        
         .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
         .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; width: 100%; }
         .nav-links { display: flex; gap: 8px; }
         .nav-links a { padding: 6px 12px; color: white !important; border: 1.5px solid var(--accent-color); border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; }
         .nav-links a:hover { background-color: var(--accent-color); }
-
-        /* --- CONTAINER --- */
-        .container { max-width: 800px; margin: 100px auto 30px auto; background: #fff; padding: 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); border-radius: 8px; }
-        .project-header { margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px; text-align: center; }
+        
+        .container { max-width: 800px; margin: 80px auto 30px auto; background: #fff; padding: 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); border-radius: 8px; }
+        .project-header { margin-bottom: 30px; text-align: center; }
         h2 { color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px; }
         .hero-btn { display: inline-block; margin: 5px; padding: 10px 20px; color: white; text-decoration: none; font-weight: bold; border-radius: 5px; transition: 0.3s; }
-        .hero-btn:hover { opacity: 0.9; }
-
-        /* --- DATA & IMAGE --- */
-        #data-content { background: #fff3e0; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-color); font-family: monospace; white-space: pre-wrap; font-size: 1.1em; margin: 20px 0; }
-        .responsive-img { width: 100%; max-width: 650px; height: auto; display: block; margin: 30px auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); cursor: zoom-in; }
         
+        .responsive-img { width: 100%; max-width: 650px; height: auto; display: block; margin: 30px auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); cursor: zoom-in; }
         .back-link { display: inline-block; margin-top: 30px; color: var(--accent-color); text-decoration: none; font-weight: bold; border: 1px solid var(--accent-color); padding: 8px 15px; border-radius: 5px; }
-        footer { width: 100%; display: flex; justify-content: center; align-items: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px; }
+        footer { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; display: flex; justify-content: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px; }
     </style>
 </head>
 <body>
@@ -59,50 +47,41 @@
     </div>
 
     <h2>Τι είναι το OidioWatch;</h2>
-    <p>Το <strong>OidioWatch</strong> είναι μια ψηφιακή εφαρμογή Γεωργίας Ακριβείας που στοχεύει στην έγκαιρη πρόβλεψη και διαχείριση του Ωιδίου (<em>Erysiphe necator</em>). Το Ωίδιο, σε αντίθεση με τον περονόσπορο, είναι ο σημαντικότερος παθογόνος μύκητας σε ξηροθερμικά περιβάλλοντα.</p>
+    <p>Το <strong>OidioWatch</strong> είναι μια ψηφιακή εφαρμογή Γεωργίας Ακριβείας για την πρόβλεψη του Ωιδίου (<em>Erysiphe necator</em>) σε ξηροθερμικά περιβάλλοντα.</p>
 
-   <img src="oidio_graphic.jpg" alt="Oidio Lifecycle" class="responsive-img">
+    <img src="oidio_graphic.jpg" alt="Oidio Lifecycle" class="responsive-img">
 
-    <div style="background: #fdfdfd; padding: 25px; border-radius: 8px; border: 1px solid #eee; margin-top: -10px; margin-bottom: 30px;">
+    <div style="background: #fdfdfd; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
         <h2>Πώς δουλεύει; (Τεχνική Προσέγγιση)</h2>
         <p>Η εφαρμογή βασίζεται στο επιστημονικά τεκμηριωμένο <strong>μοντέλο Gubler-Thomas</strong>:</p>
         <ul>
-            <li><strong>Θερμική Αξιολόγηση:</strong> Παρακολούθηση του εύρους 21°C - 30°C για ταχεία ανάπτυξη του μύκητα.</li>
-            <li><strong>Υγρασία & Αερισμός:</strong> Ανάλυση της σχετικής υγρασίας (>60%) σε συνδυασμό με την ταχύτητα ανέμου που λειτουργεί ως αναστολέας.</li>
-            <li><strong>Αυτοματοποίηση:</strong> Η ροή δεδομένων εκτελείται αυτόνομα, χωρίς ανάγκη χειροκίνητης παρέμβασης.</li>
+            <li><strong>Θερμική Αξιολόγηση:</strong> Παρακολούθηση 21°C - 30°C για ανάπτυξη μύκητα.</li>
+            <li><strong>Υγρασία & Αερισμός:</strong> Ανάλυση σχετικής υγρασίας (>60%) και ταχύτητας ανέμου.</li>
+            <li><strong>Αυτοματοποίηση:</strong> Η ροή δεδομένων εκτελείται αυτόνομα.</li>
         </ul>
-
         <h2>Τι αποτελέσματα προσφέρει;</h2>
         <ul>
-            <li><strong>Προληπτική Δράση:</strong> Εντοπισμός ευνοϊκών συνθηκών πριν την εμφάνιση εξανθημάτων.</li>
-            <li><strong>Ορθολογική Χρήση:</strong> Μείωση κόστους παραγωγής μέσω στοχευμένων ψεκασμών.</li>
-            <li><strong>Data-Driven Decisions:</strong> Διαχείριση βασισμένη σε επιστημονικά δεδομένα.</li>
-        </ul>
-
-        <h2>Πώς βοηθάει τον Παραγωγό;</h2>
-        <p>Το OidioWatch λειτουργεί ως το "έξυπνο μάτι" του αμπελουργού, επιτρέποντας:</p>
-        <ul>
-            <li>Προγραμματισμό εργασιών με βάση τις μελλοντικές προβλέψεις.</li>
-            <li>Προσαρμογή του πλάνου φυτοπροστασίας στο μικροκλίμα του κτήματος.</li>
-            <li>Μείωση της αβεβαιότητας και περιορισμό του ρίσκου καταστροφής της παραγωγής.</li>
+            <li><strong>Προληπτική Δράση:</strong> Εντοπισμός ευνοϊκών συνθηκών.</li>
+            <li><strong>Ορθολογική Χρήση:</strong> Στοχευμένοι ψεκασμοί.</li>
+            <li><strong>Data-Driven Decisions:</strong> Επιστημονική διαχείριση.</li>
         </ul>
     </div>
 
-<script>
-    // Φόρτωση δεδομένων
-    fetch('result_oidio.txt?t=' + new Date().getTime())
-        .then(r => r.text())
-        .then(d => document.getElementById('data-content').innerText = d);
+    <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
+</div>
 
-    // Μεγέθυνση
+<div id="imageModal" style="display:none; position:fixed; z-index:3000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); text-align:center; padding-top:50px; cursor:zoom-out;" onclick="this.style.display='none'">
+    <img id="modalImg" style="max-width:90%; max-height:80%; border-radius:5px;">
+</div>
+
+<script>
     document.querySelector('.responsive-img').onclick = function(){
         document.getElementById('imageModal').style.display = 'block';
         document.getElementById('modalImg').src = this.src;
     }
 </script>
 
-<a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
-</div> <footer>
+<footer>
     <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Projects</p>
 </footer>
 
