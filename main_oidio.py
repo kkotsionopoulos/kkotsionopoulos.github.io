@@ -1,0 +1,47 @@
+import requests
+import os
+
+def calculate_oidio_risk(temp, humidity, wind_kph):
+    """
+    Αλγόριθμος πρόβλεψης Ωιδίου
+    - Υψηλός κίνδυνος: 21-30°C, Υγρασία > 60%, Άνεμος < 10 km/h (απουσία αερισμού)
+    - Μέτριος κίνδυνος: 15-30°C
+    - Χαμηλός κίνδυνος: Εκτός αυτών των συνθηκών ή πολύ δυνατός άνεμος (>25 km/h)
+    """
+    
+    # Αν ο άνεμος είναι πολύ δυνατός, μειώνει το ρίσκο λόγω ξήρανσης και μετατόπισης σπορίων
+    if wind_kph > 25:
+        return "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ (Λόγω ισχυρών ανέμων)"
+        
+    if 21 <= temp <= 30 and humidity > 60:
+        return "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+    elif 15 <= temp <= 30:
+        return "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ"
+    else:
+        return "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+
+# Ανάκτηση δεδομένων
+api_key = os.environ.get("WEATHER_API_KEY")
+city = "Tripoli"
+url = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}"
+
+try:
+    response = requests.get(url).json()
+    current = response['current']
+    
+    temp = current['temp_c']
+    hum = current['humidity']
+    wind = current['wind_kph'] # Ταχύτητα ανέμου σε km/h
+    
+    risk = calculate_oidio_risk(temp, hum, wind)
+    
+    # Εγγραφή στο αρχείο
+    with open("result_oidio.txt", "w", encoding="utf-8") as f:
+        f.write(f"--- ΠΡΟΒΛΕΨΗ ΩΙΔΙΟΥ ---\n")
+        f.write(f"Κίνδυνος: {risk}\n")
+        f.write(f"Θερμοκρασία: {temp}°C\n")
+        f.write(f"Υγρασία: {hum}%\n")
+        f.write(f"Άνεμος: {wind} km/h")
+        
+except Exception as e:
+    print(f"Σφάλμα κατά την ανάκτηση δεδομένων: {e}")

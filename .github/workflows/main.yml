@@ -10,6 +10,25 @@ jobs:
     permissions:
       contents: write  # ΑΠΑΡΑΙΤΗΤΟ για να μπορεί να γράψει στο repo
     steps:
+    
+    - name: Run main.py (Περονόσπορος)
+      env:
+        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+      run: python main.py
+
+    - name: Run main_oidio.py (Ωίδιο)
+      env:
+        WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+      run: python main_oidio.py
+
+    - name: Push results
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add result.txt result_oidio.txt  # ΠΡΟΣΟΧΗ: Πρόσθεσε και το νέο αρχείο εδώ!
+        git commit -m "Update all disease data" || exit 0
+        git push
+    
       - uses: actions/checkout@v3
       
       - name: Set up Python
@@ -32,3 +51,4 @@ jobs:
           git add result.txt
           git commit -m "Update weather result.txt" || echo "No changes to commit"
           git push
+
