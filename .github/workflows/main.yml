@@ -41,7 +41,19 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git pull --rebase origin main
+          
+          # 1. Προσθέτουμε τα αρχεία που δημιουργήθηκαν ώστε να μην είναι "unstaged"
           git add result.txt result_oidio.txt result_scab.txt
+          
+          # 2. Κάνουμε stash τις αλλαγές (τις αποθηκεύουμε προσωρινά στην άκρη)
+          git stash
+          
+          # 3. Κάνουμε το pull
+          git pull --rebase origin main
+          
+          # 4. Επαναφέρουμε τις αλλαγές
+          git stash pop
+          
+          # 5. Commit και push
           git commit -m "Update all disease data" || exit 0
           git push origin main
