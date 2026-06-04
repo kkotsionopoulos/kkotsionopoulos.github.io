@@ -37,13 +37,11 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: python main_scab.py
 
-      - name: Push results
+      - - name: Push results
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          # Εδώ προσθέτεις το νέο αρχείο στη λίστα:
+          git pull --rebase origin main  # ΠΡΟΣΘΕΣΕ ΑΥΤΗ ΤΗ ΓΡΑΜΜΗ
           git add result.txt result_oidio.txt result_scab.txt
           git commit -m "Update all disease data" || exit 0
-          git push
-          
-          
+          git push origin main           # Πρόσθεσε "origin main" για σιγουριά
