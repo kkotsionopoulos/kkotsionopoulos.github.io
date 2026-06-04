@@ -60,5 +60,31 @@
     </div>
 </div>
 
+<script>
+  function loadScabData() {
+    // Το ?t=... είναι το "cache-busting" για να παίρνει πάντα το νέο αρχείο
+    fetch('result_scab.txt?t=' + new Date().getTime())
+        .then(r => r.text())
+        .then(d => {
+            // Εδώ υποθέτουμε ότι το αρχείο έχει γραμμές τύπου "Θερμοκρασία: 15"
+            // Αν το αρχείο σου έχει άλλη μορφή, ενημέρωσέ με
+            const tempMatch = d.match(/Θερμοκρασία:\s*(-?\d+)/);
+            const humMatch = d.match(/Υγρασία:\s*(\d+)/);
+            
+            if(tempMatch) document.getElementById('val-temp').innerText = tempMatch[1];
+            if(humMatch) document.getElementById('val-hum').innerText = humMatch[1];
+            
+            // Αν θέλεις να εμφανίζεις και τον κίνδυνο
+            const riskMatch = d.match(/Κίνδυνος:\s*(.*)/);
+            if(riskMatch) document.getElementById('val-risk').innerText = riskMatch[1];
+        });
+  }
+
+  // Αυτή η εντολή φορτώνει τα δεδομένα μόλις ανοίξει η σελίδα
+  window.onload = function() {
+      loadScabData();
+  };
+</script>
+
 </body>
 </html>
