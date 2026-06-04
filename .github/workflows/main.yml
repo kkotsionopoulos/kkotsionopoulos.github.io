@@ -32,10 +32,18 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: python main_oidio.py
 
+      - name: Run main_scab.py (Φουζικλάδιο)
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: python main_scab.py
+
       - name: Push results
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add result.txt result_oidio.txt
+          # Εδώ προσθέτεις το νέο αρχείο στη λίστα:
+          git add result.txt result_oidio.txt result_scab.txt
           git commit -m "Update all disease data" || exit 0
           git push
+          
+          
