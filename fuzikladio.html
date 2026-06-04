@@ -37,7 +37,7 @@
     
     <div class="live-panel">
         <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
-        <div><small>Διάρκεια Διαβροχής</small><br><strong id="val-wet">-</strong>h</div>
+        <div><small>Διάρκεια Διαβροχής</small><br><strong id="val-hum">-</strong>h</div>
         <div><small>Κίνδυνος</small><br><strong id="val-risk">-</strong></div>
     </div>
 
@@ -62,25 +62,33 @@
 
 <script>
   function loadScabData() {
-    // Το ?t=... είναι το "cache-busting" για να παίρνει πάντα το νέο αρχείο
     fetch('result_scab.txt?t=' + new Date().getTime())
         .then(r => r.text())
         .then(d => {
-            // Εδώ υποθέτουμε ότι το αρχείο έχει γραμμές τύπου "Θερμοκρασία: 15"
-            // Αν το αρχείο σου έχει άλλη μορφή, ενημέρωσέ με
+            // Χρησιμοποιούμε το \n για να βεβαιωθούμε ότι ψάχνουμε σωστά
             const tempMatch = d.match(/Θερμοκρασία:\s*(-?\d+)/);
             const humMatch = d.match(/Υγρασία:\s*(\d+)/);
+            const riskMatch = d.match(/Κίνδυνος:\s*(.*)/);
             
+            // Ενημέρωση των πεδίων (με έλεγχο αν βρέθηκαν)
             if(tempMatch) document.getElementById('val-temp').innerText = tempMatch[1];
             if(humMatch) document.getElementById('val-hum').innerText = humMatch[1];
             
-            // Αν θέλεις να εμφανίζεις και τον κίνδυνο
-            const riskMatch = d.match(/Κίνδυνος:\s*(.*)/);
-            if(riskMatch) document.getElementById('val-risk').innerText = riskMatch[1];
-        });
+            // Εδώ εμφανίζουμε τον κίνδυνο
+            if(riskMatch) {
+                let riskText = riskMatch[1].trim();
+                document.getElementById('val-risk').innerText = riskText;
+                
+                // Προαιρετικό: Άλλαξε το χρώμα ανάλογα με τον κίνδυνο
+                const riskDiv = document.getElementById('val-risk');
+                if(riskText.includes("ΥΨΗΛΟΣ")) riskDiv.style.color = "#e74c3c";
+                else if(riskText.includes("ΜΕΤΡΙΟΣ")) riskDiv.style.color = "#f1c40f";
+                else riskDiv.style.color = "#27ae60";
+            }
+        })
+        .catch(err => console.error("Σφάλμα κατά τη φόρτωση δεδομένων:", err));
   }
 
-  // Αυτή η εντολή φορτώνει τα δεδομένα μόλις ανοίξει η σελίδα
   window.onload = function() {
       loadScabData();
   };
