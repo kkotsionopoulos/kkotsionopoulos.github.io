@@ -1,15 +1,11 @@
-import requests
 import os
+import requests
+import datetime  # Προσθήκη για την ώρα
 
 def calculate_oidio_risk(temp, humidity, wind_kph):
     """
     Αλγόριθμος πρόβλεψης Ωιδίου
-    - Υψηλός κίνδυνος: 21-30°C, Υγρασία > 60%, Άνεμος < 10 km/h (απουσία αερισμού)
-    - Μέτριος κίνδυνος: 15-30°C
-    - Χαμηλός κίνδυνος: Εκτός αυτών των συνθηκών ή πολύ δυνατός άνεμος (>25 km/h)
     """
-    
-    # Αν ο άνεμος είναι πολύ δυνατός, μειώνει το ρίσκο λόγω ξήρανσης και μετατόπισης σπορίων
     if wind_kph > 25:
         return "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ (Λόγω ισχυρών ανέμων)"
         
@@ -31,12 +27,13 @@ try:
     
     temp = current['temp_c']
     hum = current['humidity']
-    wind = current['wind_kph'] # Ταχύτητα ανέμου σε km/h
+    wind = current['wind_kph']
     
     risk = calculate_oidio_risk(temp, hum, wind)
     
-    # Εγγραφή στο αρχείο
+    # Εγγραφή με χρονική σήμανση για να ανανεώνεται το αρχείο στο GitHub
     with open("result_oidio.txt", "w", encoding="utf-8") as f:
+        f.write(f"Τελευταία ενημέρωση: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
         f.write(f"--- ΠΡΟΒΛΕΨΗ ΩΙΔΙΟΥ ---\n")
         f.write(f"Κίνδυνος: {risk}\n")
         f.write(f"Θερμοκρασία: {temp}°C\n")
