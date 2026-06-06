@@ -5,128 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio & Blog | Κωνσταντίνος Κωτσιονόπουλος</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --text-color: #333;
-            --bg-color: #f4f7f6;
-        }
+       :root {
+    --primary-color: #2c3e50;
+    --accent-color: #27ae60;
+    --text-color: #333;
+    --bg-color: #f4f7f6;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
 
-        .navbar {
-            background-color: #2c3e50 !important;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 2000;
-            height: 50px; 
-            display: flex;
-            align-items: center;
-            padding: 0;
-        }
+/* --- NAVBAR --- */
+.navbar {
+    background-color: #2c3e50 !important;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    height: 50px; 
+    display: flex;
+    align-items: center;
+}
 
-        .nav-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
+.nav-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 8px;
-        }
+.nav-links {
+    display: flex;
+    gap: 10px;
+    align-items: center; 
+    height: 50px;
+    padding: 0;
+    margin: 0;
+}
 
-        .nav-links a {
-            display: inline-block;
-            padding: 6px 12px;
-            color: white !important;
-            border: 1.5px solid #27ae60;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.8em;
-            white-space: nowrap;
-            transition: 0.3s;
-        }
+/* Στυλ για τα απλά link και το πλαίσιο του dropdown */
+.nav-links a, .dropdown {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 30px !important;
+    padding: 0 15px !important;
+    color: white !important;
+    border: 1.5px solid #27ae60;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8em;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: pointer;
+}
 
-        .nav-links a:hover {
-            background-color: #27ae60;
-        }
+.nav-links a:hover {
+    background-color: #27ae60;
+}
 
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 70px auto 0 auto;
-        }
+/* --- DROPDOWN CONTAINER (Το κουμπί Portfolio) --- */
+.dropdown {
+    position: relative;
+    padding: 0 15px !important;
+    background: transparent;
+}
 
-        .post-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #27ae60;
-            transition: transform 0.3s;
-        }
+.dropbtn {
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
 
-        .post-card:hover { transform: translateY(-5px); }
+/* --- DROPDOWN MENU (Το μενού που ανοίγει) --- */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Ακριβώς κάτω από το .dropdown */
+    left: 0;
+    background-color: #2c3e50;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+    border-radius: 0 0 8px 8px;
+    z-index: 9999;
+    padding-top: 10px; /* Καλύπτει το κενό */
+}
 
-        .card-thumbnail {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
+/* Ενεργοποίηση μενού με hover στο container */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-        .post-category {
-            font-size: 0.8em;
-            text-transform: uppercase;
-            color: #27ae60;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+/* Αόρατη γέφυρα: Εμποδίζει το κλείσιμο του μενού */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: transparent;
+}
 
-        h3 { color: #2c3e50; margin-top: 0; }
+.dropdown-content a {
+    color: white !important;
+    padding: 12px 15px !important;
+    display: block;
+    text-decoration: none;
+    font-size: 0.85em;
+    text-align: left;
+    border: none !important;
+    border-radius: 0;
+    height: auto !important;
+}
 
-        .read-more {
-            display: inline-block;
-            margin-top: 15px;
-            color: #2c3e50;
-            font-weight: bold;
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: 0.3s;
-        }
-        
-        .read-more:hover { border-bottom: 2px solid #27ae60; }
+.dropdown-content a:hover {
+    background-color: #34495e;
+}
+
+/* --- PORTFOLIO GRID --- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 70px auto 0 auto;
+}
+
+.post-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 5px solid #27ae60;
+    transition: transform 0.3s;
+}
+
+.post-card:hover { transform: translateY(-5px); }
+
+.card-thumbnail {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.post-category {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: #27ae60;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+h3 { color: #2c3e50; margin-top: 0; }
+
+.read-more {
+    display: inline-block;
+    margin-top: 15px;
+    color: #2c3e50;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.read-more:hover { border-bottom: 2px solid #27ae60; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-links">
-                <a href="index.html">Βιογραφικό</a>
-                <a href="portfolio.html">Portfolio</a>
-                <a href="blog.html">Blog</a>
-                <a href="contact.html">Επικοινωνία</a>
-            </div>
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            
+            <div class="dropdown">
+    <a href="portfolio.html" class="dropbtn">Portfolio ▾</a>
+    <div class="dropdown-content">
+        <a href="vine_watch.html">VineWatch (Περονόσπορος)</a>
+        <a href="fuzikladio.html">ScabWatch (Φουζικλάδιο)</a>
+        <a href="oidio.html">OidioWatch (Ωίδιο)</a>
+    </div>
+</div>
+            
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
         </div>
-    </nav>
-
+    </div>
+</nav>
     <section class="portfolio-grid">
         <article class="post-card">
     <a href="vine.html">
