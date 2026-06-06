@@ -33,6 +33,15 @@
         .link-style { color: var(--accent-color); text-decoration: none; font-weight: bold; }
         .back-link { display: inline-block; margin-top: 30px; color: var(--accent-color); text-decoration: none; font-weight: bold; border: 1px solid var(--accent-color); padding: 8px 15px; border-radius: 5px; }
         .back-link:hover { background: var(--accent-color); color: white; }
+		
+		.responsive-img {
+    cursor: zoom-in; /* Αλλάζει το ποντίκι σε μεγεθυντικό φακό */
+    transition: transform 0.2s;
+}
+		.responsive-img:hover {
+    transform: scale(1.02); /* Μικρό εφέ όταν περνάς το ποντίκι */
+}
+		
     </style>
 </head>
 <body>
@@ -58,7 +67,7 @@
     <h2>Τι είναι το ScabWatch;</h2>
     <p>Το <strong>ScabWatch</strong> είναι μια εξειδικευμένη ψηφιακή εφαρμογή για τον έγκαιρο εντοπισμό και την πρόβλεψη κινδύνου του Φουζικλαδίου (<em>Venturia inaequalis</em>) στη μηλιά. Το σύστημα αναλύει τις κρίσιμες περιβαλλοντικές παραμέτρους και ενημερώνει τον παραγωγό για το αν οι συνθήκες ευνοούν τη μόλυνση, βασιζόμενο σε επιστημονικά δεδομένα.</p>
     
-    
+    <img src="ΦΟΥΖΙΚΛΑΔΙΟ.jpg" alt="Oidio Lifecycle" class="responsive-img">
 
     <h2>Τεχνική Προσέγγιση & Μεθοδολογία</h2>
     <div class="pipeline-container">
@@ -77,8 +86,20 @@
         <li><strong>Real-time Ενημέρωση:</strong> Η οπτικοποίηση των δεδομένων επιτρέπει στον παραγωγό να γνωρίζει την "πίεση" της ασθένειας στο κτήμα του ανά πάσα στιγμή.</li>
     </ul>
 
-    <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
+   <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
 </div>
+
+<div id="imageModal" style="display:none; position:fixed; z-index:3000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); text-align:center; padding-top:50px; cursor:zoom-out;" onclick="this.style.display='none'">
+    <img id="modalImg" style="max-width:90%; max-height:80%; border-radius:5px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+</div>
+
+<script>
+    // Λειτουργία μεγέθυνσης εικόνας
+    document.querySelector('.responsive-img').onclick = function(){
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('modalImg').src = this.src;
+    }
+</script>
 
 </body>
 </html>
