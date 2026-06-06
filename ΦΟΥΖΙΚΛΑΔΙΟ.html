@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScabWatch Project | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c; /* Χρώμα κινδύνου/Φουζικλαδίου */
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; }
+        
+        /* --- NAVBAR --- */
+        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a { display: inline-block; padding: 6px 12px; color: white !important; border: 1.5px solid var(--accent-color); border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; white-space: nowrap; transition: 0.3s; }
+        .nav-links a:hover { background-color: var(--accent-color); }
+
+        /* --- STYLES --- */
+        .container { max-width: 800px; margin: 100px auto 30px auto; background: #fff; padding: 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); border-radius: 8px; }
+        .project-header { margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px; text-align: center; }
+        .project-header h1 { color: var(--primary-color); font-size: 2.2em; margin: 0 0 10px 0; }
+        .hero-btn { display: inline-block; margin: 20px 0; padding: 12px 25px; background-color: var(--accent-color); color: white; text-decoration: none; font-weight: bold; border-radius: 5px; transition: 0.3s; }
+        .hero-btn:hover { background-color: #c0392b; }
+        .responsive-img { width: 100%; max-width: 650px; height: auto; display: block; margin: 30px auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: 1px solid #ddd; transition: transform 0.2s; }
+        .pipeline-container { background: #fdfdfd; padding: 20px 20px 20px 30px; border-left: 4px solid var(--accent-color); border-radius: 4px; margin-bottom: 25px; }
+        .pipeline-container li::before { content: "▹"; color: var(--accent-color); font-weight: bold; position: absolute; left: -20px; }
+        .link-style { color: var(--accent-color); text-decoration: none; font-weight: bold; }
+        .back-link { display: inline-block; margin-top: 30px; color: var(--accent-color); text-decoration: none; font-weight: bold; border: 1px solid var(--accent-color); padding: 8px 15px; border-radius: 5px; }
+        .back-link:hover { background: var(--accent-color); color: white; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="project-header">
+        <h1>ScabWatch – Σύστημα Πρόβλεψης Φουζικλαδίου</h1>
+        <a href="fuzikladio.html" class="hero-btn">Είσοδος στο ScabWatch</a>
+        <div class="project-meta">Κατηγορία: Γεωργία Ακριβείας & Ανάπτυξη Λογισμικού | Ιούνιος 2026</div>
+    </div>
+
+    <h2>Τι είναι το ScabWatch;</h2>
+    <p>Το <strong>ScabWatch</strong> είναι μια εξειδικευμένη ψηφιακή εφαρμογή για τον έγκαιρο εντοπισμό και την πρόβλεψη κινδύνου του Φουζικλαδίου (<em>Venturia inaequalis</em>) στη μηλιά. Το σύστημα αναλύει τις κρίσιμες περιβαλλοντικές παραμέτρους και ενημερώνει τον παραγωγό για το αν οι συνθήκες ευνοούν τη μόλυνση, βασιζόμενο σε επιστημονικά δεδομένα.</p>
+    
+    
+
+    <h2>Τεχνική Προσέγγιση & Μεθοδολογία</h2>
+    <div class="pipeline-container">
+        <ul>
+            <li><strong>Μοντέλο Mills:</strong> Η καρδιά του συστήματος. Χρησιμοποιούμε τον πίνακα του Mills για να συσχετίσουμε τη <strong>διάρκεια διαβροχής των φύλλων</strong> με τη μέση θερμοκρασία και να προσδιορίσουμε ακριβώς το στάδιο επώασης του μύκητα.</li>
+            <li><strong>Automated Data Pipeline:</strong> Χρήση Python scripts που εκτελούνται αυτόνομα μέσω <strong>GitHub Actions</strong>, αντλώντας δεδομένα από το WeatherAPI.</li>
+            <li><strong>Risk Engine:</strong> Ο αλγόριθμος του ScabWatch υπολογίζει το σκορ κινδύνου σε πραγματικό χρόνο, λαμβάνοντας υπόψη την υγρασία (κρίσιμο όριο >90%) και τη θερμοκρασία (ιδανικό εύρος 18-22°C).</li>
+            <li><strong>Deployment:</strong> Η εφαρμογή φιλοξενείται στο GitHub Pages, εξασφαλίζοντας μηδενικό κόστος λειτουργίας και υψηλή διαθεσιμότητα για χρήση απευθείας στο οπωρώνα.</li>
+        </ul>
+    </div>
+
+    <h2>Οφέλη για τον Παραγωγό</h2>
+    <ul>
+        <li><strong>Στοχευμένες Επεμβάσεις:</strong> Ψεκασμοί μόνο όταν το μοντέλο Mills επιβεβαιώνει κίνδυνο, μειώνοντας δραστικά τα έξοδα φυτοπροστασίας.</li>
+        <li><strong>Διαχείριση Ανθεκτικότητας:</strong> Προστατεύουμε τη μηλιά πριν την εμφάνιση ορατών συμπτωμάτων, διασφαλίζοντας την ποιότητα του καρπού.</li>
+        <li><strong>Real-time Ενημέρωση:</strong> Η οπτικοποίηση των δεδομένων επιτρέπει στον παραγωγό να γνωρίζει την "πίεση" της ασθένειας στο κτήμα του ανά πάσα στιγμή.</li>
+    </ul>
+
+    <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
+</div>
+
+</body>
+</html>
