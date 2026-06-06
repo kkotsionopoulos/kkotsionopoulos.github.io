@@ -42,11 +42,17 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           
-          # Πρώτα τραβάμε τις αλλαγές από το remote
-          git pull --rebase origin main
-          
-          # Προσθέτουμε τα αρχεία
+          # Προσθέτουμε τα αρχεία στο staging area
           git add result.txt result_oidio.txt result_scab.txt
           
-          # Ελέγχουμε αν όντως υπάρχουν αλλαγές πριν κάνουμε commit
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update all disease data" && git push origin main)
+          # Αν δεν υπάρχουν αλλαγές, βγαίνουμε χωρίς error
+          git diff --quiet && git diff --staged --quiet && exit 0
+          
+          # Κάνουμε commit τις αλλαγές μας
+          git commit -m "Update all disease data"
+          
+          # Τραβάμε τις αλλαγές από το GitHub πριν κάνουμε push
+          git pull --rebase origin main
+          
+          # Τελικό push
+          git push origin main
