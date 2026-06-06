@@ -25,6 +25,7 @@ def get_risk_score(temp, hum, precip, offset, growth_stage):
     return f"ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ ({score:.0f}%)"
 
 def get_weather_data():
+    print(f"DEBUG: Ξεκίνημα λήψης δεδομένων...") # Αυτό θα φανεί στο Log!
     lat, lon = "37.51", "22.38"
     base_url = "http://api.weatherapi.com/v1"
     
