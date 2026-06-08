@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αναγεννητική Γεωργία & Υγεία Εδάφους | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Αναγεννητική Γεωργία: Ενισχύοντας το Μικροβίωμα του Εδάφους με τη Βοήθεια των Αισθητήρων IoT</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούνιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Για δεκαετίες, η εντατική γεωργική πρακτική αντιμετώπιζε το έδαφος κυρίως ως ένα αδρανές υπόστρωμα στήριξης των φυτών, εξαρτώμενο σχεδόν αποκλειστικά από την προσθήκη συνθετικών χημικών εισροών. Ωστόσο, η υποβάθμιση των εδαφών και η κατακόρυφη μείωση της οργανικής ουσίας παγκοσμίως οδήγησαν στην ανάδυση ενός νέου, βιώσιμου μοντέλου: της <strong>Αναγεννητικής Γεωργίας (Regenerative Agriculture)</strong>. Στόχος της δεν είναι απλώς η διατήρηση, αλλά η ενεργή αποκατάσταση της υγείας του εδαφικού οικοσυστήματος, εστιάζοντας στο περίπλοκο δίκτυο των ζωντανών οργανισμών που φιλοξενεί, γνωστό ως εδαφικό μικροβίωμα.</p>
+
+        <p>Το εδαφικό μικροβίωμα, αποτελούμενο από δισεκατομμύρια βακτήρια, μύκητες (όπως οι μυκόρριζες) και πρωτόζωα, διαδραματίζει καθοριστικό ρόλο στην ανακύκλωση των θρεπτικών στοιχείων, τη δέσμευση του αζώτου και τη βελτίωση της δομής του εδάφους. Η σύγχρονη βιοτεχνολογία επιτρέπει πλέον τη χρήση <strong>μικροβιακών εμβολίων (microbial inoculants)</strong> —ωφέλιμων μικροοργανισμών που εφαρμόζονται στο έδαφος ή στους σπόρους— ενισχύοντας τη φυσική ανθεκτικότητα των φυτών έναντι παθογόνων και βελτιώνοντας την απορρόφηση του φωσφόρου και του καλίου.</p>
+
+        <img src="soil-health.jpg" alt="Μικροβιακή δραστηριότητα και υγεία του εδάφους" class="article-image">
+
+        <p>Η μεγάλη ανατροπή στη διαχείριση της αναγεννητικής γεωργίας έρχεται από την ενσωμάτωση των τεχνολογιών του <strong>Internet of Things (IoT)</strong>. Μέχρι πρόσφατα, η αξιολόγηση της βιολογικής δραστηριότητας του εδάφους απαιτούσε χρονοβόρες και δαπανηρές εργαστηριακές αναλύσεις. Σήμερα, ειδικοί θαμμένοι αισθητήρες αερίων και ηλεκτροχημικής συμπεριφοράς επιτρέπουν τη συνεχή καταγραφή της <strong>εδαφικής αναπνοής (soil respiration)</strong> —της ροής του CO2 που εκλύεται από τη μεταβολική δραστηριότητα των μικροοργανισμών και των ριζών.</p>
+
+        <p>Τα πλεονεκτήματα του συνδυασμού βιολογικών εμβολίων και ψηφιακής παρακολούθησης είναι πολλαπλά:</p>
+
+        <ul>
+            <li><strong>Ποσοτικοποίηση της Αναγέννησης:</strong> Οι παραγωγοί μπορούν να παρακολουθούν σε ζωντανό χρόνο αν οι πρακτικές τους (όπως η ακαλλιέργεια ή οι καλλιέργειες κάλυψης) όντως αυξάνουν τον πληθυσμό των ωφέλιμων μικροοργανισμών, βλέποντας την αύξηση της εδαφικής αναπνοής στο dashboard τους.</li>
+            <li><strong>Δυναμική Χούμοποίηση:</strong> Η παρακολούθηση της ισορροπίας υγρασίας, θερμοκρασίας και εκπομπών αερίων βοηθά στον καθορισμό του ιδανικού χρόνου ενσωμάτωσης οργανικών βελτιωτικών (κόμποστ, χωνεμένη κοπριά), μεγιστοποιώντας τη σταθεροποίηση του άνθρακα στο έδαφος.</li>
+            <li><strong>Μείωση Εξάρτησης από Λιπάσματα:</strong> Ένα ενεργό και ισορροπημένο μικροβίωμα μπορεί να ξεκλειδώσει δεσμευμένα θρεπτικά συστατικά του εδάφους, επιτρέποντας τη σταδιακή μείωση των συνθετικών αζωτούχων και φωσφορούχων λιπασμάτων έως και 30%, χωρίς απώλειες στην παραγωγή.</li>
+        </ul>
+
+        <p>Η Αναγεννητική Γεωργία, υποστηριζόμενη από την επιστήμη των δεδομένων και τους αισθητήρες IoT, αποδεικνύει ότι το μέλλον της γεωργίας δεν κρύβεται στην περαιτέρω χημική εντατικοποίηση, αλλά στην κατανόηση και την ψηφιακή καθοδήγηση των φυσικών διεργασιών. Η αποκατάσταση του ζωντανού εδάφους αποτελεί τη μοναδική βιώσιμη απάντηση για την επισιτιστική ασφάλεια και την αντιμετώπιση της κλιματικής αλλαγής.</p>
+    </div>
+
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Rhodes, C. J. (2017).</strong> <em>The imperative for regenerative agriculture.</em> Science Progress, 100(1), 80-129.</li>
+            <li><strong>Bender, S. F., Wagg, C., & van der Heijden, M. G. (2016).</strong> <em>An underground revolution: biodiversity and soil ecological engineering for agricultural sustainability.</em> Trends in Ecology & Evolution, 31(6), 440-452.</li>
+            <li><strong>Al-Ani, A. R., et al. (2021).</strong> <em>IoT-Based soil health monitoring and classification system for precision agriculture.</em> IEEE Access, 9, 74211-74223.</li>
+            <li><strong>Venkateswarlu, B., & Shanker, A. K. (2012).</strong> <em>Soil microbial diversity and livelihood security under changing climate.</em> Indian Journal of Agricultural Sciences, 82(4), 289-300.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
