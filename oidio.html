@@ -90,39 +90,42 @@
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
-        // 1. Εξαγωγή Ημερομηνίας
         const lines = d.split('\n');
-        document.getElementById('last-update').innerText = lines[0].trim();
 
-        // 2. Εξαγωγή ενοτήτων με βάση τα κεφαλαία του αρχείου σου
-        const getSection = (keyword) => {
-            const parts = d.split(keyword);
-            return parts.length > 1 ? parts[1].split('---')[0].trim().replace(/\n/g, '<br>') : "Δεδομένα μη διαθέσιμα";
+        // 1. Ενημέρωση ώρας ενημέρωσης (γραμμή 1)
+        if (lines[0]) {
+            document.getElementById('last-update').innerText = lines[0].trim();
+        }
+
+        // 2. Συνάρτηση για να βρίσκουμε τη γραμμή μετά τον τίτλο, αγνοώντας τις παύλες
+        const getLineAfter = (title) => {
+            const index = lines.findIndex(l => l.includes(title));
+            // Αν βρει τον τίτλο, ψάχνει την επόμενη γραμμή που ΔΕΝ είναι παύλα
+            if (index !== -1) {
+                for (let i = index + 1; i < lines.length; i++) {
+                    const content = lines[i].trim();
+                    if (content !== "" && !content.includes("---")) {
+                        return content;
+                    }
+                }
+            }
+            return "Δεδομένα δεν βρέθηκαν";
         };
 
-        document.getElementById('current-status').innerHTML = getSection("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ");
-        document.getElementById('today-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
-        document.getElementById('tomorrow-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
+        // Ενημέρωση των πεδίων
+        document.getElementById('current-status').innerHTML = getLineAfter("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ");
+        document.getElementById('today-forecast').innerHTML = getLineAfter("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
+        document.getElementById('tomorrow-forecast').innerHTML = getLineAfter("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
 
-        // 3. Εξαγωγή τιμών για το top panel
+        // 3. Εξαγωγή τιμών για το top panel (χρησιμοποιούμε regex για να είμαστε σίγουροι)
         document.getElementById('val-temp').innerText = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
         document.getElementById('val-hum').innerText = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
         document.getElementById('val-wind').innerText = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
       })
-      .catch(err => console.error("Σφάλμα φόρτωσης:", err));
-  }
-
-  // Συνάρτηση για το γράφημα
-  function updateChart() {
-    document.getElementById('chart-container').style.display = 'block';
-    const ctx = document.getElementById('oidioChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Χθες', 'Σήμερα', 'Αύριο'],
-            datasets: [{ label: 'Επίπεδο Κινδύνου (%)', data: [30, 45, 60], borderColor: '#e67e22', tension: 0.1 }]
-        }
-    });
+      .catch(err => {
+        console.error("Σφάλμα:", err);
+        document.getElementById('current-status').innerText = "Σφάλμα φόρτωσης";
+      });
   }
 
   window.onload = loadData;
