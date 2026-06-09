@@ -82,29 +82,35 @@
 </div>
 
 <script>
-	function loadData() {
+  function loadData() {
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
-        // Χρησιμοποιούμε πιο "χαλαρά" regex για να πιάσουμε το κείμενο
-        const current = d.split(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---/i)[1]?.split('---')[0] || "Δεν βρέθηκαν δεδομένα";
-        const today = d.split(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---/i)[1]?.split('---')[0] || "Δεν βρέθηκαν δεδομένα";
-        const tomorrow = d.split(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---/i)[1] || "Δεν βρέθηκαν δεδομένα";
+        // Χρησιμοποιούμε μια πιο ευέλικτη μέθοδο για να βρίσκουμε τις ενότητες
+        const getSection = (startKeyword) => {
+            const parts = d.split(startKeyword);
+            if (parts.length < 2) return "Δεδομένα μη διαθέσιμα";
+            // Παίρνουμε το κείμενο μέχρι την επόμενη γραμμή που έχει --- ή τέλος
+            return parts[1].split('---')[0].trim().replace(/\n/g, '<br>');
+        };
 
-        document.getElementById('current-status').innerHTML = current.trim().replace(/\n/g, '<br>');
-        document.getElementById('today-forecast').innerHTML = today.trim().replace(/\n/g, '<br>');
-        document.getElementById('tomorrow-forecast').innerHTML = tomorrow.trim().replace(/\n/g, '<br>');
+        document.getElementById('current-status').innerHTML = getSection(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ/i);
+        document.getElementById('today-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ/i);
+        document.getElementById('tomorrow-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ/i);
 
-        // Εξαγωγή τιμών για το top panel
-        const temp = d.match(/Θερμοκρασία:\s*([\d.]+)/)?.[1] || "-";
-        const hum = d.match(/Υγρασία:\s*(\d+)/)?.[1] || "-";
-        const wind = d.match(/Άνεμος:\s*([\d.]+)/)?.[1] || "-";
+        // Εξαγωγή τιμών για το top panel (ανεξάρτητα από τα sections)
+        const temp = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
+        const hum = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
+        const wind = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
         
         document.getElementById('val-temp').innerText = temp;
         document.getElementById('val-hum').innerText = hum;
         document.getElementById('val-wind').innerText = wind;
       })
-      .catch(err => console.error("Σφάλμα φόρτωσης:", err));
+      .catch(err => {
+        console.error("Σφάλμα:", err);
+        document.getElementById('current-status').innerText = "Σφάλμα φόρτωσης αρχείου";
+      });
   }
 
   window.onload = loadData;
