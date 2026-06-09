@@ -33,28 +33,20 @@ try:
     
     # Εγγραφή με χρονική σήμανση για να ανανεώνεται το αρχείο στο GitHub
     # Εγγραφή στο αρχείο με τη σωστή δομή για το dashboard
+    # ... (μέσα στο main_oidio.py)
     with open("result_oidio.txt", "w", encoding="utf-8") as f:
-        f.write(f"Τελευταία ενημέρωση: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n")
+        f.write(f"Τελευταία ενημέρωση: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
         
-        # ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ
-        f.write(f"ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---\n")
-        f.write(f"Κίνδυνος: {risk}\n")
-        f.write(f"Θερμοκρασία: {temp}°C\n")
-        f.write(f"Υγρασία: {hum}%\n")
-        f.write(f"Άνεμος: {wind} km/h\n")
-        f.write(f"Διαβροχή: Όχι\n---\n")
-        
-        # ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ (Μπορείς να χρησιμοποιήσεις δεδομένα από το response['forecast'])
-        f.write(f"ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---\n")
-        f.write(f"Κίνδυνος: {risk}\n")
-        f.write(f"Θερμοκρασία: {temp}°C | Υγρασία: {hum}%\n")
-        f.write(f"Άνεμος: {wind} km/h | Διαβροχή: Όχι\n---\n")
-        
-        # ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ
-        f.write(f"ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---\n")
-        f.write(f"Κίνδυνος: {risk}\n")
-        f.write(f"Θερμοκρασία: {temp}°C | Υγρασία: {hum}%\n")
-        f.write(f"Άνεμος: {wind} km/h | Διαβροχή: Όχι")
+        # Λειτουργία που γράφει ομοιόμορφα τις ενότητες
+        def write_section(title, risk, t, h, w, rain):
+            f.write(f"{title} ---\n")
+            f.write(f"Κίνδυνος: {risk}\n")
+            f.write(f"Θερμοκρασία: {t}°C | Υγρασία: {h}% | Άνεμος: {w} km/h | Διαβροχή: {rain}\n")
+            f.write("---\n")
+
+        write_section("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", risk, temp, hum, wind, "Όχι")
+        write_section("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", risk, temp, hum, wind, "Όχι")
+        write_section("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", risk, temp, hum, wind, "Όχι")
         
 except Exception as e:
     print(f"Σφάλμα κατά την ανάκτηση δεδομένων: {e}")
