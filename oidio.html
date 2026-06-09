@@ -86,30 +86,28 @@
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
-        // Χρησιμοποιούμε μια πιο ευέλικτη μέθοδο για να βρίσκουμε τις ενότητες
-        const getSection = (startKeyword) => {
-            const parts = d.split(startKeyword);
-            if (parts.length < 2) return "Δεδομένα μη διαθέσιμα";
-            // Παίρνουμε το κείμενο μέχρι την επόμενη γραμμή που έχει --- ή τέλος
-            return parts[1].split('---')[0].trim().replace(/\n/g, '<br>');
+        // Debug: δείξε μας τι διαβάζει η κονσόλα
+        console.log("Περιεχόμενο αρχείου:", d);
+
+        // Χρησιμοποιούμε μια πιο "συγχωρητική" regex
+        // Ψάχνει το κείμενο ανάμεσα στην επικεφαλίδα και την επόμενη επικεφαλίδα ή το τέλος
+        const extract = (header) => {
+            const regex = new RegExp(header + "\\s*---([\\s\\S]*?)(?:---|$)", "i");
+            const match = d.match(regex);
+            return match ? match[1].trim().replace(/\n/g, '<br>') : "Δεν βρέθηκαν δεδομένα";
         };
 
-        document.getElementById('current-status').innerHTML = getSection(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ/i);
-        document.getElementById('today-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ/i);
-        document.getElementById('tomorrow-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ/i);
+        document.getElementById('current-status').innerHTML = extract("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ");
+        document.getElementById('today-forecast').innerHTML = extract("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
+        document.getElementById('tomorrow-forecast').innerHTML = extract("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
 
-        // Εξαγωγή τιμών για το top panel (ανεξάρτητα από τα sections)
-        const temp = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
-        const hum = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
-        const wind = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
-        
-        document.getElementById('val-temp').innerText = temp;
-        document.getElementById('val-hum').innerText = hum;
-        document.getElementById('val-wind').innerText = wind;
+        // Εξαγωγή τιμών για το top panel
+        document.getElementById('val-temp').innerText = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
+        document.getElementById('val-hum').innerText = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
+        document.getElementById('val-wind').innerText = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
       })
       .catch(err => {
         console.error("Σφάλμα:", err);
-        document.getElementById('current-status').innerText = "Σφάλμα φόρτωσης αρχείου";
       });
   }
 
