@@ -19,17 +19,18 @@ url = f"http://api.weatherapi.com/v1/forecast.json?key={api_key}&q={city}"
 
 try:
     response = requests.get(url).json()
+    
+    # Τρέχοντα δεδομένα
     current = response['current']
     
-    temp = current['temp_c']
-    hum = current['humidity']
-    wind = current['wind_kph']
-    precip = current['precip_mm']
+    # Δεδομένα πρόβλεψης (Η λίστα forecastday)
+    forecast_days = response['forecast']['forecastday']
     
-    # Υπολογισμός κειμένου διαβροχής
-    rain_text = f"{precip} mm" if precip > 0 else "Όχι"
-    risk = calculate_oidio_risk(temp, hum, wind)
-    
+    # Σήμερα (forecast_days[0])
+    today = forecast_days[0]['day']
+    # Αύριο (forecast_days[1])
+    tomorrow = forecast_days[1]['day']
+
     # Εγγραφή στο αρχείο
     with open("result_oidio.txt", "w", encoding="utf-8") as f:
         f.write(f"Τελευταία ενημέρωση: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
@@ -40,10 +41,10 @@ try:
             f.write(f"Θερμοκρασία: {t}°C | Υγρασία: {h}% | Άνεμος: {w} km/h | Διαβροχή: {r}\n")
             f.write("---\n")
 
-        # Εγγραφή των ενοτήτων
-        write_section("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", risk, temp, hum, wind, rain_text)
-        write_section("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", risk, temp, hum, wind, "Όχι")
-        write_section("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", risk, temp, hum, wind, "Όχι")
-        
+        # Εγγραφή με διαφορετικές τιμές
+        write_section("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", calculate_oidio_risk(current['temp_c'], current['humidity'], current['wind_kph']), current['temp_c'], current['humidity'], current['wind_kph'], "0 mm")
+        write_section("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", calculate_oidio_risk(today['avgtemp_c'], today['avghumidity'], today['maxwind_kph']), today['avgtemp_c'], today['avghumidity'], today['maxwind_kph'], "0 mm")
+        write_section("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", calculate_oidio_risk(tomorrow['avgtemp_c'], tomorrow['avghumidity'], tomorrow['maxwind_kph']), tomorrow['avgtemp_c'], tomorrow['avghumidity'], tomorrow['maxwind_kph'], "0 mm")
+
 except Exception as e:
-    print(f"Σφάλμα κατά την ανάκτηση δεδομένων: {e}")
+    print(f"Σφάλμα: {e}")
