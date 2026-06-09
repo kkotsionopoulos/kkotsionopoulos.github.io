@@ -83,30 +83,24 @@
 
 <script>
   function loadData() {
-    document.getElementById('weather-report').style.display = 'block';
-    // Άλλαξε το 'result_oidio.txt' με το όνομα του αρχείου που αποθηκεύεις τα δεδομένα του Ωιδίου
-    fetch('result_oidio.txt?t=' + new Date().getTime()).then(r => r.text()).then(d => {
-        document.getElementById('data-content').innerHTML = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>');
-        // Εξαγωγή τιμών για το panel (υποθέτοντας παρόμοια δομή στο txt)
-        const temp = d.match(/Θερμοκρασία:\s*(-?\d+)/)?.[1] || "N/A";
-        const hum = d.match(/Υγρασία:\s*(\d+)/)?.[1] || "N/A";
-        const wind = d.match(/Άνεμος:\s*(\d+)/)?.[1] || "N/A";
-        document.getElementById('val-temp').innerText = temp;
-        document.getElementById('val-hum').innerText = hum;
-        document.getElementById('val-wind').innerText = wind;
-    });
+    fetch('result_oidio.txt?t=' + new Date().getTime())
+      .then(r => r.text())
+      .then(d => {
+        // Διαχωρισμός των δεδομένων βάσει των επικεφαλίδων στο αρχείο
+        const current = d.match(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---([\s\S]*?)---/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
+        const today = d.match(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---([\s\S]*?)---/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
+        const tomorrow = d.match(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---([\s\S]*)/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
+
+        // Εμφάνιση στα αντίστοιχα πεδία
+        document.getElementById('current-status').innerHTML = formatData(current);
+        document.getElementById('today-forecast').innerHTML = formatData(today);
+        document.getElementById('tomorrow-forecast').innerHTML = formatData(tomorrow);
+      });
   }
 
-  let chartInstance = null;
-  async function updateChart() {
-    document.getElementById('chart-container').style.display = 'block';
-    const ctx = document.getElementById('oidioChart').getContext('2d');
-    if (chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(ctx, { 
-        type: 'line', 
-        data: { labels: ['Χθες', 'Σήμερα', 'Αύριο'], datasets: [{ label: 'Δείκτης Κινδύνου (%)', data: [45, 70, 65], borderColor: '#e67e22', fill: true }] },
-        options: { responsive: true }
-    });
+  function formatData(text) {
+    // Μικρή μορφοποίηση για να φαίνεται όμορφο
+    return text.trim().replace(/\n/g, '<br>');
   }
 
   window.onload = loadData;
