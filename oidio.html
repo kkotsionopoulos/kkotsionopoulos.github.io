@@ -31,20 +31,30 @@
   fetch('result_oidio.txt?t=' + new Date().getTime())
     .then(r => r.text())
     .then(d => {
-        document.getElementById('last-update').innerText = d.split('\n')[0];
+        // Εμφάνιση ώρας ενημέρωσης
+        const lines = d.split('\n');
+        document.getElementById('last-update').innerText = lines[0];
         
+        // Χρωματισμός κινδύνου
         let html = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
                     .replace(/ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-med">ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ</span>')
                     .replace(/ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-low">ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
                     .replace(/\n/g, '<br>');
-        
         document.getElementById('status-dashboard').innerHTML = html;
 
-        // Εξειδικευμένη ανάκτηση μόνο από τη Στιγμιαία Κατάσταση
-        const live = d.substring(d.indexOf("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"), d.indexOf("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ"));
-        document.getElementById('val-temp').innerText = (live.match(/Θερμοκρασία:\s*([\d.]+)/i) || [])[1] || "-";
-        document.getElementById('val-hum').innerText = (live.match(/Υγρασία:\s*([\d.]+)/i) || [])[1] || "-";
-        document.getElementById('val-wind').innerText = (live.match(/Άνεμος:\s*([\d.]+)/i) || [])[1] || "-";
+        // Ενημέρωση Live Panel από τη "ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"
+        const startIdx = lines.findIndex(l => l.includes("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"));
+        if (startIdx !== -1) {
+            // Παίρνουμε τις 3 επόμενες γραμμές μετά τον τίτλο
+            const tempLine = lines[startIdx + 2]; // Θερμοκρασία: XX
+            const humLine = lines[startIdx + 3];  // Υγρασία: XX
+            const windLine = lines[startIdx + 4]; // Άνεμος: XX
+            
+            // Καθαρισμός για να μείνει μόνο το νούμερο
+            document.getElementById('val-temp').innerText = tempLine.split(': ')[1] || "-";
+            document.getElementById('val-hum').innerText = humLine.split(': ')[1] || "-";
+            document.getElementById('val-wind').innerText = windLine.split(': ')[1] || "-";
+        }
     });
 </script>
 </body>
