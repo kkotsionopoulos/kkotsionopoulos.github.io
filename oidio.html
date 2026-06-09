@@ -90,42 +90,33 @@
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
+        // Ενημέρωση ώρας
         const lines = d.split('\n');
+        if (lines[0]) document.getElementById('last-update').innerText = lines[0].trim();
 
-        // 1. Ενημέρωση ώρας ενημέρωσης (γραμμή 1)
-        if (lines[0]) {
-            document.getElementById('last-update').innerText = lines[0].trim();
-        }
-
-        // 2. Συνάρτηση για να βρίσκουμε τη γραμμή μετά τον τίτλο, αγνοώντας τις παύλες
-        const getLineAfter = (title) => {
-            const index = lines.findIndex(l => l.includes(title));
-            // Αν βρει τον τίτλο, ψάχνει την επόμενη γραμμή που ΔΕΝ είναι παύλα
-            if (index !== -1) {
-                for (let i = index + 1; i < lines.length; i++) {
-                    const content = lines[i].trim();
-                    if (content !== "" && !content.includes("---")) {
-                        return content;
-                    }
-                }
-            }
-            return "Δεδομένα δεν βρέθηκαν";
+        // Συνάρτηση που βρίσκει κείμενο ανάμεσα σε δύο τίτλους
+        const getSection = (startTitle, endTitle) => {
+            let start = d.indexOf(startTitle);
+            if (start === -1) return "Δεδομένα δεν βρέθηκαν";
+            start += startTitle.length;
+            
+            let end = endTitle ? d.indexOf(endTitle, start) : d.length;
+            if (end === -1) end = d.length;
+            
+            return d.substring(start, end).replace(/---/g, '').trim().replace(/\n/g, '<br>');
         };
 
-        // Ενημέρωση των πεδίων
-        document.getElementById('current-status').innerHTML = getLineAfter("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ");
-        document.getElementById('today-forecast').innerHTML = getLineAfter("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
-        document.getElementById('tomorrow-forecast').innerHTML = getLineAfter("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
+        // Ενημέρωση των πεδίων (προσαρμοσμένα στους τίτλους του αρχείου σου)
+        document.getElementById('current-status').innerHTML = getSection("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", "ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
+        document.getElementById('today-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", "ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
+        document.getElementById('tomorrow-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", null);
 
-        // 3. Εξαγωγή τιμών για το top panel (χρησιμοποιούμε regex για να είμαστε σίγουροι)
+        // Top panel
         document.getElementById('val-temp').innerText = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
         document.getElementById('val-hum').innerText = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
         document.getElementById('val-wind').innerText = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
       })
-      .catch(err => {
-        console.error("Σφάλμα:", err);
-        document.getElementById('current-status').innerText = "Σφάλμα φόρτωσης";
-      });
+      .catch(err => console.error("Σφάλμα:", err));
   }
 
   window.onload = loadData;
