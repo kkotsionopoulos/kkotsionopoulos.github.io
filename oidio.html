@@ -4,57 +4,42 @@
     <meta charset="UTF-8">
     <title>OidioWatch | Smart Agronomy</title>
     <style>
-        .live-panel { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-around; text-align: center; }
-        .risk-high { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .risk-med { background: #f1c40f; color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .risk-low { background: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        body { font-family: sans-serif; background: #f4f7f6; }
+        .live-panel { background: #2c3e50; color: white; padding: 15px; display: flex; justify-content: space-around; border-radius: 8px; }
+        .data-box { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .risk-high { color: #e74c3c; font-weight: bold; }
+        .risk-med { color: #f1c40f; font-weight: bold; }
+        .risk-low { color: #27ae60; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="live-panel">
-        <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
-        <div><small>Υγρασία</small><br><strong id="val-hum">-</strong>%</div>
-        <div><small>Ανεμος</small><br><strong id="val-wind">-</strong> km/h</div>
-    </div>
-    
-    <div id="status-dashboard">
-        <p><strong>Στιγμιαία Κατάσταση:</strong> <span id="current-status">Φόρτωση...</span></p>
-        <p><strong>Πρόβλεψη Σήμερα:</strong> <span id="today-forecast">Φόρτωση...</span></p>
-        <p><strong>Πρόβλεψη Αύριο:</strong> <span id="tomorrow-forecast">Φόρτωση...</span></p>
-    </div>
+
+<div class="live-panel">
+    <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
+    <div><small>Υγρασία</small><br><strong id="val-hum">-</strong>%</div>
+    <div><small>Ανεμος</small><br><strong id="val-wind">-</strong> km/h</div>
+</div>
+
+<div class="data-box" id="content">Φόρτωση δεδομένων...</div>
 
 <script>
-  function loadData() {
-    fetch('result_oidio.txt?t=' + new Date().getTime())
-      .then(r => r.text())
-      .then(d => {
-        let coloredD = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
-                        .replace(/ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-med">ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ</span>')
-                        .replace(/ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-low">ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>');
-
-        // Διαχωρισμός ενοτήτων
-        const getSection = (startTitle, endTitle) => {
-            let start = coloredD.indexOf(startTitle);
-            if (start === -1) return "Αναμονή...";
-            start += startTitle.length;
-            let end = endTitle ? coloredD.indexOf(endTitle, start) : coloredD.length;
-            return coloredD.substring(start, end).replace(/---/g, '').trim().replace(/\n/g, '<br>');
+  fetch('result_oidio.txt?t=' + new Date().getTime())
+    .then(r => r.text())
+    .then(d => {
+        // Εμφάνιση του πλήρους κειμένου για να δούμε τι γίνεται
+        document.getElementById('content').innerHTML = d.replace(/\n/g, '<br>');
+        
+        // Απόσπαση τιμών για το πάνω panel με απλή αναζήτηση
+        const findVal = (key) => {
+            const regex = new RegExp(key + ":\\s*([\\d.]+)", "i");
+            const match = d.match(regex);
+            return match ? match[1] : "-";
         };
 
-        document.getElementById('current-status').innerHTML = getSection("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", "ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
-        document.getElementById('today-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", "ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
-        document.getElementById('tomorrow-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", null);
-
-        // Ανάκτηση με ακρίβεια γραμμής
-        const lines = d.split('\n');
-        lines.forEach(line => {
-            if(line.includes("Θερμοκρασία:")) document.getElementById('val-temp').innerText = line.split(':')[1].replace('°C', '').trim();
-            if(line.includes("Υγρασία:")) document.getElementById('val-hum').innerText = line.split(':')[1].replace('%', '').trim();
-            if(line.includes("Άνεμος:")) document.getElementById('val-wind').innerText = line.split(':')[1].replace('km/h', '').trim();
-        });
-      });
-  }
-  window.onload = loadData;
+        document.getElementById('val-temp').innerText = findVal("Θερμοκρασία");
+        document.getElementById('val-hum').innerText = findVal("Υγρασία");
+        document.getElementById('val-wind').innerText = findVal("Άνεμος");
+    });
 </script>
 </body>
 </html>
