@@ -18,12 +18,12 @@
         .smart-panel { background: #fff3e0; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #ffe0b2; }
         .live-panel { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-around; text-align: center; }
         
-        /* Χρώματα Κινδύνου */
         .risk-high { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
         .risk-med { background: #f1c40f; color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
         .risk-low { background: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
         
         .info-section { margin-top: 30px; line-height: 1.6; color: #444; }
+        .info-section h3 { color: #2c3e50; border-bottom: 2px solid var(--accent-color); padding-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -60,7 +60,7 @@
 
     <div class="info-section">
         <h3>Επιστημονική Προσέγγιση</h3>
-        <p>Το Ωίδιο ευνοείται από ήπιες θερμοκρασίες και μέτρια υγρασία. Σε αντίθεση με τον περονόσπορο, δεν απαιτείται διαβροχή φύλλων, αλλά υψηλή ατμοσφαιρική υγρασία.</p>
+        <p>Το Ωίδιο ευνοείται από ήπιες θερμοκρασίες και μέτρια υγρασία. Δεν απαιτείται διαβροχή φύλλων, αλλά υψηλή ατμοσφαιρική υγρασία.</p>
     </div>
 </div>
 
@@ -69,6 +69,7 @@
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
+        // Χρωματισμός κινδύνου
         let coloredD = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
                         .replace(/ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-med">ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ</span>')
                         .replace(/ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-low">ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>');
