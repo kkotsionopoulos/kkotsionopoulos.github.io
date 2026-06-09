@@ -42,6 +42,10 @@
 
 <div class="oidio-container">
     <h2>OidioWatch: Πρόβλεψη Ωιδίου</h2>
+	
+	<div id="last-update" style="text-align: right; font-size: 0.85em; color: #7f8c8d; margin-bottom: 10px;">
+    Φόρτωση ώρας ενημέρωσης...
+</div>
     
     <div class="live-panel">
         <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
@@ -86,28 +90,31 @@
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
-        // Debug: δείξε μας τι διαβάζει η κονσόλα
-        console.log("Περιεχόμενο αρχείου:", d);
+        // 1. Εξαγωγή Ημερομηνίας
+        const lines = d.split('\n');
+        document.getElementById('last-update').innerText = lines[0].trim();
 
-        // Χρησιμοποιούμε μια πιο "συγχωρητική" regex
-        // Ψάχνει το κείμενο ανάμεσα στην επικεφαλίδα και την επόμενη επικεφαλίδα ή το τέλος
-        const extract = (header) => {
-            const regex = new RegExp(header + "\\s*---([\\s\\S]*?)(?:---|$)", "i");
-            const match = d.match(regex);
-            return match ? match[1].trim().replace(/\n/g, '<br>') : "Δεν βρέθηκαν δεδομένα";
+        // 2. Συνάρτηση για εξαγωγή των ενοτήτων
+        const getSection = (startKeyword) => {
+            const parts = d.split(startKeyword);
+            if (parts.length < 2) return "Δεδομένα μη διαθέσιμα";
+            // Κόβει το κείμενο μέχρι την επόμενη παύλα '---'
+            return parts[1].split('---')[0].trim().replace(/\n/g, '<br>');
         };
 
-        document.getElementById('current-status').innerHTML = extract("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ");
-        document.getElementById('today-forecast').innerHTML = extract("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
-        document.getElementById('tomorrow-forecast').innerHTML = extract("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
+        // 3. Ενημέρωση των πεδίων
+        document.getElementById('current-status').innerHTML = getSection(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ/i);
+        document.getElementById('today-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ/i);
+        document.getElementById('tomorrow-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ/i);
 
-        // Εξαγωγή τιμών για το top panel
+        // 4. Εξαγωγή τιμών για το top panel
         document.getElementById('val-temp').innerText = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
         document.getElementById('val-hum').innerText = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
         document.getElementById('val-wind').innerText = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
       })
       .catch(err => {
         console.error("Σφάλμα:", err);
+        document.getElementById('current-status').innerText = "Σφάλμα φόρτωσης αρχείου";
       });
   }
 
