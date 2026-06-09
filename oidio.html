@@ -94,28 +94,35 @@
         const lines = d.split('\n');
         document.getElementById('last-update').innerText = lines[0].trim();
 
-        // 2. Συνάρτηση για εξαγωγή των ενοτήτων
-        const getSection = (startKeyword) => {
-            const parts = d.split(startKeyword);
-            if (parts.length < 2) return "Δεδομένα μη διαθέσιμα";
-            // Κόβει το κείμενο μέχρι την επόμενη παύλα '---'
-            return parts[1].split('---')[0].trim().replace(/\n/g, '<br>');
+        // 2. Εξαγωγή ενοτήτων με βάση τα κεφαλαία του αρχείου σου
+        const getSection = (keyword) => {
+            const parts = d.split(keyword);
+            return parts.length > 1 ? parts[1].split('---')[0].trim().replace(/\n/g, '<br>') : "Δεδομένα μη διαθέσιμα";
         };
 
-        // 3. Ενημέρωση των πεδίων
-        document.getElementById('current-status').innerHTML = getSection(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ/i);
-        document.getElementById('today-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ/i);
-        document.getElementById('tomorrow-forecast').innerHTML = getSection(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ/i);
+        document.getElementById('current-status').innerHTML = getSection("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ");
+        document.getElementById('today-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
+        document.getElementById('tomorrow-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
 
-        // 4. Εξαγωγή τιμών για το top panel
+        // 3. Εξαγωγή τιμών για το top panel
         document.getElementById('val-temp').innerText = d.match(/Θερμοκρασία:\s*([\d.]+)/i)?.[1] || "-";
         document.getElementById('val-hum').innerText = d.match(/Υγρασία:\s*(\d+)/i)?.[1] || "-";
         document.getElementById('val-wind').innerText = d.match(/Άνεμος:\s*([\d.]+)/i)?.[1] || "-";
       })
-      .catch(err => {
-        console.error("Σφάλμα:", err);
-        document.getElementById('current-status').innerText = "Σφάλμα φόρτωσης αρχείου";
-      });
+      .catch(err => console.error("Σφάλμα φόρτωσης:", err));
+  }
+
+  // Συνάρτηση για το γράφημα
+  function updateChart() {
+    document.getElementById('chart-container').style.display = 'block';
+    const ctx = document.getElementById('oidioChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Χθες', 'Σήμερα', 'Αύριο'],
+            datasets: [{ label: 'Επίπεδο Κινδύνου (%)', data: [30, 45, 60], borderColor: '#e67e22', tension: 0.1 }]
+        }
+    });
   }
 
   window.onload = loadData;
