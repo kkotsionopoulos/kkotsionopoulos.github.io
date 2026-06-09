@@ -2,14 +2,9 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <title>OidioWatch | Smart Agronomy</title>
+    <title>OidioWatch</title>
     <style>
-        body { font-family: sans-serif; background: #f4f7f6; }
-        .live-panel { background: #2c3e50; color: white; padding: 15px; display: flex; justify-content: space-around; border-radius: 8px; }
-        .data-box { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .risk-high { color: #e74c3c; font-weight: bold; }
-        .risk-med { color: #f1c40f; font-weight: bold; }
-        .risk-low { color: #27ae60; font-weight: bold; }
+        .live-panel { background: #2c3e50; color: white; padding: 20px; display: flex; justify-content: space-around; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -20,25 +15,25 @@
     <div><small>Ανεμος</small><br><strong id="val-wind">-</strong> km/h</div>
 </div>
 
-<div class="data-box" id="content">Φόρτωση δεδομένων...</div>
+<div id="content" style="margin-top:20px; padding:20px; background:#f9f9f9;"></div>
 
 <script>
   fetch('result_oidio.txt?t=' + new Date().getTime())
     .then(r => r.text())
     .then(d => {
-        // Εμφάνιση του πλήρους κειμένου για να δούμε τι γίνεται
-        document.getElementById('content').innerHTML = d.replace(/\n/g, '<br>');
+        // Εμφάνιση του περιεχομένου για debugging
+        document.getElementById('content').innerText = d;
         
-        // Απόσπαση τιμών για το πάνω panel με απλή αναζήτηση
-        const findVal = (key) => {
-            const regex = new RegExp(key + ":\\s*([\\d.]+)", "i");
-            const match = d.match(regex);
-            return match ? match[1] : "-";
+        // Συνάρτηση για να βρίσκει την τιμή μετά από μια λέξη-κλειδί
+        const getValue = (text, key) => {
+            const regex = new RegExp(key + ":\\s*([^\\n]+)", "i");
+            const match = text.match(regex);
+            return match ? match[1].trim() : "-";
         };
 
-        document.getElementById('val-temp').innerText = findVal("Θερμοκρασία");
-        document.getElementById('val-hum').innerText = findVal("Υγρασία");
-        document.getElementById('val-wind').innerText = findVal("Άνεμος");
+        document.getElementById('val-temp').innerText = getValue(d, "Θερμοκρασία");
+        document.getElementById('val-hum').innerText = getValue(d, "Υγρασία");
+        document.getElementById('val-wind').innerText = getValue(d, "Άνεμος");
     });
 </script>
 </body>
