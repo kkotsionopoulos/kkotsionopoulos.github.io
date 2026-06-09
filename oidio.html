@@ -58,6 +58,14 @@
         </div>
     </div>
 
+<div class="button-group">
+    <button class="oidio-btn secondary" onclick="showChart()">Γράφημα Κινδύνου</button>
+</div>
+
+<div id="chart-container" style="display:none; margin-top: 20px;">
+    <canvas id="oidioChart"></canvas>
+</div>
+
     <div class="info-section">
         <h3>Επιστημονική Προσέγγιση</h3>
         <p>Το Ωίδιο ευνοείται από ήπιες θερμοκρασίες και μέτρια υγρασία. Δεν απαιτείται διαβροχή φύλλων, αλλά υψηλή ατμοσφαιρική υγρασία.</p>
@@ -95,6 +103,41 @@
       });
   }
   window.onload = loadData;
+  
+  let myChart; // Μεταβλητή για να διαγράφουμε το προηγούμενο γράφημα
+
+function showChart() {
+    const container = document.getElementById('chart-container');
+    container.style.display = 'block'; // Εμφάνιση του χώρου του γραφήματος
+    
+    const ctx = document.getElementById('oidioChart').getContext('2d');
+    
+    // Αν υπάρχει ήδη γράφημα, το καταστρέφουμε για να φτιάξουμε νέο
+    if (myChart) myChart.destroy();
+    
+    // Εδώ ορίζουμε τα δεδομένα του γραφήματος
+    myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Στιγμιαία', 'Σήμερα', 'Αύριο'],
+            datasets: [{
+                label: 'Επίπεδο Κινδύνου',
+                data: [30, 75, 74], // Εδώ μπορείς να βάλεις δυναμικά τις τιμές
+                borderColor: '#e67e22',
+                backgroundColor: 'rgba(230, 126, 34, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, max: 100 }
+            }
+        }
+    });
+}
+  
 </script>
 </body>
 </html>
