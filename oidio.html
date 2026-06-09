@@ -86,24 +86,25 @@
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
-        // Διαχωρισμός των δεδομένων βάσει των επικεφαλίδων στο αρχείο
+        // Διαχωρισμός των δεδομένων
         const current = d.match(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---([\s\S]*?)---/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
         const today = d.match(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---([\s\S]*?)---/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
         const tomorrow = d.match(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---([\s\S]*)/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
 
-        // Εμφάνιση στα αντίστοιχα πεδία
         document.getElementById('current-status').innerHTML = formatData(current);
         document.getElementById('today-forecast').innerHTML = formatData(today);
         document.getElementById('tomorrow-forecast').innerHTML = formatData(tomorrow);
+
+        // Εξαγωγή τιμών για το top panel
+        const temp = current.match(/Θερμοκρασία:\s*([\d.]+)/)?.[1] || "-";
+        const hum = current.match(/Υγρασία:\s*(\d+)/)?.[1] || "-";
+        const wind = current.match(/Άνεμος:\s*([\d.]+)/)?.[1] || "-";
+        
+        document.getElementById('val-temp').innerText = temp;
+        document.getElementById('val-hum').innerText = hum;
+        document.getElementById('val-wind').innerText = wind;
       });
   }
-
-  function formatData(text) {
-    // Μικρή μορφοποίηση για να φαίνεται όμορφο
-    return text.trim().replace(/\n/g, '<br>');
-  }
-
-  window.onload = loadData;
 </script>
 </body>
 </html>
