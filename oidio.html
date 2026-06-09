@@ -2,38 +2,49 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <title>OidioWatch</title>
+    <title>OidioWatch | Smart Agronomy</title>
     <style>
-        .live-panel { background: #2c3e50; color: white; padding: 20px; display: flex; justify-content: space-around; border-radius: 10px; }
+        body { font-family: sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .oidio-container { max-width: 700px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .live-panel { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-around; text-align: center; }
+        .risk-high { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .risk-med { background: #f1c40f; color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .risk-low { background: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="live-panel">
-    <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
-    <div><small>Υγρασία</small><br><strong id="val-hum">-</strong>%</div>
-    <div><small>Ανεμος</small><br><strong id="val-wind">-</strong> km/h</div>
-</div>
+<div class="oidio-container">
+    <h2>OidioWatch: Πρόβλεψη Ωιδίου</h2>
+    <div id="last-update" style="font-size: 0.8em; color: #777;"></div>
+    
+    <div class="live-panel">
+        <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
+        <div><small>Υγρασία</small><br><strong id="val-hum">-</strong>%</div>
+        <div><small>Ανεμος</small><br><strong id="val-wind">-</strong> km/h</div>
+    </div>
 
-<div id="content" style="margin-top:20px; padding:20px; background:#f9f9f9;"></div>
+    <div id="status-dashboard" style="margin-top:20px;"></div>
+</div>
 
 <script>
   fetch('result_oidio.txt?t=' + new Date().getTime())
     .then(r => r.text())
     .then(d => {
-        // Εμφάνιση του περιεχομένου για debugging
-        document.getElementById('content').innerText = d;
+        document.getElementById('last-update').innerText = d.split('\n')[0];
         
-        // Συνάρτηση για να βρίσκει την τιμή μετά από μια λέξη-κλειδί
-        const getValue = (text, key) => {
-            const regex = new RegExp(key + ":\\s*([^\\n]+)", "i");
-            const match = text.match(regex);
-            return match ? match[1].trim() : "-";
-        };
+        let html = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
+                    .replace(/ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-med">ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ</span>')
+                    .replace(/ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-low">ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
+                    .replace(/\n/g, '<br>');
+        
+        document.getElementById('status-dashboard').innerHTML = html;
 
-        document.getElementById('val-temp').innerText = getValue(d, "Θερμοκρασία");
-        document.getElementById('val-hum').innerText = getValue(d, "Υγρασία");
-        document.getElementById('val-wind').innerText = getValue(d, "Άνεμος");
+        // Εξειδικευμένη ανάκτηση μόνο από τη Στιγμιαία Κατάσταση
+        const live = d.substring(d.indexOf("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"), d.indexOf("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ"));
+        document.getElementById('val-temp').innerText = (live.match(/Θερμοκρασία:\s*([\d.]+)/i) || [])[1] || "-";
+        document.getElementById('val-hum').innerText = (live.match(/Υγρασία:\s*([\d.]+)/i) || [])[1] || "-";
+        document.getElementById('val-wind').innerText = (live.match(/Άνεμος:\s*([\d.]+)/i) || [])[1] || "-";
     });
 </script>
 </body>
