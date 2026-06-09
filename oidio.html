@@ -82,8 +82,7 @@
 </div>
 
 <script>
-  <script>
-  function loadData() {
+	function loadData() {
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
