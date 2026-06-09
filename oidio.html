@@ -82,30 +82,32 @@
 </div>
 
 <script>
+  <script>
   function loadData() {
     fetch('result_oidio.txt?t=' + new Date().getTime())
       .then(r => r.text())
       .then(d => {
-        // Διαχωρισμός των δεδομένων
-        const current = d.match(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---([\s\S]*?)---/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
-        const today = d.match(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---([\s\S]*?)---/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
-        const tomorrow = d.match(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---([\s\S]*)/i)?.[1] || "Δεν βρέθηκαν δεδομένα";
+        // Χρησιμοποιούμε πιο "χαλαρά" regex για να πιάσουμε το κείμενο
+        const current = d.split(/ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ ---/i)[1]?.split('---')[0] || "Δεν βρέθηκαν δεδομένα";
+        const today = d.split(/ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ ---/i)[1]?.split('---')[0] || "Δεν βρέθηκαν δεδομένα";
+        const tomorrow = d.split(/ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ ---/i)[1] || "Δεν βρέθηκαν δεδομένα";
 
-        document.getElementById('current-status').innerHTML = formatData(current);
-        document.getElementById('today-forecast').innerHTML = formatData(today);
-        document.getElementById('tomorrow-forecast').innerHTML = formatData(tomorrow);
+        document.getElementById('current-status').innerHTML = current.trim().replace(/\n/g, '<br>');
+        document.getElementById('today-forecast').innerHTML = today.trim().replace(/\n/g, '<br>');
+        document.getElementById('tomorrow-forecast').innerHTML = tomorrow.trim().replace(/\n/g, '<br>');
 
         // Εξαγωγή τιμών για το top panel
-        const temp = current.match(/Θερμοκρασία:\s*([\d.]+)/)?.[1] || "-";
-        const hum = current.match(/Υγρασία:\s*(\d+)/)?.[1] || "-";
-        const wind = current.match(/Άνεμος:\s*([\d.]+)/)?.[1] || "-";
+        const temp = d.match(/Θερμοκρασία:\s*([\d.]+)/)?.[1] || "-";
+        const hum = d.match(/Υγρασία:\s*(\d+)/)?.[1] || "-";
+        const wind = d.match(/Άνεμος:\s*([\d.]+)/)?.[1] || "-";
         
         document.getElementById('val-temp').innerText = temp;
         document.getElementById('val-hum').innerText = hum;
         document.getElementById('val-wind').innerText = wind;
-      });
+      })
+      .catch(err => console.error("Σφάλμα φόρτωσης:", err));
   }
-  // Κάλεσε τη συνάρτηση μόλις φορτώσει το σώμα της σελίδας
+
   window.onload = loadData;
 </script>
 </body>
