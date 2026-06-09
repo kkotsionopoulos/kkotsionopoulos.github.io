@@ -86,23 +86,21 @@
             return coloredD.substring(start, end).replace(/---/g, '').trim().replace(/\n/g, '<br>');
         };
 
-        // Ενημέρωση πεδίων
+        // Ενημέρωση των ενοτήτων
         document.getElementById('current-status').innerHTML = getSection("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", "ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ");
         document.getElementById('today-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", "ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ");
         document.getElementById('tomorrow-forecast').innerHTML = getSection("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", null);
 
         // Ανάκτηση τιμών για το πάνω πάνελ από την ενότητα ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ
-        const currentSectionText = d.substring(d.indexOf("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"), d.indexOf("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ"));
+        const section = d.substring(d.indexOf("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"), d.indexOf("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ"));
         
-        const extractVal = (key) => {
-            const regex = new RegExp(key + ":\\s*([^|\\n]+)", "i");
-            const match = currentSectionText.match(regex);
-            return match ? match[1].trim() : "-";
-        };
+        const tempMatch = section.match(/Θερμοκρασία:\s*([\d.]+)/i);
+        const humMatch = section.match(/Υγρασία:\s*([\d.]+)/i);
+        const windMatch = section.match(/Άνεμος:\s*([\d.]+)/i);
 
-        document.getElementById('val-temp').innerText = extractVal("Θερμοκρασία").replace('°C', '');
-        document.getElementById('val-hum').innerText = extractVal("Υγρασία").replace('%', '');
-        document.getElementById('val-wind').innerText = extractVal("Άνεμος").replace('km/h', '');
+        if (tempMatch) document.getElementById('val-temp').innerText = tempMatch[1];
+        if (humMatch) document.getElementById('val-hum').innerText = humMatch[1];
+        if (windMatch) document.getElementById('val-wind').innerText = windMatch[1];
       })
       .catch(err => console.log("Αναμονή για δεδομένα..."));
   }
