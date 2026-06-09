@@ -22,14 +22,21 @@ try:
     
     # Τρέχοντα δεδομένα
     current = response['current']
+    temp = current['temp_c']
+    hum = current['humidity']
+    wind = current['wind_kph']
+    rain = current['precip_mm']
+    rain_text = f"{rain} mm" if rain > 0 else "Όχι"
     
-    # Δεδομένα πρόβλεψης (Η λίστα forecastday)
+    # Δεδομένα πρόβλεψης
     forecast_days = response['forecast']['forecastday']
-    
-    # Σήμερα (forecast_days[0])
     today = forecast_days[0]['day']
-    # Αύριο (forecast_days[1])
     tomorrow = forecast_days[1]['day']
+
+    # Υπολογισμός ρίσκου για κάθε περίπτωση
+    risk_now = calculate_oidio_risk(temp, hum, wind)
+    risk_today = calculate_oidio_risk(today['avgtemp_c'], today['avghumidity'], today['maxwind_kph'])
+    risk_tom = calculate_oidio_risk(tomorrow['avgtemp_c'], tomorrow['avghumidity'], tomorrow['maxwind_kph'])
 
     # Εγγραφή στο αρχείο
     with open("result_oidio.txt", "w", encoding="utf-8") as f:
@@ -38,13 +45,15 @@ try:
         def write_section(title, risk, t, h, w, r):
             f.write(f"{title} ---\n")
             f.write(f"Κίνδυνος: {risk}\n")
-            f.write(f"Θερμοκρασία: {t}°C | Υγρασία: {h}% | Άνεμος: {w} km/h | Διαβροχή: {r}\n")
+            f.write(f"Θερμοκρασία: {t}°C\n")
+            f.write(f"Υγρασία: {h}%\n")
+            f.write(f"Άνεμος: {w} km/h\n")
+            f.write(f"Διαβροχή: {r}\n")
             f.write("---\n")
 
-        # Εγγραφή με διαφορετικές τιμές
-        write_section("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", calculate_oidio_risk(current['temp_c'], current['humidity'], current['wind_kph']), current['temp_c'], current['humidity'], current['wind_kph'], "0 mm")
-        write_section("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", calculate_oidio_risk(today['avgtemp_c'], today['avghumidity'], today['maxwind_kph']), today['avgtemp_c'], today['avghumidity'], today['maxwind_kph'], "0 mm")
-        write_section("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", calculate_oidio_risk(tomorrow['avgtemp_c'], tomorrow['avghumidity'], tomorrow['maxwind_kph']), tomorrow['avgtemp_c'], tomorrow['avghumidity'], tomorrow['maxwind_kph'], "0 mm")
+        write_section("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ", risk_now, temp, hum, wind, rain_text)
+        write_section("ΠΡΟΒΛΕΨΗ ΣΗΜΕΡΑ", risk_today, today['avgtemp_c'], today['avghumidity'], today['maxwind_kph'], "0 mm")
+        write_section("ΠΡΟΒΛΕΨΗ ΑΥΡΙΟ", risk_tom, tomorrow['avgtemp_c'], tomorrow['avghumidity'], tomorrow['maxwind_kph'], "0 mm")
 
 except Exception as e:
-    print(f"Σφάλμα: {e}")
+    print(f"Σφάλμα κατά την ανάκτηση: {e}")
