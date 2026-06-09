@@ -49,11 +49,17 @@
         <div><small>Ανεμος</small><br><strong id="val-wind">-</strong> km/h</div>
     </div>
 
-    <div class="smart-panel">
-        <h3>Ρυθμίσεις Μοντέλου Gubler-Thomas</h3>
-        <p style="font-size: 0.9em;">Το μοντέλο υπολογίζει τον κίνδυνο βασιζόμενο στην αθροιστική θερμοκρασία (Gubler-Thomas index) για την ανάπτυξη του <em>Erysiphe necator</em>.</p>
-    </div>
+	<div class="smart-panel">
+		<h3>📊 Τρέχουσα Κατάσταση & Προβλέψεις</h3>
+    
+		<div id="status-dashboard">
+			<p><strong>Στιγμιαία Κατάσταση:</strong> <span id="current-status">Φόρτωση...</span></p>
+			<p><strong>Πρόβλεψη Σήμερα:</strong> <span id="today-forecast">Φόρτωση...</span></p>
+			<p><strong>Πρόβλεψη Αύριο:</strong> <span id="tomorrow-forecast">Φόρτωση...</span></p>
+		</div>
+	</div>
 
+    
     <div class="button-group">
         <button class="oidio-btn secondary" onclick="updateChart()">Γράφημα Κινδύνου</button>
     </div>
