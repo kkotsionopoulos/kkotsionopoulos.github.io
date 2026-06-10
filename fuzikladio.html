@@ -55,20 +55,22 @@
     fetch('result_scab.txt?t=' + new Date().getTime())
         .then(r => r.text())
         .then(d => {
-            // Regex για να ταιριάζει με τα δεδομένα που στέλνεις (Θερμοκρασία, Υγρασία, Κίνδυνος)
+            // Regex για να εντοπίσουμε τις τιμές που όντως υπάρχουν στο αρχείο
             const tempMatch = d.match(/Θερμοκρασία:\s*([\d.]+)/i);
             const humMatch = d.match(/Υγρασία:\s*([\d.]+)/i);
             const riskMatch = d.match(/Κίνδυνος:\s*(.*)/i);
             
+            // Ενημέρωση πεδίων
             if(tempMatch) document.getElementById('val-temp').innerText = tempMatch[1];
             
-            // Εμφάνιση Υγρασίας στο πεδίο που πριν είχαμε για τη διαβροχή
-            if(humMatch) document.getElementById('val-wetness').innerText = humMatch[1] + "%";
+            // Εδώ χρησιμοποιούμε την Υγρασία για το πεδίο val-hum
+            if(humMatch) document.getElementById('val-hum').innerText = humMatch[1] + "%";
             
             if(riskMatch) {
                 let riskText = riskMatch[1].trim();
                 document.getElementById('val-risk').innerText = riskText;
                 
+                // Χρωματισμός ανάλογα με τον κίνδυνο
                 const riskDiv = document.getElementById('val-risk');
                 if(riskText.includes("ΥΨΗΛΟΣ")) riskDiv.style.color = "#e74c3c";
                 else if(riskText.includes("ΜΕΤΡΙΟΣ")) riskDiv.style.color = "#f1c40f";
