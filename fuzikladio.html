@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScabWatch | Apple Scab Prediction</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
         .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
@@ -13,9 +12,8 @@
         .nav-links a { padding: 6px 12px; color: white !important; border: 1.5px solid #e74c3c; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; }
         .nav-links a:hover { background-color: #e74c3c; }
         
-        .vine-container { max-width: 700px; margin: 80px auto 20px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .vine-container { max-width: 700px; margin: 80px auto 30px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .live-panel { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-around; text-align: center; }
-        .smart-panel { background: #fdf2f2; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #f5c6cb; }
         .info-section { margin-top: 30px; line-height: 1.6; color: #444; }
         .info-section h3 { color: #2c3e50; border-bottom: 2px solid #e74c3c; padding-bottom: 5px; }
     </style>
@@ -37,26 +35,18 @@
     
     <div class="live-panel">
         <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
-        <div><small>Διάρκεια Διαβροχής</small><br><strong id="val-hum">-</strong>h</div>
+        <div><small>Διάρκεια Διαβροχής</small><br><strong id="val-wetness">-</strong>h</div>
         <div><small>Κίνδυνος</small><br><strong id="val-risk">-</strong></div>
     </div>
 
-    <div class="smart-panel">
-        <h3>Ρυθμίσεις Μοντέλου Mills</h3>
-        <label><input type="checkbox" checked> Ενεργοποίηση αποθήκευσης δεδομένων (ML Feedback)</label>
-    </div>
-
     <div class="info-section">
-        <h3>Μεθοδολογία</h3>
-        <p>Το σύστημα βασίζεται στον <strong>Πίνακα του Mills</strong>, συσχετίζοντας τη διάρκεια διαβροχής των φύλλων με τη μέση θερμοκρασία για τον υπολογισμό της περιόδου επώασης του <em>Venturia inaequalis</em>.</p>
-        
-        <h3>Παράγοντες Ελέγχου</h3>
+        <h3>Παράγοντες που επηρεάζουν τη μόλυνση</h3>
         <ul>
-            <li><strong>Διάρκεια Διαβροχής:</strong> Κρίσιμος παράγοντας για τη βλάστηση των ασκοσπορίων.</li>
-            <li><strong>Θερμοκρασιακό Εύρος:</strong> Ιδανικές συνθήκες ανάπτυξης 18-22°C[cite: 8].</li>
-            <li><strong>Υγρασία:</strong> Σχετική υγρασία >90% απαιτείται για τη διατήρηση των συνθηκών μόλυνσης[cite: 6].</li>
+            <li><strong>Διάρκεια Διαβροχής φύλλων:</strong> Είναι ο καθοριστικός παράγοντας για τη βλάστηση των ασκοσπορίων.</li>
+            <li><strong>Θερμοκρασία:</strong> Οι ιδανικές συνθήκες ανάπτυξης κυμαίνονται μεταξύ 18-22°C.</li>
+            <li><strong>Υγρασία:</strong> Απαιτείται σχετική υγρασία άνω του 90% για να διατηρηθεί η διαβροχή στα φύλλα.</li>
         </ul>
-        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων και δεν υποκαθιστά τις επιτόπιες γεωπονικές παρατηρήσεις[cite: 9].</em></p>
+        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων βασισμένο στο μοντέλο Mills και δεν υποκαθιστά τις επιτόπιες παρατηρήσεις.</em></p>
     </div>
 </div>
 
@@ -65,33 +55,26 @@
     fetch('result_scab.txt?t=' + new Date().getTime())
         .then(r => r.text())
         .then(d => {
-            // Χρησιμοποιούμε το \n για να βεβαιωθούμε ότι ψάχνουμε σωστά
-            const tempMatch = d.match(/Θερμοκρασία:\s*(-?\d+)/);
-            const humMatch = d.match(/Υγρασία:\s*(\d+)/);
-            const riskMatch = d.match(/Κίνδυνος:\s*(.*)/);
+            // Regex για να εντοπίσουμε σωστά τις τιμές στο αρχείο
+            const tempMatch = d.match(/Θερμοκρασία:\s*([\d.]+)/i);
+            const wetnessMatch = d.match(/Διαβροχή:\s*([\d.]+)/i); // Εδώ εντοπίζουμε τη Διαβροχή
+            const riskMatch = d.match(/Κίνδυνος:\s*(.*)/i);
             
-            // Ενημέρωση των πεδίων (με έλεγχο αν βρέθηκαν)
             if(tempMatch) document.getElementById('val-temp').innerText = tempMatch[1];
-            if(humMatch) document.getElementById('val-hum').innerText = humMatch[1];
+            if(wetnessMatch) document.getElementById('val-wetness').innerText = wetnessMatch[1];
             
-            // Εδώ εμφανίζουμε τον κίνδυνο
             if(riskMatch) {
                 let riskText = riskMatch[1].trim();
                 document.getElementById('val-risk').innerText = riskText;
-                
-                // Προαιρετικό: Άλλαξε το χρώμα ανάλογα με τον κίνδυνο
                 const riskDiv = document.getElementById('val-risk');
                 if(riskText.includes("ΥΨΗΛΟΣ")) riskDiv.style.color = "#e74c3c";
                 else if(riskText.includes("ΜΕΤΡΙΟΣ")) riskDiv.style.color = "#f1c40f";
                 else riskDiv.style.color = "#27ae60";
             }
         })
-        .catch(err => console.error("Σφάλμα κατά τη φόρτωση δεδομένων:", err));
+        .catch(err => console.error("Σφάλμα:", err));
   }
-
-  window.onload = function() {
-      loadScabData();
-  };
+  window.onload = loadScabData;
 </script>
 
 </body>
