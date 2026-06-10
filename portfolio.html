@@ -72,7 +72,7 @@ body {
     background-color: #27ae60;
 }
 
-/* --- DROPDOWN (ίδιο στυλ με τα απλά links) --- */
+/* --- DROPDOWN --- */
 .dropdown {
     position: relative;
     display: flex;
@@ -103,7 +103,7 @@ body {
     background-color: #27ae60;
 }
 
-/* --- DROPDOWN MENU (διορθωμένο για να μην κλείνει) --- */
+/* --- DROPDOWN MENU --- */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -116,21 +116,6 @@ body {
     z-index: 9999;
     overflow: hidden;
     margin-top: 5px;
-}
-
-/* Αόρατη γέφυρα - εμποδίζει το κλείσιμο του μενού */
-.dropdown-content::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 0;
-    width: 100%;
-    height: 10px;
-    background: transparent;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .dropdown-content a {
@@ -209,9 +194,9 @@ h3 { color: #2c3e50; margin-top: 0; }
         <div class="nav-links">
             <a href="index.html">Βιογραφικό</a>
             
-            <div class="dropdown">
+            <div class="dropdown" id="portfolioDropdown">
                 <a href="portfolio.html" class="dropbtn">Portfolio ▾</a>
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="dropdownMenu">
                     <a href="vine_watch.html">VineWatch (Περονόσπορος)</a>
                     <a href="fuzikladio.html">ScabWatch (Φουζικλάδιο)</a>
                     <a href="oidio.html">OidioWatch (Ωίδιο)</a>
@@ -308,6 +293,29 @@ h3 { color: #2c3e50; margin-top: 0; }
 <footer style="text-align: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px;">
     <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
 </footer>
+
+<!-- JavaScript για σταθερό dropdown -->
+<script>
+    const dropdown = document.getElementById('portfolioDropdown');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    let timeout;
+
+    function showMenu() {
+        clearTimeout(timeout);
+        dropdownMenu.style.display = 'block';
+    }
+
+    function hideMenu() {
+        timeout = setTimeout(() => {
+            dropdownMenu.style.display = 'none';
+        }, 150);
+    }
+
+    dropdown.addEventListener('mouseenter', showMenu);
+    dropdown.addEventListener('mouseleave', hideMenu);
+    dropdownMenu.addEventListener('mouseenter', showMenu);
+    dropdownMenu.addEventListener('mouseleave', hideMenu);
+</script>
 
 </body>
 </html>
