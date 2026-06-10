@@ -29,11 +29,13 @@ try:
 
     # Εγγραφή στο αρχείο (Σταθερή μορφή για το JS)
     with open("result_scab.txt", "w", encoding="utf-8") as f:
+# ... μέσα στο with open("result_scab.txt", "w", ...) as f:
         f.write(f"Τελευταία ενημέρωση: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
         f.write("--- ΠΡΟΒΛΕΨΗ ΦΟΥΖΙΚΛΑΔΙΟΥ ---\n")
         f.write(f"Κίνδυνος: {risk}\n")
         f.write(f"Θερμοκρασία: {temp}°C\n")
         f.write(f"Υγρασία: {humidity}%\n")
+        f.write(f"Διαβροχή: {humidity}h\n") # ΠΡΟΣΘΗΚΗ: Εδώ γράφεται η διαβροχή
         
 except Exception as e:
     print(f"Σφάλμα κατά την εκτέλεση: {e}")
