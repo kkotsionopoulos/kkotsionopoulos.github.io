@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>QR Code Generator Project | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root { --primary-color: #2c3e50; --accent-color: #27ae60; --text-color: #333; --bg-color: #f4f7f6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; color: var(--text-color); background-color: var(--bg-color); margin: 0; padding: 0; }
+        
+        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; width: 100%; }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a { padding: 6px 12px; color: white !important; border: 1.5px solid var(--accent-color); border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; }
+        .nav-links a:hover { background-color: var(--accent-color); }
+        
+        .container { max-width: 900px; margin: 80px auto 30px auto; background: #fff; padding: 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); border-radius: 8px; }
+        .project-header { margin-bottom: 30px; text-align: center; }
+        .project-header h1 { color: var(--primary-color); margin-bottom: 10px; }
+        
+        h2 { color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 30px; }
+        h3 { color: var(--primary-color); margin-top: 20px; }
+        
+        /* --- QR TOOL SECTION --- */
+        .qr-tool-section {
+            background: #f9f9f9;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .qr-tool-section h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .input-group input {
+            flex: 1;
+            padding: 14px 18px;
+            font-size: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s;
+            font-family: monospace;
+        }
+        
+        .input-group input:focus {
+            border-color: var(--accent-color);
+        }
+        
+        .generate-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .generate-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .qr-result {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .qr-result.show {
+            display: flex;
+        }
+        
+        #qrCanvas {
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .download-btn {
+            background: var(--accent-color);
+            margin-top: 18px;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background: #1e8449;
+            transform: translateY(-2px);
+        }
+        
+        .error-msg {
+            color: #e74c3c;
+            background: #fdecea;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .tech-list {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .tech-list ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .responsive-img {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            cursor: zoom-in;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        footer {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            display: flex;
+            justify-content: center;
+            padding: 40px 0;
+            background: #2c3e50;
+            color: white;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 25px; }
+            .input-group { flex-direction: column; }
+            .generate-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="project-header">
+        <h1>QR Code Generator – Εργαλείο Δημιουργίας QR Κωδικών</h1>
+        <!-- Το πάνω κουμπί έχει ΑΦΑΙΡΕΘΕΙ -->
+    </div>
+
+    <h2>Τι είναι το QR Code Generator;</h2>
+    <p>Ένα <strong>διαδραστικό web εργαλείο</strong> που επιτρέπει τη στιγμιαία δημιουργία QR κωδικών από οποιοδήποτε URL. Ο χρήστης επικολλά ένα link και παίρνει άμεσα τον αντίστοιχο QR κώδικα, έτοιμο για λήψη και ελεύθερη χρήση.</p>
+
+    <img src="qrcode_preview.jpg" alt="QR Code Generator Preview" class="responsive-img" onerror="this.style.display='none'">
+
+    <div style="background: #fdfdfd; padding: 25px; border-radius: 8px; border: 1px solid #eee; margin: 20px 0;">
+        <h2>Πώς δουλεύει; (Τεχνική Προσέγγιση)</h2>
+        <p>Η εφαρμογή λειτουργεί <strong>εξ ολοκλήρου στον browser</strong> (client-side), χωρίς να χρειάζεται backend server. Αυτό εξασφαλίζει:</p>
+        <ul>
+            <li><strong>Απόλυτη ιδιωτικότητα:</strong> Κανένα link δεν αποστέλλεται σε εξωτερικό server</li>
+            <li><strong>Άμεση απόκριση:</strong> Η δημιουργία γίνεται σε κλάσματα δευτερολέπτου</li>
+            <li><strong>Λειτουργία offline:</strong> Αρκεί να έχει φορτωθεί η σελίδα μία φορά</li>
+        </ul>
+        
+        <h3>Τεχνολογίες που χρησιμοποιήθηκαν</h3>
+        <div class="tech-list">
+            <ul>
+                <li><strong>HTML5 / CSS3</strong> – Δομή και styling (προσαρμοσμένο στο portfolio)</li>
+                <li><strong>JavaScript (ES6)</strong> – Λογική αλληλεπίδρασης και χειρισμός συμβάντων</li>
+                <li><strong>QRCode.js</strong> – Βιβλιοθήκη για τη γέννηση QR σε canvas</li>
+                <li><strong>html2canvas</strong> – Μετατροπή του QR σε εικόνα PNG υψηλής ανάλυσης</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Δοκίμασε το εργαλείο</h2>
+    <p>Επικόλλησε οποιοδήποτε link παρακάτω και δημιούργησε τον QR κώδικά σου:</p>
+
+    <!-- Ενσωματωμένο QR Tool -->
+    <div class="qr-tool-section">
+        <h3>🔲 Δημιουργός QR Code</h3>
+        
+        <div class="input-group">
+            <input type="url" id="linkInput" placeholder="https://example.com ή οποιοδήποτε URL">
+            <button id="generateBtn" class="generate-btn">✨ Δημιουργία QR</button>
+        </div>
+
+        <div id="qrResult" class="qr-result">
+            <canvas id="qrCanvas"></canvas>
+            <button id="downloadBtn" class="download-btn">📥 Λήψη QR Code (PNG)</button>
+        </div>
+
+        <div id="errorMsg" class="error-msg"></div>
+        
+        <p style="font-size: 12px; color: #888; margin-top: 15px;">
+            🔒 Η διαδικασία γίνεται τοπικά — κανένα link δεν αποθηκεύεται ή μεταδίδεται.
+        </p>
+    </div>
+
+    <h2>Τι αποτελέσματα προσφέρει;</h2>
+    <ul>
+        <li><strong>Άμεση δημιουργία:</strong> QR code σε 1 δευτερόλεπτο</li>
+        <li><strong>Λήψη υψηλής ανάλυσης:</strong> Αποθήκευση ως PNG με αυτόματη ονομασία</li>
+        <li><strong>Καθολική συμβατότητα:</strong> Ο QR διαβάζεται από όλες τις εφαρμογές (κινητά, tablets, scanners)</li>
+        <li><strong>Ελεύθερη χρήση:</strong> Χωρίς υδατογραφήματα ή περιορισμούς</li>
+    </ul>
+
+    <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="margin-top: 0;">💡 Ιδέες χρήσης</h3>
+        <p>Το εργαλείο μπορεί να χρησιμοποιηθεί για:</p>
+        <ul>
+            <li>Δημιουργία QR για links των projects σου</li>
+            <li>Προσθήκη QR σε αφίσες, επαγγελματικές κάρτες ή παρουσιάσεις</li>
+            <li>Γρήγορη κοινή χρήση συνδέσμων σε εκτυπώσιμο υλικό</li>
+            <li>Ενσωμάτωση σε ιστοσελίδες ή εφαρμογές ως δωρεάν εργαλείο</li>
+        </ul>
+    </div>
+
+    <!-- ΜΟΝΟ το κάτω κουμπί παραμένει -->
+    <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
+</div>
+
+<!-- Modal για μεγέθυνση εικόνας -->
+<div id="imageModal" style="display:none; position:fixed; z-index:3000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); text-align:center; padding-top:50px; cursor:zoom-out;" onclick="this.style.display='none'">
+    <img id="modalImg" style="max-width:90%; max-height:80%; border-radius:5px;">
+</div>
+
+<!-- Βιβλιοθήκες -->
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+    (function() {
+        const linkInput = document.getElementById('linkInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const qrResult = document.getElementById('qrResult');
+        const qrCanvas = document.getElementById('qrCanvas');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const errorMsgDiv = document.getElementById('errorMsg');
+
+        function showError(text) {
+            errorMsgDiv.textContent = text;
+            errorMsgDiv.style.display = 'block';
+            setTimeout(() => {
+                errorMsgDiv.style.display = 'none';
+            }, 4000);
+        }
+
+        function clearCanvas() {
+            const ctx = qrCanvas.getContext('2d');
+            ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+            qrCanvas.width = 0;
+            qrCanvas.height = 0;
+        }
+
+        function generateQRCode(url) {
+            return new Promise((resolve, reject) => {
+                try {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.style.position = 'absolute';
+                    tempDiv.style.top = '-9999px';
+                    tempDiv.style.left = '-9999px';
+                    document.body.appendChild(tempDiv);
+
+                    new QRCode(tempDiv, {
+                        text: url,
+                        width: 250,
+                        height: 250,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.M
+                    });
+
+                    setTimeout(() => {
+                        html2canvas(tempDiv, { scale: 2, backgroundColor: '#ffffff', logging: false })
+                            .then(canvasFromTemp => {
+                                qrCanvas.width = canvasFromTemp.width;
+                                qrCanvas.height = canvasFromTemp.height;
+                                const ctx = qrCanvas.getContext('2d');
+                                ctx.drawImage(canvasFromTemp, 0, 0);
+                                document.body.removeChild(tempDiv);
+                                resolve();
+                            })
+                            .catch(err => {
+                                document.body.removeChild(tempDiv);
+                                reject(err);
+                            });
+                    }, 100);
+                } catch(e) {
+                    reject(e);
+                }
+            });
+        }
+
+        async function createQR() {
+            let link = linkInput.value.trim();
+            if (link === "") {
+                showError("❌ Παρακαλώ εισάγετε ένα link");
+                return;
+            }
+            if (!link.startsWith('http://') && !link.startsWith('https://')) {
+                link = 'https://' + link;
+            }
+            const urlPattern = /^(https?:\/\/)[\w\-]+(\.[\w\-]+)+[/#?]?.*$/i;
+            if (!urlPattern.test(link)) {
+                showError("⚠️ Μη έγκυρο URL. Παράδειγμα: https://example.com");
+                return;
+            }
+
+            generateBtn.textContent = "⏳ Δημιουργία...";
+            generateBtn.disabled = true;
+            qrResult.classList.remove('show');
+            errorMsgDiv.style.display = 'none';
+
+            try {
+                await generateQRCode(link);
+                qrResult.classList.add('show');
+            } catch (error) {
+                console.error(error);
+                showError("Αποτυχία δημιουργίας QR. Δοκιμάστε ξανά.");
+            } finally {
+                generateBtn.textContent = "✨ Δημιουργία QR";
+                generateBtn.disabled = false;
+            }
+        }
+
+        function downloadQR() {
+            if (!qrResult.classList.contains('show')) {
+                showError("Πρώτα δημιούργησε ένα QR code");
+                return;
+            }
+            try {
+                const link = document.createElement('a');
+                const dataURL = qrCanvas.toDataURL('image/png');
+                link.href = dataURL;
+                let rawLink = linkInput.value.trim() || 'qrcode';
+                let shortName = rawLink.replace(/^https?:\/\//i, '').replace(/[^a-z0-9]/gi, '_').substring(0, 40);
+                if (shortName === '') shortName = 'qrcode';
+                link.download = `qrcode_${shortName}.png`;
+                link.click();
+            } catch(e) {
+                showError("Αποτυχία λήψης");
+            }
+        }
+
+        generateBtn.addEventListener('click', createQR);
+        downloadBtn.addEventListener('click', downloadQR);
+        linkInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') createQR();
+        });
+        clearCanvas();
+
+        // Zoom functionality for image (αν υπάρχει)
+        const img = document.querySelector('.responsive-img');
+        if (img && img.src && !img.complete) {
+            img.onload = function() {
+                if (this.naturalWidth > 0) {
+                    this.onclick = function() {
+                        document.getElementById('imageModal').style.display = 'block';
+                        document.getElementById('modalImg').src = this.src;
+                    };
+                }
+            };
+        } else if (img && img.complete && img.naturalWidth > 0) {
+            img.onclick = function() {
+                document.getElementById('imageModal').style.display = 'block';
+                document.getElementById('modalImg').src = this.src;
+            };
+        }
+    })();
+</script>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Projects — QR Code Generator</p>
+</footer>
+
+</body>
+</html>
