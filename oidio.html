@@ -2,17 +2,38 @@
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <title>OidioWatch | Smart Agronomy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OidioWatch | Κωνσταντίνος Κωτσιονόπουλος</title>
     <style>
-        body { font-family: sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        .oidio-container { max-width: 700px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .live-panel { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-around; text-align: center; }
-        .risk-high { background: #e74c3c; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .risk-med { background: #f1c40f; color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .risk-low { background: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        :root { --primary-color: #2c3e50; --accent-color: #e67e22; --bg-color: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navbar */
+        .navbar { background-color: var(--primary-color); height: 50px; display: flex; align-items: center; justify-content: center; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links a { color: white; text-decoration: none; border: 1px solid var(--accent-color); padding: 5px 10px; border-radius: 15px; font-size: 0.9em; }
+
+        .oidio-container { max-width: 700px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex: 1; }
+        
+        /* Responsive Live Panel */
+        .live-panel { background: var(--primary-color); color: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-around; }
+        @media (max-width: 480px) { .live-panel { flex-direction: column; gap: 10px; } }
+
+        /* Footer */
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9em; }
+        .footer-links { margin-bottom: 10px; }
+        .footer-links a { color: var(--accent-color); margin: 0 10px; text-decoration: none; }
     </style>
 </head>
 <body>
+
+<nav class="navbar">
+    <div class="nav-links">
+        <a href="index.html">Βιογραφικό</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog.html">Blog</a>
+    </div>
+</nav>
 
 <div class="oidio-container">
     <h2>OidioWatch: Πρόβλεψη Ωιδίου</h2>
@@ -27,33 +48,32 @@
     <div id="status-dashboard" style="margin-top:20px;"></div>
 </div>
 
+<footer>
+    <div class="footer-links">
+        <a href="index.html">Αρχική</a> | <a href="contact.html">Επικοινωνία</a>
+    </div>
+    &copy; 2026 Κωνσταντίνος Κωτσιονόπουλος | Agronomy & Web Dev
+</footer>
+
 <script>
   fetch('result_oidio.txt?t=' + new Date().getTime())
     .then(r => r.text())
     .then(d => {
-        // Εμφάνιση ώρας ενημέρωσης
         const lines = d.split('\n');
         document.getElementById('last-update').innerText = lines[0];
         
-        // Χρωματισμός κινδύνου
         let html = d.replace(/ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-high">ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
                     .replace(/ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-med">ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ</span>')
                     .replace(/ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ/g, '<span class="risk-low">ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ</span>')
                     .replace(/\n/g, '<br>');
+        
         document.getElementById('status-dashboard').innerHTML = html;
 
-        // Ενημέρωση Live Panel από τη "ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"
         const startIdx = lines.findIndex(l => l.includes("ΣΤΙΓΜΙΑΙΑ ΚΑΤΑΣΤΑΣΗ"));
         if (startIdx !== -1) {
-            // Παίρνουμε τις 3 επόμενες γραμμές μετά τον τίτλο
-            const tempLine = lines[startIdx + 2]; // Θερμοκρασία: XX
-            const humLine = lines[startIdx + 3];  // Υγρασία: XX
-            const windLine = lines[startIdx + 4]; // Άνεμος: XX
-            
-            // Καθαρισμός για να μείνει μόνο το νούμερο
-            document.getElementById('val-temp').innerText = tempLine.split(': ')[1] || "-";
-            document.getElementById('val-hum').innerText = humLine.split(': ')[1] || "-";
-            document.getElementById('val-wind').innerText = windLine.split(': ')[1] || "-";
+            document.getElementById('val-temp').innerText = lines[startIdx + 2].split(': ')[1] || "-";
+            document.getElementById('val-hum').innerText = lines[startIdx + 3].split(': ')[1] || "-";
+            document.getElementById('val-wind').innerText = lines[startIdx + 4].split(': ')[1] || "-";
         }
     });
 </script>
