@@ -3,80 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScabWatch | Apple Scab Prediction</title>
+    <title>ScabWatch | Smart Agronomy</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
-        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
-        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; }
-        .nav-links { display: flex; gap: 8px; }
-        .nav-links a { padding: 6px 12px; color: white !important; border: 1.5px solid #e74c3c; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; }
-        .nav-links a:hover { background-color: #e74c3c; }
+        :root { --primary-color: #2c3e50; --accent-color: #e74c3c; --bg-color: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
-        .vine-container { max-width: 700px; margin: 80px auto 30px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .live-panel { background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-around; text-align: center; }
+        /* Navbar */
+        .navbar { background-color: var(--primary-color); height: 50px; display: flex; align-items: center; justify-content: center; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links a { color: white; text-decoration: none; border: 1px solid var(--accent-color); padding: 5px 10px; border-radius: 15px; font-size: 0.9em; }
+
+        .vine-container { max-width: 700px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex: 1; }
+        
+        /* Responsive Live Panel */
+        .live-panel { background: var(--primary-color); color: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-around; text-align: center; }
+        @media (max-width: 480px) { .live-panel { flex-direction: column; gap: 10px; } }
+
         .info-section { margin-top: 30px; line-height: 1.6; color: #444; }
-        .info-section h3 { color: #2c3e50; border-bottom: 2px solid #e74c3c; padding-bottom: 5px; }
+        .info-section h3 { color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 5px; }
+
+        /* Footer */
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9em; }
+        .footer-links { margin-bottom: 10px; }
+        .footer-links a { color: var(--accent-color); margin: 0 10px; text-decoration: none; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-links">
-            <a href="index.html">Βιογραφικό</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="blog.html">Blog</a>
-        </div>
+    <div class="nav-links">
+        <a href="index.html">Βιογραφικό</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog.html">Blog</a>
     </div>
 </nav>
 
 <div class="vine-container">
     <h2>ScabWatch: Πρόβλεψη Φουζικλαδίου</h2>
+    <div id="last-update" style="font-size: 0.8em; color: #777;"></div>
     
     <div class="live-panel">
         <div><small>Θερμοκρασία</small><br><strong id="val-temp">-</strong>°C</div>
-        <div><small>Υγρασία</small><br><strong id="val-wetness">-</strong>%</div>
-        <div><small>Κίνδυνος</small><br><strong id="val-risk">-</strong></div>
+        <div><small>Υγρασία</small><br><strong id="val-hum">-</strong>%</div>
+        <div><small>Διαβροχή</small><br><strong id="val-wet">-</strong>h</div>
     </div>
+
+    <div id="status-dashboard" style="margin-top:20px;"></div>
 
     <div class="info-section">
         <h3>Παράγοντες που επηρεάζουν τη μόλυνση</h3>
         <ul>
-            <li><strong>Διάρκεια Διαβροχής φύλλων:</strong> Είναι ο καθοριστικός παράγοντας για τη βλάστηση των ασκοσπορίων.</li>
-            <li><strong>Θερμοκρασία:</strong> Οι ιδανικές συνθήκες ανάπτυξης κυμαίνονται μεταξύ 18-22°C.</li>
-            <li><strong>Υγρασία:</strong> Απαιτείται σχετική υγρασία άνω του 90% για να διατηρηθεί η διαβροχή στα φύλλα.</li>
+            <li><strong>Διάρκεια Διαβροχής φύλλων:</strong> Καθοριστικός παράγοντας για τη βλάστηση των ασκοσπορίων.</li>
+            <li><strong>Θερμοκρασία:</strong> Ιδανικές συνθήκες ανάπτυξης μεταξύ 18-22°C.</li>
+            <li><strong>Υγρασία:</strong> Απαιτείται σχετική υγρασία άνω του 90%.</li>
         </ul>
-        <p><em>Σημείωση: Το σύστημα παρέχει υποστήριξη αποφάσεων βασισμένο στο μοντέλο Mills και δεν υποκαθιστά τις επιτόπιες παρατηρήσεις.</em></p>
     </div>
 </div>
 
-<script>
-  function loadScabData() {
-    fetch('result_scab.txt?t=' + new Date().getTime())
-        .then(r => r.text())
-        .then(d => {
-            const tempMatch = d.match(/Θερμοκρασία:\s*([\d.]+)/i);
-            const wetnessMatch = d.match(/Διαβροχή:\s*([\d.]+)/i); // Ψάχνει για "Διαβροχή"
-            const riskMatch = d.match(/Κίνδυνος:\s*(.*)/i);
-            
-            if(tempMatch) document.getElementById('val-temp').innerText = tempMatch[1];
-            
-            // Εδώ πλέον εμφανίζεται η διαβροχή με το 'h' στο τέλος
-            if(wetnessMatch) document.getElementById('val-wetness').innerText = wetnessMatch[1] + "h";
-            
-            if(riskMatch) {
-                let riskText = riskMatch[1].trim();
-                document.getElementById('val-risk').innerText = riskText;
-                
-                const riskDiv = document.getElementById('val-risk');
-                if(riskText.includes("ΥΨΗΛΟΣ")) riskDiv.style.color = "#e74c3c";
-                else if(riskText.includes("ΜΕΤΡΙΟΣ")) riskDiv.style.color = "#f1c40f";
-                else riskDiv.style.color = "#27ae60";
-            }
-        });
-  }
-  window.onload = loadScabData;
-</script>
+<footer>
+    <div class="footer-links">
+        <a href="index.html">Αρχική</a> | <a href="contact.html">Επικοινωνία</a>
+    </div>
+    &copy; 2026 Κωνσταντίνος Κωτσιονόπουλος | Agronomy & Web Dev
+</footer>
 
+<script>
+  fetch('result_scab.txt?t=' + new Date().getTime())
+    .then(r => r.text())
+    .then(d => {
+        const lines = d.split('\n');
+        document.getElementById('last-update').innerText = lines[0];
+        document.getElementById('status-dashboard').innerHTML = d.replace(/\n/g, '<br>');
+
+        // Ενημέρωση Live Panel
+        const temp = d.match(/Θερμοκρασία:\s*([\d.]+)/i);
+        const hum = d.match(/Υγρασία:\s*([\d.]+)/i);
+        const wet = d.match(/Διαβροχή:\s*([\d.]+)/i);
+
+        if(temp) document.getElementById('val-temp').innerText = temp[1];
+        if(hum) document.getElementById('val-hum').innerText = hum[1];
+        if(wet) document.getElementById('val-wet').innerText = wet[1];
+    });
+</script>
 </body>
 </html>
