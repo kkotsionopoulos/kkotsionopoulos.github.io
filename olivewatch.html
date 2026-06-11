@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OliveWatch – Πρόβλεψη Δάκου Ελιάς</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .olive-container {
+            max-width: 800px;
+            margin: 80px auto 20px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- PANELS --- */
+        .live-panel {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .live-panel div {
+            min-width: 80px;
+        }
+
+        .risk-panel {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .smart-panel {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* --- RISK LEVELS --- */
+        .risk-critical {
+            background: #8b0000;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .risk-high {
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .risk-moderate {
+            background: #f1c40f;
+            color: black;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .risk-low {
+            background: #27ae60;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .olive-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .olive-btn.secondary {
+            background: var(--accent-color);
+        }
+
+        .olive-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-2px);
+        }
+
+        /* --- INFO SECTION --- */
+        .info-section {
+            margin-top: 30px;
+            line-height: 1.6;
+            color: #444;
+            text-align: justify;
+        }
+
+        .info-section h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+
+        .degree-day-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .degree-day-fill {
+            background: var(--accent-color);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .olive-container { padding: 20px; margin-top: 70px; }
+            .live-panel div { font-size: 12px; }
+            .nav-links a { font-size: 0.7em; padding: 5px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="olive-container">
+    <h2>OliveWatch: Πρόβλεψη Δάκου Ελιάς</h2>
+    <p style="color: #666; margin-bottom: 20px;">Επιστημονικό μοντέλο βασισμένο σε <strong>Gonçalves & Torres (2011)</strong> και <strong>Degree Days (DD)</strong> [citation:5][citation:6]</p>
+
+    <!-- Πίνακας Ζωντανών Δεδομένων -->
+    <div class="live-panel">
+        <div><small>🌡️ Θερμοκρασία</small><br><strong id="val-temp">--</strong>°C</div>
+        <div><small>💧 Υγρασία</small><br><strong id="val-hum">--</strong>%</div>
+        <div><small>📈 Συσσωρ. DD</small><br><strong id="val-dd">--</strong>°D</div>
+        <div><small>🔄 Γενιά</small><br><strong id="val-gen">--</strong></div>
+    </div>
+
+    <!-- Πίνακας Εκτίμησης Κινδύνου -->
+    <div class="risk-panel" id="riskPanel">
+        <h3>⚠️ Εκτίμηση Κινδύνου</h3>
+        <div id="riskLevel" class="risk-moderate" style="display: inline-block; padding: 8px 20px;">Υπολογισμός...</div>
+        <p id="riskExplanation" style="margin-top: 15px; font-size: 0.95em;">Αναμένονται δεδομένα...</p>
+    </div>
+
+    <!-- Degree Days Progress Bar -->
+    <div class="smart-panel">
+        <h3>📊 Συσσωρευμένες Βαθμοημέρες (Degree Days)</h3>
+        <p><small>Βάση: <strong>9.5°C</strong> κατώτερο όριο | Στόχος για ολοκλήρωση κύκλου: <strong>350 °D</strong> [citation:6]</small></p>
+        <div class="degree-day-bar">
+            <div class="degree-day-fill" id="ddFill"></div>
+        </div>
+        <p id="ddStatus" style="font-size: 0.9em; text-align: center;"></p>
+    </div>
+
+    <!-- Προσομοίωση Εισαγωγής Δεδομένων -->
+    <div class="smart-panel">
+        <h3>🔧 Προσομοίωση Μετεωρολογικών Δεδομένων</h3>
+        <p>Επέλεξε ημερομηνία για αυτόματη πρόβλεψη κινδύνου:</p>
+        <input type="date" id="dateInput" style="padding: 10px; border-radius: 5px; border: 1px solid #ccc; width: 100%; margin: 10px 0;">
+        <div class="button-group">
+            <button class="olive-btn secondary" onclick="simulateWeather()">Προσομοίωση Σήμερα</button>
+            <button class="olive-btn" onclick="manualPredict()">Χειροκίνητη Εισαγωγή</button>
+        </div>
+    </div>
+
+    <!-- Επιστημονική Τεκμηρίωση -->
+    <div class="info-section">
+        <h3>📖 Επιστημονική Μεθοδολογία</h3>
+        <p>Το σύστημα βασίζεται στο μοντέλο <strong>Gonçalves & Torres (2011)</strong> για την πρόβλεψη της δραστηριότητας του δάκου της ελιάς (<em>Bactrocera oleae</em>) [citation:5].</p>
+        
+        <h3>🌡️ Παράμετροι Κινδύνου</h3>
+        <ul>
+            <li><strong>Κατώτερο όριο ανάπτυξης:</strong> 9.5°C – κάτω από αυτό σταματά η ανάπτυξη [citation:6][citation:7]</li>
+            <li><strong>Βέλτιστο εύρος θερμοκρασίας:</strong> 24-28°C (μέγιστη ωοτοκία) [citation:2]</li>
+            <li><strong>Ανώτερο όριο:</strong> 30°C – πάνω από αυτό υπάρχει θνησιμότητα [citation:7]</li>
+            <li><strong>Υγρασία (>60%):</strong> Ενισχυτικός παράγοντας για την επιβίωση ενηλίκων [citation:9]</li>
+        </ul>
+
+        <h3>📐 Υπολογισμός Degree Days (DD)</h3>
+        <p>DD = max(0, (T<sub>max</sub> + T<sub>min</sub>)/2 - T<sub>base</sub>)<br>
+        όπου T<sub>base</sub> = 9.5°C, T<sub>max</sub> = 30°C (άνω όριο αποκοπής) [citation:7]</p>
+
+        <h3>🔄 Γενιές Δάκου</h3>
+        <p>Με συσσώρευση ~350 βαθμοημερών ολοκληρώνεται μία γενιά. Στην Ελλάδα παρατηρούνται <strong>3-4 γενιές</strong> ετησίως, με κορύφωση πληθυσμού Σεπτέμβριο-Νοέμβριο [citation:7].</p>
+    </div>
+</div>
+
+<footer style="text-align: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px;">
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | OliveWatch – Επιστημονικό Μοντέλο Πρόβλεψης Δάκου</p>
+</footer>
+
+<script>
+    // Παράμετροι μοντέλου
+    const T_BASE = 9.5;      // Κατώτερο όριο ανάπτυξης (°C) [citation:6][citation:7]
+    const T_OPT_MIN = 24;    // Βέλτιστο ελάχιστο (°C)
+    const T_OPT_MAX = 28;    // Βέλτιστο μέγιστο (°C)
+    const T_MAX = 30;        // Ανώτερο όριο (°C) [citation:7]
+    const DD_PER_GENERATION = 350;  // Βαθμοημέρες ανά γενιά [citation:6]
+
+    // Ιστορικό DD (προσομοίωση από 1 Μαρτίου)
+    const START_DAY = new Date(new Date().getFullYear(), 2, 1); // 1 Μαρτίου
+
+    function calculateDailyDD(Tmax, Tmin) {
+        let Tavg = (Tmax + Tmin) / 2;
+        if (Tavg > T_MAX) Tavg = T_MAX;
+        if (Tavg < T_BASE) return 0;
+        return Tavg - T_BASE;
+    }
+
+    function getAccumulatedDD(date) {
+        // Υπολογίζει συσσωρευμένες βαθμοημέρες από 1 Μαρτίου έως την ημερομηνία
+        let currentDate = new Date(START_DAY);
+        let targetDate = new Date(date);
+        let totalDD = 0;
+        
+        if (targetDate < currentDate) return 0;
+        
+        // Απλή προσομοίωση - σε πραγματική εφαρμογή θα χρησιμοποιούσε API
+        while (currentDate <= targetDate) {
+            // Ημιτονοειδής προσομοίωση θερμοκρασιών ανάλογα με εποχή
+            let dayOfYear = currentDate.getMonth() * 30 + currentDate.getDate();
+            let seasonFactor = 0.5 + 0.5 * Math.sin((dayOfYear - 80) * Math.PI / 180);
+            let Tmax = 15 + 18 * seasonFactor;
+            let Tmin = 5 + 12 * seasonFactor;
+            totalDD += calculateDailyDD(Tmax, Tmin);
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        return Math.round(totalDD);
+    }
+
+    function calculateGeneration(accumulatedDD) {
+        let gen = Math.floor(accumulatedDD / DD_PER_GENERATION) + 1;
+        if (gen > 4) gen = 4;
+        return gen;
+    }
+
+    function calculateRisk(temp, humidity, accumulatedDD) {
+        // Υπολογισμός κινδύνου βάσει τριών παραγόντων
+        let tempScore = 0;
+        let humidScore = 0;
+        let ddScore = 0;
+        
+        // 1. Θερμοκρασιακή καταλληλότητα
+        if (temp >= T_OPT_MIN && temp <= T_OPT_MAX) {
+            tempScore = 100;
+        } else if (temp >= T_BASE && temp < T_OPT_MIN) {
+            tempScore = 40 + (temp - T_BASE) / (T_OPT_MIN - T_BASE) * 60;
+        } else if (temp > T_OPT_MAX && temp <= T_MAX) {
+            tempScore = 100 - (temp - T_OPT_MAX) / (T_MAX - T_OPT_MAX) * 60;
+        } else if (temp < T_BASE || temp > T_MAX + 5) {
+            tempScore = 0;
+        } else if (temp > T_MAX && temp <= T_MAX + 5) {
+            tempScore = 20;
+        }
+        
+        // 2. Υγρασία (>60% ενισχύει τον κίνδυνο) [citation:9]
+        if (humidity >= 70) {
+            humidScore = 100;
+        } else if (humidity >= 60) {
+            humidScore = 70;
+        } else if (humidity >= 50) {
+            humidScore = 40;
+        } else {
+            humidScore = 10;
+        }
+        
+        // 3. Στάδιο ανάπτυξης βάσει DD
+        let genProgress = (accumulatedDD % DD_PER_GENERATION) / DD_PER_GENERATION;
+        if (genProgress > 0.6 && genProgress < 0.9) {
+            ddScore = 100; // Κορύφωση γενιάς
+        } else if (genProgress > 0.3) {
+            ddScore = 60;
+        } else {
+            ddScore = 30;
+        }
+        
+        // Σταθμισμένος μέσος όρος (θερμοκρασία πιο σημαντική)
+        let totalScore = (tempScore * 0.5) + (humidScore * 0.3) + (ddScore * 0.2);
+        
+        return {
+            score: Math.min(100, Math.max(0, Math.round(totalScore))),
+            tempScore: Math.round(tempScore),
+            humidScore: Math.round(humidScore),
+            ddScore: Math.round(ddScore)
+        };
+    }
+
+    function getRiskLevel(score) {
+        if (score >= 80) return { level: 'ΚΡΙΣΙΜΟΣ ΚΙΝΔΥΝΟΣ', class: 'risk-critical', msg: 'Άμεση επέμβαση! Οι συνθήκες είναι εξαιρετικά ευνοϊκές για μαζική προσβολή.' };
+        if (score >= 60) return { level: 'ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ', class: 'risk-high', msg: 'Συνιστάται άμεσος ψεκασμός. Ο πληθυσμός αναμένεται να εκτοξευθεί.' };
+        if (score >= 35) return { level: 'ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ', class: 'risk-moderate', msg: 'Τακτική παρακολούθηση παγίδων. Προγραμματίστε επέμβαση τις επόμενες ημέρες.' };
+        return { level: 'ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ', class: 'risk-low', msg: 'Δεν απαιτείται άμεση επέμβαση. Συνεχίστε την παρακολούθηση.' };
+    }
+
+    function updateUI(temp, humidity, accumulatedDD) {
+        // Ενημέρωση live panel
+        document.getElementById('val-temp').innerText = temp;
+        document.getElementById('val-hum').innerText = humidity;
+        document.getElementById('val-dd').innerText = accumulatedDD;
+        
+        let generation = calculateGeneration(accumulatedDD);
+        document.getElementById('val-gen').innerText = generation;
+        
+        // Υπολογισμός κινδύνου
+        let risk = calculateRisk(temp, humidity, accumulatedDD);
+        let riskInfo = getRiskLevel(risk.score);
+        
+        // Ενημέρωση risk panel
+        let riskDiv = document.getElementById('riskLevel');
+        riskDiv.className = riskInfo.class;
+        riskDiv.style.display = 'inline-block';
+        riskDiv.style.padding = '8px 20px';
+        riskDiv.innerText = riskInfo.level;
+        
+        let explanation = `${riskInfo.msg}<br><br>
+        <strong>📊 Ανάλυση παραγόντων:</strong><br>
+        • Θερμοκρασία (${temp}°C): ${risk.tempScore}% καταλληλότητα<br>
+        • Υγρασία (${humidity}%): ${risk.humidScore}% ενίσχυση<br>
+        • Στάδιο ανάπτυξης (${accumulatedDD}°D): ${risk.ddScore}% ωριμότητα γενιάς<br>
+        <strong>🎯 Συνολικός δείκτης κινδύνου: ${risk.score}%</strong>`;
+        
+        document.getElementById('riskExplanation').innerHTML = explanation;
+        
+        // Ενημέρωση progress bar DD
+        let ddProgress = (accumulatedDD % DD_PER_GENERATION) / DD_PER_GENERATION * 100;
+        document.getElementById('ddFill').style.width = ddProgress + '%';
+        let remainingDD = DD_PER_GENERATION - (accumulatedDD % DD_PER_GENERATION);
+        document.getElementById('ddStatus').innerHTML = `Πρόοδος τρέχουσας γενιάς: ${Math.round(ddProgress)}% | Απομένουν ~${remainingDD} βαθμοημέρες για ολοκλήρωση`;
+    }
+
+    function simulateWeather() {
+        let today = new Date();
+        let dateStr = today.toISOString().split('T')[0];
+        document.getElementById('dateInput').value = dateStr;
+        
+        // Υπολογισμός θερμοκρασίας και υγρασίας βάσει εποχής
+        let month = today.getMonth();
+        let dayOfYear = today.getDate() + month * 30;
+        let seasonFactor = 0.5 + 0.5 * Math.sin((dayOfYear - 80) * Math.PI / 180);
+        
+        let temp = Math.round((15 + 18 * seasonFactor) * 10) / 10;
+        let humidity = Math.round(40 + 45 * Math.sin((dayOfYear - 120) * Math.PI / 180));
+        if (humidity > 85) humidity = 85;
+        if (humidity < 35) humidity = 35;
+        
+        let accumulatedDD = getAccumulatedDD(today);
+        updateUI(temp, humidity, accumulatedDD);
+    }
+
+    function manualPredict() {
+        let temp = parseFloat(prompt("Εισάγετε θερμοκρασία (°C):", "25"));
+        let humidity = parseFloat(prompt("Εισάγετε σχετική υγρασία (%):", "65"));
+        let dd = parseFloat(prompt("Εισάγετε συσσωρευμένες βαθμοημέρες από 1 Μαρτίου:", "350"));
+        
+        if (isNaN(temp) || isNaN(humidity) || isNaN(dd)) {
+            alert("Παρακαλώ εισάγετε έγκυρες τιμές!");
+            return;
+        }
+        
+        updateUI(temp, humidity, dd);
+        document.getElementById('dateInput').value = 'Χειροκίνητη εισαγωγή';
+    }
+
+    // Αρχική φόρτωση
+    simulateWeather();
+</script>
+</body>
+</html>
