@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Κάθετη Καλλιέργεια & Υδροπονία | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Κάθετη Καλλιέργεια (Vertical Farming): Η Μηχανική της Υδροπονίας στον Αστικό Ιστό</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούνιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ραγδαία αστικοποίηση και η μείωση των καλλιεργήσιμων εκτάσεων παγκοσμίως ωθούν τη γεωργική επιστήμη πέρα από τα παραδοσιακά όρια του υπαίθρου αγρού. Η πιο ριζοσπαστική απάντηση σε αυτή την πρόκληση είναι η <strong>Κάθετη Καλλιέργεια σε Ελεγχόμενο Περιβάλλον (Vertical Farming / Controlled Environment Agriculture - CEA)</strong>. Η προσέγγιση αυτή επιτρέπει την παραγωγή τροφίμων υψηλής ποιότητας μέσα στον αστικό ιστό, αξιοποιώντας εγκαταλελειμμένα κτίρια, αποθήκες ή ειδικά διαμορφωμένα containers, όπου κάθε παράμετρος της φυτικής ανάπτυξης ρυθμίζεται από υπολογιστικά συστήματα αυτοματισμού.</p>
+
+        <p>Στην καρδιά της κάθετης καλλιέργειας βρίσκεται η <strong>Υδροπονία (Hydroponics)</strong>, η μέθοδος δηλαδή ανάπτυξης των φυτών χωρίς εδαφικό υπόστρωμα, όπου οι ρίζες εμβαπτίζονται απευθείας ή ψεκάζονται με ένα απόλυτα ισορροπημένο θρεπτικό διάλυμα νερού και λιπασμάτων. Στα κλειστά ανακυκλούμενα συστήματα (Closed-loop systems), το πλεονάζον νερό αποστραγγίζεται, φιλτράρεται, απολυμαίνεται με υπεριώδη ακτινοβολία (UV) και επαναχρησιμοποιείται. Η διαδικασία αυτή ελέγχεται σε πραγματικό χρόνο από ηλεκτροχημικούς αισθητήρες που μετρούν την <strong>Ηλεκτρική Αγωγιμότητα (EC)</strong> —η οποία υποδηλώνει τη συγκέντρωση των θρεπτικών αλάτων— και το <strong>pH</strong>, ρυθμίζοντας αυτόματα τις δοσομετρικές αντλίες.</p>
+
+        <img src="vertical-farming.jpg" alt="Σύγχρονη εγκατάσταση κάθετης καλλιέργειας με τεχνητό φωτισμό" class="article-image">
+
+        <p>Η αντικατάσταση της ηλιακής ακτινοβολίας επιτυγχάνεται μέσω εξειδικευμένων συστημάτων <strong>τεχνητού φωτισμού LED (Grow Lights)</strong>. Αντί για το πλήρες φάσμα του φωτός, τα σύγχρονα συστήματα CEA εκπέμπουν συγκεκριμένα μήκη κύματος —κυρίως στο μπλε (450 nm) για τη διέγερση της βλαστικής ανάπτυξης και στο βαθύ ερυθρό (660 nm) για την ενίσχυση της φωτοσύνθεσης και της ανθοφορίας. Η ρύθμιση του Φωτοπεριοδικού Κύκλου και της Φωτοσυνθετικά Ενεργής Ακτινοβολίας (PAR) επιτρέπει τη βελτιστοποίηση του ρυθμού ανάπτυξης, μειώνοντας τον χρόνο παραγωγής των φυλλωδών λαχανικών σχεδόν στο μισό.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα του Vertical Farming περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Μέγιστη Εξοικονόμηση Πόρων:</strong> Λόγω της ανακύκλωσης του νερού και της εξάλειψης των απωλειών λόγω εξάτμισης ή έκπλυσης, τα υδροπονικά συστήματα CEA καταναλώνουν έως και 95% λιγότερο νερό και 90% λιγότερη έκταση γης σε σχέση με τις συμβατικές καλλιέργειες.</li>
+            <li><strong>Μηδενική Χρήση Φυτοφαρμάκων:</strong> Το απόλυτα ελεγχόμενο και αποστειρωμένο περιβάλλον αποτρέπει την είσοδο εντόμων, ζιζανίων και εδαφογενών παθογόνων, εκμηδενίζοντας την ανάγκη εφαρμογής χημικών σκευασμάτων.</li>
+            <li><strong>Σταθερή Παραγωγή Όλο τον Χρόνο:</strong> Η ανεξαρτητοποίηση από τις εξωτερικές κλιματικές συνθήκες (παγετοί, καύσωνες, χαλάζι) διασφαλίζει απρόσκοπτη εφοδιαστική αλυσίδα και σταθερή ποιότητα προϊόντων 365 ημέρες τον χρόνο.</li>
+        </ul>
+
+        <p>Παρά το υψηλό αρχικό κόστος επένδυσης και την αυξημένη κατανάλωση ηλεκτρικής ενέργειας για τον φωτισμό και τον κλιματισμό (HVAC), η Κάθετη Καλλιέργεια αντιπροσωπεύει μια κομβική τεχνολογική σύγκλιση. Για τον σύγχρονο γεωπόνο-μηχανικό, η κατανόηση της δυναμικής των θρεπτικών διαλυμάτων και του βιομηχανικού αυτοματισμού CEA αποτελεί το διαβατήριο για τη δημιουργία ανθεκτικών, βιώσιμων και τοπικών συστημάτων διατροφικής ασφάλειας για τις μεγαλουπόλεις του μέλλοντος.</p>
+    </div>
+
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Despommier, D. (2010).</strong> <em>The vertical farm: feeding the world in the 21st century.</em> Macmillan.</li>
+            <li><strong>Kozai, T., Niu, G., & Takagaki, M. (Eds.). (2015).</strong> <em>Plant factory: an indoor vertical farming system for efficient quality food production.</em> Academic Press.</li>
+            <li><strong>Benke, K., & Tomkins, B. (2017).</strong> <em>Future food-production systems: vertical farming and controlled-environment agriculture.</em> Sustainability: Science, Practice and Policy, 13(1), 13-26.</li>
+            <li><strong>Resh, H. M. (2022).</strong> <em>Hydroponic food production: a definitive guidebook for the advanced home gardener and the commercial hydroponic grower.</em> CRC Press.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
