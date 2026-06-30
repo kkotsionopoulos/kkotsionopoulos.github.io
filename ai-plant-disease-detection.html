@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Τεχνητή Νοημοσύνη & Φυτοπροστασία | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Υπολογιστική Όραση (Computer Vision): Διάγνωση Φυτοπαθολογικών Ασθενειών σε Πραγματικό Χρόνο</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούνιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η έγκαιρη και ακριβής διάγνωση των ασθενειών των φυτών αποτελεί έναν από τους κρισιμότερους παράγοντες για τη διασφάλιση της παγκόσμιας επισιτιστικής ασφάλειας και τη μείωση των οικονομικών απωλειών στην αγροτική παραγωγή. Παραδοσιακά, η αναγνώριση των συμπτωμάτων βασιζόταν στην οπτική επιθεώρηση από έμπειρους γεωπόνους ή σε χρονοβόρες εργαστηριακές αναλύσεις (όπως η μέθοδος PCR). Σήμερα, η σύγκλιση της Γεωπονικής Επιστήμης με την <strong>Τεχνητή Νοημοσύνη (AI)</strong> και την <strong>Υπολογιστική Όραση (Computer Vision)</strong> προσφέρει αυτοματοποιημένες λύσεις άμεσης διάγνωσης στο πεδίο με τη χρήση απλών ψηφιακών μέσων.</p>
+
+        <p>Η τεχνολογική βάση αυτών των συστημάτων στηρίζεται στα <strong>Συνελικτικά Νευρωνικά Δίκτυα (Convolutional Neural Networks - CNNs)</strong>, μια εξειδικευμένη κατηγορία αρχιτεκτονικών βαθιάς μάθησης (Deep Learning) που παρουσιάζει εξαιρετική αποτελεσματικότητα στην επεξεργασία και ανάλυση εικόνων. Τα δίκτυα αυτά εκπαιδεύονται σε εκτεταμένα σύνολα δεδομένων (όπως το ανοιχτό αποθετήριο <em>PlantVillage</em>), τα οποία περιλαμβάνουν δεκάδες χιλιάδες φωτογραφίες υγιών και προσβεβλημένων φύλλων από διάφορες καλλιέργειες, μαθαίνοντας να αναγνωρίζουν εξαιρετικά πολύπλοκα οπτικά μοτίβα, όπως νεκρωτικές κηλίδες, χλώρωση, περιφερειακά εγκαύματα ή αναπτύξεις μυκηλίου.</p>
+
+        <img src="ai-plant-disease.jpg" alt="Εφαρμογή υπολογιστικής όρασης για την αναγνώριση ασθενειών σε φύλλα" class="article-image">
+
+        <p>Κατά την εφαρμογή στο πεδίο, ο παραγωγός μπορεί να τραβήξει μια φωτογραφία ενός ύποπτου φύλλου με το smartphone του ή να χρησιμοποιήσει εικόνες υψηλής ανάλυσης από **μη επανδρωμένα αεροσκάφη (Drones)**. Το εκπαιδευμένο μοντέλο επεξεργάζεται την εικόνα μέσα σε λίγα δευτερόλεπτα, εξάγει τα χαρακτηριστικά γνωρίσματα της πιθανής προσβολής και επιστρέφει το αποτέλεσμα με ένα ποσοστό στατιστικής βεβαιότητας. Σε πολλές περιπτώσεις, η ακρίβεια ταξινόμησης των σύγχρονων μοντέλων (όπως το ResNet ή το MobileNet) ξεπερνά το 95%-98%, προσεγγίζοντας ή και ξεπερνώντας την ικανότητα ενός ανθρώπου-εμπειρογνώμονα.</p>
+
+        <p>Η ενσωμάτωση της υπολογιστικής όρασης στη σύγχρονη ολοκληρωμένη φυτοπροστασία προσφέρει σημαντικά πλεονεκτήματα:</p>
+
+        <ul>
+            <li><strong>Στοχευμένη Τοπική Εφαρμογή (Spot Spraying):</strong> Αντί για καθολικούς ψεκασμούς σε ολόκληρο τον αγρό, ο συνδυασμός Computer Vision με έξυπνους ψεκαστήρες επιτρέπει την εφαρμογή φυτοπροστατευτικών προϊόντων αποκλειστικά στα σημεία όπου εντοπίζονται τα πρώτα συμπτώματα, μειώνοντας δραστικά το χημικό αποτύπωμα.</li>
+            <li><strong>Εκδημοκρατισμός της Γεωπονικής Γνώσης:</strong> Μικροκαλλιεργητές που δεν έχουν άμεση ή καθημερινή πρόσβαση σε εξειδικευμένους συμβούλους μπορούν να λάβουν μια πρώτη έγκυρη καθοδήγηση για τη φύση της προσβολής, αποτρέποντας λανθασμένες θεραπείες.</li>
+            <li><strong>Προγνωστική Χαρτογράφηση:</strong> Η γεωγραφική αναφορά (Geotagging) των διαγνώσεων επιτρέπει τη δημιουργία χαρτών εξάπλωσης παθογόνων σε περιφερειακό επίπεδο, βοηθώντας στην έγκαιρη έκδοση γεωργικών προειδοποιήσεων.</li>
+        </ul>
+
+        <p>Παρά τις προκλήσεις που σχετίζονται με τις μεταβαλλόμενες συνθήκες φωτισμού στο ύπαιθρο και την ανάγκη για συνεχή εμπλουτισμό των δεδομένων εκπαίδευσης με τοπικές ποικιλίες, η Υπολογιστική Όραση αποτελεί έναν από τους πιο υποσχόμενους πυλώνες της Γεωργίας 5.0. Η ψηφιακή ανάλυση της εικόνας μετατρέπει την παραδοσιακή διάγνωση σε μια επιστήμη ακριβείας, προστατεύοντας το περιβάλλον και ενισχύοντας τη βιωσιμότητα της αγροτικής παραγωγής.</p>
+    </div>
+
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Mohanty, S. P., Hughes, D. P., & Salathé, M. (2016).</strong> <em>Using deep learning for image-based plant disease detection.</em> Frontiers in Plant Science, 7, 1419.</li>
+            <li><strong>Barbedo, J. G. A. (2013).</strong> <em>Digital image processing for plant disease identification: A review.</em> Biosystems Engineering, 116(2), 145-156.</li>
+            <li><strong>Ferentinos, K. P. (2018).</strong> <em>Deep learning models for plant disease detection and diagnosis.</em> Computers and Electronics in Agriculture, 145, 311-318.</li>
+            <li><strong>Kamilaris, A., & Prenafeta-Boldú, F. X. (2018).</strong> <em>Deep learning in agriculture: A survey.</em> Computers and Electronics in Agriculture, 147, 70-90.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
