@@ -1,0 +1,41 @@
+name: Update Tripoli Delivery Data
+
+on:
+  # Επιτρέπει να τρέχεις το script χειροκίνητα όποτε θες πατώντας ένα κουμπί
+  workflow_dispatch: 
+  # Ρύθμιση για αυτόματη εκτέλεση κάθε Δευτέρα στις 12:00 το μεσημέρι
+  schedule:
+    - cron: '0 12 * * 1'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Places API Script
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: python tripoli_places_api.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add restaurants.json
+          
+          # Ελέγχει αν το αρχείο შეიცვალε πραγματικά πριν κάνει commit
+          git diff --quiet && git diff --staged --quiet || git commit -m "Αυτόματη ενημέρωση δεδομένων καταστημάτων"
+          git push
