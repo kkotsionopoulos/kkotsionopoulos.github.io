@@ -427,34 +427,34 @@
   .cta-band h2 { color: var(--color-white); font-size: clamp(1.5rem, 3vw, 2.1rem); margin-bottom: 14px; }
   .cta-band p { color: rgba(255,255,255,0.78); max-width: 50ch; margin: 0 auto 30px; }
 
-/* ---------- Online Booking (Google Calendar Iframe) ---------- */
+/* ---------- Online Booking ----------
+     ΣΗΜΕΙΩΣΗ: Οι σύνδεσμοι τύπου calendar.app.google είναι σελίδες
+     ραντεβού του Google που ΔΕΝ επιτρέπουν embedding μέσα σε <iframe>
+     (μπλοκάρονται από X-Frame-Options). Γι' αυτό εμφανίζονταν κενές/
+     σπασμένες — ιδιαίτερα εμφανές σε κινητό όπου καταλάμβαναν μεγάλο
+     κενό ύψος (850px). Αντί για iframe, χρησιμοποιούμε μια κάρτα με
+     κουμπί που ανοίγει το πραγματικό ημερολόγιο σε νέα καρτέλα —
+     λειτουργεί αξιόπιστα σε όλες τις συσκευές. */
   .booking { background: var(--color-bg); }
-  
+
   .calendar-wrapper {
-    max-width: 900px;
+    max-width: 640px;
     margin: 40px auto 0;
     background: var(--color-white);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--color-border);
-    overflow: hidden; /* Κρατάει τις γωνίες στρογγυλεμένες */
+    padding: 40px 32px;
+    text-align: center;
   }
 
-  /* Προσαρμογή του iframe ώστε να γεμίζει το wrapper */
-  .calendar-wrapper iframe {
-    width: 100%;
-    height: 650px;
-    border: none;
-    display: block;
+  .calendar-wrapper .booking-icon {
+    width: 56px; height: 56px; margin: 0 auto 20px;
+    border-radius: 50%; background: var(--color-accent-light);
+    display: flex; align-items: center; justify-content: center;
   }
-
-  /* Στα κινητά το Google Calendar συνήθως χρειάζεται περισσότερο ύψος 
-     για να χωρέσει τα πεδία χωρίς εσωτερικό scrolling */
-  @media (max-width: 640px) {
-    .calendar-wrapper iframe {
-      height: 850px;
-    }
-  }
+  .calendar-wrapper .booking-icon svg { width: 28px; height: 28px; color: var(--color-primary); }
+  .calendar-wrapper p { color: var(--color-text-muted); font-size: 0.95rem; max-width: 46ch; margin: 0 auto 26px; }
 
   /* ---------- Footer ---------- */
   footer.site-footer { background: #0A2634; color: rgba(255,255,255,0.78); padding: 56px 0 24px; }
@@ -815,11 +815,18 @@
       </div>
 
       <div class="calendar-wrapper">
-        <iframe 
-          src="https://calendar.app.google/jLG6VxCJkw8FzmBNA" 
-          title="Google Calendar - Κλείσιμο Ραντεβού Ιατρείου"
-          allowfullscreen>
-        </iframe>
+        <div class="booking-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        </div>
+        <p>
+          Το ψηφιακό μας ημερολόγιο ανοίγει σε νέα καρτέλα, ώστε να διαλέξετε άνετα ημέρα και
+          ώρα από το κινητό ή τον υπολογιστή σας. Θα λάβετε άμεσα email επιβεβαίωσης.
+        </p>
+        <a href="https://calendar.app.google/jLG6VxCJkw8FzmBNA" class="btn btn-primary"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Άνοιγμα ψηφιακού ημερολογίου για κλείσιμο ραντεβού (ανοίγει σε νέα καρτέλα)">
+          Άνοιγμα Ημερολογίου Ραντεβού
+        </a>
       </div>
     </div>
   </section>
