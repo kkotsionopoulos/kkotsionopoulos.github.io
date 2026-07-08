@@ -178,7 +178,12 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  
+  html, body { 
+    scroll-behavior: smooth; 
+    overflow-x: hidden; /* Κλειδώνει την οθόνη για να μην πηγαίνει δεξιά-αριστερά στα κινητά */
+  }
+  
   body {
     font-family: var(--font-body);
     color: var(--color-text);
@@ -273,7 +278,7 @@
       position: absolute; 
       top: 100%; 
       left: 0; 
-      width: 100vw; /* Αναγκάζει το μενού να πιάσει όλο το πλάτος της οθόνης */
+      width: 100%; /* Αναγκάζει το μενού να πιάσει όλο το πλάτος της οθόνης */
       background: var(--color-white); 
       box-shadow: 0 16px 24px rgba(0,0,0,0.15);
       padding: 24px 20px 32px; 
