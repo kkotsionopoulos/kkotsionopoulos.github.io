@@ -254,7 +254,10 @@
   .btn-outline:hover { background: var(--color-primary); color: var(--color-white); }
 
   .nav-cta { display: none; }
-  @media (min-width: 880px) { .nav-cta { display: inline-flex; } }
+  @media (min-width: 880px) { 
+    .nav-cta { display: inline-flex; } 
+    .mobile-only { display: none !important; }
+  }
 
   .hamburger {
     display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px;
