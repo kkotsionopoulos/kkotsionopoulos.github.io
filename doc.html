@@ -270,13 +270,42 @@
 
   @media (max-width: 879px) {
     nav.primary-nav {
-      position: fixed; top: 0; right: -100%; height: 100vh; width: min(78vw, 320px);
-      background: var(--color-white); box-shadow: -8px 0 24px rgba(0,0,0,0.08);
-      padding: 96px 32px 32px; transition: right .3s ease; z-index: 99;
+      position: absolute; 
+      top: 100%; 
+      left: 0; 
+      width: 100vw; /* Αναγκάζει το μενού να πιάσει όλο το πλάτος της οθόνης */
+      background: var(--color-white); 
+      box-shadow: 0 16px 24px rgba(0,0,0,0.15);
+      padding: 24px 20px 32px; 
+      z-index: 999;
+      border-top: 1px solid var(--color-border);
+      
+      /* Ομαλή εμφάνιση από πάνω προς τα κάτω */
+      opacity: 0; 
+      visibility: hidden; 
+      transform: translateY(-15px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     }
-    nav.primary-nav.is-open { right: 0; }
-    nav.primary-nav ul { flex-direction: column; align-items: flex-start; gap: 22px; }
-    .nav-cta.mobile-only { display: inline-flex; margin-top: 12px; }
+    nav.primary-nav.is-open {
+      opacity: 1; 
+      visibility: visible; 
+      transform: translateY(0);
+    }
+    nav.primary-nav ul { 
+      display: flex;
+      flex-direction: column; 
+      align-items: center; 
+      gap: 20px; 
+      width: 100%; 
+      margin: 0;
+      padding: 0;
+    }
+    .nav-cta.mobile-only { 
+      display: flex; 
+      width: 100%; 
+      justify-content: center; 
+      margin-top: 12px; 
+    }
   }
   @media (min-width: 880px) { .hamburger { display: none; } }
 
