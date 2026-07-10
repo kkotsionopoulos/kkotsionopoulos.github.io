@@ -228,6 +228,47 @@
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-border);
   }
+  
+  /* Γκρουπάρισμα του κουμπιού κλήσης και του hamburger */
+  .header-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Εμφάνιση μικρού κομψού κουμπιού στα κινητά */
+  .mobile-call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px; /* Σχήμα χαπιού (pill) */
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-call-btn:hover, .mobile-call-btn:active {
+    background: #256a62;
+    transform: scale(0.98);
+  }
+
+  .mobile-call-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Κρύβουμε το μικρό κουμπί στις μεγάλες οθόνες (desktop) */
+  @media (min-width: 880px) {
+    .mobile-call-btn {
+      display: none;
+    }
+  }
+  
   .nav-wrap {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 24px; max-width: var(--container); margin: 0 auto;
@@ -538,9 +579,16 @@
       </span>
     </a>
 
-    <button type="button" class="hamburger" id="menuToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Άνοιγμα μενού πλοήγησης">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="header-actions-right">
+      <a href="tel:+302710239970" class="mobile-call-btn" aria-label="Καλέστε μας στο 271 023 9970">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
+        Καλέστε
+      </a>
+
+      <button type="button" class="hamburger" id="menuToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Άνοιγμα μενού πλοήγησης">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
 
     <nav class="primary-nav" id="primaryNav" aria-label="Κύριο μενού">
       <ul>
