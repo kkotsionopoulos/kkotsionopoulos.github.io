@@ -269,6 +269,46 @@
     }
   }
   
+  /* Γκρουπάρισμα του κουμπιού κλήσης και του hamburger */
+  .header-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Εμφάνιση μικρού κομψού κουμπιού στα κινητά */
+  .mobile-call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px; /* Σχήμα χαπιού (pill) */
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-call-btn:hover, .mobile-call-btn:active {
+    background: #256a62;
+    transform: scale(0.98);
+  }
+
+  .mobile-call-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Κρύβουμε το μικρό κουμπί στις μεγάλες οθόνες (desktop) */
+  @media (min-width: 880px) {
+    .mobile-call-btn {
+      display: none;
+    }
+  }
+  
   .nav-wrap {
     display: flex; align-items: center; justify-content: space-between;
     padding: 16px 24px; max-width: var(--container); margin: 0 auto;
