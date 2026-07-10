@@ -190,6 +190,7 @@
     background: var(--color-bg);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    padding-top: 76px; /* Δίνει χώρο για το σταθερό μενού */
   }
   img { max-width: 100%; display: block; }
   a { text-decoration: none; color: inherit; }
@@ -218,7 +219,11 @@
 
   /* ---------- Header ---------- */
   header.site-header {
-    position: sticky; top: 0; z-index: 100;
+    position: fixed; /* Αλλαγή από sticky σε fixed */
+    top: 0; 
+    left: 0;
+    width: 100%; /* Απαραίτητο για να πιάνει όλη την οθόνη */
+    z-index: 1000;
     background: rgba(255,255,255,0.94);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-border);
