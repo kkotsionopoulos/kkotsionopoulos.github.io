@@ -561,17 +561,15 @@
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
   
-  /* Εξαναγκασμός του UserWay widget να μένει ΠΑΝΤΑ κάτω αριστερά στα κινητά */
-  @media (max-width: 879px) {
-    div[id^="userway"], 
-    div[class^="userway"],
-    .uwy {
-      top: auto !important;
-      bottom: 24px !important;
-      left: 16px !important;
-      right: auto !important;
-    }
-  }  
+  /* Εξαναγκασμός του UserWay widget να μένει ΠΑΝΤΑ κάτω δεξιά (σε κινητά & υπολογιστές) */
+  div[id^="userway"], 
+  div[class^="userway"],
+  .uwy {
+    top: auto !important;
+    bottom: 24px !important;
+    left: auto !important;
+    right: 24px !important;
+  }
 </style>
 </head>
 <body>
