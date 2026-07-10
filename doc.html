@@ -560,6 +560,18 @@
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+  
+  /* Εξαναγκασμός του UserWay widget να μένει ΠΑΝΤΑ κάτω αριστερά στα κινητά */
+  @media (max-width: 879px) {
+    div[id^="userway"], 
+    div[class^="userway"],
+    .uwy {
+      top: auto !important;
+      bottom: 24px !important;
+      left: 16px !important;
+      right: auto !important;
+    }
+  }  
 </style>
 </head>
 <body>
@@ -1050,7 +1062,7 @@
   (function (d) {
     var s = d.createElement("script");
     s.setAttribute("data-account", "YOUR_USERWAY_ACCOUNT_ID");
-    s.setAttribute("data-position", "5"); 
+    s.setAttribute("data-position", "4"); /* Το 4 είναι η θέση: Κάτω Αριστερά */
     s.setAttribute("src", "https://cdn.userway.org/widget.js");
     (d.body || d.head).appendChild(s);
   })(document);
