@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πρόβλεψη Φουζικλαδίου & Μικροκλίμα | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Προγνωστικά Μοντέλα Μικροκλίματος: Η Ψηφιακή Θωράκιση της Μηλοκαλλιέργειας από το Φουζικλάδιο</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούλιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Το φουζικλάδιο της μηλιάς, το οποίο προκαλείται από τον ασκομύκητα <em>Venturia inaequalis</em>, αποτελεί παγκοσμίως τη σοβαρότερη απειλή για τις εμπορικές καλλιέργειες μηλοειδών. Η ασθένεια υποβαθμίζει ποιοτικά τους καρπούς και προκαλεί πρόωρη φυλλόπτωση, εξασθενίζοντας τα δέντρα. Ιστορικά, η αντιμετώπιση του μύκητα βασιζόταν σε προληπτικούς ημερολογιακούς ψεκασμούς, μια πρακτική που αυξάνει κατακόρυφα το κόστος παραγωγής και επιβαρύνει το οικοσύστημα. Η σύγχρονη βιώσιμη γεωργία επιβάλλει τη χρήση <strong>Συστημάτων Υποστήριξης Αποφάσεων (Decision Support Systems - DSS)</strong> που βασίζονται στην ψηφιακή ανάλυση του μικροκλίματος.</p>
+
+        <p>Η βιολογία του παθογόνου είναι άρρηκτα συνδεδεμένη με συγκεκριμένες κλιματικές συνθήκες. Για να πραγματοποιηθεί μια πρωτογενής μόλυνση από τα ασκοσπόρια, απαιτείται η συνύπαρξη δύο παραγόντων: κατάλληλης θερμοκρασίας και επαρκούς <strong>Διάρκειας Διαβροχής των Φύλλων (Leaf Wetness Duration - LWD)</strong>. Επιστημονικά μοντέλα, όπως ο κλασικός πίνακας του <strong>Mills (Mills Table)</strong> και οι σύγχρονες αναθεωρήσεις του, προσδιορίζουν με ακρίβεια τις ελάχιστες ώρες συνεχόμενης υγρασίας που χρειάζεται ο μύκητας για να διεισδύσει στην επιδερμίδα του φύλλου ανάλογα με τη μέση θερμοκρασία του περιβάλλοντος.</p>
+
+        <img src="apple-scab.jpg" alt="Συμπτώματα Φουζικλαδίου σε φύλλα μηλιάς και ψηφιακός έλεγχος" class="article-image">
+
+        <p>Στο επίπεδο της ψηφιακής γεωργίας, η συλλογή των μεταβλητών αυτών επιτυγχάνεται μέσω τηλεμετρικών αγροτικών μετεωρολογικών σταθμών και εξειδικευμένων αισθητήρων που προσομοιάζουν τη συμπεριφορά της φυλλικής επιφάνειας. Τα δεδομένα αυτά τροφοδοτούνται σε αυτοματοποιημένα scripts (π.χ. αναπτυγμένα σε Python), τα οποία υπολογίζουν διαρκώς το επίπεδο κινδύνου. Όταν η διάρκεια διαβροχής και η θερμοκρασία ξεπεράσουν τα κρίσιμα κατώφλια, το σύστημα καταγράφει μια "περίοδο μόλυνσης" (infection period) και ειδοποιεί άμεσα τον παραγωγό.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα οφέλη από την ενσωμάτωση μικροκλιματικών προγνωστικών μοντέλων περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Μείωση των Άσκοπων Εφαρμογών:</strong> Η χημική καταπολέμηση διενεργείται αποκλειστικά και μόνο όταν ο αλγόριθμος επιβεβαιώσει ότι έχουν εκπληρωθεί οι βιολογικές προϋποθέσεις μόλυνσης, μειώνοντας τις επεμβάσεις έως και 30%.</li>
+            <li><strong>Στοχευμένη Χρήση Θεραπευτικών Σκευασμάτων:</strong> Εάν μια περίοδος μόλυνσης ολοκληρωθεί χωρίς να έχει προηγηθεί προστασία, ο παραγωγός μπορεί να παρέμβει έγκαιρα με διασυστηματικά μυκητοκτόνα εντός του θεραπευτικού παραθύρου δράσης τους.</li>
+            <li><strong>Διαχείριση Ανθεκτικότητας:</strong> Ο περιορισμός των ψεκασμών μειώνει την επιλεκτική πίεση προς τον μύκητα, καθυστερώντας την ανάπτυξη ανθεκτικότητας του <em>Venturia inaequalis</em> έναντι βασικών χημικών ομάδων (π.χ. QoLIs, SDHIs).</li>
+        </ul>
+
+        <p>Η εφαρμογή προγνωστικών μοντέλων microclimate για το φουζικλάδιο αναδεικνύει τη σημασία της σύγκλισης της γεωπονικής επιστήμης με την πληροφορική. Μετατρέποντας τα κλιματικά δεδομένα σε εφαρμόσιμη γνώση, ο σύγχρονος γεωπόνος προστατεύει αποτελεσματικά την παραγωγή, διασφαλίζοντας παράλληλα τη βιωσιμότητα και το μειωμένο περιβαλλοντικό αποτύπωμα της μηλοκαλλιέργειας.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Mills, W. D. (1944).</strong> <em>Efficient use of sulfur dusts and sprays during rain to control apple scab.</em> Cornell Extension Bulletin, 638, 1-4.</li>
+            <li><strong>MacHardy, W. E., & Gadoury, D. M. (1989).</strong> <em>A revision of Mills's criteria for predicting apple scab infection periods.</em> Phytopathology, 79(3), 304-310.</li>
+            <li><strong>Schwabe, W. F. S. (1980).</strong> <em>Weather favourites for apple scab infection.</em> Phytophylactica, 12, 151-155.</li>
+            <li><strong>Joshi, P. K., et al. (2021).</strong> <em>Decision Support Systems in Plant Disease Management: A Review of Modern Tools and Techniques.</em> Crop Protection, 139, 105370.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
