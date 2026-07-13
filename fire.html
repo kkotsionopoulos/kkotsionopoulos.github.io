@@ -9,13 +9,31 @@
         :root { --primary-color: #2c3e50; --accent-color: #e67e22; --bg-color: #f4f7f6; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* Navbar */
-        .navbar { background-color: var(--primary-color); height: 50px; display: flex; align-items: center; justify-content: center; }
-        .nav-links { display: flex; gap: 10px; }
-        .nav-links a { color: white; text-decoration: none; border: 1px solid var(--accent-color); padding: 5px 10px; border-radius: 15px; font-size: 0.9em; font-weight: bold; }
-        .nav-links a:hover { background-color: var(--accent-color); }
+        /* Navbar - Προσαρμοσμένο στυλ από vine_watch.html */
+        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a { padding: 6px 12px; color: #fff !important; border: 1.5px solid #e74c3c; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; }
+        .nav-links a:hover { background-color: #e74c3c; }
 
-        .container { max-width: 800px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex: 1; }
+        /* Dropdown Styling */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 8px; top: 35px; left: 0; }
+        .dropdown-content a { color: black !important; padding: 12px 16px; text-decoration: none; display: block; border: none; border-radius: 0; text-align: left; font-size: 0.9em; font-weight: normal;}
+        .dropdown-content a:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .dropdown-content a:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+        .dropdown-content a:hover { background-color: #f1f1f1; border: none; color: #e74c3c !important;}
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        /* Responsive Navbar for mobile */
+        @media (max-width: 480px) {
+            .nav-links { gap: 4px; }
+            .nav-links a { font-size: 0.7em; padding: 4px 8px; }
+            .dropdown-content { min-width: 150px; top: 30px;}
+        }
+
+        /* Container & Content styling */
+        .container { max-width: 800px; margin: 80px auto 40px auto; /* Αυξημένο top margin για fixed navbar */ background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex: 1; }
         
         #map { height: 450px; width: 100%; border-radius: 8px; margin-top: 20px; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
         
@@ -30,20 +48,30 @@
 <body>
 
 <nav class="navbar">
-    <div class="nav-links">
-        <a href="index.html">Βιογραφικό</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="blog.html">Blog</a>
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn" id="portfolioBtn">Portfolio <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="vine_watch.html">VineWatch (Περονόσπορος)</a>
+                    <a href="oidio.html">OidioWatch (Ωίδιο)</a>                
+                    <a href="fuzikladio.html">ScabWatch (Φουζικλάδιο)</a>
+                    <a href="olivewatch.html">OliveWatch (Δάκος Ελιάς)</a>
+                    <a href="fire.html" style="background-color: #e74c3c; color: white !important;">🔥 FireWatch (Πυρκαγιά)</a>
+                    <a href="qr code generator.html">QR Code Generator</a>
+                    <a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746">Μεταπτυχιακή εργασία</a>
+                    <a href="https://mainalontrekking.great-site.net/">Mainalon Trekking</a>
+                    <a href="https://drive.google.com/file/d/0B6enw6uoeNmqbWhSNk80T0hZd0dmMS1kbjM0Z1FSUEh4NGsw/edit?resourcekey=0-sgEfvRfeGk1VFR391xeOpw">Breathing Salad</a>
+                </div>
+            </div>
+            <a href="blog.html">Blog</a>
+        </div>
     </div>
 </nav>
 
 <div class="container">
-    <h2 style="display: flex; align-items: center; gap: 10px; color: var(--primary-color);">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#e67e22" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
-        </svg>
-        FireWatch: Πρόβλεψη Κινδύνου Πυρκαγιάς
-    </h2>
+    <h2>FireWatch: Πρόβλεψη Κινδύνου Πυρκαγιάς</h2>
     <div id="last-update" style="font-size: 0.8em; color: #777; margin-bottom: 10px;">Φόρτωση δεδομένων...</div>
     
     <div id="map"></div>
@@ -69,41 +97,39 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
+  // Αρχικοποίηση χάρτη με κέντρο την Ελλάδα
   var map = L.map('map').setView([39.0, 22.5], 6);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
+  // Συντεταγμένες για τα Markers των πόλεων (Διορθωμένες και πλήρεις)
   const coordinates = {
-      // Πελοπόννησος & Χωριά (Διορθωμένες Συντεταγμένες)
-      "Τρίπολη": [37.5089, 22.3794],
-      "Σπάρτη": [37.0745, 22.4303],
-      "Καλαμάτα": [37.0383, 22.1142],
-      "Κόρινθος": [37.9386, 22.9322],
-      "Ναύπλιο": [37.5673, 22.8016],
-      "Πύργος": [37.6771, 21.4425],
-      "Πάτρα": [38.2466, 21.7346],
-      "Βυτίνα": [37.6681, 22.1747],
-      "Δημητσάνα": [37.5958, 22.0403],
-      "Στεμνίτσα": [37.5536, 22.0806],
-      "Λαγκάδια": [37.7651, 22.0259],
-      "Πιάνα": [37.5383, 22.2544],
-      "Αλωνίσταινα": [37.5722, 22.2189],
-      "Βλαχοκερασιά": [37.3719, 22.3744],
-      "Χρυσοβίτσι": [37.5142, 22.1961],
-      "Κάψια": [37.6231, 22.4042],
-      "Βαλτεσινίκο": [37.6761, 22.1083],
-	  
-	  // Νέες προσθήκες
+      // Πελοπόννησος & Χωριά
+      "Τρίπολη": [37.51, 22.37],
+      "Σπάρτη": [37.07, 22.42],
+      "Καλαμάτα": [37.03, 22.11],
+      "Κόρινθος": [37.94, 22.93],
+      "Ναύπλιο": [37.56, 22.80],
+      "Πύργος": [37.67, 21.44],
+      "Πάτρα": [38.24, 21.73],
+      "Βυτίνα": [37.66, 22.18],
+      "Δημητσάνα": [37.59, 22.04],
+      "Στεμνίτσα": [37.55, 22.08],
+      "Λαγκάδια": [37.76, 22.03],
+      "Πιάνα": [37.54, 22.25],
+      "Αλωνίσταινα": [37.57, 22.22],
+      "Βλαχοκερασιά": [37.37, 22.37],
+      "Χρυσοβίτσι": [37.51, 22.20],
+      "Κάψια": [37.62, 22.40],
+      "Βαλτεσινίκο": [37.68, 22.10],
       "Βαμβακού": [37.2272, 22.4583],
       "Κολλίνες": [37.2842, 22.3125],
       "Καστάνιτσα": [37.2678, 22.6483],
       "Μεγαλόπολη": [37.4014, 22.1436],
       "Καλάβρυτα": [38.0322, 22.1103],
       "Αρχαία Ολυμπία": [37.6465, 21.6262],
-      
-      // Αττική & Στερεά Ελλάδα... (οι υπόλοιπες παραμένουν ως έχουν)
       
       // Αττική & Στερεά Ελλάδα
       "Αθήνα": [37.98, 23.72],
@@ -148,7 +174,7 @@
       "Ρόδος": [36.43, 28.22],
       "Ηράκλειο": [35.33, 25.14],
       "Χανιά": [35.51, 24.01],
-      "Ρέθυμνο": [35.36, 24.47]
+      "Rethymno": [35.36, 24.47]
   };
 
   fetch('fire_data.json?t=' + new Date().getTime())
@@ -158,6 +184,7 @@
         
         for (const [region, info] of Object.entries(data.regions)) {
             if (coordinates[region]) {
+                // Δημιουργία κύκλου στον χάρτη ανάλογα με την επικινδυνότητα
                 var circle = L.circleMarker(coordinates[region], {
                     color: info.color,
                     fillColor: info.color,
@@ -165,6 +192,7 @@
                     radius: 14
                 }).addTo(map);
 
+                // Popup πληροφοριών κατά το κλικ
                 circle.bindPopup(`
                     <strong>Περιοχή: ${region}</strong><br>
                     Κατάσταση: <span style="color:${info.color}; font-weight:bold;">${info.level}</span><br>
@@ -176,6 +204,21 @@
         }
     })
     .catch(err => console.error("Σφάλμα φόρτωσης δεδομένων πυρκαγιάς:", err));
+</script>
+
+<script>
+    // Javascript to close dropdown when clicking outside - copied from vine_watch.html
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn') && !event.target.matches('.fa-caret-down')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === 'block') {
+                    openDropdown.style.display = 'none';
+                }
+            }
+        }
+    }
 </script>
 </body>
 </html>
