@@ -38,7 +38,12 @@
 </nav>
 
 <div class="container">
-    <h2>FireWatch: Πρόβλεψη Κινδύνου Πυρκαγιάς</h2>
+    <h2 style="display: flex; align-items: center; gap: 10px; color: var(--primary-color);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#e67e22" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+        </svg>
+        FireWatch: Πρόβλεψη Κινδύνου Πυρκαγιάς
+    </h2>
     <div id="last-update" style="font-size: 0.8em; color: #777; margin-bottom: 10px;">Φόρτωση δεδομένων...</div>
     
     <div id="map"></div>
@@ -64,14 +69,12 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-  // Αρχικοποίηση χάρτη με κέντρο την Ελλάδα
   var map = L.map('map').setView([39.0, 22.5], 6);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
- // Συντεταγμένες για τα Markers των πόλεων και χωριών όλης της Ελλάδας
   const coordinates = {
       // Πελοπόννησος & Χωριά
       "Τρίπολη": [37.51, 22.37],
@@ -85,7 +88,7 @@
       "Δημητσάνα": [37.59, 22.04],
       "Στεμνίτσα": [37.55, 22.08],
       "Λαγκάδια": [37.76, 22.03],
-	  "Πιάνα": [37.54, 22.25],
+      "Πιάνα": [37.54, 22.25],
       "Αλωνίσταινα": [37.57, 22.22],
       "Βλαχοκερασιά": [37.37, 22.37],
       "Χρυσοβίτσι": [37.51, 22.20],
@@ -145,7 +148,6 @@
         
         for (const [region, info] of Object.entries(data.regions)) {
             if (coordinates[region]) {
-                // Δημιουργία κύκλου στον χάρτη ανάλογα με την επικινδυνότητα
                 var circle = L.circleMarker(coordinates[region], {
                     color: info.color,
                     fillColor: info.color,
@@ -153,7 +155,6 @@
                     radius: 14
                 }).addTo(map);
 
-                // Popup πληροφοριών κατά το κλικ (Διορθωμένο σε "Περιοχή")
                 circle.bindPopup(`
                     <strong>Περιοχή: ${region}</strong><br>
                     Κατάσταση: <span style="color:${info.color}; font-weight:bold;">${info.level}</span><br>

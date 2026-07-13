@@ -5,7 +5,6 @@ import datetime
 
 def calculate_fire_risk(temp, humidity, wind_kph):
     # Βασικός αλγόριθμος υπολογισμού κινδύνου (0-100%)
-    # Ο κίνδυνος αυξάνεται με τη θερμοκρασία και τον άνεμο, και μειώνεται με την υγρασία
     risk = (temp * 1.5) + (wind_kph * 1.2) - (humidity * 0.5)
     
     # Κανονικοποίηση μεταξύ 0 και 100
@@ -42,6 +41,12 @@ locations = {
     "Dimitsana": "Δημητσάνα",
     "Stemnitsa": "Στεμνίτσα",
     "Lagadia": "Λαγκάδια",
+    "Piana": "Πιάνα",
+    "Alonistaina": "Αλωνίσταινα",
+    "Vlachokerasia": "Βλαχοκερασιά",
+    "Chrysovitsi": "Χρυσοβίτσι",
+    "Kapsia": "Κάψια",
+    "Valtesiniko": "Βαλτεσινίκο",
     
     # Αττική & Στερεά Ελλάδα
     "Athens": "Αθήνα",
@@ -94,7 +99,6 @@ fire_results = {
     "regions": {}
 }
 
-# Loop ανάκτησης δεδομένων με εσωτερικό try-except για προστασία από μεμονωμένες αποτυχίες κλήσεων
 for city, region_name in locations.items():
     try:
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
@@ -119,7 +123,6 @@ for city, region_name in locations.items():
     except Exception as city_error:
         print(f"Αποτυχία λήψης δεδομένων για την περιοχή {region_name} ({city}): {city_error}")
 
-# Αποθήκευση στο JSON αρχείο
 try:
     with open("fire_data.json", "w", encoding="utf-8") as f:
         json.dump(fire_results, f, ensure_ascii=False, indent=4)
