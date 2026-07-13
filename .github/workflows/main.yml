@@ -10,7 +10,6 @@ jobs:
     permissions:
       contents: write  # ΑΠΑΡΑΙΤΗΤΟ για να μπορεί να γράψει στο repo
    
-    
     steps:
       - uses: actions/checkout@v3
 
@@ -37,19 +36,24 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: python main_scab.py
 
+      - name: Run main_fire.py (Πυρκαγιά)
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: python main_fire.py
+
       - name: Push results
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           
-          # Προσθέτουμε τα αρχεία στο staging area
-          git add result.txt result_oidio.txt result_scab.txt
+          # Προσθέτουμε και το νέο JSON αρχείο της πυρκαγιάς μαζί με τα υπόλοιπα
+          git add result.txt result_oidio.txt result_scab.txt fire_data.json
           
           # Αν δεν υπάρχουν αλλαγές, βγαίνουμε χωρίς error
           git diff --quiet && git diff --staged --quiet && exit 0
           
           # Κάνουμε commit τις αλλαγές μας
-          git commit -m "Update all disease data"
+          git commit -m "Update all disease and fire risk data"
           
           # Τραβάμε τις αλλαγές από το GitHub πριν κάνουμε push
           git pull --rebase origin main
