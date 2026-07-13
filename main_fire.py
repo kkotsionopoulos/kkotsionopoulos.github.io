@@ -47,8 +47,12 @@ locations = {
     "Chrysovitsi,Arcadia,Greece": "Χρυσοβίτσι",
     "Kapsia,Arcadia,Greece": "Κάψια",
     "Valtesiniko,Arcadia,Greece": "Βαλτεσινίκο",
-    
-    # Αττική & Στερεά Ελλάδα... (το υπόλοιπο λεξικό παραμένει ως έχει)
+    "Vamvakou,Laconia,Greece": "Βαμβακού",
+    "Kollines,Arcadia,Greece": "Κολλίνες",
+    "Kastanitsa,Arcadia,Greece": "Καστάνιτσα",
+    "Megalopoli,Arcadia,Greece": "Μεγαλόπολη",
+    "Kalavryta,Achaea,Greece": "Καλάβρυτα",
+    "Olympia,Elis,Greece": "Αρχαία Ολυμπία",
     
     # Αττική & Στερεά Ελλάδα
     "Athens": "Αθήνα",
