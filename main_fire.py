@@ -95,10 +95,10 @@ fire_results = {
     "regions": {}
 }
 
-try:
-    for city, region_name in locations.items():
+for city, region_name in locations.items():
+    try:
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
-        response = requests.get(url).json()
+        response = requests.get(url, timeout=10).json()
         
         curr = response['current']
         temp = curr['temp_c']
@@ -116,6 +116,16 @@ try:
             "level": risk_data["level"],
             "color": risk_data["color"]
         }
+    except Exception as city_error:
+        print(f"Αποτυχία λήψης δεδομένων για την περιοχή {region_name} ({city}): {city_error}")
+
+# Αποθήκευση στο αρχείο, εφόσον μαζευτούν τα δεδομένα
+try:
+    with open("fire_data.json", "w", encoding="utf-8") as f:
+        json.dump(fire_results, f, ensure_ascii=False, indent=4)
+        print("Το αρχείο fire_data.json ενημερώθηκε επιτυχώς.")
+except Exception as e:
+    print(f"Σφάλμα κατά την εγγραφή του αρχείου: {e}")
         
     # Αποθήκευση σε JSON αρχείο
     with open("fire_data.json", "w", encoding="utf-8") as f:
