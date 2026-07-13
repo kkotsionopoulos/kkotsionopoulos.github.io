@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FireWatch | Smart Agronomy</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root { --primary-color: #2c3e50; --accent-color: #e67e22; --bg-color: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navbar */
+        .navbar { background-color: var(--primary-color); height: 50px; display: flex; align-items: center; justify-content: center; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links a { color: white; text-decoration: none; border: 1px solid var(--accent-color); padding: 5px 10px; border-radius: 15px; font-size: 0.9em; font-weight: bold; }
+        .nav-links a:hover { background-color: var(--accent-color); }
+
+        .container { max-width: 800px; margin: 40px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex: 1; }
+        
+        #map { height: 450px; width: 100%; border-radius: 8px; margin-top: 20px; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
+        
+        .info-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 0.95em; line-height: 1.6; }
+        .legend { display: flex; justify-content: space-around; margin-top: 15px; font-weight: bold; font-size: 0.85em; }
+        .legend-item { padding: 5px 10px; border-radius: 4px; color: white; }
+
+        /* Footer */
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-links">
+        <a href="index.html">Βιογραφικό</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog.html">Blog</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>FireWatch: Πρόβλεψη Κινδύνου Πυρκαγιάς</h2>
+    <div id="last-update" style="font-size: 0.8em; color: #777; margin-bottom: 10px;">Φόρτωση δεδομένων...</div>
+    
+    <div id="map"></div>
+
+    <div class="legend">
+        <div class="legend-item" style="background:#27ae60;">Χαμηλός</div>
+        <div class="legend-item" style="background:#f1c40f; color:black;">Μέτριος</div>
+        <div class="legend-item" style="background:#e67e22;">Υψηλός</div>
+        <div class="legend-item" style="background:#e74c3c;">Πολύ Υψηλός</div>
+    </div>
+
+    <div class="info-box">
+        <h3>Σχετικά με το FireWatch</h3>
+        <p>Η εφαρμογή υπολογίζει δυναμικά τον κίνδυνο εκδήλωσης και εξάπλωσης πυρκαγιάς αναλύοντας σε πραγματικό χρόνο τις μετεωρολογικές παραμέτρους της εκάστοτε περιοχής. Το μοντέλο συνδυάζει τη θερμοκρασία, τα επίπεδα ξηρότητας (σχετική υγρασία) και την ταχύτητα του ανέμου.</p>
+        <p style="font-size: 0.85em; color: #cc5500;"><em>*Προσοχή: Τα δεδομένα αποτελούν προϊόν αυτοματοποιημένου υπολογισμού και δεν αντικαθιστούν τον επίσημο χάρτη πρόβλεψης της Πολιτικής Προστασίας.</em></p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Κωνσταντίνος Κωτσιονόπουλος | Agronomy & Systems Development
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // Αρχικοποίηση χάρτη με κέντρο την Ελλάδα
+  var map = L.map('map').setView([39.0, 22.5], 6);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Συντεταγμένες για τα Markers των πόλεων
+  const coordinates = {
+      "Πελοπόννησος": [37.51, 22.37], // Τρίπολη
+      "Αττική": [37.98, 23.72],       // Αθήνα
+      "Κεντρική Μακεδονία": [40.64, 22.94], // Θεσσαλονίκη
+      "Θεσσαλία": [39.63, 22.41],     // Λάρισα
+      "Δυτική Ελλάδα": [38.24, 21.73], // Πάτρα
+      "Κρήτη": [35.33, 25.14],         // Ηράκλειο
+      "Ήπειρος": [39.66, 20.85]        // Ιωάννινα
+  };
+
+  fetch('fire_data.json?t=' + new Date().getTime())
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById('last-update').innerText = "Τελευταία ενημέρωση: " + data.last_update;
+        
+        for (const [region, info] of Object.entries(data.regions)) {
+            if (coordinates[region]) {
+                // Δημιουργία κύκλου στον χάρτη ανάλογα με την επικινδυνότητα
+                var circle = L.circleMarker(coordinates[region], {
+                    color: info.color,
+                    fillColor: info.color,
+                    fillOpacity: 0.6,
+                    radius: 14
+                }).addTo(map);
+
+                // Popup πληροφοριών κατά το κλικ
+                circle.bindPopup(`
+                    <strong>Περιφέρεια: ${region}</strong><br>
+                    Κατάσταση: <span style="color:${info.color}; font-weight:bold;">${info.level}</span><br>
+                    Ποσοστό Κινδύνου: ${info.risk}%<br>
+                    <hr style="margin:5px 0;">
+                    <small>Θερμ: ${info.temp}°C | Υγρ: ${info.humidity}% | Άνεμος: ${info.wind} km/h</small>
+                `);
+            }
+        }
+    })
+    .catch(err => console.error("Σφάλμα φόρτωσης δεδομένων πυρκαγιάς:", err));
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+import os
+import requests
+import json
+import datetime
+
+def calculate_fire_risk(temp, humidity, wind_kph):
+    # Βασικός αλγόριθμος υπολογισμού κινδύνου (0-100%)
+    # Ο κίνδυνος αυξάνεται με τη θερμοκρασία και τον άνεμο, και μειώνεται με την υγρασία
+    risk = (temp * 1.5) + (wind_kph * 1.2) - (humidity * 0.5)
+    
+    # Κανονικοποίηση μεταξύ 0 και 100
+    risk = max(0, min(100, risk))
+    
+    if risk >= 75:
+        level = "ΠΟΛΥ ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        color = "#e74c3c"  # Κόκκινο
+    elif risk >= 50:
+        level = "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        color = "#e67e22"  # Πορτοκαλί
+    elif risk >= 30:
+        level = "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ"
+        color = "#f1c40f"  # Κίτρινο
+    else:
+        level = "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ"
+        color = "#27ae60"  # Πράσινο
+        
+    return {"risk_percentage": round(risk, 1), "level": level, "color": color}
+
+api_key = os.environ.get("WEATHER_API_KEY")
+
+# Λίστα με ενδεικτικές πόλεις/έδρες περιφερειών (μπορείς να προσθέσεις όποιες θέλεις)
+locations = {
+    "Tripoli": "Πελοπόννησος",
+    "Athens": "Αττική",
+    "Thessaloniki": "Κεντρική Μακεδονία",
+    "Larissa": "Θεσσαλία",
+    "Patras": "Δυτική Ελλάδα",
+    "Heraklion": "Κρήτη",
+    "Ioannina": "Ήπειρος"
+}
+
+fire_results = {
+    "last_update": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
+    "regions": {}
+}
+
+try:
+    for city, region_name in locations.items():
+        url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
+        response = requests.get(url).json()
+        
+        curr = response['current']
+        temp = curr['temp_c']
+        humidity = curr['humidity']
+        wind = curr['wind_kph']
+        
+        risk_data = calculate_fire_risk(temp, humidity, wind)
+        
+        fire_results["regions"][region_name] = {
+            "city": city,
+            "temp": temp,
+            "humidity": humidity,
+            "wind": wind,
+            "risk": risk_data["risk_percentage"],
+            "level": risk_data["level"],
+            "color": risk_data["color"]
+        }
+        
+    # Αποθήκευση σε JSON αρχείο
+    with open("fire_data.json", "w", encoding="utf-8") as f:
+        json.dump(fire_results, f, ensure_ascii=False, indent=4)
+        print("Το αρχείο fire_data.json ενημερώθηκε επιτυχώς.")
+
+except Exception as e:
+    print(f"Σφάλμα κατά την εκτέλεση: {e}")
