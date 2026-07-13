@@ -28,17 +28,16 @@ def calculate_fire_risk(temp, humidity, wind_kph):
 
 api_key = os.environ.get("WEATHER_API_KEY")
 
-# Λίστα με ενδεικτικές πόλεις/έδρες περιφερειών (μπορείς να προσθέσεις όποιες θέλεις)
 # Λίστα με τις κύριες πόλεις της Ελλάδας (ανά νομό) και επιλεγμένα χωριά
 locations = {
     # Πελοπόννησος & Χωριά
     "Tripoli": "Τρίπολη",
     "Sparti": "Σπάρτη",
     "Kalamata": "Καλαμάτα",
-    "Korinthos": "Κόρινθος",
+    "Corinth": "Κόρινθος",
     "Nafplio": "Ναύπλιο",
     "Pyrgos": "Πύργος",
-    "Patra": "Πάτρα",
+    "Patras": "Πάτρα",
     "Vytina": "Βυτίνα",
     "Dimitsana": "Δημητσάνα",
     "Stemnitsa": "Στεμνίτσα",
@@ -79,12 +78,12 @@ locations = {
     "Xanthi": "Ξάνθη",
 
     # Νησιά & Κρήτη
-    "Kerkyra": "Κέρκυρα",
+    "Corfu": "Κέρκυρα",
     "Zakynthos": "Ζάκυνθος",
-    "Mytilini": "Μυτιλήνη",
+    "Mytilene": "Μυτιλήνη",
     "Chios": "Χίος",
     "Ermoupoli": "Σύρος",
-    "Rodos": "Ρόδος",
+    "Rhodes": "Ρόδος",
     "Heraklion": "Ηράκλειο",
     "Chania": "Χανιά",
     "Rethymno": "Ρέθυμνο"
@@ -95,6 +94,7 @@ fire_results = {
     "regions": {}
 }
 
+# Loop ανάκτησης δεδομένων με εσωτερικό try-except για προστασία από μεμονωμένες αποτυχίες κλήσεων
 for city, region_name in locations.items():
     try:
         url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
@@ -119,18 +119,10 @@ for city, region_name in locations.items():
     except Exception as city_error:
         print(f"Αποτυχία λήψης δεδομένων για την περιοχή {region_name} ({city}): {city_error}")
 
-# Αποθήκευση στο αρχείο, εφόσον μαζευτούν τα δεδομένα
+# Αποθήκευση στο JSON αρχείο
 try:
     with open("fire_data.json", "w", encoding="utf-8") as f:
         json.dump(fire_results, f, ensure_ascii=False, indent=4)
         print("Το αρχείο fire_data.json ενημερώθηκε επιτυχώς.")
 except Exception as e:
     print(f"Σφάλμα κατά την εγγραφή του αρχείου: {e}")
-        
-    # Αποθήκευση σε JSON αρχείο
-    with open("fire_data.json", "w", encoding="utf-8") as f:
-        json.dump(fire_results, f, ensure_ascii=False, indent=4)
-        print("Το αρχείο fire_data.json ενημερώθηκε επιτυχώς.")
-
-except Exception as e:
-    print(f"Σφάλμα κατά την εκτέλεση: {e}")
