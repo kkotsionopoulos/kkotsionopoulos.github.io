@@ -29,24 +29,26 @@ api_key = os.environ.get("WEATHER_API_KEY")
 
 # Λίστα με τις κύριες πόλεις της Ελλάδας (ανά νομό) και επιλεγμένα χωριά
 locations = {
-    # Πελοπόννησος & Χωριά
-    "Tripoli": "Τρίπολη",
-    "Sparti": "Σπάρτη",
-    "Kalamata": "Καλαμάτα",
-    "Corinth": "Κόρινθος",
-    "Nafplio": "Ναύπλιο",
-    "Pyrgos": "Πύργος",
-    "Patras": "Πάτρα",
-    "Vytina": "Βυτίνα",
-    "Dimitsana": "Δημητσάνα",
-    "Stemnitsa": "Στεμνίτσα",
-    "Lagadia": "Λαγκάδια",
-    "Piana": "Πιάνα",
-    "Alonistaina": "Αλωνίσταινα",
-    "Vlachokerasia": "Βλαχοκερασιά",
-    "Chrysovitsi": "Χρυσοβίτσι",
-    "Kapsia": "Κάψια",
-    "Valtesiniko": "Βαλτεσινίκο",
+    # Πελοπόννησος & Χωριά (Με γεωγραφικό προσδιορισμό για το API)
+    "Tripoli,Greece": "Τρίπολη",
+    "Sparti,Greece": "Σπάρτη",
+    "Kalamata,Greece": "Καλαμάτα",
+    "Corinth,Greece": "Κόρινθος",
+    "Nafplio,Greece": "Ναύπλιο",
+    "Pyrgos,Greece": "Πύργος",
+    "Patras,Greece": "Πάτρα",
+    "Vytina,Arcadia,Greece": "Βυτίνα",
+    "Dimitsana,Arcadia,Greece": "Δημητσάνα",
+    "Stemnitsa,Arcadia,Greece": "Στεμνίτσα",
+    "Lagadia,Arcadia,Greece": "Λαγκάδια",
+    "Piana,Arcadia,Greece": "Πιάνα",
+    "Alonistaina,Arcadia,Greece": "Αλωνίσταινα",
+    "Vlachokerasia,Arcadia,Greece": "Βλαχοκερασιά",
+    "Chrysovitsi,Arcadia,Greece": "Χρυσοβίτσι",
+    "Kapsia,Arcadia,Greece": "Κάψια",
+    "Valtesiniko,Arcadia,Greece": "Βαλτεσινίκο",
+    
+    # Αττική & Στερεά Ελλάδα... (το υπόλοιπο λεξικό παραμένει ως έχει)
     
     # Αττική & Στερεά Ελλάδα
     "Athens": "Αθήνα",
