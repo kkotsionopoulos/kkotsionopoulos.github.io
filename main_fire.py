@@ -35,10 +35,10 @@ locations = {
     "Tripoli": "Τρίπολη",
     "Sparti": "Σπάρτη",
     "Kalamata": "Καλαμάτα",
-    "Corinth": "Κόρινθος",
-    "Nafplion": "Ναύπλιο",
+    "Korinthos": "Κόρινθος",
+    "Nafplio": "Ναύπλιο",
     "Pyrgos": "Πύργος",
-    "Patras": "Πάτρα",
+    "Patra": "Πάτρα",
     "Vytina": "Βυτίνα",
     "Dimitsana": "Δημητσάνα",
     "Stemnitsa": "Στεμνίτσα",
@@ -78,13 +78,13 @@ locations = {
     "Komotini": "Κομοτηνή",
     "Xanthi": "Ξάνθη",
 
-    # Νησιά (Ιόνιο & Αιγαίο) & Κρήτη
-    "Corfu": "Κέρκυρα",
+    # Νησιά & Κρήτη
+    "Kerkyra": "Κέρκυρα",
     "Zakynthos": "Ζάκυνθος",
-    "Mytilene": "Μυτιλήνη",
+    "Mytilini": "Μυτιλήνη",
     "Chios": "Χίος",
     "Ermoupoli": "Σύρος",
-    "Rhodes": "Ρόδος",
+    "Rodos": "Ρόδος",
     "Heraklion": "Ηράκλειο",
     "Chania": "Χανιά",
     "Rethymno": "Ρέθυμνο"
