@@ -29,14 +29,65 @@ def calculate_fire_risk(temp, humidity, wind_kph):
 api_key = os.environ.get("WEATHER_API_KEY")
 
 # Λίστα με ενδεικτικές πόλεις/έδρες περιφερειών (μπορείς να προσθέσεις όποιες θέλεις)
+# Λίστα με τις κύριες πόλεις της Ελλάδας (ανά νομό) και επιλεγμένα χωριά
 locations = {
-    "Tripoli": "Πελοπόννησος",
-    "Athens": "Αττική",
-    "Thessaloniki": "Κεντρική Μακεδονία",
-    "Larissa": "Θεσσαλία",
-    "Patras": "Δυτική Ελλάδα",
-    "Heraklion": "Κρήτη",
-    "Ioannina": "Ήπειρος"
+    # Πελοπόννησος & Χωριά
+    "Tripoli": "Τρίπολη",
+    "Sparti": "Σπάρτη",
+    "Kalamata": "Καλαμάτα",
+    "Corinth": "Κόρινθος",
+    "Nafplion": "Ναύπλιο",
+    "Pyrgos": "Πύργος",
+    "Patras": "Πάτρα",
+    "Vytina": "Βυτίνα",
+    "Dimitsana": "Δημητσάνα",
+    "Stemnitsa": "Στεμνίτσα",
+    "Lagadia": "Λαγκάδια",
+    
+    # Αττική & Στερεά Ελλάδα
+    "Athens": "Αθήνα",
+    "Lamia": "Λαμία",
+    "Chalkida": "Χαλκίδα",
+    "Livadeia": "Λιβαδειά",
+    "Karpenisi": "Καρπενήσι",
+    "Amfissa": "Άμφισσα",
+    "Mesolongi": "Μεσολόγγι",
+
+    # Θεσσαλία
+    "Larissa": "Λάρισα",
+    "Volos": "Βόλος",
+    "Trikala": "Τρίκαλα",
+    "Karditsa": "Καρδίτσα",
+
+    # Ήπειρος
+    "Ioannina": "Ιωάννινα",
+    "Arta": "Άρτα",
+    "Preveza": "Πρέβεζα",
+    "Igoumenitsa": "Ηγουμενίτσα",
+
+    # Μακεδονία & Θράκη
+    "Thessaloniki": "Θεσσαλονίκη",
+    "Serres": "Σέρρες",
+    "Kavala": "Καβάλα",
+    "Katerini": "Κατερίνη",
+    "Veria": "Βέροια",
+    "Kozani": "Κοζάνη",
+    "Kastoria": "Καστοριά",
+    "Florina": "Φλώρινα",
+    "Alexandroupoli": "Αλεξανδρούπολη",
+    "Komotini": "Κομοτηνή",
+    "Xanthi": "Ξάνθη",
+
+    # Νησιά (Ιόνιο & Αιγαίο) & Κρήτη
+    "Corfu": "Κέρκυρα",
+    "Zakynthos": "Ζάκυνθος",
+    "Mytilene": "Μυτιλήνη",
+    "Chios": "Χίος",
+    "Ermoupoli": "Σύρος",
+    "Rhodes": "Ρόδος",
+    "Heraklion": "Ηράκλειο",
+    "Chania": "Χανιά",
+    "Rethymno": "Ρέθυμνο"
 }
 
 fire_results = {
