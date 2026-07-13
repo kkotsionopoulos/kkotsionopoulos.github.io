@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-07-13 09:10",
+    "last_update": "2026-07-13 09:13",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli",
@@ -29,13 +29,13 @@
             "color": "#27ae60"
         },
         "Κόρινθος": {
-            "city": "Korinthos",
-            "temp": 30.0,
-            "humidity": 41,
-            "wind": 8.6,
-            "risk": 34.8,
-            "level": "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#f1c40f"
+            "city": "Corinth",
+            "temp": 25.2,
+            "humidity": 90,
+            "wind": 4.3,
+            "risk": 0,
+            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
+            "color": "#27ae60"
         },
         "Ναύπλιο": {
             "city": "Nafplio",
@@ -56,13 +56,13 @@
             "color": "#f1c40f"
         },
         "Πάτρα": {
-            "city": "Patra",
-            "temp": 30.2,
-            "humidity": 55,
-            "wind": 5.4,
-            "risk": 24.3,
-            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#27ae60"
+            "city": "Patras",
+            "temp": 33.8,
+            "humidity": 53,
+            "wind": 11.2,
+            "risk": 37.6,
+            "level": "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ",
+            "color": "#f1c40f"
         },
         "Βυτίνα": {
             "city": "Vytina",
@@ -326,13 +326,13 @@
             "color": "#27ae60"
         },
         "Κέρκυρα": {
-            "city": "Kerkyra",
-            "temp": 30.4,
-            "humidity": 55,
-            "wind": 14.0,
-            "risk": 34.9,
-            "level": "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#f1c40f"
+            "city": "Corfu",
+            "temp": 18.3,
+            "humidity": 50,
+            "wind": 9.4,
+            "risk": 13.7,
+            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
+            "color": "#27ae60"
         },
         "Ζάκυνθος": {
             "city": "Zakynthos",
@@ -342,15 +342,6 @@
             "risk": 21.1,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
-        },
-        "Μυτιλήνη": {
-            "city": "Mytilini",
-            "temp": 27.0,
-            "humidity": 48,
-            "wind": 16.2,
-            "risk": 35.9,
-            "level": "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#f1c40f"
         },
         "Χίος": {
             "city": "Chios",
@@ -371,11 +362,11 @@
             "color": "#e74c3c"
         },
         "Ρόδος": {
-            "city": "Rodos",
-            "temp": 28.1,
-            "humidity": 48,
-            "wind": 16.9,
-            "risk": 38.4,
+            "city": "Rhodes",
+            "temp": 32.1,
+            "humidity": 28,
+            "wind": 10.1,
+            "risk": 46.3,
             "level": "ΜΕΤΡΙΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#f1c40f"
         },
