@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Πολιτική Απορρήτου & Όροι Χρήσης | Γεωργία Νικήτα - Ενδοκρινολόγος</title>
+<meta name="robots" content="noindex, follow"> <!-- Συνήθως δεν θέλουμε η Google να εμφανίζει τους νομικούς όρους στα αποτελέσματα -->
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Ίδια Design Tokens με την αρχική σελίδα */
+  :root {
+    --color-primary: #154A63;
+    --color-primary-dark: #0D3346;
+    --color-accent: #2F8177;
+    --color-accent-light: #E4F3F0;
+    --color-bg: #F6F9FA;
+    --color-bg-alt: #EDF3F4;
+    --color-white: #FFFFFF;
+    --color-text: #1D2B33;
+    --color-text-muted: #4C5E67;
+    --color-border: #DCE6E9;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --container: 1140px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 76px; 
+  }
+  @media (max-width: 640px) { body { padding-top: 110px; } }
+
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; color: var(--color-primary-dark); line-height: 1.2; margin-bottom: 16px; }
+  p { margin-bottom: 16px; }
+
+  /* ---------- Header (Ίδιο με την αρχική) ---------- */
+  header.site-header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-wrap { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: var(--container); margin: 0 auto; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--color-primary-dark); max-width: 65%; }
+  .logo-mark { width: 38px; height: 38px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-mark svg { width: 20px; height: 20px; }
+  .logo span { display: flex; flex-direction: column; justify-content: center; }
+  .logo small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.72rem; color: var(--color-text-muted); line-height: 1.4; white-space: normal; max-width: 320px; margin-top: 3px; }
+  @media (max-width: 640px) { .logo { max-width: 75%; font-size: 1.05rem; } .logo small { font-size: 0.65rem; line-height: 1.3; } }
+  
+  nav.primary-nav ul { display: flex; gap: 26px; align-items: center; }
+  nav.primary-nav a { font-size: 0.95rem; font-weight: 500; color: var(--color-text); padding: 6px 2px; transition: color .2s; }
+  nav.primary-nav a:hover { color: var(--color-primary); }
+  
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 26px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; transition: transform .15s ease; }
+  .btn-primary { background: var(--color-accent); color: var(--color-white) !important; }
+  
+  .nav-cta { display: none; }
+  @media (min-width: 880px) { .nav-cta { display: inline-flex; } .mobile-only { display: none !important; } }
+  
+  .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--color-primary-dark); border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
+  .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 879px) {
+    nav.primary-nav { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 16px 24px rgba(0,0,0,0.15); padding: 24px 20px 32px; z-index: 999; border-top: 1px solid var(--color-border); opacity: 0; visibility: hidden; transform: translateY(-15px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; }
+    nav.primary-nav.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+    nav.primary-nav ul { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; margin: 0; padding: 0; }
+    .nav-cta.mobile-only { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
+  }
+  @media (min-width: 880px) { .hamburger { display: none; } }
+
+  .header-actions-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .mobile-call-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--color-accent); color: var(--color-white); font-size: 0.85rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; }
+  @media (min-width: 880px) { .mobile-call-btn { display: none; } }
+
+  /* ---------- Legal Content Layout ---------- */
+  .legal-section {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 64px 24px 100px;
+    background: var(--color-white);
+    box-shadow: 0 4px 12px rgba(21, 74, 99, 0.05);
+    border-radius: var(--radius-md);
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+  .legal-section h1 { font-size: clamp(2rem, 4vw, 2.8rem); text-align: center; margin-bottom: 48px; color: var(--color-primary); }
+  .legal-section h2 { font-size: 1.4rem; margin-top: 40px; border-bottom: 2px solid var(--color-bg-alt); padding-bottom: 8px; }
+  .legal-section h3 { font-size: 1.1rem; margin-top: 24px; color: var(--color-text); }
+  .legal-section ul { list-style-type: disc; padding-left: 24px; margin-bottom: 16px; color: var(--color-text-muted); }
+  .legal-section li { margin-bottom: 8px; }
+  .legal-section p { color: var(--color-text-muted); line-height: 1.7; }
+  .legal-section strong { color: var(--color-text); }
+
+  /* ---------- Footer ---------- */
+  footer.site-footer { background: #0A2634; color: rgba(255,255,255,0.78); padding: 56px 0 24px; }
+  .footer-grid { display: grid; grid-template-columns: 1fr; gap: 36px; margin-bottom: 40px; padding: 0 24px; max-width: var(--container); margin-left: auto; margin-right: auto; }
+  @media (min-width: 780px) { .footer-grid { grid-template-columns: 1.3fr 1fr 1fr; } }
+  .footer-col h4 { color: var(--color-white); font-family: var(--font-display); font-size: 1rem; margin-bottom: 16px; }
+  .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { font-size: 0.88rem; transition: color .2s; }
+  .footer-col a:hover { color: var(--color-accent); }
+  .footer-logo { display: flex; align-items: center; gap: 10px; color: var(--color-white); font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 14px; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.82rem; max-width: var(--container); margin: 0 auto; padding-left: 24px; padding-right: 24px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="nav-wrap">
+    <!-- ΣΗΜΑΝΤΙΚΟ: Τα links εδώ οδηγούν πίσω στο index.html -->
+    <a href="index.html" class="logo" aria-label="Επιστροφή στην αρχική σελίδα">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" aria-hidden="true"><path d="M12 2C8 2 6 5 6 8c0 4 3 5 3 8 0 3.3 1.5 6 3 6s3-2.7 3-6c0-3 3-4 3-8 0-3-2-6-6-6Z"/></svg>
+      </span>
+      <span>
+        Γεωργία Νικήτα
+        <small>Ενδοκρινολόγος · Διαβητολόγος<br>Ορχομενού 6, Τρίπολη<br>Tηλέφωνο: 2710239970</small>
+      </span>
+    </a>
+
+    <div class="header-actions-right">
+      <a href="tel:+302710239970" class="mobile-call-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
+        Καλέστε
+      </a>
+      <button type="button" class="hamburger" id="menuToggle" aria-expanded="false" aria-label="Άνοιγμα μενού">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="primary-nav" id="primaryNav">
+      <ul>
+        <li><a href="index.html">Αρχική</a></li>
+        <li><a href="index.html#about">Ο Ιατρός</a></li>
+        <li><a href="index.html#services">Υπηρεσίες</a></li>
+        <li><a href="index.html#location">Επικοινωνία</a></li>
+        
+        <li class="nav-cta mobile-only" style="margin-top: 24px;">
+          <a href="https://calendar.app.google/jLG6VxCJkw8FzmBNA" class="btn btn-primary" style="width: 220px;" target="_blank">Κλείστε Online Ραντεβού</a>
+        </li>
+        <li class="nav-cta mobile-only" style="margin-top: 12px;">
+          <a href="tel:+302710239970" class="btn btn-primary" style="width: 220px;">Κλήση τώρα 2710239970</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="legal-section">
+    <h1>Πολιτική Απορρήτου & Όροι Χρήσης</h1>
+
+    <h2>1. Πολιτική Απορρήτου & Χρήση Cookies</h2>
+    
+    <h3>Εισαγωγή</h3>
+    <p>Ο σεβασμός της ιδιωτικότητάς σας και η προστασία των προσωπικών σας δεδομένων αποτελούν προτεραιότητα για το Ενδοκρινολογικό Ιατρείο της κας Γεωργίας Νικήτα (Ορχομενού 6, Τρίπολη). Η παρούσα πολιτική εξηγεί πώς συλλέγουμε και χρησιμοποιούμε τα δεδομένα σας κατά την περιήγησή σας στην ιστοσελίδα μας, σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (GDPR).</p>
+
+    <h3>Ποια δεδομένα συλλέγουμε</h3>
+    <p>Η ιστοσελίδα μας έχει κυρίως ενημερωτικό χαρακτήρα. Δεν απαιτείται η εγγραφή σας ή η δημιουργία λογαριασμού.</p>
+    <ul>
+      <li>Συλλέγουμε αυτόματα μόνο απολύτως απαραίτητα τεχνικά δεδομένα (π.χ. διεύθυνση IP, τύπος browser) μέσω του διακομιστή (hosting) για την ασφαλή και σωστή λειτουργία του ιστότοπου.</li>
+      <li>Εάν επιλέξετε να χρησιμοποιήσετε την εφαρμογή Online Ραντεβού (Google Calendar), τα στοιχεία που καταχωρείτε εκεί υπόκεινται στην πολιτική απορρήτου της Google.</li>
+    </ul>
+
+    <h3>Πολιτική Cookies</h3>
+    <p>Τα cookies είναι μικρά αρχεία κειμένου που αποθηκεύονται στη συσκευή σας. Χρησιμοποιούμε:</p>
+    <ul>
+      <li><strong>Απολύτως Απαραίτητα Cookies:</strong> Είναι αναγκαία για τη βασική λειτουργία της ιστοσελίδας και την ασφάλειά σας (π.χ. αποθήκευση των προτιμήσεών σας για τα ίδια τα cookies). Αυτά δεν μπορούν να απενεργοποιηθούν.</li>
+      <li><strong>Cookies Προσβασιμότητας (UserWay):</strong> Χρησιμοποιούνται για να "θυμάται" η σελίδα τις ρυθμίσεις προσβασιμότητας που ενδεχομένως έχετε επιλέξει, διευκολύνοντας την περιήγησή σας.</li>
+    </ul>
+
+    <h3>Τα δικαιώματά σας</h3>
+    <p>Έχετε το δικαίωμα να ζητήσετε ενημέρωση, διόρθωση ή διαγραφή των προσωπικών σας δεδομένων, επικοινωνώντας μαζί μας στο <strong>info@endokrinologos-nikita-tripoli.gr</strong> ή στο <strong>271 023 9970</strong>.</p>
+
+
+    <h2>2. Όροι Χρήσης & Ιατρική Αποποίηση Ευθύνης</h2>
+    
+    <h3>Σκοπός της Ιστοσελίδας</h3>
+    <p>Το περιεχόμενο της παρούσας ιστοσελίδας (κείμενα, άρθρα, γραφικά) έχει δημιουργηθεί αποκλειστικά για γενικούς ενημερωτικούς σκοπούς γύρω από την ενδοκρινολογία, τον διαβήτη και τον μεταβολισμό.</p>
+
+    <h3>Ιατρική Αποποίηση Ευθύνης (Medical Disclaimer)</h3>
+    <p>Οι πληροφορίες που παρέχονται <strong>σε καμία περίπτωση δεν υποκαθιστούν την εξατομικευμένη ιατρική συμβουλή, διάγνωση ή θεραπεία</strong>. Μην αγνοήσετε ποτέ επαγγελματική ιατρική συμβουλή και μην καθυστερήσετε να την αναζητήσετε εξαιτίας κάτι που διαβάσατε σε αυτόν τον ιστότοπο. Για οποιοδήποτε θέμα υγείας, παρακαλούμε να απευθύνεστε στον θεράποντα ιατρό σας.</p>
+
+    <h3>Πνευματικά Δικαιώματα</h3>
+    <p>Το σύνολο του περιεχομένου και του σχεδιασμού της ιστοσελίδας αποτελεί πνευματική ιδιοκτησία του ιατρείου της κας Γεωργίας Νικήτα και προστατεύεται από την ελληνική και διεθνή νομοθεσία. Απαγορεύεται η αντιγραφή, αναπαραγωγή ή αναδημοσίευση χωρίς προηγούμενη έγγραφη άδεια.</p>
+
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">Γεωργία Νικήτα</div>
+      <p style="font-size:0.88rem;max-width:38ch;">Ενδοκρινολογικό ιατρείο στην Τρίπολη, στην υπηρεσία της Αρκαδίας για παθήσεις θυρεοειδούς, διαβήτη, οστεοπόρωσης και μεταβολισμού.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Πλοήγηση</h4>
+      <ul>
+        <li><a href="index.html">Αρχική</a></li>
+        <li><a href="index.html#services">Υπηρεσίες</a></li>
+        <li><a href="index.html#location">Επικοινωνία</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Επικοινωνία</h4>
+      <ul>
+        <li>Ορχομενού 6, Τρίπολη 221 00</li>
+        <li><a href="tel:+302710239970">271 023 9970</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Γεωργία Νικήτα — Ενδοκρινολόγος Τρίπολη.</span>
+    <span><a href="privacy.html">Όροι Χρήσης & Πολιτική Απορρήτου</a></span>
+  </div>
+</footer>
+
+<!-- ACCESSIBILITY WIDGET -->
+<script>
+  (function (d) {
+    var s = d.createElement("script");
+    s.setAttribute("data-account", "YOUR_USERWAY_ACCOUNT_ID");
+    s.setAttribute("data-position", "4"); 
+    s.setAttribute("src", "https://cdn.userway.org/widget.js");
+    (d.body || d.head).appendChild(s);
+  })(document);
+</script>
+
+<!-- PAGE JS -->
+<script>
+  (function () {
+    "use strict";
+    var toggle = document.getElementById("menuToggle");
+    var nav = document.getElementById("primaryNav");
+
+    function closeMenu() {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+    function openMenu() {
+      nav.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+    }
+    toggle.addEventListener("click", function () {
+      var isOpen = nav.classList.contains("is-open");
+      isOpen ? closeMenu() : openMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+    nav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMenu);
+    });
+  })();
+</script>
+
+</body>
+</html>
