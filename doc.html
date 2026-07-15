@@ -645,7 +645,14 @@
     }
     .cookie-buttons { flex-direction: column; gap: 8px; }
   }
-  
+  /* Εξαναγκασμός ΜΟΝΟ του εικονιδίου UserWay να μένει κάτω δεξιά, 
+     χωρίς να επηρεάζει καθόλου το αναδυόμενο μενού! */
+  div[id^="userway-widget-b"] {
+    top: auto !important;
+    bottom: 12px !important;
+    left: auto !important;
+    right: 12px !important;
+  }
 </style>
 </head>
 <body>
