@@ -597,6 +597,63 @@
     left: auto !important;
     right: 4px !important;
   }
+  
+  /* ---------- Cookie Banner ---------- */
+  .cookie-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    max-width: 420px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    z-index: 99998; /* Ακριβώς κάτω από το UserWay widget */
+    
+    /* Κρυφό αρχικά, το εμφανίζει η Javascript */
+    display: none; 
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  .cookie-banner.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .cookie-content p {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .cookie-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .cookie-buttons {
+    display: flex;
+    gap: 12px;
+  }
+  .cookie-buttons .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    flex: 1;
+  }
+  
+  /* Προσαρμογή στα κινητά (πιάνει όλο το πλάτος κάτω-κάτω) */
+  @media (max-width: 640px) {
+    .cookie-banner {
+      bottom: 12px; 
+      left: 12px; 
+      right: 12px; 
+      max-width: none; 
+      padding: 16px;
+    }
+    .cookie-buttons { flex-direction: column; gap: 8px; }
+  }
+  
 </style>
 </head>
 <body>
@@ -1087,6 +1144,22 @@
 </footer>
 
 <!-- ============================================================
+     COOKIE BANNER (GDPR)
+     ============================================================ -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
+  <div class="cookie-content">
+    <p>
+      Χρησιμοποιούμε cookies για να διασφαλίσουμε την καλύτερη εμπειρία στην ιστοσελίδα μας. 
+      Διαβάστε την <a href="#privacy">Πολιτική Απορρήτου & Cookies</a>.
+    </p>
+    <div class="cookie-buttons">
+      <button id="acceptCookies" class="btn btn-primary btn-sm">Αποδοχή</button>
+      <button id="rejectCookies" class="btn btn-outline btn-sm">Απόρριψη</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
      ACCESSIBILITY WIDGET — UserWay (δωρεάν CDN)
      Αντικαταστήστε το data-account με το πραγματικό σας ID από userway.org
      ============================================================ -->
@@ -1162,6 +1235,30 @@
         el.classList.add("is-visible");
       });
     }
+	
+	// ---- Cookie Banner Logic ----
+    var cookieBanner = document.getElementById("cookieBanner");
+    var acceptBtn = document.getElementById("acceptCookies");
+    var rejectBtn = document.getElementById("rejectCookies");
+
+    if (!localStorage.getItem("cookieConsent")) {
+      setTimeout(function() {
+        cookieBanner.style.display = "block";
+        setTimeout(function() { cookieBanner.classList.add("show"); }, 50);
+      }, 1500);
+    }
+
+    function hideBanner(choice) {
+      localStorage.setItem("cookieConsent", choice);
+      cookieBanner.classList.remove("show");
+      setTimeout(function() { cookieBanner.style.display = "none"; }, 400); 
+    }
+
+    if(acceptBtn && rejectBtn) {
+      acceptBtn.addEventListener("click", function() { hideBanner("accepted"); });
+      rejectBtn.addEventListener("click", function() { hideBanner("rejected"); });
+    }
+	
   })();
 </script>
 
