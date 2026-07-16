@@ -645,14 +645,7 @@
     }
     .cookie-buttons { flex-direction: column; gap: 8px; }
   }
-  /* Εξαναγκασμός ΜΟΝΟ του εικονιδίου UserWay να μένει κάτω δεξιά, 
-     χωρίς να επηρεάζει καθόλου το αναδυόμενο μενού! */
-  div[id^="userway-widget-b"] {
-    top: auto !important;
-    bottom: 12px !important;
-    left: auto !important;
-    right: 12px !important;
-  }
+  
 </style>
 </head>
 <body>
@@ -1162,15 +1155,7 @@
      ACCESSIBILITY WIDGET — UserWay (δωρεάν CDN)
      Αντικαταστήστε το data-account με το πραγματικό σας ID από userway.org
      ============================================================ -->
-<script>
-  (function (d) {
-    var s = d.createElement("script");
-    s.setAttribute("data-account", "YOUR_USERWAY_ACCOUNT_ID");
-    s.setAttribute("data-position", "6"); /* Το 6 είναι η θέση: Κάτω Αριστερά */
-    s.setAttribute("src", "https://cdn.userway.org/widget.js");
-    (d.body || d.head).appendChild(s);
-  })(document);
-</script>
+<script src="https://cdn.userway.org/widget.js" data-account="YOUR_USERWAY_ACCOUNT_ID" data-position="6"></script>
 
 <!-- ============================================================
      PAGE JS — μενού κινητού, reveal-on-scroll (σέβεται reduced-motion)
