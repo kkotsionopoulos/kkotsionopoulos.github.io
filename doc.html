@@ -203,17 +203,15 @@
   }
 }
 
-/* Προσαρμογή Dropdown για τα Κινητά (Mobile Menu) */
-@media (max-width: 879px) {
-  .dropdown {
-    display: none !important;
-  }
-}
-
-  /* Προσαρμογή Dropdown για τα Κινητά (Mobile Menu) */
+/* Προσαρμογή Dropdown για τα Κινητά (Mobile Menu) — Εξαφανίζουμε τα dropdowns για να λειτουργεί σωστά η αφή */
   @media (max-width: 879px) {
     .dropdown {
-      display: none; /* Κρύβουμε το dropdown στα κινητά για να κρατήσουμε το μενού απλό */
+      display: none !important;
+    }
+    /* Κρύβουμε και το μικρό βελάκι δίπλα από τις λέξεις στα κινητά */
+    .has-dropdown aria-label, 
+    .has-dropdown svg {
+      display: none !important;
     }
   }
 
