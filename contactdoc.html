@@ -30,6 +30,7 @@
     --radius-sm: 6px;
     --radius-md: 12px;
     --container: 1140px;
+    --shadow-md: 0 8px 24px rgba(21, 74, 99, 0.12);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,7 +50,64 @@
   h1, h2, h3 { font-family: var(--font-display); font-weight: 600; color: var(--color-primary-dark); line-height: 1.2; margin-bottom: 16px; }
   p { margin-bottom: 16px; }
 
-  /* ---------- Header (Ίδιο με την αρχική) ---------- */
+  /* ---------- Dropdown Μενού (Desktop Only) ---------- */
+  @media (min-width: 880px) {
+    nav.primary-nav ul li {
+      position: relative;
+    }
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-sm);
+      min-width: 180px;
+      padding: 6px 0 !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      z-index: 1000;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0 !important; 
+    }
+    nav.primary-nav ul li:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown li {
+      width: 100%;
+      text-align: center;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .dropdown a {
+      display: block !important;
+      padding: 10px 16px !important;
+      font-size: 0.9rem !important;
+      border: none !important;
+      color: var(--color-primary-dark) !important;
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease;
+      margin: 0 !important;
+    }
+    .dropdown a:hover {
+      background: var(--color-bg-alt) !important;
+      color: var(--color-primary) !important;
+    }
+  }
+
+  @media (max-width: 879px) {
+    .dropdown {
+      display: none !important;
+    }
+  }
+
+  /* ---------- Header ---------- */
   header.site-header {
     position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
     background: rgba(255,255,255,0.94); backdrop-filter: blur(8px);
@@ -188,17 +246,45 @@
       </button>
     </div>
 
-    <nav class="primary-nav" id="primaryNav">
+    <nav class="primary-nav" id="primaryNav" aria-label="Κύριο μενού">
       <ul>
         <li><a href="index.html">Αρχική</a></li>
+        <li><a href="index.html#about">Ο Ιατρός</a></li>
         <li><a href="index.html#services">Υπηρεσίες</a></li>
-        <li><a href="index.html#location">Επικοινωνία</a></li>
+        
+        <!-- Ερωτήσεις με Dropdown για τις Κριτικές -->
+        <li class="has-dropdown">
+          <a href="index.html#faq" style="display: inline-flex; align-items: center; gap: 4px;">
+            Ερωτήσεις
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-top: 2px;" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg>
+          </a>
+          <ul class="dropdown">
+            <li><a href="index.html#reviews">Κριτικές</a></li>
+          </ul>
+        </li>
+        
+        <!-- Επικοινωνία με Dropdown για Γρήγορες Ενέργειες -->
+        <li class="has-dropdown">
+          <a href="index.html#location" style="display: inline-flex; align-items: center; gap: 4px;">
+            Επικοινωνία
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-top: 2px;" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg>
+          </a>
+          <ul class="dropdown" style="min-width: 180px;">
+            <li><a href="contactdoc.html">Στείλε μήνυμα</a></li>
+            <li><a href="tel:+302710239970">Κάλεσε τώρα</a></li>
+            <li><a href="https://www.google.com/maps/place/data=!4m2!3m1!1s0x13601726756a63bb:0xa33e3b9ab386dd6b?sa=X&ved=1t:8290&hl=el-GR&ictx=111" target="_blank" rel="noopener noreferrer">Χάρτης</a></li>
+          </ul>
+        </li>
         
         <li class="nav-cta mobile-only" style="margin-top: 24px;">
-          <a href="https://calendar.app.google/jLG6VxCJkw8FzmBNA" class="btn btn-primary" style="width: 220px;" target="_blank">Κλείστε Online Ραντεβού</a>
+          <a href="index.html#booking" class="btn btn-primary" style="width: 220px;">Κλείστε Online Ραντεβού</a>
         </li>
+        
         <li class="nav-cta mobile-only" style="margin-top: 12px;">
-          <a href="tel:+302710239970" class="btn btn-primary" style="width: 220px;">Κλήση τώρα 2710239970</a>
+          <a href="tel:+302710239970" class="btn btn-primary" style="width: 220px;">
+            <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
+            Κλήση τώρα 2710239970
+          </a>
         </li>
       </ul>
     </nav>
@@ -208,11 +294,9 @@
 <main class="contact-page">
   <div class="form-container">
     <h1>Στείλτε μας Μήνυμα</h1>
-    <p>Συμπληρώστε τη φόρμα και το ιατρείο θα επικοινωνήσει μαζί σας το συντομότερο δυνατό.</p>
+    <p>Συμπληρώστε τη φόρμα και το ιατρείο θα επικοινωνήσει μαζί送 σας το συντομότερο δυνατό.</p>
     
-    <!-- ΕΔΩ ΑΛΛΑΖΕΙΣ ΤΟ LINK ΤΟΥ FORMSPREE -->
     <form action="ΒΑΛΕ_ΕΔΩ_ΤΟ_LINK_ΑΠΟ_ΤΟ_FORMSPREE" method="POST">
-      
       <div class="form-group">
         <label for="name" class="form-label">Ονοματεπώνυμο *</label>
         <input type="text" id="name" name="Ονοματεπώνυμο" class="form-control" required placeholder="π.χ. Μαρία Παπαδοπούλου">
@@ -236,7 +320,6 @@
       <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.05rem; padding: 14px;">
         Αποστολή Μηνύματος
       </button>
-
     </form>
   </div>
 </main>
@@ -251,7 +334,7 @@
     <div class="footer-col">
       <h4>Πλοήγηση</h4>
       <ul>
-        <li><a href="index.html">Αρχική</a></li>
+        <li><a href="doc.html">Αρχική</a></li>
         <li><a href="index.html#services">Υπηρεσίες</a></li>
         <li><a href="index.html#location">Επικοινωνία</a></li>
       </ul>

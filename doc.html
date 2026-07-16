@@ -150,51 +150,65 @@
 <style>
 
 /* ---------- Dropdown Μενού (Desktop Only) ---------- */
-  @media (min-width: 880px) {
-    nav.primary-nav ul li {
-      position: relative;
-    }
-    .dropdown {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-md);
-      border-radius: var(--radius-sm);
-      min-width: 160px;
-      padding: 8px 0;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-      z-index: 1000;
-    }
-    /* Εμφάνιση μενού με Hover */
-    nav.primary-nav ul li:hover .dropdown {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
-    .dropdown li {
-      width: 100%;
-      text-align: center;
-    }
-    .dropdown a {
-      display: block;
-      padding: 10px 16px;
-      font-size: 0.9rem !important;
-      border: none !important;
-      color: var(--color-primary-dark) !important;
-      font-weight: 600;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    }
-    .dropdown a:hover {
-      background: var(--color-bg-alt);
-      color: var(--color-primary) !important;
-    }
+@media (min-width: 880px) {
+  nav.primary-nav ul li {
+    position: relative;
   }
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    border-radius: var(--radius-sm);
+    min-width: 180px;
+    padding: 6px 0 !important; /* Μαζεύει το εσωτερικό πάνω-κάτω κενό του πλαισίου */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 1000;
+    
+    /* Απόλυτος εξαναγκασμός κάθετης στοίχισης */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important; /* Εξαφανίζει το μεγάλο κενό ανάμεσα στα li */
+  }
+  /* Εμφάνιση μενού με Hover */
+  nav.primary-nav ul li:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+  .dropdown li {
+    width: 100%;
+    text-align: center;
+    margin: 0 !important; /* Εκμηδενίζει εξωτερικά κενά */
+    padding: 0 !important; /* Εκμηδενίζει εσωτερικά κενά */
+  }
+  .dropdown a {
+    display: block !important;
+    padding: 10px 16px !important; /* Δίνει μια κομψή, μαζεμένη απόσταση στα γράμματα */
+    font-size: 0.9rem !important;
+    border: none !important;
+    color: var(--color-primary-dark) !important;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
+    margin: 0 !important;
+  }
+  .dropdown a:hover {
+    background: var(--color-bg-alt) !important;
+    color: var(--color-primary) !important;
+  }
+}
+
+/* Προσαρμογή Dropdown για τα Κινητά (Mobile Menu) */
+@media (max-width: 879px) {
+  .dropdown {
+    display: none !important;
+  }
+}
 
   /* Προσαρμογή Dropdown για τα Κινητά (Mobile Menu) */
   @media (max-width: 879px) {
@@ -761,7 +775,18 @@
           </ul>
         </li>
         
-        <li><a href="#location">Επικοινωνία</a></li>
+        <!-- Επικοινωνία με Dropdown για Γρήγορες Ενέργειες -->
+        <li class="has-dropdown">
+          <a href="#location" style="display: inline-flex; align-items: center; gap: 4px;">
+            Επικοινωνία
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-top: 2px;" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg>
+          </a>
+          <ul class="dropdown" style="min-width: 180px;"> <!-- Λίγο μεγαλύτερο πλάτος για να χωράνε άνετα τα κείμενα -->
+            <li><a href="contactdoc.html">Στείλε μήνυμα</a></li>
+            <li><a href="tel:+302710239970">Κάλεσε τώρα</a></li>
+            <li><a href="https://www.google.com/maps/place/data=!4m2!3m1!1s0x13601726756a63bb:0xa33e3b9ab386dd6b?sa=X&ved=1t:8290&hl=el-GR&ictx=111" target="_blank" rel="noopener noreferrer">Χάρτης</a></li>
+          </ul>
+        </li>
         
         <li class="nav-cta mobile-only" style="margin-top: 24px;">
           <a href="#booking" class="btn btn-primary" style="width: 220px;">Κλείστε Online Ραντεβού</a>
