@@ -30,9 +30,6 @@
 
 <!-- ============================================================
      JSON-LD STRUCTURED DATA
-     Array με δύο βασικά schemas:
-       a) MedicalClinic/Physician + aggregateRating + reviews (Local SEO)
-       b) FAQPage (AEO – Answer Engine Optimization για ChatGPT/Perplexity/Gemini)
      ============================================================ -->
 <script type="application/ld+json">
 [
@@ -148,67 +145,62 @@
 </script>
 
 <style>
+  /* ---------- Dropdown Μενού (Desktop Only) ---------- */
+  @media (min-width: 880px) {
+    nav.primary-nav ul li {
+      position: relative;
+    }
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-sm);
+      min-width: 180px;
+      padding: 6px 0 !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      z-index: 1000;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0 !important; 
+    }
+    nav.primary-nav ul li:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown li {
+      width: 100%;
+      text-align: center;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .dropdown a {
+      display: block !important;
+      padding: 10px 16px !important;
+      font-size: 0.9rem !important;
+      border: none !important;
+      color: var(--color-primary-dark) !important;
+      font-weight: 600;
+      transition: background 0.2s ease, color 0.2s ease;
+      margin: 0 !important;
+    }
+    .dropdown a:hover {
+      background: var(--color-bg-alt) !important;
+      color: var(--color-primary) !important;
+    }
+  }
 
-/* ---------- Dropdown Μενού (Desktop Only) ---------- */
-@media (min-width: 880px) {
-  nav.primary-nav ul li {
-    position: relative;
-  }
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-    border-radius: var(--radius-sm);
-    min-width: 180px;
-    padding: 6px 0 !important; /* Μαζεύει το εσωτερικό πάνω-κάτω κενό του πλαισίου */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-    z-index: 1000;
-    
-    /* Απόλυτος εξαναγκασμός κάθετης στοίχισης */
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important; /* Εξαφανίζει το μεγάλο κενό ανάμεσα στα li */
-  }
-  /* Εμφάνιση μενού με Hover */
-  nav.primary-nav ul li:hover .dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
-  .dropdown li {
-    width: 100%;
-    text-align: center;
-    margin: 0 !important; /* Εκμηδενίζει εξωτερικά κενά */
-    padding: 0 !important; /* Εκμηδενίζει εσωτερικά κενά */
-  }
-  .dropdown a {
-    display: block !important;
-    padding: 10px 16px !important; /* Δίνει μια κομψή, μαζεμένη απόσταση στα γράμματα */
-    font-size: 0.9rem !important;
-    border: none !important;
-    color: var(--color-primary-dark) !important;
-    font-weight: 600;
-    transition: background 0.2s ease, color 0.2s ease;
-    margin: 0 !important;
-  }
-  .dropdown a:hover {
-    background: var(--color-bg-alt) !important;
-    color: var(--color-primary) !important;
-  }
-}
-
-/* Προσαρμογή Dropdown για τα Κινητά (Mobile Menu) — Εξαφανίζουμε τα dropdowns για να λειτουργεί σωστά η αφή */
+  /* Προσαρμογή Dropdown για τα Κινητά */
   @media (max-width: 879px) {
     .dropdown {
       display: none !important;
     }
-    /* Κρύβουμε και το μικρό βελάκι δίπλα από τις λέξεις στα κινητά */
     .has-dropdown aria-label, 
     .has-dropdown svg {
       display: none !important;
@@ -216,22 +208,20 @@
   }
 
   /* ============================================================
-     DESIGN TOKENS — καθαρό λευκό / απαλό γαλάζιο-γκρι κλινικής
-     + βαθύ ιατρικό μπλε εμπιστοσύνης + τιρκουάζ "ισορροπίας"
-     Υψηλή αντίθεση χρωμάτων για WCAG AA/AAA συμμόρφωση
+     DESIGN TOKENS
      ============================================================ */
   :root {
-    --color-primary: #154A63;       /* βαθύ ιατρικό μπλε — contrast ~8.9:1 σε λευκό */
+    --color-primary: #154A63;
     --color-primary-dark: #0D3346;
-    --color-accent: #2F8177;        /* τιρκουάζ, contrast ~4.6:1 σε λευκό (WCAG AA) */
+    --color-accent: #2F8177;
     --color-accent-light: #E4F3F0;
     --color-bg: #F6F9FA;
     --color-bg-alt: #EDF3F4;
     --color-white: #FFFFFF;
-    --color-text: #1D2B33;          /* contrast ~13.8:1 σε λευκό */
-    --color-text-muted: #4C5E67;    /* contrast ~6.6:1 σε λευκό */
+    --color-text: #1D2B33;
+    --color-text-muted: #4C5E67;
     --color-border: #DCE6E9;
-    --color-star: #D6A000;          /* αστέρια αξιολόγησης, contrast επαρκές σε λευκό */
+    --color-star: #D6A000;
 
     --font-display: 'Fraunces', Georgia, serif;
     --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -248,7 +238,7 @@
   
   html, body { 
     scroll-behavior: smooth; 
-    overflow-x: hidden; /* Κλειδώνει την οθόνη για να μην πηγαίνει δεξιά-αριστερά στα κινητά */
+    overflow-x: hidden;
   }
   
   body {
@@ -257,7 +247,7 @@
     background: var(--color-bg);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    padding-top: 76px; /* Δίνει χώρο για το σταθερό μενού */
+    padding-top: 76px;
   }
   img { max-width: 100%; display: block; }
   a { text-decoration: none; color: inherit; }
@@ -266,7 +256,6 @@
   .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
   section { padding: 72px 0; }
 
-  /* Ορατό focus state για πληκτρολόγιο — WCAG 2.4.7 */
   a:focus-visible, button:focus-visible, summary:focus-visible {
     outline: 3px solid var(--color-accent); outline-offset: 3px;
   }
@@ -286,25 +275,23 @@
 
   /* ---------- Header ---------- */
   header.site-header {
-    position: fixed; /* Αλλαγή από sticky σε fixed */
+    position: fixed;
     top: 0; 
     left: 0;
-    width: 100%; /* Απαραίτητο για να πιάνει όλη την οθόνη */
+    width: 100%;
     z-index: 1000;
     background: rgba(255,255,255,0.94);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--color-border);
   }
   
-  /* Γκρουπάρισμα του κουμπιού κλήσης και του hamburger */
   .header-actions-right {
     display: flex;
-    flex-direction: column; /* Τοποθετεί το κουμπί ΠΑΝΩ από το μενού */
-    align-items: flex-end;  /* Τα στοιχίζει όμορφα στην δεξιά άκρη */
-    gap: 4px;               /* Αφήνει ένα μικρό, κομψό κενό ανάμεσά τους */
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
   }
 
-  /* Εμφάνιση μικρού κομψού κουμπιού στα κινητά */
   .mobile-call-btn {
     display: inline-flex;
     align-items: center;
@@ -314,8 +301,7 @@
     font-size: 0.85rem;
     font-weight: 600;
     padding: 6px 14px;
-    border-radius: 999px; /* Σχήμα χαπιού (pill) */
-    text-decoration: none;
+    border-radius: 999px;
     box-shadow: var(--shadow-sm);
     transition: background 0.2s ease, transform 0.2s ease;
   }
@@ -324,53 +310,19 @@
     background: #256a62;
     transform: scale(0.98);
   }
+  .mobile-call-btn svg { width: 14px; height: 14px; }
 
-  .mobile-call-btn svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  /* Κρύβουμε το μικρό κουμπί στις μεγάλες οθόνες (desktop) */
   @media (min-width: 880px) {
-    .mobile-call-btn {
-      display: none;
-    }
+    .mobile-call-btn { display: none; }
   }
   
-  
-  
-  .nav-wrap {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 24px; max-width: var(--container); margin: 0 auto;
-  }
-  .logo {
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--font-display); font-weight: 600;
-    font-size: 1.15rem; color: var(--color-primary-dark);
-    max-width: 65%; /* Κρατάει χώρο για τα διπλανά κουμπιά */
-  }
-  .logo-mark {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: var(--color-primary);
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
+  .nav-wrap { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: var(--container); margin: 0 auto; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--color-primary-dark); max-width: 65%; }
+  .logo-mark { width: 38px; height: 38px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .logo-mark svg { width: 20px; height: 20px; }
-  .logo span {
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  .logo small { 
-    display: block; 
-    font-family: var(--font-body); 
-    font-weight: 400; 
-    font-size: 0.72rem; /* Λίγο μεγαλύτερο για να διαβάζεται εύκολα */
-    color: var(--color-text-muted); 
-    line-height: 1.4;
-    white-space: normal; /* Δίνει την εντολή να αλλάζει γραμμή */
-    max-width: 320px; /* Δεν το αφήνει να απλώνεται επ' άπειρον */
-    margin-top: 3px;
-  }
+  .logo span { display: flex; flex-direction: column; justify-content: center; }
+  .logo small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.72rem; color: var(--color-text-muted); line-height: 1.4; white-space: normal; max-width: 320px; margin-top: 3px; }
   
-  /* Στα κινητά μικραίνουμε λίγο τα γράμματα για να μην πιάνει η μπάρα τη μισή οθόνη */
   @media (max-width: 640px) {
     .logo { max-width: 75%; font-size: 1.05rem; }
     .logo small { font-size: 0.65rem; line-height: 1.3; }
@@ -392,7 +344,7 @@
   .btn-primary { background: var(--color-accent); color: var(--color-white) !important; box-shadow: var(--shadow-sm); border: none !important; }
   .btn-primary:hover { background: #256a62; color: var(--color-white) !important; transform: translateY(-2px); box-shadow: var(--shadow-md); }
   .btn-outline { background: transparent; color: var(--color-primary); border: 1.5px solid var(--color-primary); }
-  .btn-outline:hover { background: var(--color-primary); color: var(--color-white); }
+  .btn-outline:hover { background: var(--color-primary); color: var(--white); }
 
   .nav-cta { display: none; }
   @media (min-width: 880px) { 
@@ -400,10 +352,7 @@
     .mobile-only { display: none !important; }
   }
 
-  .hamburger {
-    display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px;
-    background: none; border: none;
-  }
+  .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
   .hamburger span { width: 24px; height: 2px; background: var(--color-primary-dark); border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
   .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
@@ -411,49 +360,14 @@
 
   @media (max-width: 879px) {
     nav.primary-nav {
-      position: absolute; 
-      top: 100%; 
-      left: 0; 
-      width: 100%; 
-      
-      /* ΝΕΟ: 95% διάφανο λευκό φόντο */
-      background: rgba(255, 255, 255, 0.95); 
-      
-      /* ΝΕΟ: Εφέ θολώματος (frosted glass) για να διαβάζονται τέλεια τα γράμματα */
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); /* Απαραίτητο για τα iPhone (Safari) */
-      
-      box-shadow: 0 16px 24px rgba(0,0,0,0.15);
-      padding: 24px 20px 32px; 
-      z-index: 999;
-      border-top: 1px solid var(--color-border);
-      
-      /* Ομαλή εμφάνιση από πάνω προς τα κάτω */
-      opacity: 0; 
-      visibility: hidden; 
-      transform: translateY(-15px);
-      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      position: absolute; top: 100%; left: 0; width: 100%; 
+      background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 16px 24px rgba(0,0,0,0.15); padding: 24px 20px 32px; z-index: 999; border-top: 1px solid var(--color-border);
+      opacity: 0; visibility: hidden; transform: translateY(-15px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
     }
-    nav.primary-nav.is-open {
-      opacity: 1; 
-      visibility: visible; 
-      transform: translateY(0);
-    }
-    nav.primary-nav ul { 
-      display: flex;
-      flex-direction: column; 
-      align-items: center; 
-      gap: 20px; 
-      width: 100%; 
-      margin: 0;
-      padding: 0;
-    }
-    .nav-cta.mobile-only { 
-      display: flex; 
-      width: 100%; 
-      justify-content: center; 
-      margin-top: 12px; 
-    }
+    nav.primary-nav.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+    nav.primary-nav ul { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; margin: 0; padding: 0; }
+    .nav-cta.mobile-only { display: flex; width: 100%; justify-content: center; margin-top: 12px; }
   }
   @media (min-width: 880px) { .hamburger { display: none; } }
 
@@ -465,11 +379,7 @@
   .hero-inner { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; padding-bottom: 56px; }
   @media (min-width: 900px) { .hero-inner { grid-template-columns: 1.1fr 0.9fr; } }
 
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--color-accent-light); color: var(--color-primary);
-    font-size: 0.82rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
-  }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--color-accent-light); color: var(--color-primary); font-size: 0.82rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
   .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-accent); }
 
   .hero h1 { font-size: clamp(2rem, 4.4vw, 3rem); margin-bottom: 20px; }
@@ -480,20 +390,6 @@
   .trust-row { display: flex; flex-wrap: wrap; gap: 26px; }
   .trust-item { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--color-text-muted); }
   .trust-item svg { width: 20px; height: 20px; color: var(--color-accent); flex-shrink: 0; }
-
-  .hero-visual {
-    position: relative; border-radius: var(--radius-lg); overflow: hidden;
-    background: var(--color-primary); min-height: 360px; box-shadow: var(--shadow-md);
-    display: flex; align-items: flex-end;
-  }
-  .hero-visual img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0.92; }
-  .hero-visual-caption {
-    position: relative; z-index: 2; width: 100%;
-    background: linear-gradient(0deg, rgba(13,51,70,0.9), rgba(13,51,70,0));
-    color: var(--color-white); padding: 28px 24px 20px;
-  }
-  .hero-visual-caption strong { font-family: var(--font-display); font-size: 1.1rem; display: block; }
-  .hero-visual-caption span { font-size: 0.85rem; opacity: 0.9; }
 
   .section-head { max-width: 640px; margin-bottom: 44px; }
   .section-head .eyebrow { margin-bottom: 14px; }
@@ -508,56 +404,31 @@
   .about-photo { border-radius: var(--radius-lg); overflow: hidden; background: var(--color-bg-alt); aspect-ratio: 4/5; box-shadow: var(--shadow-sm); }
   .about-photo img { width: 100%; height: 100%; object-fit: cover; }
   .credentials { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 26px; }
-  .credential-chip {
-    background: var(--color-bg-alt); color: var(--color-primary-dark);
-    font-size: 0.82rem; font-weight: 600; padding: 8px 14px; border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-  }
+  .credential-chip { background: var(--color-bg-alt); color: var(--color-primary-dark); font-size: 0.82rem; font-weight: 600; padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); }
   .about-body p { margin-bottom: 16px; color: var(--color-text-muted); }
   .about-body h2 { margin-bottom: 6px; }
   .about-role { color: var(--color-accent); font-weight: 600; font-size: 0.95rem; margin-bottom: 18px; display: block; }
-  .quote-block {
-    border-left: 3px solid var(--color-accent); padding-left: 18px; margin-top: 22px;
-    font-family: var(--font-display); font-style: italic; font-size: 1.08rem; color: var(--color-primary-dark);
-  }
+  .quote-block { border-left: 3px solid var(--color-accent); padding-left: 18px; margin-top: 22px; font-family: var(--font-display); font-style: italic; font-size: 1.08rem; color: var(--color-primary-dark); }
 
   /* ---------- Services ---------- */
   .services { background: var(--color-bg-alt); }
   .services-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
   @media (min-width: 640px) { .services-grid { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 980px) { .services-grid { grid-template-columns: repeat(4, 1fr); } }
-  .service-card {
-    background: var(--color-white); border-radius: var(--radius-md);
-    padding: 30px 24px; border: 1px solid var(--color-border);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
+  .service-card { background: var(--color-white); border-radius: var(--radius-md); padding: 30px 24px; border: 1px solid var(--color-border); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
   .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--color-accent); }
-  .service-icon {
-    width: 48px; height: 48px; border-radius: 12px; background: var(--color-accent-light);
-    display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
-  }
+  .service-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--color-accent-light); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
   .service-icon svg { width: 24px; height: 24px; color: var(--color-primary); }
   .service-card h3 { font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; color: var(--color-primary-dark); margin-bottom: 8px; }
   .service-card p { font-size: 0.9rem; color: var(--color-text-muted); }
 
-  /* ---------- FAQ (AEO) ---------- */
+  /* ---------- FAQ ---------- */
   .faq { background: var(--color-white); }
   .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
-  .faq-item {
-    border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg);
-    overflow: hidden;
-  }
-  .faq-item summary {
-    cursor: pointer; list-style: none; padding: 20px 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    font-weight: 600; color: var(--color-primary-dark); font-size: 1rem;
-  }
+  .faq-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg); overflow: hidden; }
+  .faq-item summary { cursor: pointer; list-style: none; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-weight: 600; color: var(--color-primary-dark); font-size: 1rem; }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary .faq-icon {
-    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
-    background: var(--color-accent-light); color: var(--color-primary);
-    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: transform .2s ease;
-  }
+  .faq-item summary .faq-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--color-accent-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: transform .2s ease; }
   .faq-item[open] summary .faq-icon { transform: rotate(45deg); }
   .faq-answer { padding: 0 24px 22px; color: var(--color-text-muted); font-size: 0.95rem; }
 
@@ -565,19 +436,12 @@
   .reviews { background: var(--color-bg-alt); }
   .reviews-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
   @media (min-width: 760px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
-  .review-card {
-    background: var(--color-white); border-radius: var(--radius-md); padding: 26px 24px;
-    border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);
-  }
+  .review-card { background: var(--color-white); border-radius: var(--radius-md); padding: 26px 24px; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
   .review-stars { display: flex; gap: 3px; margin-bottom: 14px; color: var(--color-star); }
   .review-stars svg { width: 18px; height: 18px; }
   .review-text { font-size: 0.94rem; color: var(--color-text); margin-bottom: 18px; }
   .review-author { display: flex; align-items: center; gap: 10px; }
-  .review-avatar {
-    width: 36px; height: 36px; border-radius: 50%; background: var(--color-primary);
-    color: var(--color-white); display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
-  }
+  .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--color-primary); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
   .review-author strong { font-size: 0.9rem; color: var(--color-primary-dark); display: block; }
   .review-author span { font-size: 0.78rem; color: var(--color-text-muted); }
   .reviews-cta { text-align: center; }
@@ -596,10 +460,7 @@
   .hours-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 0.88rem; }
   .hours-table td { padding: 5px 0; opacity: 0.92; }
   .hours-table td:last-child { text-align: right; font-weight: 600; }
-  .map-wrap {
-    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-border); min-height: 340px; background: var(--color-bg-alt);
-  }
+  .map-wrap { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); min-height: 340px; background: var(--color-bg-alt); }
   .map-wrap iframe { width: 100%; height: 100%; min-height: 340px; border: 0; display: block; }
 
   /* ---------- CTA band ---------- */
@@ -607,32 +468,9 @@
   .cta-band h2 { color: var(--color-white); font-size: clamp(1.5rem, 3vw, 2.1rem); margin-bottom: 14px; }
   .cta-band p { color: rgba(255,255,255,0.78); max-width: 50ch; margin: 0 auto 30px; }
 
-/* ---------- Online Booking ----------
-     ΣΗΜΕΙΩΣΗ: Οι σύνδεσμοι τύπου calendar.app.google είναι σελίδες
-     ραντεβού του Google που ΔΕΝ επιτρέπουν embedding μέσα σε <iframe>
-     (μπλοκάρονται από X-Frame-Options). Γι' αυτό εμφανίζονταν κενές/
-     σπασμένες — ιδιαίτερα εμφανές σε κινητό όπου καταλάμβαναν μεγάλο
-     κενό ύψος (850px). Αντί για iframe, χρησιμοποιούμε μια κάρτα με
-     κουμπί που ανοίγει το πραγματικό ημερολόγιο σε νέα καρτέλα —
-     λειτουργεί αξιόπιστα σε όλες τις συσκευές. */
   .booking { background: var(--color-bg); }
-
-  .calendar-wrapper {
-    max-width: 640px;
-    margin: 40px auto 0;
-    background: var(--color-white);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-    padding: 40px 32px;
-    text-align: center;
-  }
-
-  .calendar-wrapper .booking-icon {
-    width: 56px; height: 56px; margin: 0 auto 20px;
-    border-radius: 50%; background: var(--color-accent-light);
-    display: flex; align-items: center; justify-content: center;
-  }
+  .calendar-wrapper { max-width: 640px; margin: 40px auto 0; background: var(--color-white); border-radius: var(--radius-md); box-shadow: var(--shadow-md); border: 1px solid var(--color-border); padding: 40px 32px; text-align: center; }
+  .calendar-wrapper .booking-icon { width: 56px; height: 56px; margin: 0 auto 20px; border-radius: 50%; background: var(--color-accent-light); display: flex; align-items: center; justify-content: center; }
   .calendar-wrapper .booking-icon svg { width: 28px; height: 28px; color: var(--color-primary); }
   .calendar-wrapper p { color: var(--color-text-muted); font-size: 0.95rem; max-width: 46ch; margin: 0 auto 26px; }
 
@@ -645,116 +483,39 @@
   .footer-col a { font-size: 0.88rem; transition: color .2s; }
   .footer-col a:hover { color: var(--color-accent); }
   .footer-logo { display: flex; align-items: center; gap: 10px; color: var(--color-white); font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 14px; }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px;
-    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.82rem;
-  }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.82rem; }
 
-  /* Reveal-on-scroll animation (μη επεμβατικό, σέβεται reduced-motion) */
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
   
-  
-  
   /* ---------- Cookie Banner ---------- */
-  .cookie-banner {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    max-width: 420px;
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-    border-radius: var(--radius-md);
-    padding: 20px 24px;
-    z-index: 99998; /* Ακριβώς κάτω από το UserWay widget */
-    
-    /* Κρυφό αρχικά, το εμφανίζει η Javascript */
-    display: none; 
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-  }
-  .cookie-banner.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  .cookie-content p {
-    font-size: 0.88rem;
-    color: var(--color-text-muted);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-  .cookie-content a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    font-weight: 600;
-  }
-  .cookie-buttons {
-    display: flex;
-    gap: 12px;
-  }
-  .cookie-buttons .btn-sm {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    flex: 1;
-  }
+  .cookie-banner { position: fixed; bottom: 24px; left: 24px; max-width: 420px; background: var(--color-white); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); border-radius: var(--radius-md); padding: 20px 24px; z-index: 99998; display: none; transform: translateY(20px); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; }
+  .cookie-banner.show { transform: translateY(0); opacity: 1; }
+  .cookie-content p { font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.5; }
+  .cookie-content a { color: var(--color-accent); text-decoration: underline; font-weight: 600; }
+  .cookie-buttons { display: flex; gap: 12px; }
+  .cookie-buttons .btn-sm { padding: 8px 16px; font-size: 0.85rem; flex: 1; }
   
-  /* Προσαρμογή στα κινητά (πιάνει όλο το πλάτος κάτω-κάτω) */
   @media (max-width: 640px) {
-    .cookie-banner {
-      bottom: 12px; 
-      left: 12px; 
-      right: 12px; 
-      max-width: none; 
-      padding: 16px;
-    }
+    .cookie-banner { bottom: 12px; left: 12px; right: 12px; max-width: none; padding: 16px; }
     .cookie-buttons { flex-direction: column; gap: 8px; }
-	
-	/* Οριστικός εξαναγκασμός εικονιδίου UserWay τέρμα κάτω αριστερά */
-  .uwy {
-    left: 12px !important;
-    right: auto !important;
-    bottom: 12px !important;
-    transform: none !important;
-    margin: 0 !important;
-  }
-	
+    .uwy { left: 12px !important; right: auto !important; bottom: 12px !important; transform: none !important; margin: 0 !important; }
   }
   
   /* ---------- CSS για το Automatic Carousel ---------- */
-  .hero-visual {
-    position: relative;
-    overflow: hidden;
-  }
-  .carousel-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Ομαλό εφέ Fade (σβησίματος) */
-  }
-  .carousel-slide.active {
-    opacity: 1;
-    visibility: visible;
-    position: relative; /* Κρατάει το αρχικό ύψος του container */
-  }
-  .carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
+  .hero-visual { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: var(--color-primary); min-height: 360px; box-shadow: var(--shadow-md); }
+  .carousel-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 1s ease-in-out, visibility 1s ease-in-out; }
+  .carousel-slide.active { opacity: 1; visibility: visible; position: relative; }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
 </style>
 </head>
 <body>
 
-<!-- Σύνδεσμος παράκαμψης πλοήγησης — WCAG 2.4.1 -->
 <a href="#main-content" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
 
 <!-- ============================================================
-     HEADER — Sticky navbar
+     HEADER
      ============================================================ -->
 <header class="site-header">
   <div class="nav-wrap">
@@ -773,7 +534,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
         Καλέστε
       </a>
-
       <button type="button" class="hamburger" id="menuToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Άνοιγμα μενού πλοήγησης">
         <span></span><span></span><span></span>
       </button>
@@ -785,7 +545,6 @@
         <li><a href="#about">Ο Ιατρός</a></li>
         <li><a href="#services">Υπηρεσίες</a></li>
         
-        <!-- Ερωτήσεις με Dropdown για τις Κριτικές -->
         <li class="has-dropdown">
           <a href="#faq" style="display: inline-flex; align-items: center; gap: 4px;">
             Ερωτήσεις
@@ -796,13 +555,12 @@
           </ul>
         </li>
         
-        <!-- Επικοινωνία με Dropdown για Γρήγορες Ενέργειες -->
         <li class="has-dropdown">
           <a href="#location" style="display: inline-flex; align-items: center; gap: 4px;">
             Επικοινωνία
             <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-top: 2px;" aria-hidden="true"><path d="m1 1 4 4 4-4"/></svg>
           </a>
-          <ul class="dropdown" style="min-width: 180px;"> <!-- Λίγο μεγαλύτερο πλάτος για να χωράνε άνετα τα κείμενα -->
+          <ul class="dropdown" style="min-width: 180px;">
             <li><a href="contactdoc.html">Φόρμα Επικοινωνίας</a></li>
             <li><a href="tel:+302710239970">Καλέστε μας Tώρα: 2710239970</a></li>
             <li><a href="https://www.google.com/maps/place/data=!4m2!3m1!1s0x13601726756a63bb:0xa33e3b9ab386dd6b?sa=X&ved=1t:8290&hl=el-GR&ictx=111" target="_blank" rel="noopener noreferrer">Χάρτης</a></li>
@@ -812,7 +570,6 @@
         <li class="nav-cta mobile-only" style="margin-top: 24px;">
           <a href="#booking" class="btn btn-primary" style="width: 220px;">Κλείστε Online Ραντεβού</a>
         </li>
-        
         <li class="nav-cta mobile-only" style="margin-top: 12px;">
           <a href="tel:+302710239970" class="btn btn-primary" style="width: 220px;">
             <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L7.9 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
@@ -822,7 +579,6 @@
       </ul>
     </nav>
 
-    <!-- Διπλά Κουμπιά (Εμφανίζονται ΜΟΝΟ σε Desktop) -->
     <div class="nav-cta" style="gap: 12px; align-items: center;">
       <a href="#booking" class="btn btn-primary" style="padding: 12px 20px;">Online Ραντεβού</a>
       <a href="#location" class="btn btn-primary" style="padding: 12px 20px;">Κλείστε Ραντεβού</a>
@@ -866,32 +622,21 @@
         </div>
       </div>
 
+      <!-- Τοποθέτηση του Αυτόματου Καρουζέλ στην σωστή θέση μέσα στο Hero Grid -->
       <div class="hero-visual">
-  <!-- Οι φωτογραφίες του Καρουζέλ (Άλλαξε τα src με τις δικές σου φωτογραφίες) -->
-  <div class="carousel-slide active">
-    <img src="jpg/IMG_20260717_105415.jpg" alt="Εσωτερικός χώρος ιατρείου">
-    <div class="hero-visual-caption">
-      <strong>Σύγχρονος Εξοπλισμός</strong>
-      <span>Ορχομενού 6, Τρίπολη 221 00</span>
-    </div>
-  </div>
-  
-  <div class="carousel-slide">
-    <img src="jpg/IMG_20260717_105433.jpg" alt="Εσωτερικός χώρος ιατρείου">
-    <div class="hero-visual-caption">
-      <strong>Χώρος Υποδοχής</strong>
-      <span>Εξατομικευμένη φροντίδα και άνεση</span>
-    </div>
-  </div>
+        <div class="carousel-slide active">
+          <img src="jpg/IMG_20260717_105415.jpg" alt="Σύγχρονος εξοπλισμός ιατρείου">
+         </div>
+        
+        <div class="carousel-slide">
+          <img src="jpg/IMG_20260717_105433.jpg" alt="Χώρος υποδοχής ιατρείου">
+        </div>
 
-  <div class="carousel-slide">
-    <img src="jpg/IMG_20260717_105349.jpg" alt="Διαγνωστικά μηχανήματα">
-    <div class="hero-visual-caption">
-      <strong>Εξειδικευμένη Διάγνωση</strong>
-      <span>Παθήσεις θυρεοειδούς & Διαβήτη</span>
+        <div class="carousel-slide">
+          <img src="jpg/IMG_20260717_105349.jpg" alt="Διαγνωστικά μηχανήματα">
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <div class="wave-divider" aria-hidden="true">
       <svg viewBox="0 0 1200 48" preserveAspectRatio="none"><path d="M0,24 C150,4 300,44 450,24 C600,4 750,44 900,24 C1050,4 1150,20 1200,24 L1200,48 L0,48 Z" fill="#FFFFFF"/></svg>
@@ -932,7 +677,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- ============================================================
        SERVICES
@@ -991,10 +735,7 @@
   </section>
 
   <!-- ============================================================
-       FAQ SECTION — AEO (Answer Engine Optimization)
-       Χρήση <details>/<summary> ώστε το πλήρες κείμενο να παραμένει
-       στο DOM (crawlable) ακόμη κι όταν είναι κλειστό, βοηθώντας
-       τους AI parsers (ChatGPT, Perplexity, Gemini) να το εξάγουν.
+       FAQ SECTION
        ============================================================ -->
   <section class="faq reveal" id="faq" aria-labelledby="faq-title">
     <div class="container">
@@ -1135,6 +876,9 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       ONLINE BOOKING
+       ============================================================ -->
   <section class="booking reveal" id="booking" aria-labelledby="booking-title">
     <div class="container">
       <div class="section-head center">
@@ -1294,20 +1038,16 @@
   </div>
 </div>
 
-<!-- ============================================================
-     ACCESSIBILITY WIDGET — UserWay (δωρεάν CDN)
-     Αντικαταστήστε το data-account με το πραγματικό σας ID από userway.org
-     ============================================================ -->
 <script src="https://cdn.userway.org/widget.js" data-account="YOUR_USERWAY_ACCOUNT_ID" data-position="4"></script>
 
 <!-- ============================================================
-     PAGE JS — μενού κινητού, reveal-on-scroll (σέβεται reduced-motion)
+     PAGE JS
      ============================================================ -->
 <script>
   (function () {
     "use strict";
 
-    // ---- Μενού κινητού (πλήρως προσβάσιμο με aria-expanded) ----
+    // ---- Μενού κινητού ----
     var toggle = document.getElementById("menuToggle");
     var nav = document.getElementById("primaryNav");
 
@@ -1327,7 +1067,6 @@
       isOpen ? closeMenu() : openMenu();
     });
 
-    // Κλείσιμο μενού με το πλήκτρο Escape (WCAG 2.1.2)
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("is-open")) {
         closeMenu();
@@ -1335,12 +1074,11 @@
       }
     });
 
-    // Κλείσιμο μενού κατά την επιλογή συνδέσμου (mobile)
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
 
-    // ---- Reveal-on-scroll για τα sections, με σεβασμό στο prefers-reduced-motion ----
+    // ---- Reveal-on-scroll ----
     var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!prefersReducedMotion && "IntersectionObserver" in window) {
@@ -1384,6 +1122,19 @@
     if(acceptBtn && rejectBtn) {
       acceptBtn.addEventListener("click", function() { hideBanner("accepted"); });
       rejectBtn.addEventListener("click", function() { hideBanner("rejected"); });
+    }
+    
+    // ---- Αυτόματο Καρουζέλ Φωτογραφιών ----
+    var slides = document.querySelectorAll('.carousel-slide');
+    var currentSlide = 0;
+    if (slides.length > 0) {
+      setInterval(nextSlide, 4000); // Αλλαγή φωτογραφίας κάθε 4 δευτερόλεπτα
+    }
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
     }
 	
   })();
