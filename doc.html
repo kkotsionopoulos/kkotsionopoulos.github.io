@@ -723,6 +723,29 @@
 	
   }
   
+  /* ---------- CSS για το Automatic Carousel ---------- */
+  .hero-visual {
+    position: relative;
+    overflow: hidden;
+  }
+  .carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out; /* Ομαλό εφέ Fade (σβησίματος) */
+  }
+  .carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative; /* Κρατάει το αρχικό ύψος του container */
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
 </style>
 </head>
 <body>
@@ -844,13 +867,31 @@
       </div>
 
       <div class="hero-visual">
-        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1200&auto=format&fit=crop" alt="Σύγχρονο ιατρείο ενδοκρινολογίας στην Τρίπολη">
-        <div class="hero-visual-caption">
-          <strong>Ιατρείο Ενδοκρινολογίας</strong>
-          <span>Ορχομενού 6, Τρίπολη 221 00</span>
-        </div>
-      </div>
+  <!-- Οι φωτογραφίες του Καρουζέλ (Άλλαξε τα src με τις δικές σου φωτογραφίες) -->
+  <div class="carousel-slide active">
+    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1200&auto=format&fit=crop" alt="Σύγχρονο ιατρείο ενδοκρινολογίας στην Τρίπολη">
+    <div class="hero-visual-caption">
+      <strong>Σύγχρονος Εξοπλισμός</strong>
+      <span>Ορχομενού 6, Τρίπολη 221 00</span>
     </div>
+  </div>
+  
+  <div class="carousel-slide">
+    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1200&auto=format&fit=crop" alt="Χώρος υποδοχής ιατρείου">
+    <div class="hero-visual-caption">
+      <strong>Χώρος Υποδοχής</strong>
+      <span>Εξατομικευμένη φροντίδα και άνεση</span>
+    </div>
+  </div>
+
+  <div class="carousel-slide">
+    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop" alt="Διαγνωστικά μηχανήματα">
+    <div class="hero-visual-caption">
+      <strong>Εξειδικευμένη Διάγνωση</strong>
+      <span>Παθήσεις θυρεοειδούς & Διαβήτη</span>
+    </div>
+  </div>
+</div>
 
     <div class="wave-divider" aria-hidden="true">
       <svg viewBox="0 0 1200 48" preserveAspectRatio="none"><path d="M0,24 C150,4 300,44 450,24 C600,4 750,44 900,24 C1050,4 1150,20 1200,24 L1200,48 L0,48 Z" fill="#FFFFFF"/></svg>
