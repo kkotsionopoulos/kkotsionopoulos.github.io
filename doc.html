@@ -511,9 +511,31 @@
     overflow: hidden;
     background: transparent;
     min-height: 360px;
-    box-shadow: var(--shadow-md);
     border-radius: var(--radius-lg);
+    
+    /* ΑΛΛΑΓΗ: Πιο ανοιχτό περίγραμμα χρησιμοποιώντας το τιρκουάζ της γιατρού με διαφάνεια */
+    border: 3px solid rgba(47, 129, 119, 0.4) !important; 
+    
+    /* ΝΕΟ: Πιο απαλή και φωτεινή σκιά για να μην δείχνει "βαρύ" */
+    box-shadow: 
+      0 15px 30px rgba(47, 129, 119, 0.1), 
+      0 4px 10px rgba(0, 0, 0, 0.04) !important;
+      
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
+
+  /* Εφέ Hover: Όταν ο χρήστης πλησιάζει το άλμπουμ */
+  .hero-visual:hover {
+    transform: translateY(-4px); 
+    
+    /* Γίνεται ακόμα πιο φωτεινό και καθαρό τιρκουάζ στο hover */
+    border-color: var(--color-accent) !important; 
+    
+    box-shadow: 
+      0 22px 40px rgba(47, 129, 119, 0.18), 
+      0 6px 15px rgba(0, 0, 0, 0.06) !important;
+  }
+  
   .carousel-track {
     display: flex !important;
     width: 100% !important; /* Διορθώθηκε σε 100% */
@@ -692,7 +714,8 @@
       <!-- Οριζόντιο Slider Φωτογραφιών -->
       <div class="hero-visual">
         <div class="carousel-track">
-          <div class="carousel-slide"><img src="jpg/IMG_20260717_105415.jpg" alt="Ιατρείο"></div>
+          <div class="carousel-slide"><img src="jpg/IMG_20260717_105402.jpg" alt="Ιατρείο"></div>
+		  <div class="carousel-slide"><img src="jpg/IMG_20260717_105415.jpg" alt="Ιατρείο"></div>
           <div class="carousel-slide"><img src="jpg/IMG_20260717_105349.jpg" alt="Γραφείο"></div>
           <div class="carousel-slide"><img src="jpg/IMG_20260717_105433.jpg" alt="Μηχανήματα"></div>
         </div>
@@ -714,7 +737,7 @@
   <section class="about reveal" id="about" aria-labelledby="about-title">
     <div class="container about-grid">
       <div class="about-photo">
-        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=900&auto=format&fit=crop" alt="Γεωργία Νικήτα, Ενδοκρινολόγος στην Τρίπολη">
+        <img src="jpg/IMG_20260717_105349.jpg" alt="Γεωργία Νικήτα, Ενδοκρινολόγος στην Τρίπολη">
       </div>
       <div class="about-body">
         <span class="about-role">Γνωρίστε την Ιατρό</span>
