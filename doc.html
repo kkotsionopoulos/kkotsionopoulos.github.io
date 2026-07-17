@@ -540,27 +540,32 @@
     display: block;
   }
 
-  /* Βελάκια Μπρος/Πίσω */
+ /* Βελάκια Μπρος/Πίσω (Εντελώς Διάφανα) */
   .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(13, 51, 70, 0.6); /* var(--color-primary-dark) με διαφάνεια */
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 1.2rem;
+    background: transparent !important; /* Εντελώς διάφανο φόντο */
+    color: rgba(255, 255, 255, 0.8) !important; /* Απαλό λευκό χρώμα για το βελάκι */
+    border: none !important;
+    width: 44px;
+    height: 44px;
+    font-size: 1.8rem; /* Ελαφρώς μεγαλύτερο μέγεθος για να πατιέται εύκολα */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    transition: background 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
+    
+    /* Σκιά στο ίδιο το σύμβολο για να ξεχωρίζει ακόμα και σε ολόλευκες φωτογραφίες */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
   }
+  
+  /* Εφέ όταν περνάει το ποντίκι από πάνω (hover) */
   .carousel-btn:hover {
-    background: rgba(47, 129, 119, 0.9); /* var(--color-accent) σε hover */
+    color: var(--color-white) !important; /* Έντονο καθαρό λευκό */
+    transform: translateY(-50%) scale(1.15); /* Μικρό, κομψό μεγέθυνση */
   }
   .prev-btn { left: 16px; }
   .next-btn { right: 16px; }
