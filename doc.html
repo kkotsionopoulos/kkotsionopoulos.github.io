@@ -500,10 +500,28 @@
   .cookie-buttons .btn-sm { padding: 8px 16px; font-size: 0.85rem; flex: 1; }
   
   @media (max-width: 640px) {
-    .cookie-banner { bottom: 12px; left: 12px; right: 12px; max-width: none; padding: 16px; }
-    .cookie-buttons { flex-direction: column; gap: 8px; }
-    .uwy { left: 12px !important; right: auto !important; bottom: 12px !important; transform: none !important; margin: 0 !important; }
+  .cookie-banner { 
+    bottom: 12px; 
+    left: 12px; 
+    right: 12px; 
+    max-width: none; 
+    padding: 16px; 
   }
+  .cookie-buttons { 
+    flex-direction: column; 
+    gap: 8px; 
+  }
+  
+  /* Οριστικός εξαναγκασμός εικονιδίου UserWay κάτω στο ΚΕΝΤΡΟ για τα κινητά */
+  .uwy {
+    left: 50% !important;
+    right: auto !important;
+    bottom: 12px !important;
+    transform: translateX(-50%) !important; /* Κεντράρει απόλυτα το κουμπί οριζόντια */
+    margin: 0 !important;
+    z-index: 99999 !important;
+  }
+} /* <--- Αυτή η αγκύλη κλείνει το @media και είναι ΠΑΝΕΥΚΟΛΟ να ξεχαστεί! */
   
  /* ---------- CSS για Οριζόντιο Slider χωρίς κενά ---------- */
   .hero-visual {
