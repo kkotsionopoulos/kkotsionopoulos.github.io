@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Κυκλική Γεωργία & Γαλακτοβιομηχανία | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Κυκλική Γεωργία: Αξιοποίηση Υποπροϊόντων Γαλακτοβιομηχανίας ως Φυσικά Εδαφοβελτιωτικά</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούλιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ενσωμάτωση των αρχών της κυκλικής οικονομίας στον πρωτογενή τομέα αποτελεί βασική προτεραιότητα για τη βιώσιμη ανάπτυξη. Οι βιομηχανικές μονάδες επεξεργασίας γάλακτος παράγουν σημαντικούς όγκους υγρών υποπροϊόντων, με κυριότερο το **τυρόγαλο (cheese whey)**. Λόγω του εξαιρετικά υψηλού οργανικού του φορτίου (BOD/COD), η ανεξέλεγκτη διάθεσή του στο περιβάλλον προκαλεί σοβαρά προβλήματα ρύπανσης των υδάτινων αποδεκτών. Ωστόσο, η γεωπονική έρευνα αναδεικνύει ότι η ελεγχόμενη και επιστημονικά καθοδηγούμενη εφαρμογή του στο έδαφος μπορεί να μετατρέψει ένα βιομηχανικό απόβλητο σε έναν πολύτιμο πόρο για την καλλιέργεια.</p>
+
+        <p>Το τυρόγαλο αποτελεί μια πλούσια πηγή θρεπτικών συστατικών και οργανικής ουσίας. Περιέχει σημαντικές ποσότητες **αζώτου (N), φωσφόρου (P), καλίου (K)**, ασβεστίου και μαγνησίου, καθώς και υδατάνθρακες (λακτόζη) και πρωτεΐνες. Όταν εφαρμόζεται σε κατάλληλες δόσεις, λειτουργεί ως ισχυρός βιοδιεγέρτης για την εδαφική μικροχλωρίδα. Η προσθήκη εύπεπτου οργανικού άνθρακα ενεργοποιεί τους αυτόχθονες πληθυσμούς των ωφέλιμων μικροοργανισμών του εδάφους, ενισχύοντας διεργασίες όπως η χούμοποίηση και η βελτίωση της σταθερότητας των εδαφικών συσσωματωμάτων.</p>
+
+        <img src="dairy-agri.jpg" alt="Ανακύκλωση στοιχείων και βιώσιμη γεωργία" class="article-image">
+
+        <p>Η εφαρμογή του υποπροϊόντος στο πεδίο απαιτεί αυστηρή ψηφιακή παρακολούθηση των εδαφικών παραμέτρων. Επειδή το ακατέργαστο τυρόγαλο έχει χαμηλό (όξινο) pH και υψηλή αλατότητα, η χρήση **δικτύων αισθητήρων IoT** για τη μέτρηση του pH και της Ηλεκτρικής Αγωγιμότητας (EC) του εδάφους σε πραγματικό χρόνο είναι απαραίτητη. Οι αλγόριθμοι των Συστημάτων Υποστήριξης Αποφάσεων (DSS) αναλύουν το ρυθμό διάσπασης και την ικανότητα ρυθμιστικής ικανότητας (buffering capacity) του εδαφικού υποστρώματος, καθορίζοντας τα ακριβή χρονικά μεσοδιαστήματα και τις ποσότητες δόσεων, ώστε να αποφευχθεί η αλάτωση ή η οξίνιση.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα οφέλη της ελεγχόμενης γεωργικής αξιοποίησης του τυρογάλακτος περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Μείωση της Χρήσης Συνθετικών Λιπασμάτων:</strong> Η ανακύκλωση των μακροστοιχείων (N, P, K) που περιέχονται στο υποπροϊόν επιτρέπει τη μείωση της βασικής ή επιφανειακής χημικής λίπανσης, ελαχιστοποιώντας το κόστος εισροών.</li>
+            <li><strong>Βελτίωση Φυσικοχημικών Ιδιοτήτων:</strong> Η αύξηση της οργανικής ουσίας βελτιώνει την ικανότητα συγκράτησης υγρασίας στα αμμώδη εδάφη και τον αερισμό στα συνεκτικά αργιλώδη εδάφη.</li>
+            <li><strong>Προώθηση της Βιομηχανικής Συμβίωσης:</strong> Δημιουργείται μια τοπική κυκλική αλυσίδα αξίας, όπου η γαλακτοβιομηχανία εκμηδενίζει το κόστος επεξεργασίας αποβλήτων και ο γειτονικός αγροτικός τομέας αποκτά δωρεάν φυσικά βελτιωτικά εδάφους.</li>
+        </ul>
+
+        <p>Η αξιοποίηση των υποπροϊόντων της γαλακτοβιομηχανίας στη βιώσιμη γεωργία αποτελεί υποδειγματικό παράδειγμα κυκλικής οικονομίας. Με την υποστήριξη των σύγχρονων ψηφιακών εργαλείων ελέγχου και της γεωπονικής επιστήμης, οι παραδοσιακές πρακτικές αναβαθμίζονται, προσφέροντας λύσεις που προστατεύουν το περιβάλλον, ενισχύουν τη γονιμότητα των αγρών και μειώνουν το συνολικό αποτύπωμα άνθρακα της αγροδιατροφικής αλυσίδας.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Prazeres, A. R., Carvalho, F., & Rivas, J. (2012).</strong> <em>Cheese whey management: A review.</em> Journal of Environmental Management, 110, 48-68.</li>
+            <li><strong>Lalov, V. V., et al. (2001).</strong> <em>Treatment of cheese whey with co-immobilized anaerobic microorganisms.</em> Bioresource Technology, 79(2), 117-121.</li>
+            <li><strong>García-Sánchez, M., et al. (2017).</strong> <em>Effects of green waste compost and cheese whey application on soil microbial communities and phytotoxicity.</em> Applied Soil Ecology, 119, 106-114.</li>
+            <li><strong>European Environment Agency (EEA) (2020).</strong> <em>Circular economy in Europe: Developing the knowledge base for agri-food systems.</em> EEA Report No 12/2020.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
