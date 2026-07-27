@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Υδρολίπανση Ακριβείας & Αισθητήρες ISE | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Υδρολίπανση Ακριβείας: Η Χρήση Αισθητήρων Ιοντικής Επιλεκτικότητας (ISE) στη Σύγχρονη Θρέψη</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Ιούλιος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ορθολογική θρέψη των καλλιεργειών αποτελεί έναν από τους κύριους πυλώνες της βιώσιμης γεωργίας. Παραδοσιακά, ο έλεγχος των θρεπτικών διαλυμάτων στην υδρολίπανση βασιζόταν στη συνολική μέτρηση της Ηλεκτρικής Αγωγιμότητας (EC). Αν και η EC προσφέρει μια γενική εικόνα για τη συγκέντρωση των αλάτων στο εδαφικό διάλυμα ή το υπόστρωμα, αδυνατεί να προσδιορίσει την ακριβή αναλογία των επιμέρους στοιχείων (π.χ. αζώτου, καλίου, ασβεστίου), οδηγώντας συχνά σε τροφοπενίες ή τοξικότητες λόγω ανισορροπίας θρεπτικών.</p>
+
+        <p>Η εξέλιξη της αγροτικής τεχνολογίας δίνει πλέον τη δυνατότητα χρήσης **Αισθητήρων Ιοντικής Επιλεκτικότητας (Ion-Selective Electrodes - ISE)** απευθείας στο πεδίο. Οι αισθητήρες αυτοί μετρούν τη δυναμική διαφορά που δημιουργείται από τη συγκέντρωση συγκεκριμένων ιόντων, όπως τα νιτρικά (NO₃⁻), το κάλιο (K⁺), το ασβέστιο (Ca²⁺) και το νάτριο (Na⁺). Μέσω της συνεχούς παρακολούθησης των ιόντων στη ριζοσφαίρα, ο γεωπόνος αποκτά μια πραγματική εικόνα για την πρόσληψη στοιχείων από το φυτό σε κάθε φαινολογικό στάδιο.</p>
+
+        <img src="smart-fertigation.jpg" alt="Αυτοματοποιημένο σύστημα υδρολίπανσης με αισθητήρες ISE" class="article-image">
+
+        <p>Η διασύνδεση των αισθητήρων ISE με **πλατφόρμες IoT και αυτοματοποιημένες κεφαλές υδρολίπανσης (Fertigation Controllers)** επιτρέπει τη δυναμική προσαρμογή της πυκνότητας των μητρικών διαλυμάτων σε πραγματικό χρόνο. Αντί για σταθερές συνταγές λίπανσης, το σύστημα εγχέει ακριβώς τις ποσότητες των λιπασμάτων που απαιτούνται για να διατηρηθεί η ιδανική αναλογία ιόντων, λαμβάνοντας υπόψη τις κλιματικές συνθήκες και την τρέχουσα διαπνοή της καλλιέργειας.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα οφέλη της υδρολίπανσης με αισθητήρες ISE περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Προστασία του Υδροφόρου Ορίζοντα:</strong> Η ακριβής δόση αζώτου αποτρέπει την υπερβολική συγκέντρωση νιτρικών στη ριζοσφαίρα, ελαχιστοποιώντας την έκπλυση νιτρικών αλάτων στα υπόγεια ύδατα.</li>
+            <li><strong>Βελτιστοποίηση της Ποιότητας των Καρπών:</strong> Η διατήρηση της σωστής αναλογίας Καλίου/Ασβεστίου/Μαγνησίου προλαμβάνει φυσιολογικές ανωμαλίες των καρπών (όπως η τάπα της τομάτας - Blossom End Rot).</li>
+            <li><strong>Εξοικονόμηση Λιπασμάτων:</strong> Η αποφυγή της αλόγιστης χρήσης εισροών μειώνει το κόστος παραγωγής έως και 25%, αυξάνοντας παράλληλα την αποτελεσματικότητα χρήσης θρεπτικών (Nutrient Use Efficiency - NUE).</li>
+        </ul>
+
+        <p>Η ενσωμάτωση των αισθητήρων ιοντικής επιλεκτικότητας στην καθημερινή γεωργική πράξη μετατρέπει τη λίπανση από μια εμπειρική διαδικασία σε μια επιστήμη ακριβείας. Η τεχνολογία αυτή προσφέρει τα εργαλεία για μια υψηλής απόδοσης παραγωγή με μειωμένες εισροές και ελάχιστο περιβαλλοντικό αποτύπωμα.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Kim, H. J., et al. (2013).</strong> <em>Ion-selective electrode arrays for automated determination of nitrate and potassium in hydroponic recirculating systems.</em> Biosystems Engineering, 115(2), 160-169.</li>
+            <li><strong>Bamsey, M., et al. (2012).</strong> <em>Ion-selective electrodes for hydroponic nutrient solution monitoring and control.</em> Reviews in Agricultural Science, 1, 1-11.</li>
+            <li><strong>Thompson, R. B., et al. (2007).</strong> <em>Reduction of nitrate leaching losses in vegetable crops through improved irrigation and fertigation management.</em> Agricultural Water Management, 88(1-3), 205-218.</li>
+            <li><strong>Savvas, D., & Manos, G. (1999).</strong> <em>Automated composition control of nutrient solution in closed hydroponic pairs of crops.</em> Journal of Agricultural Engineering Research, 73(1), 29-33.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
