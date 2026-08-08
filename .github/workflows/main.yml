@@ -41,19 +41,22 @@ jobs:
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: python main_fire.py
 
+      - name: Run SeaWatch Script (Θάλασσα)
+        run: python main_sea.py
+
       - name: Push results
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           
-          # Προσθέτουμε και το νέο JSON αρχείο της πυρκαγιάς μαζί με τα υπόλοιπα
-          git add result.txt result_oidio.txt result_scab.txt fire_data.json
+          # Προσθέτουμε όλα τα αρχεία αποτελεσμάτων (συμπεριλαμβανομένου του sea_data.json)
+          git add result.txt result_oidio.txt result_scab.txt fire_data.json sea_data.json
           
           # Αν δεν υπάρχουν αλλαγές, βγαίνουμε χωρίς error
           git diff --quiet && git diff --staged --quiet && exit 0
           
           # Κάνουμε commit τις αλλαγές μας
-          git commit -m "Update all disease and fire risk data"
+          git commit -m "Update all disease, fire and sea risk data"
           
           # Τραβάμε τις αλλαγές από το GitHub πριν κάνουμε push
           git pull --rebase origin main

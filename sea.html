@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeaWatch | Smart Marine Safety</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root { --primary-color: #2c3e50; --bg-color: #f4f7f6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Navbar */
+        .navbar { background-color: #2c3e50 !important; width: 100%; position: fixed; top: 0; left: 0; z-index: 2000; height: 50px; display: flex; align-items: center; }
+        .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; align-items: center; width: 100%; }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-links a { display: inline-block; padding: 6px 12px; color: white !important; border: 1.5px solid #27ae60; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8em; transition: 0.3s; white-space: nowrap; }
+        .nav-links a:hover { background-color: #27ae60; }
+
+        .container { max-width: 800px; margin: 80px auto 40px auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex: 1; }
+        
+        #map { height: 450px; width: 100%; border-radius: 8px; margin-top: 20px; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
+        
+        .info-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 0.95em; line-height: 1.6; }
+        .legend { display: flex; justify-content: space-around; margin-top: 15px; font-weight: bold; font-size: 0.8em; }
+        .legend-item { padding: 5px 10px; border-radius: 4px; color: white; }
+
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h2 style="display: flex; align-items: center; gap: 10px; color: var(--primary-color);">
+        🌊 SeaWatch: Ασφάλεια Κολύμβησης & Κυματισμός
+    </h2>
+    <div id="last-update" style="font-size: 0.8em; color: #777; margin-bottom: 10px;">Φόρτωση δεδομένων...</div>
+    
+    <div id="map"></div>
+
+    <div class="legend">
+        <div class="legend-item" style="background:#27ae60;">Ήρεμη Θάλασσα</div>
+        <div class="legend-item" style="background:#f1c40f; color:black;">Ελαφρύς Κυματισμός</div>
+        <div class="legend-item" style="background:#e67e22;">Υψηλός Κίνδυνος</div>
+        <div class="legend-item" style="background:#e74c3c;">Πολύ Υψηλός Κίνδυνος</div>
+    </div>
+
+    <div class="info-box">
+        <h3>Σχετικά με το SeaWatch</h3>
+        <p>Η εφαρμογή υπολογίζει δυναμικά αν μια παραλία επηρεάζεται από κόντρα κυματισμό (onshore wind). Συνδυάζει τον προσανατολισμό της ακτής με την ταχύτητα και τη διεύθυνση του ανέμου σε πραγματικό χρόνο για την εκτίμηση της επικινδυνότητας.</p>
+        <p style="font-size: 0.85em; color: #cc5500;"><em>*Προσοχή: Τα δεδομένα αποτελούν προϊόν αυτοματοποιημένου υπολογισμού και δεν αντικαθιστούν τις οδηγίες των ναυαγοσωστών.</em></p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Κωνσταντίνος Κωτσιονόπουλος | Marine & Systems Development
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  var map = L.map('map').setView([37.8, 22.8], 7);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  fetch('sea_data.json?t=' + new Date().getTime())
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById('last-update').innerText = "Τελευταία ενημέρωση: " + data.last_update;
+        
+        for (const [beach, info] of Object.entries(data.beaches)) {
+            var circle = L.circleMarker([info.lat, info.lon], {
+                color: info.color,
+                fillColor: info.color,
+                fillOpacity: 0.7,
+                radius: 12
+            }).addTo(map);
+
+            circle.bindPopup(`
+                <strong>${beach}</strong><br>
+                Σημαία: <strong>${info.flag}</strong><br>
+                Κατάσταση: <span style="color:${info.color}; font-weight:bold;">${info.status}</span><br>
+                <hr style="margin:5px 0;">
+                <small>Άνεμος: ${info.beaufort} Μποφόρ (${info.wind_kph} km/h)</small><br>
+                <small>Συνθήκη: ${info.wind_type}</small>
+            `);
+        }
+    })
+    .catch(err => console.error("Σφάλμα φόρτωσης δεδομένων:", err));
+</script>
+</body>
+</html>
