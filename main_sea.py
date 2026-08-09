@@ -19,7 +19,6 @@ def calculate_beach_risk(wind_kph, wind_dir, beach_orientation):
     beaufort = get_beaufort(wind_kph)
     
     # Υπολογισμός αν ο άνεμος είναι "κόντρα" (Onshore) στην παραλία
-    # 0 μοίρες διαφορά σημαίνει ότι ο άνεμος έρχεται κάθετα από τη θάλασσα στην ακτή
     angle_diff = abs((wind_dir - beach_orientation + 180) % 360 - 180)
     is_onshore = angle_diff < 60  # Ο άνεμος "χτυπάει" την ακτή
 
@@ -48,14 +47,13 @@ def calculate_beach_risk(wind_kph, wind_dir, beach_orientation):
         "is_onshore": "Κόντρα Άνεμος (Onshore)" if is_onshore else "Εύνοια (Offshore/Side)"
     }
 
-# Λίστα με δημοφιλείς παραλίες, συντεταγμένες (ακριβώς στην ακτή) και τον προσανατολισμό τους (orientation)
-# Orientation: 0=Βορράς, 90=Ανατολή, 180=Νότος, 270=Δύση
+# Λίστα με παραλίες, ακριβείς συντεταγμένες και προσανατολισμό (orientation)
 beaches = {
-    # Παραλίες Αρκαδίας & Αργολίδου (Βόρειος Κυνουρία / Αργολικός Κόλπος)
+    # Παραλίες Αρκαδίας & Αργολίδας
     "Παράλιο Άστρος": {"lat": 37.4168, "lon": 22.7661, "orientation": 90},
     "Ξηροπήγαδο": {"lat": 37.4619, "lon": 22.7448, "orientation": 95},
     "Κυβέρι": {"lat": 37.5186, "lon": 22.7302, "orientation": 110},
-    "Άγιος Ανδρέας (Αρκαδία)": {"lat": 37.34878926810164, "lon": 22.799061122487423, "orientation": 80},
+    "Άγιος Ανδρέας (Αρκαδία)": {"lat": 37.3451, "lon": 22.7752, "orientation": 80},
     "Κρυονέρι (Αρκαδία)": {"lat": 37.3182, "lon": 22.8123, "orientation": 100},
     "Ζαρίτσι (Τυρός)": {"lat": 37.2854, "lon": 22.8451, "orientation": 105},
     "Πλάκα Λεωνιδίου": {"lat": 37.1483, "lon": 22.8932, "orientation": 90},
@@ -86,7 +84,6 @@ sea_results = {
 
 for name, info in beaches.items():
     try:
-        # Κλήση στο Open-Meteo Weather API για άνεμο και κύμα
         url = f"https://api.open-meteo.com/v1/forecast?latitude={info['lat']}&longitude={info['lon']}&current=wind_speed_10m,wind_direction_10m"
         res = requests.get(url, timeout=10).json()
         
