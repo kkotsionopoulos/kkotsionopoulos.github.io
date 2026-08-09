@@ -49,7 +49,7 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           
-          # Προσθέτουμε όλα τα αρχεία αποτελεσμάτων (συμπεριλαμβανομένου του sea_data.json)
+          # Προσθέτουμε ΟΛΑ τα αρχεία δεδομένων συμπεριλαμβανομένου του sea_data.json
           git add result.txt result_oidio.txt result_scab.txt fire_data.json sea_data.json
           
           # Αν δεν υπάρχουν αλλαγές, βγαίνουμε χωρίς error
