@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αυτόνομα Γεωργικά Ρομπότ & Ρομποτική | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Αυτόνομα Γεωργικά Ρομπότ (AgBots): Η Ρομποτική Σμήνους στη Βιώσιμη Φυτοπροστασία</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Αύγουστος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η σύγχρονη γεωργία βρίσκεται αντιμέτωπη με μια διπλή πρόκληση: την οξεία έλλειψη εργατικού δυναμικού στο πεδίο και την επιτακτική ανάγκη για δραστική μείωση των συνθετικών χημικών εισροών. Η απάντηση της τεχνολογίας αιχμής σε αυτό το αδιέξοδο έρχεται μέσα από την ανάπτυξη των <strong>Αυτόνομων Γεωργικών Ρομπότ (AgBots)</strong> και τη χρήση <strong>Ρομποτικής Σμήνους (Swarm Robotics)</strong>. Αντί για την εξάρτηση από μεμονωμένους, υπερμεγέθεις γεωργικούς ελκυστήρες, το νέο υπόδειγμα βασίζεται σε ομάδες μικρών, αυτόνομων ρομποτικών μονάδων που συνεργάζονται αρμονικά στο πεδίο.</p>
+
+        <p>Τα ρομπότ πεδίου συνδυάζουν προηγμένα συστήματα πλοήγησης <strong>RTK-GPS (Real-Time Kinematic)</strong> με αισθητήρες LiDAR και κάμερες υπολογιστικής όρασης (Computer Vision). Η τεχνολογία αυτή επιτρέπει στα AgBots να κινούνται αυτόνομα ανάμεσα στις γραμμές της καλλιέργειας με ακρίβεια χιλιοστού, αναγνωρίζοντας τη διαφορά μεταξύ των καλλιεργούμενων φυτών και των ζιζανίων. Μέσω αλγορίθμων τεχνητής νοημοσύνης, το ρομπότ επιλέγει τη βέλτιστη μέθοδο εξόντωσης του ζιζανίου —είτε μέσω μικρο-μηχανικής σκάλισης, είτε μέσω στοχευμένης εκπομπής παλμικού λέιζερ (Laser Weeding)— εκμηδενίζοντας την ανάγκη για εφαρμογή ζιζανιοκτόνων.</p>
+
+        <img src="agbots-robotics.jpg" alt="Αυτόνομα γεωργικά ρομπότ πεδίου και ρομποτική σμήνους" class="article-image">
+
+        <p>Ένα από τα σημαντικότερα γεωπονικά πλεονεκτήματα των AgBots είναι το χαμηλό τους βάρος. Η αλόγιστη αύξηση της μάζας των συμβατικών τρακτέρ προκαλεί βαθιά <strong>συμπίεση του εδάφους (soil compaction)</strong>, καταστρέφοντας τους εδαφικούς πόρους, μειώνοντας τον αερισμό της ριζοσφαίρας και περιορίζοντας τη διήθηση του νερού. Η χρήση ελαφρών ρομπότ προστατεύει τη δομή του εδάφους και διατηρεί τη βιολογική δραστηριότητα του μικροβιώματος ανεπαφτη.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα οφέλη της γεωργικής ρομποτικής περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Εξάλειψη Χημικών Υπολειμμάτων:</strong> Η μηχανική ή με λέιζερ ζιζανιοκτονία ακριβείας μειώνει τη χρήση ζιζανιοκτόνων έως και 100% στις στοχευμένες ζώνες, αποτρέποντας την ανάπτυξη ανθεκτικών φυτικών βιοτύπων.</li>
+            <li><strong>Προστασία της Εδαφικής Δομής:</strong> Το μειωμένο βάρος των αυτόνομων συσκευών αποτρέπει τη συμπίεση των βαθύτερων εδαφικών οριζόντων, διατηρώντας την ικανότητα συγκράτησης υγρασίας και θρεπτικών.</li>
+            <li><strong>24/7 Αυτόνομη Λειτουργία:</strong> Τα σμήνη ρομπότ μπορούν να επιχειρούν συνεχώς, εκτελώντας εργασίες σποράς, βοτανίσματος και χαρτογράφησης με σταθερή ακρίβεια, ανεξάρτητα από τις συνθήκες φωτισμού.</li>
+        </ul>
+
+        <p>Η εισαγωγή των AgBots και της ρομποτικής σμήνους μετασχηματίζει την καθημερινή γεωργική πράξη, μετατρέποντας τη φυτοπροστασία σε μια αδιάλειπτη, καθαρή και απόλυτα ελεγχόμενη διαδικασία. Η τεχνολογική αυτή σύγκλιση αποτελεί τον βασικό πυλώνα για μια βιώσιμη, αποδοτική και περιβαλλοντικά υπεύθυνη Γεωργία 5.0.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Duckett, T., et al. (2018).</strong> <em>Agricultural robotics: The future of robotic agriculture.</em> UK-RAS Network White Papers, arXiv:1806.06762.</li>
+            <li><strong>Shamshiri, R. R., et al. (2018).</strong> <em>Research and development in agricultural robotics: A perspective of digital farming.</em> International Journal of Agricultural and Biological Engineering, 11(4), 1-14.</li>
+            <li><strong>Bechar, A., & Vigneault, C. (2016).</strong> <em>Agricultural robots for field operations: Concepts and components.</em> Biosystems Engineering, 149, 94-111.</li>
+            <li><strong>Bakker, T., et al. (2011).</strong> <em>A lightweight autonomous tractor for mechanical weed control in sugar beet.</em> Biosystems Engineering, 109(3), 212-219.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
