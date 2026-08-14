@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-14 19:12",
+    "last_update": "2026-08-14 19:56",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -120,10 +120,10 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
-            "temp": 32.2,
-            "humidity": 54,
+            "temp": 26.9,
+            "humidity": 43,
             "wind": 3.6,
-            "risk": 25.6,
+            "risk": 23.2,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -408,9 +408,9 @@
         },
         "Φλώρινα": {
             "city": "Florina",
-            "temp": 14.8,
-            "humidity": 80,
-            "wind": 7.9,
+            "temp": 15.4,
+            "humidity": 76,
+            "wind": 8.6,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
