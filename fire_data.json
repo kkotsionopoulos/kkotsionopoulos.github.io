@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-16 03:12",
+    "last_update": "2026-08-16 03:59",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -84,10 +84,10 @@
         },
         "Στεμνίτσα": {
             "city": "Stemnitsa,Arcadia,Greece",
-            "temp": 25.2,
-            "humidity": 82,
+            "temp": 13.9,
+            "humidity": 79,
             "wind": 6.8,
-            "risk": 5.0,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -120,27 +120,27 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
-            "temp": 13.9,
-            "humidity": 79,
-            "wind": 6.8,
+            "temp": 10.7,
+            "humidity": 94,
+            "wind": 6.5,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Χρυσοβίτσι": {
             "city": "Chrysovitsi,Arcadia,Greece",
-            "temp": 13.9,
-            "humidity": 79,
-            "wind": 6.8,
+            "temp": 10.7,
+            "humidity": 94,
+            "wind": 6.5,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Κάψια": {
             "city": "Kapsia,Arcadia,Greece",
-            "temp": 13.9,
-            "humidity": 79,
-            "wind": 6.8,
+            "temp": 10.7,
+            "humidity": 94,
+            "wind": 6.5,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
@@ -273,10 +273,10 @@
         },
         "Λάρισα": {
             "city": "Larissa",
-            "temp": 23.3,
-            "humidity": 63,
-            "wind": 11.2,
-            "risk": 16.9,
+            "temp": 25.5,
+            "humidity": 53,
+            "wind": 8.6,
+            "risk": 22.1,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -318,10 +318,10 @@
         },
         "Άρτα": {
             "city": "Arta",
-            "temp": 21.0,
-            "humidity": 57,
-            "wind": 3.6,
-            "risk": 7.3,
+            "temp": 18.8,
+            "humidity": 61,
+            "wind": 4.7,
+            "risk": 3.3,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -408,8 +408,8 @@
         },
         "Φλώρινα": {
             "city": "Florina",
-            "temp": 11.8,
-            "humidity": 69,
+            "temp": 11.6,
+            "humidity": 70,
             "wind": 3.6,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
