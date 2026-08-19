@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-19 03:10",
+    "last_update": "2026-08-19 03:57",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -120,10 +120,10 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
-            "temp": 25.7,
-            "humidity": 78,
-            "wind": 9.7,
-            "risk": 11.2,
+            "temp": 16.7,
+            "humidity": 85,
+            "wind": 7.6,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -138,19 +138,19 @@
         },
         "Κάψια": {
             "city": "Kapsia,Arcadia,Greece",
-            "temp": 13.6,
-            "humidity": 90,
-            "wind": 9.0,
-            "risk": 0,
+            "temp": 25.7,
+            "humidity": 78,
+            "wind": 9.7,
+            "risk": 11.2,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Βαλτεσινίκο": {
             "city": "Valtesiniko,Arcadia,Greece",
-            "temp": 25.7,
-            "humidity": 78,
-            "wind": 9.7,
-            "risk": 11.2,
+            "temp": 16.7,
+            "humidity": 85,
+            "wind": 7.6,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -165,10 +165,10 @@
         },
         "Κολλίνες": {
             "city": "Kollines,Arcadia,Greece",
-            "temp": 25.7,
-            "humidity": 78,
-            "wind": 9.7,
-            "risk": 11.2,
+            "temp": 16.7,
+            "humidity": 85,
+            "wind": 7.6,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -336,10 +336,10 @@
         },
         "Ηγουμενίτσα": {
             "city": "Igoumenitsa",
-            "temp": 26.6,
-            "humidity": 73,
-            "wind": 6.8,
-            "risk": 11.6,
+            "temp": 25.8,
+            "humidity": 72,
+            "wind": 5.0,
+            "risk": 8.7,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -408,8 +408,8 @@
         },
         "Φλώρινα": {
             "city": "Florina",
-            "temp": 17.4,
-            "humidity": 76,
+            "temp": 17.2,
+            "humidity": 78,
             "wind": 3.6,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
