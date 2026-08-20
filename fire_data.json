@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-20 13:09",
+    "last_update": "2026-08-20 13:58",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -84,10 +84,10 @@
         },
         "Στεμνίτσα": {
             "city": "Stemnitsa,Arcadia,Greece",
-            "temp": 19.9,
-            "humidity": 65,
-            "wind": 3.6,
-            "risk": 1.7,
+            "temp": 17.6,
+            "humidity": 67,
+            "wind": 6.1,
+            "risk": 0.2,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -120,19 +120,19 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
-            "temp": 19.9,
-            "humidity": 65,
+            "temp": 22.6,
+            "humidity": 93,
             "wind": 3.6,
-            "risk": 1.7,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Χρυσοβίτσι": {
             "city": "Chrysovitsi,Arcadia,Greece",
-            "temp": 22.6,
-            "humidity": 93,
+            "temp": 19.9,
+            "humidity": 65,
             "wind": 3.6,
-            "risk": 0,
+            "risk": 1.7,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -147,19 +147,19 @@
         },
         "Βαλτεσινίκο": {
             "city": "Valtesiniko,Arcadia,Greece",
-            "temp": 17.6,
-            "humidity": 67,
-            "wind": 6.1,
-            "risk": 0.2,
+            "temp": 19.9,
+            "humidity": 65,
+            "wind": 3.6,
+            "risk": 1.7,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Βαμβακού": {
             "city": "Vamvakou,Laconia,Greece",
-            "temp": 36.7,
-            "humidity": 20,
-            "wind": 17.6,
-            "risk": 66.2,
+            "temp": 32.0,
+            "humidity": 18,
+            "wind": 11.9,
+            "risk": 53.3,
             "level": "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#e67e22"
         },
@@ -219,12 +219,12 @@
         },
         "Λαμία": {
             "city": "Lamia",
-            "temp": 32.7,
-            "humidity": 24,
-            "wind": 15.8,
-            "risk": 56.0,
-            "level": "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#e67e22"
+            "temp": 24.6,
+            "humidity": 48,
+            "wind": 3.6,
+            "risk": 17.2,
+            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
+            "color": "#27ae60"
         },
         "Χαλκίδα": {
             "city": "Chalkida",
@@ -318,10 +318,10 @@
         },
         "Άρτα": {
             "city": "Arta",
-            "temp": 35.8,
-            "humidity": 16,
-            "wind": 7.2,
-            "risk": 54.3,
+            "temp": 36.1,
+            "humidity": 15,
+            "wind": 17.3,
+            "risk": 67.4,
             "level": "ΥΨΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#e67e22"
         },
