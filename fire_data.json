@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-20 03:09",
+    "last_update": "2026-08-20 03:57",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -84,10 +84,10 @@
         },
         "Στεμνίτσα": {
             "city": "Stemnitsa,Arcadia,Greece",
-            "temp": 25.0,
-            "humidity": 81,
-            "wind": 11.2,
-            "risk": 10.4,
+            "temp": 13.2,
+            "humidity": 90,
+            "wind": 9.7,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -120,6 +120,15 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
+            "temp": 25.0,
+            "humidity": 81,
+            "wind": 11.2,
+            "risk": 10.4,
+            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
+            "color": "#27ae60"
+        },
+        "Χρυσοβίτσι": {
+            "city": "Chrysovitsi,Arcadia,Greece",
             "temp": 16.8,
             "humidity": 87,
             "wind": 6.8,
@@ -127,39 +136,30 @@
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
-        "Χρυσοβίτσι": {
-            "city": "Chrysovitsi,Arcadia,Greece",
-            "temp": 25.0,
-            "humidity": 81,
-            "wind": 11.2,
-            "risk": 10.4,
-            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#27ae60"
-        },
         "Κάψια": {
             "city": "Kapsia,Arcadia,Greece",
-            "temp": 25.0,
-            "humidity": 81,
-            "wind": 11.2,
-            "risk": 10.4,
+            "temp": 16.8,
+            "humidity": 87,
+            "wind": 6.8,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Βαλτεσινίκο": {
             "city": "Valtesiniko,Arcadia,Greece",
-            "temp": 13.2,
-            "humidity": 90,
-            "wind": 9.7,
+            "temp": 16.8,
+            "humidity": 87,
+            "wind": 6.8,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Βαμβακού": {
             "city": "Vamvakou,Laconia,Greece",
-            "temp": 18.9,
-            "humidity": 64,
-            "wind": 7.2,
-            "risk": 5.0,
+            "temp": 23.4,
+            "humidity": 58,
+            "wind": 5.8,
+            "risk": 13.1,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -345,10 +345,10 @@
         },
         "Θεσσαλονίκη": {
             "city": "Thessaloniki",
-            "temp": 23.5,
+            "temp": 23.2,
             "humidity": 61,
             "wind": 4.0,
-            "risk": 9.5,
+            "risk": 9.1,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -408,10 +408,10 @@
         },
         "Φλώρινα": {
             "city": "Florina",
-            "temp": 19.8,
+            "temp": 20.0,
             "humidity": 65,
-            "wind": 4.3,
-            "risk": 2.4,
+            "wind": 5.0,
+            "risk": 3.5,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -489,7 +489,7 @@
         },
         "Ηράκλειο": {
             "city": "Heraklion",
-            "temp": 21.1,
+            "temp": 20.9,
             "humidity": 85,
             "wind": 3.6,
             "risk": 0,
