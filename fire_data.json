@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-22 03:06",
+    "last_update": "2026-08-22 03:55",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -84,10 +84,10 @@
         },
         "Στεμνίτσα": {
             "city": "Stemnitsa,Arcadia,Greece",
-            "temp": 16.7,
-            "humidity": 88,
-            "wind": 6.8,
-            "risk": 0,
+            "temp": 26.5,
+            "humidity": 77,
+            "wind": 6.5,
+            "risk": 9.0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -120,6 +120,15 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
+            "temp": 26.5,
+            "humidity": 77,
+            "wind": 6.5,
+            "risk": 9.0,
+            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
+            "color": "#27ae60"
+        },
+        "Χρυσοβίτσι": {
+            "city": "Chrysovitsi,Arcadia,Greece",
             "temp": 16.7,
             "humidity": 88,
             "wind": 6.8,
@@ -127,30 +136,21 @@
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
-        "Χρυσοβίτσι": {
-            "city": "Chrysovitsi,Arcadia,Greece",
-            "temp": 26.5,
-            "humidity": 77,
-            "wind": 6.5,
-            "risk": 9.0,
-            "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
-            "color": "#27ae60"
-        },
         "Κάψια": {
             "city": "Kapsia,Arcadia,Greece",
-            "temp": 26.5,
-            "humidity": 77,
-            "wind": 6.5,
-            "risk": 9.0,
+            "temp": 16.7,
+            "humidity": 88,
+            "wind": 6.8,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Βαλτεσινίκο": {
             "city": "Valtesiniko,Arcadia,Greece",
-            "temp": 26.5,
-            "humidity": 77,
-            "wind": 6.5,
-            "risk": 9.0,
+            "temp": 13.6,
+            "humidity": 87,
+            "wind": 9.7,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -165,9 +165,9 @@
         },
         "Κολλίνες": {
             "city": "Kollines,Arcadia,Greece",
-            "temp": 13.6,
-            "humidity": 87,
-            "wind": 9.7,
+            "temp": 16.7,
+            "humidity": 88,
+            "wind": 6.8,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
@@ -210,10 +210,10 @@
         },
         "Αθήνα": {
             "city": "Athens",
-            "temp": 25.4,
+            "temp": 25.7,
             "humidity": 41,
             "wind": 7.6,
-            "risk": 26.7,
+            "risk": 27.2,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -273,10 +273,10 @@
         },
         "Λάρισα": {
             "city": "Larissa",
-            "temp": 19.2,
-            "humidity": 74,
-            "wind": 10.1,
-            "risk": 3.9,
+            "temp": 18.0,
+            "humidity": 77,
+            "wind": 9.7,
+            "risk": 0.1,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -409,9 +409,9 @@
         "Φλώρινα": {
             "city": "Florina",
             "temp": 20.4,
-            "humidity": 59,
-            "wind": 9.0,
-            "risk": 11.9,
+            "humidity": 63,
+            "wind": 9.4,
+            "risk": 10.4,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
