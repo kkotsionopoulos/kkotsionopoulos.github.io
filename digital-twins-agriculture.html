@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ψηφιακά Δίδυμα στη Γεωργία | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Ψηφιακά Δίδυμα (Digital Twins): Προσομοίωση και Πρόβλεψη της Καλλιέργειας σε Πραγματικό Χρόνο</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Αύγουστος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η εξέλιξη της Γεωργίας Ακριβείας (Precision Agriculture) προς τη Γεωργία 5.0 χαρακτηρίζεται από τη μετάβαση από την απλή παρατήρηση του παρελθόντος στην προγνωστική προσομοίωση του μέλλοντος. Η πιο καινοτόμος προσέγγιση σε αυτό το πεδίο είναι η ανάπτυξη των <strong>Ψηφιακών Διδύμων (Digital Twins - DTs)</strong>. Ένα Ψηφιακό Δίδυμο στη γεωργία αποτελεί ένα δυναμικό, εικονικό αντίγραφο ενός πραγματικού αγροτεμαχίου ή θερμοκηπίου, το οποίο ενημερώνεται συνεχώς με δεδομένα πεδίου και προσομοιώνει τις βιολογικές και φυσικές διεργασίες της καλλιέργειας.</p>
+
+        <p>Η αρχιτεκτονική ενός αγροτικού Digital Twin στηρίζεται στη σύζευξη τριών βασικών πυλώνων: των <strong>δικτύων αισθητήρων IoT</strong> (υγρασία εδάφους, θερμοκρασία, φωτοσυνθετική ακτινοβολία), των <strong>δορυφορικών παρατηρήσεων</strong> (δείκτες βλάστησης NDVI/NDRE) και των <strong>μηχανιστικών μοντέλων ανάπτυξης καλλιεργειών (Crop Growth Models)</strong>, όπως το APSIM και το DSSAT. Ενσωματώνοντας μετεωρολογικές προβλέψεις, το ψηφιακό μοντέλο εκτελεί υπολογισμούς για την εξατμισοδιαπνοή, την πρόσληψη αζώτου και τη φωτοσύνθεση σε πραγματικό χρόνο.</p>
+
+        <img src="digital-twin.jpg" alt="Προσομοίωση αγρού με Ψηφιακό Δίδυμο (Digital Twin)" class="article-image">
+
+        <p>Η πραγματική ισχύς του Ψηφιακού Διδύμου έγκειται στη δυνατότητα εκτέλεσης σεναρίων "What-If" (Τι θα συνέβαινε αν...). Ο γεωπόνος ή ο παραγωγός μπορεί να δοκιμάσει εικονικά διαφορετικές στρατηγικές διαχείρισης πριν τις εφαρμόσει στο χωράφι. Για παράδειγμα, μπορεί να αξιολογήσει την επίδραση μιας καθυστέρησης στην άρδευση κατά τρεις ημέρες ενόψει επικείμενου καύσωνα ή να εξετάσει πώς μια συγκεκριμένη δόση αζώτου θα επηρεάσει την τελική στρεμματική απόδοση υπό διαφορετικά κλιματικά σενάρια.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της χρήσης Digital Twins στη βιώσιμη γεωργία περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Προγνωστική Διαχείριση Στρες:</strong> Έγκαιρος εντοπισμός υδατικού ή θερμικού στρες προτού εκδηλωθούν ορατά μακροσκοπικά συμπτώματα στο φύλλωμα, επιτρέποντας στοχευμένη πρόληψη.</li>
+            <li><strong>Βελτιστοποίηση Χρήσης Εισροών:</strong> Η ακριβής μοντελοποίηση της δυναμικής του αζώτου και του νερού μειώνει τις απώλειες λόγω έκπλυσης, εξασφαλίζοντας μέγιστη αποδοτικότητα χρήσης θρεπτικών στοιχείων (NUE).</li>
+            <li><strong>Αυτοματοποιημένος Έλεγχος Συστημάτων:</strong> Άμεση διασύνδεση με αυτόνομες ηλεκτροβάνες και συστήματα μεταβλητής δόσης (VRT), κλείνοντας τον βρόχο ελέγχου (closed-loop automation) χωρίς ανθρώπινη καθυστέρηση.</li>
+        </ul>
+
+        <p>Τα Ψηφιακά Δίδυμα μετατρέπουν τη γεωργική παραγωγή σε μια επιστήμη βασισμένη σε προηγμένες προσομοιώσεις δεδομένων. Για τον σύγχρονο γεωπόνο, η κατανόηση και η αξιοποίηση των ψηφιακών αντιγράφων αποτελεί το κορυφαίο εργαλείο για τη διασφάλιση της επισιτιστικής ασφάλειας και την προσαρμογή των καλλιεργειών στις πιέσεις της κλιματικής αλλαγής.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Verdouw, C., et al. (2021).</strong> <em>Digital twins in smart farming.</em> Agricultural Systems, 189, 103046.</li>
+            <li><strong>Pylianidis, C., Osinga, S., & Athanasiadis, I. N. (2021).</strong> <em>Introducing digital twins to agriculture.</em> Computers and Electronics in Agriculture, 184, 105942.</li>
+            <li><strong>Jones, J. W., et al. (2003).</strong> <em>The DSSAT cropping system model.</em> European Journal of Agronomy, 18(3-4), 235-265.</li>
+            <li><strong>Holzworth, D. P., et al. (2014).</strong> <em>APSIM–evolution towards a new generation of agricultural systems simulation.</em> Environmental Modelling & Software, 62, 327-350.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
