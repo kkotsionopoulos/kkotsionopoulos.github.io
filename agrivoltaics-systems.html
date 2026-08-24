@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αγροβολταϊκά Συστήματα (Agri-PV) | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Αγροβολταϊκά (Agri-PV): Η Διπλή Χρήση Γης για Παραγωγή Τροφής και Καθαρής Ενέργειας</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Αύγουστος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Ο ανταγωνισμός για τη χρήση της γης ανάμεσα στην παραγωγή τροφίμων και την εγκατάσταση ανανεώσιμων πηγών ενέργειας αποτελεί ένα από τα κρισιμότερα διλήμματα της σύγχρονης εποχής. Η εγκατάσταση παραδοσιακών φωτοβολταϊκών πάρκων συχνά δεσμεύει παραγωγικές αγροτικές εκτάσεις. Η απάντηση της αγροτεχνολογίας σε αυτόν τον συμβιβασμό είναι τα <strong>Αγροβολταϊκά Συστήματα (Agrivoltaics / Agri-PV)</strong>, μια καινοτόμος προσέγγιση που συνδυάζει την πρωτογενή παραγωγή και την παραγωγή ηλιακής ενέργειας στο ίδιο ακριβώς αγροτεμάχιο.</p>
+
+        <p>Από βιολογική και φυσιολογική σκοπιά, τα περισσότερα καλλιεργούμενα φυτά διαθέτουν ένα <strong>σημείο φωτοκορεσμού (Light Saturation Point)</strong> πέρα από το οποίο η επιπλέον ηλιακή ακτινοβολία δεν αξιοποιείται για τη φωτοσύνθεση. Αντιθέτως, η υπερβολική ακτινοβολία προκαλεί φωτο-αναστολή (photoinhibition), υπερθέρμανση των ιστών και απότομη αύξηση της εξατμισοδιαπνοής. Η υπερυψωμένη τοποθέτηση φωτοβολταϊκών πλαισίων πάνω από την καλλιέργεια δημιουργεί ένα ευνοϊκότερο μικροκλίμα, μειώνοντας τη θερμοκρασία του φυλλώματος κατά τις μεσημβρινές ώρες και προστατεύοντας τους καρπούς από ηλιακά εγκαύματα.</p>
+
+        <img src="agrivoltaics.jpg" alt="Εγκατάσταση Αγροβολταϊκών Συστημάτων σε Καλλιέργεια" class="article-image">
+
+        <p>Τα σύγχρονα δυναμικά συστήματα Agri-PV ενσωματώνουν έξυπνους ιχνηλάτες (solar trackers) και <strong>αλγορίθμους βελτιστοποίησης PAR (Photosynthetically Active Radiation)</strong>. Μέσω δικτύων αισθητήρων IoT και μετεωρολογικών προγνώσεων, τα πάνελ προσαρμόζουν αυτόματα τη γωνία κλίσης τους: επιτρέπουν τη μέγιστη διέλευση φωτός όταν το φυτό το χρειάζεται για τη βλάστηση και παρέχουν σκίαση κατά τις περιόδους ακραίου καύσωνα ή κινδύνου χαλαζόπτωσης.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα οφέλη των αγροβολταϊκών συστημάτων περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Δραστική Εξοικονόμηση Νερού:</strong> Η μείωση της άμεσης ηλιακής ακτινοβολίας στο έδαφος και τα φυτά περιορίζει την εξατμισοδιαπνοή κατά 15% έως 30%, αυξάνοντας την αποδοτικότητα χρήσης νερού (Water Use Efficiency - WUE).</li>
+            <li><strong>Συνέργεια Απόδοσης Πάνελ (Panel Cooling):</strong> Η διαπνοή των φυτών κάτω από τα πλαίσια ψύχει το περιβάλλον, αποτρέποντας την υπερθέρμανση των φωτοβολταϊκών κυψελών και αυξάνοντας την ηλεκτρική τους απόδοση κατά 2% έως 5%.</li>
+            <li><strong>Προστασία από Ακραία Καιρικά Φαινόμενα:</strong> Η φυσική κάλυψη λειτουργεί ως αντιχαλαζική και αντιπαγετική προστασία, μειώνοντας την ευπάθεια ευαίσθητων καλλιεργειών (οπωρώνες, αμπέλια, κηπευτικά).</li>
+        </ul>
+
+        <p>Τα Αγροβολταϊκά αποδεικνύουν ότι η ενεργειακή μετάβαση και η επισιτιστική ασφάλεια μπορούν να λειτουργήσουν συμπληρωματικά. Μέσω της ακριβούς ψηφιακής διαχείρισης του φωτός και του μικροκλίματος, ο σύγχρονος γεωπόνος εξασφαλίζει τη βιωσιμότητα της παραγωγής, δημιουργώντας εκμεταλλεύσεις ανθεκτικές στην κλιματική αλλαγή και ενεργειακά αυτόνομες.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Dupraz, C., et al. (2011).</strong> <em>Combining solar photovoltaic electricity generation and food crop production in agrivoltaic systems: A review.</em> Agronomy for Sustainable Development, 31(3), 487-497.</li>
+            <li><strong>Barron-Gafford, G. A., et al. (2019).</strong> <em>Agrivoltaics provide mutual benefits across the food-energy-water nexus in drylands.</em> Nature Sustainability, 2(9), 848-855.</li>
+            <li><strong>Dinesh, H., & Pearce, J. M. (2016).</strong> <em>The potential of agrivoltaic systems.</em> Renewable and Sustainable Energy Reviews, 54, 299-308.</li>
+            <li><strong>Trommsdorff, M., et al. (2021).</strong> <em>Agrivoltaics: Realizing synergistic potentials of water-food-energy nexus in agriculture.</em> IEEE Journal of Photovoltaics, 11(4), 1085-1094.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
