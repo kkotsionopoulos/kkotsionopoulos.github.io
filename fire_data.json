@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-25 03:11",
+    "last_update": "2026-08-25 03:59",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -84,10 +84,10 @@
         },
         "Στεμνίτσα": {
             "city": "Stemnitsa,Arcadia,Greece",
-            "temp": 26.3,
-            "humidity": 68,
+            "temp": 25.1,
+            "humidity": 74,
             "wind": 13.3,
-            "risk": 21.4,
+            "risk": 16.6,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -120,19 +120,19 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
-            "temp": 13.7,
-            "humidity": 92,
-            "wind": 9.7,
-            "risk": 0,
+            "temp": 25.1,
+            "humidity": 74,
+            "wind": 13.3,
+            "risk": 16.6,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Χρυσοβίτσι": {
             "city": "Chrysovitsi,Arcadia,Greece",
-            "temp": 13.7,
-            "humidity": 92,
-            "wind": 9.7,
-            "risk": 0,
+            "temp": 25.1,
+            "humidity": 74,
+            "wind": 13.3,
+            "risk": 16.6,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -147,19 +147,19 @@
         },
         "Βαλτεσινίκο": {
             "city": "Valtesiniko,Arcadia,Greece",
-            "temp": 17.0,
-            "humidity": 91,
-            "wind": 6.8,
+            "temp": 13.7,
+            "humidity": 92,
+            "wind": 9.7,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Βαμβακού": {
             "city": "Vamvakou,Laconia,Greece",
-            "temp": 24.9,
-            "humidity": 52,
-            "wind": 4.0,
-            "risk": 16.1,
+            "temp": 22.1,
+            "humidity": 45,
+            "wind": 6.1,
+            "risk": 18.0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -264,10 +264,10 @@
         },
         "Μεσολόγγι": {
             "city": "Mesolongi",
-            "temp": 26.4,
+            "temp": 26.1,
             "humidity": 55,
-            "wind": 3.6,
-            "risk": 16.4,
+            "wind": 4.7,
+            "risk": 17.3,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -327,10 +327,10 @@
         },
         "Πρέβεζα": {
             "city": "Preveza",
-            "temp": 26.3,
-            "humidity": 62,
-            "wind": 8.3,
-            "risk": 18.4,
+            "temp": 26.7,
+            "humidity": 71,
+            "wind": 4.7,
+            "risk": 10.2,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -480,10 +480,10 @@
         },
         "Ρόδος": {
             "city": "Rhodes",
-            "temp": 25.3,
-            "humidity": 71,
-            "wind": 9.0,
-            "risk": 13.2,
+            "temp": 26.1,
+            "humidity": 63,
+            "wind": 7.6,
+            "risk": 16.8,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
