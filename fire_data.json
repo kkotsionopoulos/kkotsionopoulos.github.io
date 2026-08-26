@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-26 07:07",
+    "last_update": "2026-08-26 07:58",
     "regions": {
         "Τρίπολη": {
             "city": "Tripoli,Greece",
@@ -84,10 +84,10 @@
         },
         "Στεμνίτσα": {
             "city": "Stemnitsa,Arcadia,Greece",
-            "temp": 24.2,
-            "humidity": 82,
-            "wind": 6.1,
-            "risk": 2.6,
+            "temp": 16.1,
+            "humidity": 90,
+            "wind": 4.7,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
@@ -120,27 +120,27 @@
         },
         "Βλαχοκερασιά": {
             "city": "Vlachokerasia,Arcadia,Greece",
-            "temp": 24.2,
-            "humidity": 82,
-            "wind": 6.1,
-            "risk": 2.6,
+            "temp": 13.4,
+            "humidity": 95,
+            "wind": 8.3,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Χρυσοβίτσι": {
             "city": "Chrysovitsi,Arcadia,Greece",
-            "temp": 24.2,
-            "humidity": 82,
-            "wind": 6.1,
-            "risk": 2.6,
+            "temp": 16.1,
+            "humidity": 90,
+            "wind": 4.7,
+            "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
         "Κάψια": {
             "city": "Kapsia,Arcadia,Greece",
-            "temp": 13.4,
-            "humidity": 95,
-            "wind": 8.3,
+            "temp": 16.1,
+            "humidity": 90,
+            "wind": 4.7,
             "risk": 0,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
@@ -165,10 +165,10 @@
         },
         "Κολλίνες": {
             "city": "Kollines,Arcadia,Greece",
-            "temp": 16.1,
-            "humidity": 90,
-            "wind": 4.7,
-            "risk": 0,
+            "temp": 24.2,
+            "humidity": 82,
+            "wind": 6.1,
+            "risk": 2.6,
             "level": "ΧΑΜΗΛΟΣ ΚΙΝΔΥΝΟΣ",
             "color": "#27ae60"
         },
