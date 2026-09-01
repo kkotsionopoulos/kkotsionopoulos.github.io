@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SprayGuard Project | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <title>SprayGuard Pro Project | Κωνσταντίνος Κωτσιονόπουλος</title>
     <style>
         :root {
             --primary-color: #2c3e50;
             --accent-color: #27ae60;
-            --spray-accent: #2980b9; /* Μπλε accent για θέματα ψεκασμού/νερού */
+            --spray-accent: #2980b9;
             --spray-accent-hover: #1f618d;
             --text-color: #333;
             --bg-color: #f4f7f6;
@@ -153,9 +153,22 @@
         }
 
         .pipeline-container ul { margin: 0; padding-left: 10px; font-size: 1.05em; }
-        .pipeline-container li { margin-bottom: 12px; list-style-type: none; position: relative; }
+        .pipeline-container li { margin-bottom: 16px; list-style-type: none; position: relative; }
         .pipeline-container li::before { content: "▹"; color: var(--spray-accent); font-weight: bold; position: absolute; left: -20px; }
         .pipeline-container strong { color: var(--primary-color); }
+
+        .formula-box {
+            display: inline-block;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #1e293b;
+            margin: 4px 0;
+        }
 
         .benefits-list { padding-left: 20px; font-size: 1.1em; }
         .benefits-list li { margin-bottom: 10px; }
@@ -201,39 +214,59 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2980b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
             </svg>
-            <a href="spray_calc.html" style="text-decoration:none; color:inherit;">SprayGuard</a> 
+            <a href="spray_calc.html" style="text-decoration:none; color:inherit;">SprayGuard Pro</a> 
         </h1>
-        <p style="text-align: center; font-size: 1.2em; color: var(--primary-color); margin-top: 5px; font-weight: bold;">Υπολογιστής Ακριβείας & Έλεγχος Υπέρβασης Δόσης Φυτοπροστασίας</p>
+        <p style="text-align: center; font-size: 1.2em; color: var(--primary-color); margin-top: 5px; font-weight: bold;">Υπολογιστής Βαθμονόμησης Μπεκ (ISO) & Έλεγχος Υπέρβασης Δόσης</p>
         <a href="spray_calc.html" class="hero-btn">Είσοδος στο SprayGuard</a>
-        <div class="project-meta">Κατηγορία: Smart Agriculture & Web Εργαλείο | Σεπτέμβριος 2026</div>
+        <div class="project-meta">Κατηγορία: Smart Agriculture & Web Εργαλείο | 2026</div>
     </div>
 
-    <h2>Τι είναι το <a href="spray_calc.html" class="link-style">SprayGuard</a>;</h2>
-    <p>Το <a href="spray_calc.html" class="link-style">SprayGuard</a> είναι ένα εξειδικευμένο ψηφιακό εργαλείο υποστήριξης αποφάσεων (DSS) για τον αγροτικό τομέα. Δημιουργήθηκε για να επιλύσει ένα από τα συχνότερα και πιο κρίσιμα προβλήματα στη φυτοπροστασία: την ακούσια <strong>υπέρβαση της μέγιστης επιτρεπόμενης δόσης ανά στρέμμα</strong> όταν η δοσολογία της ετικέτας αναγράφεται ως συγκέντρωση ανά 100 λίτρα νερού και η κατανάλωση ψεκαστικού υγρού είναι υψηλή (π.χ. σε δενδρώδεις καλλιέργειες ή αμπέλια).</p>
+    <h2>Τι είναι το <a href="spray_calc.html" class="link-style">SprayGuard Pro</a>;</h2>
+    <p>Το <a href="spray_calc.html" class="link-style">SprayGuard Pro</a> είναι ένα ολοκληρωμένο ψηφιακό εργαλείο υποστήριξης αποφάσεων (DSS) για τη γεωργία ακριβείας[cite: 5]. Επιλύει συνδυαστικά δύο βασικές προκλήσεις της φυτοπροστασίας: αφενός την <strong>ακριβή βαθμονόμηση του ψεκαστικού</strong> (μέσω της διεθνούς κωδικοποίησης χρωμάτων ακροφυσίων ISO 10625, πίεσης και ταχύτητας) και αφετέρου την <strong>αποτροπή υπέρβασης της μέγιστης εγκεκριμένης δόσης ανά στρέμμα</strong> όταν η ετικέτα δίνει δοσολογία ανά 100 λίτρα νερού[cite: 5].</p>
     
-    <img src="spray-dashboard.jpg" alt="SprayGuard Calculator Interface" class="responsive-img" onerror="this.src='https://placehold.co/650x350/2c3e50/2980b9?text=SprayGuard+Interface'">
+    <img src="spray-dashboard.jpg" alt="SprayGuard Pro Calculator Interface" class="responsive-img" onerror="this.src='https://placehold.co/650x350/2c3e50/2980b9?text=SprayGuard+Pro+Interface'">
 
-    <h2>Πώς δουλεύει; (Αλγοριθμική Προσέγγιση & Βαθμονόμηση)</h2>
-    <p>Η εφαρμογή εκτελεί δυναμικούς υπολογισμούς σε πραγματικό χρόνο, διασταυρώνοντας τα τεχνικά χαρακτηριστικά του ψεκαστικού με τις προδιαγραφές της ετικέτας του σκευάσματος:</p>
+    <h2>Πώς δουλεύει; (Υδραυλική Μοντελοποίηση & Αλγόριθμος)</h2>
+    <p>Η εφαρμογή λειτουργεί σε δύο διαδοχικά υπολογιστικά στάδια, εκτελώντας υδραυλικούς ελέγχους σε πραγματικό χρόνο:</p>
     
     <div class="pipeline-container">
         <ul>
-            <li><strong>Input Validation & Calibration:</strong> Ο χρήστης καταχωρεί τη χωρητικότητα του βυτίου ($L$) και την πραγματική κατανάλωση ψεκαστικού υγρού ανά στρέμμα ($L/\text{στρ.}$), όπως αυτή προκύπτει από τη βαθμονόμηση (ακροφύσια, πίεση, ταχύτητα τρακτέρ).</li>
-            <li><strong>Cross-Check Algorithm:</strong> Όταν η δόση ορίζεται ανά $100\text{ L}$, ο αλγόριθμος υπολογίζει τη θεωρητική δόση ανά στρέμμα βάσει της εξίσωσης:
+            <li>
+                <strong>1. Δυναμική Βαθμονόμηση Ακροφυσίων (ISO 10625):</strong><br>
+                Το εργαλείο ενσωματώνει τους επίσημους διεθνείς κωδικούς χρωμάτων για τα μπεκ ψεκασμού (από 01 Ροζ έως 08 Λευκό) με βάση την ονομαστική παροχή αναφοράς στα 3 bar. Η πραγματική παροχή ανά μπεκ (<em>q</em>) υπολογίζεται δυναμικά βάσει της μεταβολής της πίεσης:
                 <br>
-                <code style="background:#eef2f7; padding:2px 6px; border-radius:4px; font-weight:bold;">Δόση/στρ = (Δόση ανά 100L × L νερού/στρ) / 100</code>
+                <div class="formula-box"><em>q</em> = <em>q</em><sub>nominal</sub> × √(<em>P</em> / 3)</div> <em>(L/min)</em>
             </li>
-            <li><strong>Safety Threshold Clamp:</strong> Συγκρίνει το αποτέλεσμα με τη μέγιστη εγκεκριμένη δόση/στρέμμα της έγκρισης κυκλοφορίας. Εάν διαπιστωθεί υπέρβαση, το σύστημα ενεργοποιεί αυτόματο «κόφτη» (clamp), αναπροσαρμόζει τη συγκέντρωση στο βυτίο και προειδοποιεί τον χρήστη.</li>
-            <li><strong>Tank Dosing Output:</strong> Εξάγει με απόλυτη ακρίβεια την τελική ποσότητα σκευάσματος (σε $ml$ ή $g$) που πρέπει να προστεθεί στο βυτίο, καθώς και τη συνολική έκταση (στρέμματα) που καλύπτει κάθε γέμισμα.</li>
+
+            <li>
+                <strong>2. Υπολογισμός Κατανάλωσης Ψεκαστικού Υγρού (L/στρέμμα):</strong><br>
+                Συνδυάζοντας την πραγματική παροχή (<em>q</em>), την ταχύτητα κίνησης του ελκυστήρα (<em>v</em> σε km/h) και το πλάτος εργασίας ανά μπεκ/γραμμή (<em>w</em> σε μέτρα), εξάγεται η ακριβής κατανάλωση:
+                <br>
+                <div class="formula-box"><em>Q</em> (L/στρέμμα) = (60 × <em>q</em>) / (<em>v</em> × <em>w</em>)</div>
+            </li>
+
+            <li>
+                <strong>3. Αλγόριθμος Ελέγχου Υπέρβασης Δόσης (Threshold Clamp):</strong><br>
+                Όταν η δοσολογία της ετικέτας ορίζεται ανά 100 L νερού, το εργαλείο ελέγχει αν η κατανάλωση νερού οδηγεί σε υπέρβαση της μέγιστης δόσης/στρέμμα:
+                <br>
+                <div class="formula-box">Δόση/στρέμμα = (Δόση ανά 100L × L νερού/στρ) / 100</div>
+                <br>
+                Σε περίπτωση υπέρβασης, ενεργοποιείται αυτόματο «πλαφόν» (safety clamp), υποδεικνύοντας στον χειριστή τη μειωμένη ποσότητα φαρμάκου που πρέπει να βάλει στο βυτίο ώστε να παραμείνει 100% εντός νόμιμου ορίου[cite: 4, 5].
+            </li>
+
+            <li>
+                <strong>4. Τελική Συνταγή Γεμίσματος Βυτίου:</strong><br>
+                Υπολογίζει άμεσα τα συνολικά στρέμματα που καλύπτει κάθε γέμισμα βυτίου και τα ακριβή ml ή γραμμάρια σκευάσματος που πρέπει να προστεθούν[cite: 4, 5].
+            </li>
         </ul>
     </div>
 
-    <h2>Σε ποιους απευθύνεται και πώς βοηθάει;</h2>
-    <p>Η ορθή δοσομέτρηση αποτελεί τον πυρήνα της ολοκληρωμένης διαχείρισης, της προστασίας του περιβάλλοντος και της μείωσης του κόστους παραγωγής.</p>
+    <h2>Σε ποιους απευθύνεται και ποια τα οφέλη;</h2>
+    <p>Η στοχευμένη δοσομέτρηση και η σωστή ρύθμιση του μηχανολογικού εξοπλισμού αποτελούν τη βάση της σύγχρονης Γεωργίας Ακριβείας[cite: 5].</p>
     <ul class="benefits-list">
-        <li><strong>Επαγγελματίες Αγρότες:</strong> Αποτρέπει τη σπατάλη ακριβών γεωργικών φαρμάκων, μειώνει τον κίνδυνο φυτοτοξικότητας στην καλλιέργεια και διασφαλίζει ότι δεν υπάρχουν υπερβάσεις στα ανώτατα όρια υπολειμμάτων (MRLs).</li>
-        <li><strong>Γεωπόνους & Συμβούλους:</strong> Παρέχει ένα άμεσο, αξιόπιστο εργαλείο επίδειξης και καθοδήγησης των παραγωγών κατά τη συνταγογράφηση και τη βαθμονόμηση ψεκαστικών μηχανημάτων.</li>
-        <li><strong>Συμμόρφωση με την Ορθή Γεωργική Πρακτική:</strong> Εξασφαλίζει την πλήρη εναρμόνιση των εφαρμογών με τις νομικές προδιαγραφές του Υπουργείου Αγροτικής Ανάπτυξης & Τροφίμων (ΥΠΑΑΤ) και των προτύπων πιστοποίησης (GlobalGAP, AGRO 2).</li>
+        <li><strong>Επαγγελματίες Αγρότες & Χειριστές:</strong> Γρήγορη επιλογή σωστού χρώματος μπεκ και πίεσης χωρίς περίπλοκους χειρόγραφους υπολογισμούς. Εξοικονόμηση κόστους εισροών και αποφυγή φυτοτοξικότητας[cite: 5].</li>
+        <li><strong>Γεωπόνους & Τεχνικούς Συμβούλους:</strong> Άμεσο ψηφιακό εργαλείο επίδειξης κατά τη βαθμονόμηση των ψεκαστικών και τη συνταγογράφηση φυτοπροστατευτικών προϊόντων[cite: 5].</li>
+        <li><strong>Προστασία Καταναλωτή & Περιβάλλοντος:</strong> Εγγυημένη αποτροπή υπερβάσεων στα Ανώτατα Όρια Υπολειμμάτων (MRLs) και πλήρης συμμόρφωση με τα πρότυπα AGRO 2 και GlobalGAP[cite: 5].</li>
     </ul>
 
     <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
