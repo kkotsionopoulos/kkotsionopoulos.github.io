@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Νανοτεχνολογία & Βιοεπιφανειοδραστικά | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Νανοτεχνολογία & Βιοεπιφανειοδραστικά: Η Νέα Εποχή Στοχευμένης Φυτοπροστασίας</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Αύγουστος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Στη συμβατική φυτοπροστασία, υπολογίζεται επιστημονικά ότι λιγότερο από το 10% της εφαρμοζόμενης δραστικής ουσίας φτάνει τελικά στον επιδιωκόμενο στόχο (παθογόνο ή έντομο), ενώ το υπόλοιπο χάνεται λόγω απορροής, φωτοδιάσπασης, εξάτμισης ή έκπλυσης στον υδροφόρο ορίζοντα. Η επιτακτική ανάγκη συμμόρφωσης με τις ευρωπαϊκές οδηγίες για τη μείωση του χημικού φορτίου αναδεικνύει τη <strong>Γεωργική Νανοτεχνολογία (Agri-Nanotechnology)</strong> και τα <strong>Βιοεπιφανειοδραστικά (Biosurfactants)</strong> ως τους βασικούς μοχλούς της πράσινης μετάβασης.</p>
+
+        <p>Στον πυρήνα αυτής της προσέγγισης βρίσκεται η τεχνολογία των <strong>Νανο-φορέων (Nanocarriers)</strong>, όπως τα νανογαλακτώματα (nanoemulsions), τα στερεά νανοσωματίδια λιπιδίων (SLNs) και τα πολυμερικά νανοσωματίδια χιτοζάνης. Μέσω της νανο-ενθυλάκωσης (nanoencapsulation), οι δραστικές ουσίες —είτε πρόκειται για φυσικά εκχυλίσματα είτε για συνθετικά μόρια— προστατεύονται από την πρόωρη διάσπαση λόγω υπεριώδους (UV) ακτινοβολίας. Επιπλέον, το σύστημα επιτρέπει την <strong>ελεγχόμενη και παρατεταμένη απελευθέρωση (smart/controlled release)</strong> της ουσίας, ανταποκρινόμενο σε ερεθίσματα του περιβάλλοντος όπως η υγρασία, η θερμοκρασία ή οι ενζυμικές μεταβολές στην επιφάνεια των προσβεβλημένων ιστών.</p>
+
+        <img src="nanotech-agri.jpg" alt="Νανοτεχνολογία στη γεωργία και στοχευμένη απελευθέρωση ουσιών" class="article-image">
+
+        <p>Παράλληλα, η αντικατάσταση των συνθετικών προσκολλητικών και διαβρεκτικών παραγόντων από <strong>βιοεπιφανειοδραστικά μικροβιακής προέλευσης</strong> (όπως τα ραμνολιπίδια και οι σοφορολιπίδες από στελέχη <em>Pseudomonas</em> και <em>Bacillus</em>) μεταμορφώνει τη φυσική της διαβροχής. Τα μόρια αυτά μειώνουν δραστικά την επιφανειακή τάση του ψεκαστικού διαλύματος, επιτρέποντας την ομοιόμορφη διασπορά ακόμα και σε έντονα κηρώδεις φυλλικές επιφάνειες (π.χ. ελιά, κράμβες), εξαλείφοντας το φαινόμενο της δημιουργίας σταγονιδίων που απορρέουν στο έδαφος.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα των νανο-σκευασμάτων περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Μείωση της Απαιτούμενης Δραστικής Ουσίας:</strong> Η αυξημένη διαπερατότητα και η παρατεταμένη δράση επιτρέπουν τη μείωση των εφαρμοζόμενων ποσοτήτων έως και κατά 50%, διατηρώντας ή και βελτιώνοντας την αποτελεσματικότητα.</li>
+            <li><strong>Βελτιωμένη Προσκόλληση και Αντοχή στην Έκπλυση:</strong> Το εξαιρετικά μικρό μέγεθος των σωματιδίων (< 100 nm) και οι βιολογικές ιδιότητες των βιοεπιφανειοδραστικών εξασφαλίζουν αντοχή του ψεκαστικού φιλμ απέναντι σε βροχοπτώσεις.</li>
+            <li><strong>Βιοδιασπασιμότητα και Μηδενική Τοξικότητα:</strong> Σε αντίθεση με τα παραδοσιακά πετροχημικά διαβρεκτικά, τα βιοεπιφανειοδραστικά αποδομούνται ταχύτατα από τους ωφέλιμους μικροοργανισμούς του εδάφους χωρίς να αφήνουν τοξικά κατάλοιπα.</li>
+        </ul>
+
+        <p>Η σύζευξη της νανοτεχνολογίας με τη γεωπονική επιστήμη δεν αποτελεί απλώς μια εργαστηριακή καινοτομία, αλλά μια ρεαλιστική απάντηση στις σύγχρονες καλλιεργητικές προκλήσεις. Η στοχευμένη και αποδοτική διαχείριση της φυτοπροστασίας προστατεύει την υγεία των οικοσυστημάτων και διασφαλίζει την παραγωγή ασφαλών αγροτικών προϊόντων υψηλής προστιθέμενης αξίας.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Kah, M., et al. (2018).</strong> <em>Nanopesticides for plant protection: To what extent are they better than conventional formulations?</em> Environmental Science & Technology, 52(18), 10214-10224.</li>
+            <li><strong>Worral, E. A., et al. (2018).</strong> <em>Nanotechnology for plant disease management.</em> Agronomy, 8(12), 285.</li>
+            <li><strong>Nitschke, M., & Pastore, G. M. (2006).</strong> <em>Production and applications of biosurfactants.</em> Annual Review of Food Science and Technology, 3(1), 249-269.</li>
+            <li><strong>Campos, E. V., et al. (2019).</strong> <em>Polymeric nanoparticles as promising carriers for sustainable crop protection: A review.</em> Science of The Total Environment, 658, 878-892.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
