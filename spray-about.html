@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SprayGuard Project | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --spray-accent: #2980b9; /* Μπλε accent για θέματα ψεκασμού/νερού */
+            --spray-accent-hover: #1f618d;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ΚΟΥΜΠΙ ΚΑΙ LINKS --- */
+        .hero-btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 25px;
+            background-color: var(--spray-accent);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .hero-btn:hover { background-color: var(--spray-accent-hover); }
+        .link-style { color: var(--spray-accent); text-decoration: none; font-weight: bold; }
+        .link-style:hover { text-decoration: underline; }
+
+        /* --- ΕΙΚΟΝΑ --- */
+        .responsive-img {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
+            cursor: zoom-in;
+            transition: transform 0.2s;
+        }
+        .responsive-img:hover { transform: scale(1.01); }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .project-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        .project-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .project-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.4em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .pipeline-container {
+            background: #fdfdfd;
+            padding: 20px 20px 20px 30px;
+            border-left: 4px solid var(--spray-accent);
+            border-radius: 4px;
+            margin-bottom: 25px;
+        }
+
+        .pipeline-container ul { margin: 0; padding-left: 10px; font-size: 1.05em; }
+        .pipeline-container li { margin-bottom: 12px; list-style-type: none; position: relative; }
+        .pipeline-container li::before { content: "▹"; color: var(--spray-accent); font-weight: bold; position: absolute; left: -20px; }
+        .pipeline-container strong { color: var(--primary-color); }
+
+        .benefits-list { padding-left: 20px; font-size: 1.1em; }
+        .benefits-list li { margin-bottom: 10px; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--spray-accent);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--spray-accent);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .back-link:hover { background: var(--spray-accent); color: white; }
+
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .project-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="project-header">
+        <h1 style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+            <!-- Spray/Droplet SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2980b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+            <a href="spray_calc.html" style="text-decoration:none; color:inherit;">SprayGuard</a> 
+        </h1>
+        <p style="text-align: center; font-size: 1.2em; color: var(--primary-color); margin-top: 5px; font-weight: bold;">Υπολογιστής Ακριβείας & Έλεγχος Υπέρβασης Δόσης Φυτοπροστασίας</p>
+        <a href="spray_calc.html" class="hero-btn">Είσοδος στο SprayGuard</a>
+        <div class="project-meta">Κατηγορία: Smart Agriculture & Web Εργαλείο | Σεπτέμβριος 2026</div>
+    </div>
+
+    <h2>Τι είναι το <a href="spray_calc.html" class="link-style">SprayGuard</a>;</h2>
+    <p>Το <a href="spray_calc.html" class="link-style">SprayGuard</a> είναι ένα εξειδικευμένο ψηφιακό εργαλείο υποστήριξης αποφάσεων (DSS) για τον αγροτικό τομέα. Δημιουργήθηκε για να επιλύσει ένα από τα συχνότερα και πιο κρίσιμα προβλήματα στη φυτοπροστασία: την ακούσια <strong>υπέρβαση της μέγιστης επιτρεπόμενης δόσης ανά στρέμμα</strong> όταν η δοσολογία της ετικέτας αναγράφεται ως συγκέντρωση ανά 100 λίτρα νερού και η κατανάλωση ψεκαστικού υγρού είναι υψηλή (π.χ. σε δενδρώδεις καλλιέργειες ή αμπέλια).</p>
+    
+    <img src="spray-dashboard.jpg" alt="SprayGuard Calculator Interface" class="responsive-img" onerror="this.src='https://placehold.co/650x350/2c3e50/2980b9?text=SprayGuard+Interface'">
+
+    <h2>Πώς δουλεύει; (Αλγοριθμική Προσέγγιση & Βαθμονόμηση)</h2>
+    <p>Η εφαρμογή εκτελεί δυναμικούς υπολογισμούς σε πραγματικό χρόνο, διασταυρώνοντας τα τεχνικά χαρακτηριστικά του ψεκαστικού με τις προδιαγραφές της ετικέτας του σκευάσματος:</p>
+    
+    <div class="pipeline-container">
+        <ul>
+            <li><strong>Input Validation & Calibration:</strong> Ο χρήστης καταχωρεί τη χωρητικότητα του βυτίου ($L$) και την πραγματική κατανάλωση ψεκαστικού υγρού ανά στρέμμα ($L/\text{στρ.}$), όπως αυτή προκύπτει από τη βαθμονόμηση (ακροφύσια, πίεση, ταχύτητα τρακτέρ).</li>
+            <li><strong>Cross-Check Algorithm:</strong> Όταν η δόση ορίζεται ανά $100\text{ L}$, ο αλγόριθμος υπολογίζει τη θεωρητική δόση ανά στρέμμα βάσει της εξίσωσης:
+                <br>
+                <code style="background:#eef2f7; padding:2px 6px; border-radius:4px; font-weight:bold;">Δόση/στρ = (Δόση ανά 100L × L νερού/στρ) / 100</code>
+            </li>
+            <li><strong>Safety Threshold Clamp:</strong> Συγκρίνει το αποτέλεσμα με τη μέγιστη εγκεκριμένη δόση/στρέμμα της έγκρισης κυκλοφορίας. Εάν διαπιστωθεί υπέρβαση, το σύστημα ενεργοποιεί αυτόματο «κόφτη» (clamp), αναπροσαρμόζει τη συγκέντρωση στο βυτίο και προειδοποιεί τον χρήστη.</li>
+            <li><strong>Tank Dosing Output:</strong> Εξάγει με απόλυτη ακρίβεια την τελική ποσότητα σκευάσματος (σε $ml$ ή $g$) που πρέπει να προστεθεί στο βυτίο, καθώς και τη συνολική έκταση (στρέμματα) που καλύπτει κάθε γέμισμα.</li>
+        </ul>
+    </div>
+
+    <h2>Σε ποιους απευθύνεται και πώς βοηθάει;</h2>
+    <p>Η ορθή δοσομέτρηση αποτελεί τον πυρήνα της ολοκληρωμένης διαχείρισης, της προστασίας του περιβάλλοντος και της μείωσης του κόστους παραγωγής.</p>
+    <ul class="benefits-list">
+        <li><strong>Επαγγελματίες Αγρότες:</strong> Αποτρέπει τη σπατάλη ακριβών γεωργικών φαρμάκων, μειώνει τον κίνδυνο φυτοτοξικότητας στην καλλιέργεια και διασφαλίζει ότι δεν υπάρχουν υπερβάσεις στα ανώτατα όρια υπολειμμάτων (MRLs).</li>
+        <li><strong>Γεωπόνους & Συμβούλους:</strong> Παρέχει ένα άμεσο, αξιόπιστο εργαλείο επίδειξης και καθοδήγησης των παραγωγών κατά τη συνταγογράφηση και τη βαθμονόμηση ψεκαστικών μηχανημάτων.</li>
+        <li><strong>Συμμόρφωση με την Ορθή Γεωργική Πρακτική:</strong> Εξασφαλίζει την πλήρη εναρμόνιση των εφαρμογών με τις νομικές προδιαγραφές του Υπουργείου Αγροτικής Ανάπτυξης & Τροφίμων (ΥΠΑΑΤ) και των προτύπων πιστοποίησης (GlobalGAP, AGRO 2).</li>
+    </ul>
+
+    <a href="portfolio.html" class="back-link">← Επιστροφή στο Portfolio</a>
+</div>
+
+<footer style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 40px 0; background: #2c3e50; color: white; margin-top: 50px;">
+    <p style="margin: 0;">© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
+</footer>
+
+<div id="imageModal" style="display:none; position:fixed; z-index:3000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); text-align:center; padding-top:50px; cursor:zoom-out;" onclick="this.style.display='none'">
+    <img id="modalImg" style="max-width:90%; max-height:80%; border-radius:5px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+</div>
+
+<script>
+    // Λειτουργία μεγέθυνσης εικόνας
+    document.querySelector('.responsive-img').onclick = function(){
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('modalImg').src = this.src;
+    }
+</script>
+
+</body>
+</html>
