@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ακουστική Βιοπαρακολούθηση & AI | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Ακουστική Βιοπαρακολούθηση (Bioacoustics): Ανίχνευση Εντόμων με Αισθητήρες Δονήσεων και AI</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Σεπτέμβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η έγκαιρη διάγνωση εντομολογικών προσβολών αποτελεί διαχρονικά μια από τις δυσκολότερες προκλήσεις της ολοκληρωμένης φυτοπροστασίας, ιδιαίτερα όταν πρόκειται για ενδοφυτικούς ή κρυπτόβιους εχθρούς. Προνύμφες ξυλοφάγων κολεοπτέρων (όπως τα <em>Cerambycidae</em> και <em>Buprestidae</em>), το καταστροφικό κόκκινο σκαθάρι (<em>Rhynchophorus ferrugineus</em>), αλλά και κοινά έντομα αποθηκών σε σιλό (όπως το <em>Sitophilus granarius</em>), δρουν στο εσωτερικό των φυτικών ιστών ή του όγκου του καρπού χωρίς να γίνονται άμεσα ορατά. Όταν εμφανιστούν τα πρώτα εξωτερικά συμπτώματα, η καταστροφή είναι συχνά μη αναστρέψιμη. Η λύση της σύγχρονης τεχνολογίας έρχεται μέσα από την <strong>Ακουστική Βιοπαρακολούθηση (Acoustic Bioacoustics)</strong>.</p>
+
+        <p>Καθώς οι προνύμφες τρέφονται και κινούνται μέσα στο ξύλο ή στους κόκκους των δημητριακών, παράγουν ανεπαίσθητες μηχανικές δονήσεις και ακουστικούς παλμούς (stridulation / feeding clicks). Ειδικοί <strong>πιεζοηλεκτρικοί αισθητήρες (piezoelectric sensors)</strong> και επιταχυνσιόμετρα επαφής συνδέονται απευθείας στον κορμό του δέντρου ή μέσα στη μάζα των σιτηρών, μετατρέποντας τις μηχανικές ταλαντώσεις σε ψηφιακά ηλεκτρικά σήματα.</p>
+
+        <img src="bioacoustics-agri.jpg" alt="Ακουστική ανίχνευση εντόμων με πιεζοηλεκτρικούς αισθητήρες" class="article-image">
+
+        <p>Η πρόκληση στο πεδίο έγκειται στον διαχωρισμό των ήχων των εντόμων από τον περιβαλλοντικό θόρυβο (άνεμος, διερχόμενα οχήματα, βροχή). Εδώ ακριβώς επεμβαίνει η <strong>Επεξεργασία Σήματος (Digital Signal Processing - DSP)</strong> και η <strong>Τεχνητή Νοημοσύνη (Machine Learning)</strong>. Το σήμα μετατρέπεται σε φασματογράφημα (Mel-spectrogram) και τροφοδοτείται σε ελαφρά νευρωνικά δίκτυα (TinyML / CNNs) ενσωματωμένα σε μικροελεγκτές χαμηλής κατανάλωσης (Edge AI). Ο αλγόριθμος αναγνωρίζει τη χαρακτηριστική ακουστική «υπογραφή» της διατροφικής δραστηριότητας του εντόμου με αξιοσημείωτη αξιοπιστία.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της ακουστικής βιοπαρακολούθησης περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Μη Καταστροφικός Έλεγχος (Non-Destructive Testing):</strong> Η επιτήρηση της υγείας των δένδρων και των αποθηκευμένων καρπών γίνεται αναίμακτα, χωρίς την ανάγκη κοπής κλαδιών, αποφλοίωσης ή καταστροφής δειγμάτων.</li>
+            <li><strong>Πρόληψη Πριν την Κατάρρευση:</strong> Εντοπισμός του <em>Rhynchophorus ferrugineus</em> ή άλλων ξυλοφάγων σε πρώιμα προνυμφικά στάδια, επιτρέποντας στοχευμένες ενδοθεραπείες (micro-injections) ή εφαρμογή εντομοπαθογόνων νηματωδών.</li>
+            <li><strong>Δραστική Μείωση Υπολειμμάτων:</strong> Αποφυγή προληπτικών καθολικών υποκαπνισμών (fumigation) σε αποθήκες σιτηρών, περιορίζοντας τη χρήση τοξικών αερίων (π.χ. φωσφίνη) μόνο στα σημεία επιβεβαιωμένης προσβολής.</li>
+        </ul>
+
+        <p>Η ενσωμάτωση της ακουστικής τεχνολογίας σε αυτόνομα δίκτυα IoT μετατρέπει την εντομολογική παρακολούθηση σε μια συνεχή, «αόρατη» ασπίδα προστασίας. Για τον σύγχρονο γεωπόνο, η δυνατότητα να «ακούει» τις διεργασίες μέσα στον ιστό του φυτού παρέχει το απόλυτο εργαλείο ακριβείας για έγκαιρη παρέμβαση και ουσιαστική προστασία του αγροτικού κεφαλαίου.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Mankin, R. W., et al. (2011).</strong> <em>Acoustic detection of insect pests in soil, stored products, and wood: Technology and applications.</em> American Entomologist, 57(4), 230-244.</li>
+            <li><strong>Potamitis, I., et al. (2019).</strong> <em>Automated acoustic monitoring of the red palm weevil: Advances in bioacoustic sensors and TinyML models.</em> Computers and Electronics in Agriculture, 160, 24-31.</li>
+            <li><strong>Farr, C., et al. (2020).</strong> <em>Vibrational communication and acoustic detection of wood-boring beetle larvae in living trees.</em> Journal of Pest Science, 93(2), 521-534.</li>
+            <li><strong>Eliopoulos, P. A., et al. (2016).</strong> <em>Acoustic detection of stored product beetles in grain bags and bulk storage.</em> Journal of Stored Products Research, 69, 120-129.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
