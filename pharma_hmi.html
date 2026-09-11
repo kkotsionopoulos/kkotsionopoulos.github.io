@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmaPack HMI & Digital BPR | GMP Packaging Console</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --bg: #f4f7f6;
+            --panel-bg: #1e293b;
+            --panel-card: #0f172a;
+            --border-color: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--primary) !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            height: 50px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            padding: 0 15px;
+            color: white !important;
+            border: 1.5px solid var(--accent);
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent);
+        }
+
+        /* --- MAIN WRAPPER --- */
+        .hmi-wrapper {
+            max-width: 1150px;
+            margin: 75px auto 40px auto;
+            padding: 0 15px;
+        }
+
+        .hmi-header {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .hmi-header h2 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.45em;
+        }
+
+        .batch-tag {
+            background: #e8f5e9;
+            color: #1e7e34;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85em;
+            border: 1px solid #c8e6c9;
+        }
+
+        /* --- TABS --- */
+        .tab-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 5px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #64748b;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* --- CONSOLE HMI --- */
+        .console-container {
+            background: var(--panel-bg);
+            border-radius: 14px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+            border: 2px solid #334155;
+        }
+
+        .console-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .machine-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-ctrl {
+            border: none;
+            padding: 8px 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85em;
+        }
+
+        .btn-start { background: var(--accent); color: white; }
+        .btn-stop { background: var(--warning); color: white; }
+        .btn-estop { background: var(--danger); color: white; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: var(--panel-card);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            text-align: center;
+        }
+
+        .metric-card small {
+            color: #94a3b8;
+            font-size: 0.78em;
+            text-transform: uppercase;
+        }
+
+        .metric-card strong {
+            display: block;
+            font-size: 1.7em;
+            margin-top: 5px;
+            color: #38bdf8;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* --- CARDS & FORMS --- */
+        .card-white {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 1.2em;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.82em;
+            font-weight: bold;
+            color: #475569;
+        }
+
+        .form-group input, .form-group select {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 8px;
+            font-size: 0.88em;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* --- PREDICTIVE REPLENISHMENT --- */
+        .feed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .feed-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px;
+            background: #f8fafc;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 100%;
+            transition: width 0.3s;
+        }
+
+        /* --- TROUBLESHOOTING --- */
+        .ts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .ts-card-btn {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .ts-card-btn.active {
+            border-color: var(--accent);
+            background: #e8f5e9;
+        }
+
+        /* --- TABLES & BUTTONS --- */
+        .bpr-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.88em;
+        }
+
+        .bpr-table th, .bpr-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .bpr-table th {
+            background-color: #f1f5f9;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95em;
+        }
+
+        .btn-submit:hover { background: #1e293b; }
+
+        .btn-print {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        /* --- REPORT VIEW --- */
+        #reportModal {
+            display: none;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background: var(--primary);
+            color: white;
+            font-size: 0.85em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="hmi-wrapper">
+
+    <!-- HEADER -->
+    <div class="hmi-header">
+        <div>
+            <h2>PharmaPack HMI & BPR Suite</h2>
+            <small style="color: #64748b;">Ολοκληρωμένος Προσομοιωτής Χειρισμού & Ηλεκτρονικής Αναφοράς Παρτίδας (e-BPR)</small>
+        </div>
+        <div class="batch-tag">Κωδικός SOP: <strong>SOP-PKG-042 v.3</strong> | Cleanroom Class D</div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('tab-hmi', this)">🖥️ 1. Κονσόλα HMI & Προγνωστικά</button>
+        <button class="tab-btn" onclick="switchTab('tab-cleaning', this)">🧹 2. Καθαρισμός & Line Clearance</button>
+        <button class="tab-btn" onclick="switchTab('tab-ipc', this)">⏱️ 3. Ενδιάμεσοι Έλεγχοι IPC</button>
+        <button class="tab-btn" onclick="switchTab('tab-reconciliation', this)">📊 4. Ισοζύγιο & Έκδοση BPR</button>
+    </div>
+
+    <!-- TAB 1: CONSOLE & MONITORING -->
+    <div id="tab-hmi" class="tab-content active">
+        <div class="console-container">
+            <div class="console-top">
+                <div class="machine-status">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span>ΚΑΤΑΣΤΑΣΗ: <span id="statusText" style="color: var(--accent);">RUNNING (ΣΕ ΛΕΙΤΟΥΡΓΙΑ)</span></span>
+                </div>
+                <div class="controls-row">
+                    <button class="btn-ctrl btn-start" onclick="startMachine()">START</button>
+                    <button class="btn-ctrl btn-stop" onclick="pauseMachine()">PAUSE</button>
+                    <button class="btn-ctrl btn-estop" onclick="eStopMachine()">E-STOP</button>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <small>Ταχύτητα Γραμμής</small>
+                    <strong id="speedVal">120 <span style="font-size:0.5em; color:#94a3b8;">packs/min</span></strong>
+                </div>
+                <div class="metric-card">
+                    <small>Τρέχουσα Παραγωγή</small>
+                    <strong id="totalProduced">1,420 <span style="font-size:0.5em; color:#94a3b8;">κουτιά</span></strong>
+                </div>
+                <div class="metric-card">
+                    <small>Θερμοκρασία Σφράγισης</small>
+                    <strong id="tempVal">165.2 <span style="font-size:0.5em; color:#94a3b8;">°C</span></strong>
+                </div>
+                <div class="metric-card">
+                    <small>Απορρίψεις Κάμερας</small>
+                    <strong id="rejectsVal" style="color: #f87171;">14 <span style="font-size:0.5em; color:#94a3b8;">τεμ.</span></strong>
+                </div>
+            </div>
+
+            <div style="font-size: 0.8em; color: #94a3b8; display: flex; justify-content: space-between; align-items: center;">
+                <span>Ρύθμιση ταχύτητας γραμμής:</span>
+                <input type="range" id="speedSlider" min="60" max="180" value="120" oninput="changeSpeed(this.value)" style="width: 220px; accent-color: var(--accent);">
+            </div>
+        </div>
+
+        <!-- ΠΡΟΤΑΣΗ 5 -->
+        <div class="card-white">
+            <h3 class="section-title">⚡ Πρόταση 5: Predictive Material Replenishment (Αποτροπή Στάσεων)</h3>
+            <p style="font-size: 0.85em; color: #64748b; margin-top: 0;">
+                Υπολογίζει δυναμικά τον χρόνο που απομένει μέχρι την εξάντληση των αναλωσίμων βάσει της ταχύτητας παραγωγής, αποτρέποντας τις απότομες στάσεις (micro-stops).
+            </p>
+            <div class="feed-grid">
+                <div class="feed-box">
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.9em;">
+                        <span>📦 Κουτιά (Cartons)</span>
+                        <span id="cartonsQty">380 / 1.000</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="cartonsBar" style="width: 38%;"></div></div>
+                    <div style="font-size:0.85em; font-weight:bold;">Εξάντληση σε: <span id="cartonsEta" style="color:var(--warning);">03:10 min</span></div>
+                    <button class="btn-print" style="width:100%; margin-top:8px; background:var(--primary);" onclick="refillMaterial('cartons')">+ Αναπλήρωση (1.000 τμχ)</button>
+                </div>
+                <div class="feed-box">
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.9em;">
+                        <span>📄 Leaflets (Οδηγίες)</span>
+                        <span id="leafletsQty">720 / 1.200</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="leafletsBar" style="width: 60%;"></div></div>
+                    <div style="font-size:0.85em; font-weight:bold;">Εξάντληση σε: <span id="leafletsEta">06:00 min</span></div>
+                    <button class="btn-print" style="width:100%; margin-top:8px; background:var(--primary);" onclick="refillMaterial('leaflets')">+ Αναπλήρωση (1.200 τμχ)</button>
+                </div>
+                <div class="feed-box">
+                    <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:0.9em;">
+                        <span>🛡️ Ρολό Foil</span>
+                        <span id="foilQty">1.450 / 2.500 m</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="foilBar" style="width: 58%;"></div></div>
+                    <div style="font-size:0.85em; font-weight:bold;">Εξάντληση σε: <span id="foilEta">12:05 min</span></div>
+                    <button class="btn-print" style="width:100%; margin-top:8px; background:var(--primary);" onclick="refillMaterial('foil')">+ Αλλαγή Ρολού (2.500 m)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ΠΡΟΤΑΣΗ 4 -->
+        <div class="card-white">
+            <h3 class="section-title">🛠️ Πρόταση 4: Οδηγός Αντιμετώπισης Εμπλοκών (Visual Troubleshooting)</h3>
+            <div class="ts-grid">
+                <div class="ts-card-btn active" onclick="showTroubleshoot(0)"><strong>1. Εμπλοκή Leaflet</strong><br><small>Cartoner Feeder Jam</small></div>
+                <div class="ts-card-btn" onclick="showTroubleshoot(1)"><strong>2. Πτώση Θερμοκρασίας</strong><br><small>Sealing Temp Error</small></div>
+                <div class="ts-card-btn" onclick="showTroubleshoot(2)"><strong>3. Απόκλιση Αλουμινίου</strong><br><small>Print Mark Shift</small></div>
+                <div class="ts-card-btn" onclick="showTroubleshoot(3)"><strong>4. Κενή Κυψέλη</strong><br><small>Empty Pocket Blister</small></div>
+            </div>
+            <div id="solutionDisplay" style="background:#f8fafc; padding:15px; border-left:4px solid var(--accent); border-radius:4px; font-size:0.9em; line-height:1.6;"></div>
+        </div>
+    </div>
+
+    <!-- TAB 2: CLEANING & LINE CLEARANCE -->
+    <div id="tab-cleaning" class="tab-content">
+        <div class="card-white">
+            <h3 class="section-title">🧹 Διαδικασία Καθαρισμού & Απολύμανσης Μηχανής (SOP-CLN-018)</h3>
+            
+            <div class="form-grid" style="margin-bottom: 20px;">
+                <div class="form-group">
+                    <label>Τύπος Καθαρισμού (Cleaning Level)</label>
+                    <select id="clnType" onchange="toggleCleaningType()">
+                        <option value="Type A">Type A (Ίδιο Προϊόν - Minor Clearance)</option>
+                        <option value="Type B">Type B (Αλλαγή Δραστικής/Μορφής - Major Deep Clean)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Απολυμαντικό Μέσο & Lot Number</label>
+                    <input type="text" id="clnAgent" value="Sterile IPA 70% | Lot: ALC-8821 (Exp: 11/2027)">
+                </div>
+                <div class="form-group">
+                    <label>Clean Hold Time (Μέγιστη Ισχύς Καθαριότητας)</label>
+                    <input type="text" value="Έγκυρο για 48 ώρες (έως 13/09 14:00)" readonly style="background:#f8fafc; font-weight:bold;">
+                </div>
+            </div>
+
+            <div style="font-weight:bold; font-size:0.9em; margin-bottom:10px; color:var(--primary);">Βήματα Καθαρισμού & Οπτικός Έλεγχος (Visual Inspection):</div>
+
+            <div class="checklist-item">
+                <input type="checkbox" id="cln1" checked>
+                <label for="cln1"><strong>Απομάκρυνση Προηγούμενης Παρτίδας:</strong> Πλήρης έλεγχος χοάνης, οδηγών, καναλιών blister και κάδου απορριμμάτων για μηδενικά υπολείμματα.</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="cln2" checked>
+                <label for="cln2"><strong>Απολύμανση Σημείων Επαφής:</strong> Σκουπισμός πλακών θερμοσυγκόλλησης, οδηγών κουτιών και ταινιών μεταφοράς με πανί χωρίς χνούδι (lint-free wipes).</label>
+            </div>
+            <div class="checklist-item" id="clnTypeB_Item">
+                <input type="checkbox" id="cln3" checked>
+                <label for="cln3"><strong>Αποσυναρμολόγηση & Έκπλυση Εξαρτημάτων:</strong> Αφαίρεση τροφοδοτικού κιβωτίου (feeder) και καθαρισμός στο πλυντήριο εξαρτημάτων (Clean-Out-of-Place).</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="cln4" checked>
+                <label for="cln4"><strong>Οπτική Βεβαίωση «Visually Clean»:</strong> Πλήρης απουσία σκόνης, υπολειμμάτων, υγρασίας ή ξένων σωμάτων σε όλο το μήκος της γραμμής.</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="cln5" checked>
+                <label for="cln5"><strong>Ενημέρωση Πινακίδας Κατάστασης (Status Tag):</strong> Ανάρτηση πράσινης καρτέλας «LINE CLEANED & READY» με ημερομηνία και ώρα.</label>
+            </div>
+        </div>
+
+        <div class="card-white">
+            <h3 class="section-title">✅ Line Clearance Sign-off</h3>
+            <p style="font-size:0.85em; color:#64748b;">Η μηχανή δεν ξεκινά παραγωγή εάν δεν επιβεβαιωθούν και συνυπογραφούν όλα τα παραπάνω σημεία ελέγχου.</p>
+            <button class="btn-submit" onclick="confirmLineClearance()">Επικύρωση Line Clearance & Άδεια Παραγωγής</button>
+        </div>
+    </div>
+
+    <!-- TAB 3: IPC -->
+    <div id="tab-ipc" class="tab-content">
+        <div class="card-white">
+            <h3 class="section-title">⏱️ Ενδιάμεσοι Ποιοτικοί Έλεγχοι (In-Process Control - IPC)</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Ώρα Ελέγχου</label>
+                    <input type="time" id="ipcTime" value="14:00">
+                </div>
+                <div class="form-group">
+                    <label>Έλεγχος Στεγανότητας (Leak Test - Blue Dye / Vacuum)</label>
+                    <select id="ipcLeak">
+                        <option value="PASS (Συμμορφώνεται)">PASS (Επιτυχής)</option>
+                        <option value="FAIL (Μη συμμορφούμενο)">FAIL (Αποτυχία)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ευαναγνωστότητα Lot/Exp (Camera OCR)</label>
+                    <select id="ipcOcr">
+                        <option value="OK (Καθαρή εκτύπωση)">OK (Καθαρή εκτύπωση)</option>
+                        <option value="DEFECT (Μουντζούρα/Ελλιπής)">DEFECT (Μουντζούρα/Ελλιπής)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Έλεγχος Παρουσίας Leaflet στο Κουτί</label>
+                    <select id="ipcLeaflet">
+                        <option value="VERIFIED (Παρουσία 100%)">VERIFIED (Παρουσία 100%)</option>
+                        <option value="MISSING (Ελλείπει)">MISSING (Ελλείπει)</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-submit" style="font-size:0.85em; padding:8px 16px;" onclick="logIpcRow()">+ Προσθήκη Εγγραφής IPC στο Ημερολόγιο</button>
+
+            <table class="bpr-table" id="ipcTable">
+                <thead>
+                    <tr>
+                        <th>Ώρα</th>
+                        <th>Έλεγχος Στεγανότητας</th>
+                        <th>Εκτύπωση Lot/Exp</th>
+                        <th>Παρουσία Οδηγιών</th>
+                        <th>Χειριστής</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12:00</td>
+                        <td><span style="color:var(--accent); font-weight:bold;">PASS</span></td>
+                        <td>OK</td>
+                        <td>VERIFIED</td>
+                        <td>Κ. Κωτσιονόπουλος</td>
+                    </tr>
+                    <tr>
+                        <td>13:00</td>
+                        <td><span style="color:var(--accent); font-weight:bold;">PASS</span></td>
+                        <td>OK</td>
+                        <td>VERIFIED</td>
+                        <td>Κ. Κωτσιονόπουλος</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 4: MATERIAL RECONCILIATION & BATCH REPORT -->
+    <div id="tab-reconciliation" class="tab-content">
+        <div class="card-white">
+            <h3 class="section-title">⚖️ Ισοζύγιο Υλικών Παρτίδας (Material Reconciliation)</h3>
+            <p style="font-size:0.85em; color:#64748b;">Καταγραφή εισερχομένων, παραχθέντων και απορριφθέντων υλικών για υπολογισμό απόδοσης (% Yield) βάσει GMP ορίων (98.0% - 101.5%).</p>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Αριθμός Παρτίδας (Lot Number)</label>
+                    <input type="text" id="bprLot" value="LOT-2026-09B">
+                </div>
+                <div class="form-group">
+                    <label>Προϊόν & Περιεκτικότητα</label>
+                    <input type="text" id="bprProduct" value="Paracetamol 500mg (30 Tabs)">
+                </div>
+                <div class="form-group">
+                    <label>Παραληφθέντα Κουτιά (Εισαγωγή)</label>
+                    <input type="number" id="recInput" value="5000" oninput="calculateYield()">
+                </div>
+                <div class="form-group">
+                    <label>Έτοιμα Τελικά Προϊόντα (Καλά)</label>
+                    <input type="number" id="recGood" value="4920" oninput="calculateYield()">
+                </div>
+                <div class="form-group">
+                    <label>Απορρίψεις Μηχανής / In-Process Sampling</label>
+                    <input type="number" id="recRejects" value="65" oninput="calculateYield()">
+                </div>
+                <div class="form-group">
+                    <label>Απόδοση Παρτίδας (% Yield)</label>
+                    <input type="text" id="recYield" value="98.4%" readonly style="background:#f1f5f9; font-weight:bold; color:var(--accent);">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Παρατηρήσεις / Καταγραφή Αποκλίσεων Βάρδιας (Deviations / Downtime Comments)</label>
+                <textarea id="bprNotes" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:6px; padding:10px; font-family:inherit; box-sizing:border-box;">Ομαλή λειτουργία γραμμής. Πραγματοποιήθηκε 1 σύντομη στάση 3 λεπτών στον Cartoner Feeder λόγω τσαλακωμένου φύλλου οδηγιών. Αποκατάσταση άμεση βάσει SOP.</textarea>
+            </div>
+
+            <div style="margin-top: 20px; display:flex; gap:12px;">
+                <button class="btn-submit" onclick="generateBatchReport()">📑 Ολοκλήρωση Παρτίδας & Παραγωγή Επίσημης Αναφοράς</button>
+            </div>
+        </div>
+
+        <!-- ΤΕΛΙΚΗ ΑΝΑΦΟΡΑ BPR -->
+        <div id="reportModal">
+            <div class="report-header">
+                <div>
+                    <h3 style="margin:0; color:var(--primary);">ΕΠΙΣΗΜΗ ΑΝΑΦΟΡΑ ΟΛΟΚΛΗΡΩΣΗΣ ΠΑΡΤΙΔΑΣ</h3>
+                    <small>PHARMACEUTICAL PACKAGING BATCH RELEASE DOSSIER</small>
+                </div>
+                <button class="btn-print" onclick="window.print()">🖨️ Εκτύπωση / Αποθήκευση σε PDF</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; font-size:0.9em; margin-bottom:20px;">
+                <div><strong>Παρτίδα:</strong> <span id="repLot"></span></div>
+                <div><strong>Προϊόν:</strong> <span id="repProduct"></span></div>
+                <div><strong>Ημερομηνία:</strong> <span id="repDate"></span></div>
+                <div><strong>Χειριστής Βάρδιας:</strong> Κωνσταντίνος Κωτσιονόπουλος</div>
+                <div><strong>Τύπος Καθαρισμού Γραμμής:</strong> <span id="repCleanType">Type A</span></div>
+                <div><strong>Συνολική Απόδοση (% Yield):</strong> <span id="repYield" style="font-weight:bold; color:var(--accent);"></span></div>
+                <div><strong>Κατάσταση Αποδέσμευσης:</strong> <span style="background:#e8f5e9; color:#1e7e34; padding:2px 8px; border-radius:4px; font-weight:bold;">SOP COMPLIANT - APPROVED</span></div>
+            </div>
+
+            <h4 style="margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:5px;">Ισοζύγιο Υλικών & Απόρριψη</h4>
+            <div style="font-size:0.88em; line-height:1.8;" id="repReconDetails"></div>
+
+            <h4 style="margin-top:20px; margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:5px;">Συμβάντα & Παρατηρήσεις Βάρδιας</h4>
+            <p style="font-size:0.88em; color:#475569;" id="repComments"></p>
+
+            <div style="margin-top:35px; display:flex; justify-content:space-between; border-top:1px dashed #cbd5e1; padding-top:20px; font-size:0.85em;">
+                <div>
+                    <p>Υπογραφή Χειριστή Παραγωγής:</p>
+                    <p><strong>Κ. Κωτσιονόπουλος</strong> (Ηλεκτρονική Επικύρωση GMP)</p>
+                </div>
+                <div>
+                    <p>Έγκριση Επόπτη Ποιότητας (QA Release):</p>
+                    <p><strong>Approved by QA Inspector</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Pharma Digital BPR & Line Automation Suite</p>
+</footer>
+
+<script>
+    // --- STATE & DATA ---
+    let state = {
+        running: true,
+        speed: 120,
+        produced: 1420,
+        rejects: 14,
+        temp: 165.2,
+        materials: {
+            cartons: { current: 380, max: 1000, consumptionPerPack: 1 },
+            leaflets: { current: 720, max: 1200, consumptionPerPack: 1 },
+            foil: { current: 1450, max: 2500, consumptionPerPack: 0.12 }
+        }
+    };
+
+    const troubleshootingData = [
+        {
+            title: "Εμπλοκή Φύλλου Οδηγιών (Cartoner Leaflet Jam)",
+            steps: [
+                "Πατήστε άμεσα PAUSE στη μονάδα του χαρτονοποιητή.",
+                "Αφαιρέστε το τσαλακωμένο έντυπο και ελέγξτε τις βεντούζες κενού (vacuum cups).",
+                "Ελέγξτε τις ράγες οδήγησης και εκτελέστε δοκιμαστικό κύκλο 1 τεμαχίου (Manual Jog)."
+            ]
+        },
+        {
+            title: "Πτώση Θερμοκρασίας Σφράγισης (Sealing Temp Error)",
+            steps: [
+                "Ελέγξτε τις θερμοκρασίες άνω και κάτω πλάκας θερμοσυγκόλλησης (ιδανικό: 165°C ± 2°C).",
+                "Εάν η θερμοκρασία είναι < 162°C, ενεργοποιείται αυτόματη απόρριψη κυψελών.",
+                "Καθαρίστε τυχόν επικολλημένα υπολείμματα foil από τις σιαγόνες με ορειχάλκινη βούρτσα."
+            ]
+        },
+        {
+            title: "Απόκλιση Αλουμινίου (Print Mark Shift)",
+            steps: [
+                "Καθαρίστε το οπτικό μάτι του φωτοκύτταρου από σκόνη αλουμινίου.",
+                "Ελέγξτε τον ρυθμιστή τάσης ταινίας (dancer arm pressure).",
+                "Επαληθεύστε το κεντράρισμα του κυλίνδρου στον πνευματικό άξονα."
+            ]
+        },
+        {
+            title: "Κενή Κυψέλη Blister (Empty Pocket Detected)",
+            steps: [
+                "Ελέγξτε το επίπεδο χαπιών στη χοάνη τροφοδοσίας (hopper level).",
+                "Επιβεβαιώστε τη σωστή συχνότητα δόνησης του καναλιού καθόδου.",
+                "Βεβαιωθείτε ότι η κάμερα απέρριψε επιτυχώς το κενό blister στον κάδο απορριμμάτων."
+            ]
+        }
+    ];
+
+    // --- MACHINE SIMULATION LOOP ---
+    setInterval(() => {
+        if (!state.running) return;
+        let pps = state.speed / 60;
+        state.produced += Math.round(pps);
+        document.getElementById('totalProduced').innerHTML = state.produced.toLocaleString() + ' <span style="font-size:0.5em; color:#94a3b8;">κουτιά</span>';
+
+        state.temp = +(165.0 + (Math.random() * 0.4 - 0.2)).toFixed(1);
+        document.getElementById('tempVal').innerHTML = state.temp + ' <span style="font-size:0.5em; color:#94a3b8;">°C</span>';
+
+        for (let key in state.materials) {
+            let m = state.materials[key];
+            m.current -= pps * m.consumptionPerPack;
+            if (m.current <= 0) {
+                m.current = 0;
+                pauseMachine();
+            }
+        }
+        updateGauges();
+    }, 1000);
+
+    function updateGauges() {
+        // Cartons
+        let c = state.materials.cartons;
+        document.getElementById('cartonsQty').innerText = `${Math.round(c.current)} / ${c.max}`;
+        document.getElementById('cartonsBar').style.width = (c.current / c.max * 100) + '%';
+        document.getElementById('cartonsEta').innerText = formatTimer(c.current / (state.speed / 60));
+
+        // Leaflets
+        let l = state.materials.leaflets;
+        document.getElementById('leafletsQty').innerText = `${Math.round(l.current)} / ${l.max}`;
+        document.getElementById('leafletsBar').style.width = (l.current / l.max * 100) + '%';
+        document.getElementById('leafletsEta').innerText = formatTimer(l.current / (state.speed / 60));
+
+        // Foil
+        let f = state.materials.foil;
+        document.getElementById('foilQty').innerText = `${Math.round(f.current)} / ${f.max} m`;
+        document.getElementById('foilBar').style.width = (f.current / f.max * 100) + '%';
+        document.getElementById('foilEta').innerText = formatTimer(f.current / ((state.speed / 60) * f.consumptionPerPack));
+    }
+
+    function formatTimer(s) {
+        if (!state.running || s <= 0) return "00:00 min";
+        let m = Math.floor(s / 60);
+        let sec = Math.floor(s % 60);
+        return `${m < 10 ? '0'+m : m}:${sec < 10 ? '0'+sec : sec} min`;
+    }
+
+    // --- CONTROLS ---
+    function startMachine() {
+        state.running = true;
+        document.getElementById('statusDot').style.backgroundColor = 'var(--accent)';
+        document.getElementById('statusText').innerText = 'RUNNING (ΣΕ ΛΕΙΤΟΥΡΓΙΑ)';
+        document.getElementById('statusText').style.color = 'var(--accent)';
+    }
+
+    function pauseMachine() {
+        state.running = false;
+        document.getElementById('statusDot').style.backgroundColor = 'var(--warning)';
+        document.getElementById('statusText').innerText = 'PAUSED (ΣΕ ΑΝΑΜΟΝΗ)';
+        document.getElementById('statusText').style.color = 'var(--warning)';
+    }
+
+    function eStopMachine() {
+        state.running = false;
+        document.getElementById('statusDot').style.backgroundColor = 'var(--danger)';
+        document.getElementById('statusText').innerText = 'EMERGENCY STOP';
+        document.getElementById('statusText').style.color = 'var(--danger)';
+    }
+
+    function changeSpeed(val) {
+        state.speed = parseInt(val);
+        document.getElementById('speedVal').innerHTML = `${state.speed} <span style="font-size:0.5em; color:#94a3b8;">packs/min</span>`;
+    }
+
+    function refillMaterial(type) {
+        state.materials[type].current = state.materials[type].max;
+        updateGauges();
+    }
+
+    // --- TROUBLESHOOTING ---
+    function showTroubleshoot(index) {
+        document.querySelectorAll('.ts-card-btn').forEach((c, idx) => {
+            if (idx === index) c.classList.add('active');
+            else c.classList.remove('active');
+        });
+        const d = troubleshootingData[index];
+        document.getElementById('solutionDisplay').innerHTML = `
+            <strong>${d.title}</strong>
+            <ol style="margin:8px 0 0 0; padding-left:20px;">
+                ${d.steps.map(s => `<li>${s}</li>`).join('')}
+            </ol>
+        `;
+    }
+
+    // --- TABS SWITCHER ---
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // --- CLEANING SPECIFICS ---
+    function toggleCleaningType() {
+        const type = document.getElementById('clnType').value;
+        const bItem = document.getElementById('clnTypeB_Item');
+        if (type === 'Type A') {
+            bItem.style.opacity = '0.5';
+            document.getElementById('cln3').checked = false;
+        } else {
+            bItem.style.opacity = '1';
+            document.getElementById('cln3').checked = true;
+        }
+    }
+
+    function confirmLineClearance() {
+        const c1 = document.getElementById('cln1').checked;
+        const c2 = document.getElementById('cln2').checked;
+        const c4 = document.getElementById('cln4').checked;
+        const c5 = document.getElementById('cln5').checked;
+
+        if (!c1 || !c2 || !c4 || !c5) {
+            alert("⚠️ Προσοχή: Δεν έχουν ολοκληρωθεί όλα τα υποχρεωτικά βήματα καθαρισμού και επαλήθευσης SOP!");
+            return;
+        }
+        alert("✅ Το Line Clearance εγκρίθηκε! Η μηχανή είναι σε κατάσταση 'READY FOR PRODUCTION'.");
+    }
+
+    // --- IPC LOGGER ---
+    function logIpcRow() {
+        const t = document.getElementById('ipcTime').value;
+        const l = document.getElementById('ipcLeak').value;
+        const o = document.getElementById('ipcOcr').value;
+        const lf = document.getElementById('ipcLeaflet').value;
+
+        const table = document.getElementById('ipcTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        newRow.innerHTML = `
+            <td>${t}</td>
+            <td>${l.includes('PASS') ? '<span style="color:var(--accent); font-weight:bold;">PASS</span>' : '<span style="color:var(--danger); font-weight:bold;">FAIL</span>'}</td>
+            <td>${o}</td>
+            <td>${lf}</td>
+            <td>Κ. Κωτσιονόπουλος</td>
+        `;
+        alert("✅ Ο ποιοτικός έλεγχος (IPC) καταχωρήθηκε επιτυχώς στο επίσημο αρχείο παρτίδας.");
+    }
+
+    // --- RECONCILIATION & REPORT ---
+    function calculateYield() {
+        const inp = parseFloat(document.getElementById('recInput').value) || 0;
+        const good = parseFloat(document.getElementById('recGood').value) || 0;
+        if (inp > 0) {
+            const y = ((good / inp) * 100).toFixed(2);
+            document.getElementById('recYield').value = y + '%';
+        }
+    }
+
+    function generateBatchReport() {
+        calculateYield();
+        const lot = document.getElementById('bprLot').value;
+        const prod = document.getElementById('bprProduct').value;
+        const inp = document.getElementById('recInput').value;
+        const good = document.getElementById('recGood').value;
+        const rej = document.getElementById('recRejects').value;
+        const yld = document.getElementById('recYield').value;
+        const notes = document.getElementById('bprNotes').value;
+        const clnType = document.getElementById('clnType').value;
+
+        document.getElementById('repLot').innerText = lot;
+        document.getElementById('repProduct').innerText = prod;
+        document.getElementById('repCleanType').innerText = clnType;
+        document.getElementById('repDate').innerText = new Date().toLocaleDateString('el-GR') + ' ' + new Date().toLocaleTimeString('el-GR', {hour: '2-digit', minute:'2-digit'});
+        document.getElementById('repYield').innerText = yld;
+        document.getElementById('repReconDetails').innerHTML = `
+            • <strong>Αρχικά παραληφθέντα υλικά:</strong> ${inp} τεμ.<br>
+            • <strong>Εγκεκριμένα τελικά προϊόντα (Good Units):</strong> ${good} κουτιά<br>
+            • <strong>Απορρίψεις διεργασίας (Process Waste):</strong> ${rej} τεμ.<br>
+            • <strong>Υπόλοιπο / Ανεξήγητη απόκλιση:</strong> ${inp - good - rej} τεμ. (Εντός αποδεκτού SOP ορίου < 1.0%)
+        `;
+        document.getElementById('repComments').innerText = notes;
+
+        const modal = document.getElementById('reportModal');
+        modal.style.display = 'block';
+        modal.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Init
+    showTroubleshoot(0);
+    updateGauges();
+</script>
+
+</body>
+</html>
