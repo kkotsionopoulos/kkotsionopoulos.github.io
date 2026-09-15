@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φθορισμός Χλωροφύλλης & Φυσιολογικό Στρες | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Φθορισμός Χλωροφύλλης: Προσδιορισμός Προ-συμπτωματικού Φυσιολογικού Στρες στα Φυτά</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Σεπτέμβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Στη διαχείριση των καλλιεργειών, οι παραδοσιακοί δείκτες ανακλαστικότητας (όπως το κλασικό NDVI) καταγράφουν κυρίως δομικές μεταβολές στη βιομάζα και απώλεια χλωροφύλλης. Αυτό σημαίνει ότι όταν ο δείκτης καταγράψει πτώση, το φυτό έχει ήδη υποστεί μη αναστρέψιμη βλάβη στους ιστούς του. Η σύγχρονη φυσιολογία φυτών και η γεωργία ακριβείας στρέφονται πλέον στην <strong>Απεικόνιση Φθορισμού της Χλωροφύλλης (Chlorophyll Fluorescence Imaging - CFI)</strong>, μια μη επεμβατική οπτική μέθοδο που «διαβάζει» τη λειτουργική κατάσταση της φωτοσύνθεσης σε πραγματικό χρόνο.</p>
+
+        <p>Η βασική αρχή λειτουργίας στηρίζεται στον ενεργειακό ισοζυγισμό της χλωροφύλλης: το ηλιακό φως που απορροφάται από το φυτό μπορεί να ακολουθήσει τρεις ανταγωνιστικές διαδρομές: (α) τη φωτοχημεία (φωτοσύνθεση), (β) τη διάχυση θερμότητας (μη-φωτοχημική απόσβεση - NPQ), ή (γ) την επανεκπομπή φωτός σε μεγαλύτερο μήκος κύματος (φθορισμός). Οποιαδήποτε διαταραχή στο φυτό —όπως η έλλειψη νερού, η τοξικότητα αλάτων ή η θερμική καταπόνηση— επιβραδύνει τη φωτοσύνθεση, προκαλώντας άμεση αλλαγή στην ένταση του εκπεμπόμενου φθορισμού.</p>
+
+        <img src="chlorophyll-fluorescence.jpg" alt="Ανάλυση φθορισμού χλωροφύλλης και απεικόνιση φωτοσυνθετικής απόδοσης" class="article-image">
+
+        <p>Μέσω εξειδικευμένων φθοριόμετρων παλμικού φωτισμού (PAM Fluorometry) και πολυφασματικών καμερών, υπολογίζεται η μέγιστη κβαντική απόδοση του Φωτοσυστήματος ΙΙ (δείκτης <strong>Fv/Fm</strong>). Σε υγιή, μη καταπονημένα φυτά, η τιμή του δείκτη κυμαίνεται σταθερά γύρω στο 0.83. Μια μείωση της τιμής κάτω από το 0.75 αποτελεί αδιάσειστη ένδειξη φωτοαναστολής (photoinhibition) και λειτουργικού στρες, ακόμη κι αν τα φύλλα παραμένουν οπτικά καταπράσινα και σπαργή.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της χρήσης του φθορισμού χλωροφύλλης περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Έγκαιρη Προειδοποίηση Υδατικού Στρες:</strong> Ανίχνευση κλεισίματος των στοματίων και μείωσης της φωτοσυνθετικής δραστηριότητας 48 έως 72 ώρες πριν εμφανιστεί ορατός μαρασμός.</li>
+            <li><strong>Βελτιστοποίηση Άρδευσης Ακριβείας:</strong> Συνδυασμός με αισθητήρες εδάφους IoT για την εφαρμογή νερού μόνο όταν η φυσιολογία του φυτού δείχνει πραγματική ανάγκη, αποτρέποντας την υπερκατανάλωση.</li>
+            <li><strong>Έλεγχος Αντοχής σε Αλατότητα και Βαρέα Μέταλλα:</strong> Γρήγορη διαλογή ανθεκτικών ποικιλιών και παρακολούθηση της υποβάθμισης των εδαφών από αλάτωση χωρίς χημικές αναλύσεις ιστών.</li>
+        </ul>
+
+        <p>Η ενσωμάτωση αισθητήρων CFI σε επίγειες ρομποτικές πλατφόρμες και drones εγκαινιάζει μια νέα εποχή για τη διάγνωση πεδίου. Μετατρέποντας τα βιοφυσικά σήματα της φωτοσύνθεσης σε ποσοτικά ψηφιακά δεδομένα, ο γεωπόνος αποκτά την ικανότητα να προλαμβάνει τις ζημιές προτού αυτές επηρεάσουν την τελική παραγωγή, διασφαλίζοντας τη μέγιστη αποδοτικότητα των φυσικών πόρων.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Baker, N. R. (2008).</strong> <em>Chlorophyll fluorescence: a probe of photosynthesis in vivo.</em> Annual Review of Plant Biology, 59, 89-113.</li>
+            <li><strong>Maxwell, K., & Johnson, G. N. (2000).</strong> <em>Chlorophyll fluorescence—a practical guide.</em> Journal of Experimental Botany, 51(345), 659-668.</li>
+            <li><strong>Murchie, E. H., & Lawson, T. (2013).</strong> <em>Chlorophyll fluorescence analysis: a guide to good practice and understanding some new applications.</em> Journal of Experimental Botany, 64(13), 3983-3998.</li>
+            <li><strong>Gorbe, E., & Calatayud, A. (2012).</strong> <em>Applications of chlorophyll fluorescence imaging in plant stress research: a review.</em> Photosynthetica, 50(2), 161-173.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
