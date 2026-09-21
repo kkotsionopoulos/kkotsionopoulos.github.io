@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Υπερφασματική Τηλεπισκόπηση & Υδατικό Στρες | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Υπερφασματική Τηλεπισκόπηση: Έγκαιρος Εντοπισμός Υδατικού Στρες πριν την Πτώση του NDVI</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Σεπτέμβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Στη διαχείριση της άρδευσης ακριβείας, η παρακολούθηση της κατάστασης υδάτωσης των καλλιεργειών στηρίζεται συχνά σε ευρυζωνικούς πολυφασματικούς δείκτες, με κυρίαρχο τον Κανονικοποιημένο Δείκτη Διαφοράς Βλάστησης (NDVI). Ωστόσο, ο δείκτης αυτός παρουσιάζει ένα σημαντικό φυσιολογικό μειονέκτημα: ανταποκρίνεται κυρίως σε μεταβολές της συγκέντρωσης χλωροφύλλης και της φυλλικής βιομάζας. Όταν το NDVI υποχωρήσει λόγω έλλειψης νερού, το φυτό έχει ήδη υποστεί μη αναστρέψιμη επιβράδυνση της ανάπτυξης και απώλεια παραγωγικού δυναμικού. Η υπέρβαση αυτού του περιορισμού επιτυγχάνεται μέσω της <strong>Υπερφασματικής Τηλεπισκόπησης (Hyperspectral Imaging)</strong> και της <strong>Θερμικής Υπέρυθρης Απεικόνισης (Thermal Infrared - TIR)</strong>.</p>
+
+        <p>Η πρώτη άμυνα του φυτού απέναντι στην έλλειψη εδαφικής υγρασίας είναι το κλείσιμο των στοματίων, με στόχο τον περιορισμό των απωλειών νερού μέσω διαπνοής. Η μείωση της στοματικής αγωγιμότητας επιφέρει δύο άμεσες συνέπειες: άνοδο της θερμοκρασίας του φυλλώματος λόγω μείωσης της εξατμιστικής ψύξης και διαταραχή του κύκλου των ξανθοφυλλών στους χλωροπλάστες. Με τη χρήση αισθητήρων υπερφασματικής ανάλυσης στενής ζώνης, υπολογίζεται ο <strong>Φωτοχημικός Δείκτης Ανακλαστικότητας (Photochemical Reflectance Index - PRI)</strong> στα μήκη κύματος 531 nm και 570 nm. Ο δείκτης αυτός παρακολουθεί τη μετατροπή της βιολαξανθίνης σε ζεαξανθίνη, καταγράφοντας τη μεταβολή της φωτοχημικής απόδοσης σε πραγματικό χρόνο.</p>
+
+        <img src="hyperspectral-water-stress.jpg" alt="Χάρτης θερμικής κατανομής και υπερφασματικής ανάλυσης υδατικού στρες" class="article-image">
+
+        <p>Η ταυτόχρονη ενσωμάτωση θερμικών καμερών σε μη επανδρωμένα αεροσκάφη (UAVs) επιτρέπει τον υπολογισμό του <strong>Δείκτη Υδατικού Στρες Καλλιέργειας (Crop Water Stress Index - CWSI)</strong>. Ο CWSI ποσοτικοποιεί τη διαφορά μεταξύ της θερμοκρασίας της κόμης ($T_c$) και της θερμοκρασίας του αέρα ($T_a$), ομαλοποιημένης με βάση το έλλειμμα πίεσης υδρατμών (VPD). Με τον τρόπο αυτό, ο γεωπόνος εντοπίζει με χωρική ακρίβεια εκατοστών τα τμήματα του αγρού όπου τα φυτά αντιμετωπίζουν αρχικό στάδιο στρες, 48 έως 96 ώρες πριν διαπιστωθεί οποιαδήποτε πτώση στους δείκτες πράσινης βιομάζας.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της υπερφασματικής και θερμικής διάγνωσης περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Προ-συμπτωματική Παρέμβαση:</strong> Εντοπισμός περιορισμένης διαθεσιμότητας νερού στη ριζοσφαίρα προτού εκδηλωθούν μακροσκοπικά συμπτώματα μάρανσης ή επιβράδυνση της κυτταροδιαίρεσης των καρπών.</li>
+            <li><strong>Διαφοροποιημένη Άρδευση Ακριβείας (Variable Rate Irrigation):</strong> Σύνδεση των παραγόμενων χαρτών CWSI με αυτοματοποιημένα συστήματα μεταβλητής παροχής, επιτρέποντας την άρδευση αποκλειστικά των ζωνών με πραγματικό έλλειμμα.</li>
+            <li><strong>Διάκριση Στρες:</strong> Συνδυασμός PRI και δομικών δεικτών για τον σαφή διαχωρισμό του υδατικού στρες από τροφοπενίες αζώτου ή προσβολές από παθογόνα του ριζικού συστήματος.</li>
+        </ul>
+
+        <p>Η υπερφασματική τηλεπισκόπηση μετατοπίζει τη διαχείριση της άρδευσης από την παθητική αντιμετώπιση συμπτωμάτων στην ενεργητική πρόληψη. Για τον σύγχρονο γεωπόνο, η ποσοτικοποίηση της φυσιολογικής απόκρισης του φυτού προσφέρει το απαραίτητο υπόβαθρο για τη μεγιστοποίηση της αποδοτικότητας χρήσης νερού (WUE) και τη θωράκιση των καλλιεργειών απέναντι στην κλιματική μεταβλητότητα.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Gamon, J. A., Peñuelas, J., & Field, C. B. (1992).</strong> <em>A narrow-waveband spectral index that tracks diurnal changes in photosynthetic efficiency.</em> Remote Sensing of Environment, 41(1), 35-44.</li>
+            <li><strong>Idso, S. B., et al. (1981).</strong> <em>Normalizing the stress-degree-day parameter for environmental variability.</em> Agricultural Meteorology, 24, 45-55.</li>
+            <li><strong>Zarco-Tejada, P. J., et al. (2012).</strong> <em>Fluorescence, temperature and narrow-band indices acquired from a UAV platform for water stress detection using a micro-hyperspectral imager and a thermal camera.</em> Remote Sensing of Environment, 117, 322-337.</li>
+            <li><strong>Berni, J. A., et al. (2009).</strong> <em>Thermal and narrowband multispectral remote sensing for mapping canopy water stress and vegetation status with a UAV.</em> IEEE Transactions on Geoscience and Remote Sensing, 47(3), 722-738.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
