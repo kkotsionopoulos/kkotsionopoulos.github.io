@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnergyCompare – Live Σύγκριση & Ενημέρωση Τιμών | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <!-- Font Awesome 6.5.1 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --primary-dark: #1a252f;
+            --accent-color: #27ae60;
+            --accent-hover: #219653;
+            --accent-light: #eafaf1;
+            --text-color: #333333;
+            --text-light: #64748b;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --border-focus: #27ae60;
+            
+            /* Energy Category Accents */
+            --tariff-green: #16a34a;
+            --tariff-yellow: #d97706;
+            --tariff-blue: #2563eb;
+            --tariff-gas: #ea580c;
+            --flash-promo: #e11d48;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center; 
+            height: 50px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links > a {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            height: 30px !important;
+            padding: 0 15px !important;
+            color: white !important;
+            border: 1.5px solid var(--accent-color);
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+        }
+
+        .nav-links > a:hover {
+            background-color: var(--accent-color);
+        }
+
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 30px !important;
+        }
+
+        .dropbtn {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            height: 30px !important;
+            padding: 0 15px !important;
+            color: white !important;
+            border: 1.5px solid var(--accent-color);
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .dropbtn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--primary-color);
+            min-width: 250px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.35);
+            border-radius: 8px;
+            z-index: 9999;
+            overflow: hidden;
+            margin-top: 5px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .dropdown-content a {
+            color: white !important;
+            padding: 10px 16px !important;
+            display: block;
+            text-decoration: none;
+            font-size: 0.82rem;
+            text-align: left;
+            border: none !important;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--accent-color);
+        }
+
+        .dropdown-content a.active-link {
+            background-color: rgba(39, 174, 96, 0.35);
+            border-left: 4px solid var(--accent-color) !important;
+            font-weight: bold;
+        }
+
+        /* */
+        .app-wrapper {
+            max-width: 1200px;
+            margin: 70px auto 40px auto;
+            padding: 0 16px;
+        }
+
+        .hero-banner {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--accent-color);
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .hero-text h1 {
+            color: var(--primary-color);
+            margin: 0 0 6px 0;
+            font-size: 1.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-text p {
+            color: var(--text-light);
+            margin: 0;
+            font-size: 0.94rem;
+            max-width: 780px;
+        }
+
+        /* Live Sync Action Console */
+        .sync-console-bar {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .sync-status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.84rem;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(39, 174, 96, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(39, 174, 96, 0); }
+        }
+
+        .sync-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn-live-sync {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #27ae60 0%, #1e824c 100%);
+            color: white;
+            padding: 9px 18px;
+            border-radius: 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.25);
+        }
+
+        .btn-live-sync:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px rgba(39, 174, 96, 0.35);
+        }
+
+        .btn-live-sync.syncing {
+            pointer-events: none;
+            opacity: 0.85;
+            background: #2c3e50;
+        }
+
+        .btn-live-sync.syncing .fa-rotate {
+            animation: fa-spin 1s infinite linear;
+        }
+
+        .btn-action-alt {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            color: var(--primary-color);
+            border: 1.5px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-action-alt:hover {
+            border-color: var(--primary-color);
+            background: #f1f5f9;
+        }
+
+        /* */
+        .tab-switcher {
+            display: flex;
+            background: #e2e8f0;
+            border-radius: 30px;
+            padding: 5px;
+            max-width: 440px;
+            margin: 0 auto 22px auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 25px;
+            background: transparent;
+            color: var(--primary-color);
+            font-size: 0.92rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        /* */
+        .comparator-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 980px) {
+            .comparator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h3 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.12rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.86rem;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+
+        .input-inline-unit {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 5px 12px;
+            transition: border-color 0.2s;
+        }
+
+        .input-inline-unit:focus-within {
+            border-color: var(--border-focus);
+            background: #ffffff;
+        }
+
+        .input-inline-unit input[type="number"] {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            outline: none;
+        }
+
+        .unit-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-left: 6px;
+            white-space: nowrap;
+        }
+
+        .range-slider {
+            width: 100%;
+            margin-top: 8px;
+            accent-color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .range-hints {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.74rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .toggle-box {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .toggle-box:hover {
+            border-color: #cbd5e1;
+        }
+
+        .toggle-box span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-box input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            accent-color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .filter-pills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .pill-btn {
+            border: 1.5px solid #cbd5e1;
+            background: #ffffff;
+            color: var(--primary-color);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pill-btn:hover {
+            border-color: var(--accent-color);
+        }
+
+        .pill-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .info-callout {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent-color);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #1e6939;
+            margin-top: 15px;
+            line-height: 1.45;
+        }
+
+        /* */
+        .results-toolbar {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .results-count {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .sort-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .sort-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1.5px solid #cbd5e1;
+            background: #ffffff;
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--primary-color);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .offer-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--accent-color);
+            margin-bottom: 16px;
+            transition: transform 0.25s, box-shadow 0.25s;
+            position: relative;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.09);
+        }
+
+        .offer-card.winner {
+            border: 2px solid #b7ebc9;
+            border-left: 7px solid var(--accent-color);
+            background: linear-gradient(180deg, #ffffff 0%, #fafffc 100%);
+        }
+
+        .badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .winner-ribbon {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-color);
+            color: #ffffff;
+            font-size: 0.74rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .flash-ribbon {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--flash-promo);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 3px 10px;
+            border-radius: 16px;
+            animation: pulse-flash 2.5s infinite;
+        }
+
+        @keyframes pulse-flash {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        .offer-main-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .offer-details {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .provider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .provider-badge {
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.78rem;
+            font-weight: bold;
+            padding: 3px 9px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .plan-name {
+            font-size: 1.12rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .plan-type-tag {
+            font-size: 0.74rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag-green { background: #d4edda; color: #155724; }
+        .tag-yellow { background: #fff3cd; color: #856404; }
+        .tag-blue { background: #cce5ff; color: #004085; }
+        .tag-gas { background: #ffe8d6; color: #a04000; }
+
+        .plan-description {
+            font-size: 0.84rem;
+            color: var(--text-light);
+            margin: 6px 0 10px 0;
+        }
+
+        .perks-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .perk-pill {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .perk-pill.promo-credit {
+            background: #fee2e2;
+            color: #991b1b;
+            font-weight: bold;
+        }
+
+        .offer-pricing {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            text-align: right;
+        }
+
+        @media (max-width: 640px) {
+            .offer-pricing {
+                width: 100%;
+                justify-content: space-between;
+                text-align: left;
+                border-top: 1px solid var(--border-color);
+                padding-top: 12px;
+            }
+        }
+
+        .price-col {
+            min-width: 85px;
+        }
+
+        .price-label {
+            font-size: 0.74rem;
+            color: #64748b;
+            font-weight: 600;
+            display: block;
+        }
+
+        .price-value {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .total-price-box {
+            background: #eafaf1;
+            border: 1.5px solid #a3e9be;
+            border-radius: 10px;
+            padding: 8px 16px;
+            text-align: right;
+            min-width: 125px;
+        }
+
+        .total-label {
+            font-size: 0.72rem;
+            font-weight: bold;
+            color: var(--accent-hover);
+            text-transform: uppercase;
+        }
+
+        .total-amount {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #1b5e20;
+            line-height: 1.1;
+        }
+
+        .diff-indicator {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #c0392b;
+            margin-top: 3px;
+        }
+
+        .diff-indicator.best {
+            color: var(--accent-color);
+        }
+
+        /* */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            animation: modalFade 0.25s ease-out;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .btn-close-modal:hover {
+            color: #ef4444;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 22px;
+        }
+
+        .admin-form-grid label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .admin-form-grid input, .admin-form-grid select {
+            width: 100%;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+
+        .admin-table-container {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            text-align: left;
+        }
+
+        .admin-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px;
+            font-weight: 600;
+        }
+
+        .admin-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .admin-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .btn-del {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-del:hover {
+            background: #b91c1c;
+            color: white;
+        }
+
+        /* Toast Notifications */
+        #customToast {
+            visibility: hidden;
+            min-width: 280px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 30px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 100000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 0.88rem;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1.5px solid var(--accent-color);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #customToast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: var(--primary-color);
+            color: white;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            
+            <div class="dropdown" id="portfolioDropdown">
+                <a href="portfolio.html" class="dropbtn">Portfolio ▾</a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="energy_compare.html" class="active-link">⚡ EnergyCompare (Live Sync)</a>
+                    <a href="vine_watch.html">VineWatch (Περονόσπορος)</a>
+                    <a href="pharma_hmi.html">💊 PharmaPack HMI</a>
+                    <a href="fire_page.html">🔥 FireWatch (Πυρκαγιά)</a>
+                    <a href="spray-about.html">💧 SprayGuard (Έλεγχος Δόσης)</a>
+                    <a href="sea_page.html">🌊 SeaWatch (Κυματισμός)</a>
+                    <a href="oidio.html">OidioWatch (Ωίδιο)</a>                
+                    <a href="fuzikladio.html">ScabWatch (Φουζικλάδιο)</a>
+                    <a href="olivewatch.html">OliveWatch (Δάκος Ελιάς)</a>                    
+                    <a href="qr code generator.html">QR Code Generator</a>
+                    <a href="https://www.openarchives.gr/aggregator-openarchives/edm/aua/000039-10329_5746" target="_blank">Μεταπτυχιακή εργασία</a>
+                    <a href="https://mainalontrekking.great-site.net/" target="_blank">Mainalon Trekking</a>
+                    <a href="https://drive.google.com/file/d/0B6enw6uoeNmqbWhSNk80T0hZd0dmMS1kbjM0Z1FSUEh4NGsw/edit?resourcekey=0-sgEfvRfeGk1VFR391xeOpw" target="_blank">Breathing Salad</a>
+                </div>
+            </div>
+            
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN WRAPPER -->
+<main class="app-wrapper">
+    <!-- Hero Banner with Live Feed Sync Console -->
+    <header class="hero-banner">
+        <div class="hero-top-row">
+            <div class="hero-text">
+                <h1><i class="fa-solid fa-bolt" style="color: var(--accent-color);"></i> EnergyCompare Live</h1>
+                <p>Συγκριτικός υπολογιστής κόστους Ηλεκτρικού Ρεύματος και Φυσικού Αερίου με αυτόματη ανάκτηση των ημερήσιων και μηνιαίων προσφορών των επίσημων παρόχων στην Ελλάδα.</p>
+            </div>
+            <div class="sync-controls">
+                <button class="btn-action-alt" id="openEndpointModalBtn" title="Ρύθμιση εξωτερικού JSON feed URL">
+                    <i class="fa-solid fa-satellite-dish"></i> API Feed
+                </button>
+                <button class="btn-action-alt" id="openAdminBtn">
+                    <i class="fa-solid fa-sliders"></i> Διαχείριση
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Sync Console Toolbar -->
+        <div class="sync-console-bar">
+            <div class="sync-status-indicator">
+                <span class="live-dot" id="liveDot"></span>
+                <div>
+                    <strong style="color: var(--primary-color);">Κατάσταση Τιμολογίων:</strong>
+                    <span id="lastUpdatedStatus" style="color: var(--text-light); margin-left: 4px;">Ενημερωμένο</span>
+                </div>
+            </div>
+
+            <!-- PRIMARY LIVE SYNC BUTTON -->
+            <button class="btn-live-sync" id="btnLiveSync">
+                <i class="fa-solid fa-rotate"></i>
+                <span id="btnSyncText">Αναζήτηση & Ενημέρωση Τιμών (Live Sync)</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Switcher Tabs -->
+    <div class="tab-switcher">
+        <button class="tab-btn active" id="tabElecBtn">
+            <i class="fa-solid fa-bolt"></i> Ηλεκτρικό Ρεύμα
+        </button>
+        <button class="tab-btn" id="tabGasBtn">
+            <i class="fa-solid fa-fire-flame-curved"></i> Φυσικό Αέριο
+        </button>
+    </div>
+
+    <!-- Dual Workspace Grid -->
+    <div class="comparator-grid">
+        <!-- SIDEBAR: Controls & Parameters -->
+        <aside class="panel-card">
+            <div class="panel-header">
+                <h3><i class="fa-solid fa-calculator" style="color: var(--accent-color);"></i> Παράμετροι</h3>
+                <span id="badgeActiveMode" style="font-size: 0.75rem; background: #e2e8f0; padding: 2px 8px; border-radius: 12px; font-weight: bold; color: var(--primary-color);">ΡΕΥΜΑ</span>
+            </div>
+
+            <!-- ELECTRICITY SECTION -->
+            <div id="elecControlsGroup">
+                <!-- Day kWh -->
+                <div class="form-group">
+                    <label for="elecKwhDayInput">Μηνιαία Κατανάλωση Ημέρας</label>
+                    <div class="input-inline-unit">
+                        <input type="number" id="elecKwhDayInput" value="320" min="0" max="5000" step="10">
+                        <span class="unit-label">kWh/μήνα</span>
+                    </div>
+                    <input type="range" id="elecKwhDayRange" class="range-slider" min="50" max="2500" step="10" value="320">
+                    <div class="range-hints">
+                        <span>50 kWh</span>
+                        <span>800 kWh</span>
+                        <span>2500+ kWh</span>
+                    </div>
+                </div>
+
+                <!-- Night Meter Switch -->
+                <label class="toggle-box">
+                    <span><i class="fa-solid fa-moon" style="color: #4a69bd;"></i> Νυχτερινό Τιμολόγιο (Γ1Ν)</span>
+                    <input type="checkbox" id="hasNightToggle">
+                </label>
+
+                <!-- Night kWh (Collapsible) -->
+                <div class="form-group" id="nightKwhWrapper" style="display: none;">
+                    <label for="elecKwhNightInput">Κατανάλωση Νύχτας</label>
+                    <div class="input-inline-unit">
+                        <input type="number" id="elecKwhNightInput" value="90" min="0" max="2000" step="10">
+                        <span class="unit-label">kWh/μήνα</span>
+                    </div>
+                    <input type="range" id="elecKwhNightRange" class="range-slider" min="0" max="1000" step="10" value="90">
+                </div>
+
+                <!-- Tariff Color Types -->
+                <div class="form-group">
+                    <label>Χρωματικός Τύπος Τιμολογίου</label>
+                    <div class="filter-pills" id="elecFilterGroup">
+                        <button type="button" class="pill-btn active" data-tariff="all">Όλα</button>
+                        <button type="button" class="pill-btn" data-tariff="green">
+                            <i class="fa-solid fa-circle" style="color: #16a34a; font-size: 0.65rem;"></i> Πράσινο
+                        </button>
+                        <button type="button" class="pill-btn" data-tariff="yellow">
+                            <i class="fa-solid fa-circle" style="color: #d97706; font-size: 0.65rem;"></i> Κίτρινο
+                        </button>
+                        <button type="button" class="pill-btn" data-tariff="blue">
+                            <i class="fa-solid fa-circle" style="color: #2563eb; font-size: 0.65rem;"></i> Μπλε
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Consistency & eBill -->
+                <label class="toggle-box">
+                    <span><i class="fa-solid fa-check-double" style="color: var(--accent-color);"></i> Έκπτωση Συνέπειας</span>
+                    <input type="checkbox" id="checkConsistency" checked>
+                </label>
+
+                <label class="toggle-box">
+                    <span><i class="fa-solid fa-envelope-open-text" style="color: var(--accent-color);"></i> e-Bill / Πάγια Εντολή</span>
+                    <input type="checkbox" id="checkEbill" checked>
+                </label>
+            </div>
+
+            <!-- NATURAL GAS SECTION -->
+            <div id="gasControlsGroup" style="display: none;">
+                <!-- Monthly kWh Input -->
+                <div class="form-group">
+                    <label for="gasKwhInput">Μηνιαία Κατανάλωση Ενέργειας</label>
+                    <div class="input-inline-unit">
+                        <input type="number" id="gasKwhInput" value="850" min="0" max="12000" step="20">
+                        <span class="unit-label">kWh/μήνα</span>
+                    </div>
+                    <input type="range" id="gasKwhRange" class="range-slider" min="100" max="4000" step="20" value="850">
+                    <div class="range-hints">
+                        <span>100 kWh</span>
+                        <span>1500 kWh</span>
+                        <span>4000+ kWh</span>
+                    </div>
+                </div>
+
+                <!-- Exact Converter (1 m³ = 10.55 kWh) -->
+                <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                    <label style="font-size: 0.8rem; font-weight: bold; color: var(--primary-color); display: block; margin-bottom: 4px;">
+                        <i class="fa-solid fa-gauge-high" style="color: var(--tariff-gas);"></i> Μετατροπέας από Κυβικά (m³)
+                    </label>
+                    <div class="input-inline-unit" style="background: white;">
+                        <input type="number" id="gasM3Input" placeholder="π.χ. 80" min="0" step="1">
+                        <span class="unit-label">m³</span>
+                    </div>
+                    <small style="font-size: 0.72rem; color: #64748b; display: block; margin-top: 4px;">
+                        Τυπικός συντελεστής θερμογόνου δύναμης: <strong>1 m³ = 10.55 kWh</strong>
+                    </small>
+                </div>
+
+                <!-- Gas Tariff Filters -->
+                <div class="form-group">
+                    <label>Τύπος Σύμβασης Φυσικού Αερίου</label>
+                    <div class="filter-pills" id="gasFilterGroup">
+                        <button type="button" class="pill-btn active" data-gas="all">Όλα</button>
+                        <button type="button" class="pill-btn" data-gas="fixed">Σταθερό</button>
+                        <button type="button" class="pill-btn" data-gas="variable">Κυμαινόμενο</button>
+                        <button type="button" class="pill-btn" data-gas="zerofee">0€ Πάγιο</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Callout -->
+            <div class="info-callout">
+                <i class="fa-solid fa-circle-info"></i> Οι υπολογισμοί συγκρίνουν το <strong>ανταγωνιστικό σκέλος</strong> (κατανάλωση + πάγιο με ενσωματωμένες εκπτώσεις). Δεν περιλαμβάνονται κρατικές ρυθμιζόμενες χρεώσεις δικτύου και ΦΠΑ.
+            </div>
+        </aside>
+
+        <!-- RESULTS COLUMN -->
+        <section>
+            <!-- Results Toolbar -->
+            <div class="results-toolbar">
+                <div class="results-count" id="resultsCountLabel">
+                    Φόρτωση προσφορών...
+                </div>
+                <div class="sort-control">
+                    <label for="sortSelector"><i class="fa-solid fa-arrow-down-short-wide"></i> Ταξινόμηση:</label>
+                    <select id="sortSelector" class="sort-select">
+                        <option value="cost_asc">Χαμηλότερο Κόστος / Μήνα (Προτεινόμενο)</option>
+                        <option value="cost_desc">Υψηλότερο Κόστος / Μήνα</option>
+                        <option value="kwh_asc">Χαμηλότερη τιμή kWh</option>
+                        <option value="fee_asc">Χαμηλότερο Μηνιαίο Πάγιο</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Offer Cards Container -->
+            <div id="offersListContainer">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- MODAL: CUSTOM FEED URL (API Endpoint) -->
+<div class="modal-backdrop" id="endpointModal">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-satellite-dish"></i> Πηγή Live Feed (API Endpoint)</h3>
+            <button class="btn-close-modal" id="closeEndpointBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0;">
+                Μπορείτε να εισάγετε το δικό σας URL (JSON REST Endpoint ή Scraper feed) από το οποίο η εφαρμογή θα αντλεί ζωντανά τις τιμές της ημέρας.
+            </p>
+            <div class="form-group">
+                <label for="customEndpointUrl">Custom JSON Feed URL:</label>
+                <input type="url" id="customEndpointUrl" placeholder="https://example.com/api/tariffs.json" 
+                       style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1.5px solid #cbd5e1; font-family: monospace; font-size: 0.85rem;">
+                <small style="color: #64748b; font-size: 0.75rem; display: block; margin-top: 4px;">
+                    Αν το πεδίο παραμείνει κενό, το σύστημα εκτελεί live emulation με το επίσημο μηνιαίο dataset και τις τρέχουσες προσφορές ημέρας των παρόχων.
+                </small>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button type="button" class="btn-action-alt" id="btnSaveEndpoint">
+                    <i class="fa-solid fa-check"></i> Αποθήκευση
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: ADMIN MANAGEMENT -->
+<div class="modal-backdrop" id="adminModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-database"></i> Διαχείριση Προγραμμάτων & Παρόχων</h3>
+            <button class="btn-close-modal" id="closeAdminBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0;">
+                Προσθέστε, τροποποιήστε ή αφαιρέστε προγράμματα. Όλες οι αλλαγές αποθηκεύονται τοπικά στο browser σας (localStorage).
+            </p>
+
+            <!-- Add Program Form -->
+            <form id="newPlanForm" class="admin-form-grid">
+                <div>
+                    <label>Είδος Ενέργειας</label>
+                    <select id="admType">
+                        <option value="electricity">Ηλεκτρικό Ρεύμα</option>
+                        <option value="gas">Φυσικό Αέριο</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Πάροχος</label>
+                    <input type="text" id="admProvider" required placeholder="π.χ. ΔΕΗ, Protergia">
+                </div>
+                <div>
+                    <label>Όνομα Προγράμματος</label>
+                    <input type="text" id="admName" required placeholder="π.χ. MyHome 4All">
+                </div>
+                <div>
+                    <label>Κατηγορία</label>
+                    <select id="admCategory">
+                        <option value="green">Πράσινο (Ειδικό)</option>
+                        <option value="yellow">Κίτρινο (Κυμαινόμενο)</option>
+                        <option value="blue">Μπλε (Σταθερό)</option>
+                        <option value="fixed">Αέριο: Σταθερό</option>
+                        <option value="variable">Αέριο: Κυμαινόμενο</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Τιμή Ημέρας (€/kWh)</label>
+                    <input type="number" step="0.0001" id="admPriceDay" required placeholder="0.1450">
+                </div>
+                <div>
+                    <label>Τιμή Νύχτας (€/kWh)</label>
+                    <input type="number" step="0.0001" id="admPriceNight" placeholder="0.1150">
+                </div>
+                <div>
+                    <label>Μηνιαίο Πάγιο (€)</label>
+                    <input type="number" step="0.01" id="admFixedFee" required placeholder="5.00">
+                </div>
+                <div>
+                    <label>Έκπτωση Συνέπειας (%)</label>
+                    <input type="number" step="1" id="admDiscount" value="0">
+                </div>
+                <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 5px;">
+                    <button type="submit" class="btn-live-sync" style="padding: 8px 18px;">
+                        <i class="fa-solid fa-plus"></i> Προσθήκη Προγράμματος
+                    </button>
+                </div>
+            </form>
+
+            <!-- Table of Programs -->
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Είδος</th>
+                            <th>Πάροχος & Πρόγραμμα</th>
+                            <th>Τύπος</th>
+                            <th>Τιμή kWh</th>
+                            <th>Πάγιο</th>
+                            <th style="text-align: center;">Ενέργειες</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                <button type="button" id="btnResetDefaults" style="background: none; border: none; color: #c0392b; font-weight: bold; cursor: pointer; text-decoration: underline; font-size: 0.85rem;">
+                    Επαναφορά Αρχικών Προγραμμάτων
+                </button>
+                <button type="button" class="btn-action-alt" id="btnCloseModalBottom">
+                    Κλείσιμο
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Toast -->
+<div id="customToast">
+    <i class="fa-solid fa-circle-check" style="color: var(--accent-color);"></i>
+    <span id="toastText">Ενημερώθηκε επιτυχώς!</span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Portfolio & Blog</p>
+</footer>
+
+<!-- -->
+<script>
+    /* =========================================================
+       BASE DATABASE & DAILY FLASH OFFERS POOL
+       ========================================================= */
+    const BASE_DATABASE = [
+        // Electricity
+        {
+            id: 'elec-dei-green',
+            type: 'electricity',
+            provider: 'ΔΕΗ',
+            name: 'Γ1 / Γ1Ν Ειδικό (Πράσινο)',
+            category: 'green',
+            priceDay: 0.1480,
+            priceNight: 0.1160,
+            fixedFee: 5.00,
+            consistencyDiscount: 0,
+            ebillDiscount: 0,
+            tags: ['Ειδικό Τιμολόγιο', 'Χωρίς Δέσμευση'],
+            info: 'Το ενιαίο πράσινο τιμολόγιο που ορίζεται με την ενιαία φόρμουλα του ΥΠΕΝ.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'elec-protergia-yellow',
+            type: 'electricity',
+            provider: 'Protergia',
+            name: 'Value Simple (Κίτρινο)',
+            category: 'yellow',
+            priceDay: 0.1330,
+            priceNight: 0.1080,
+            fixedFee: 4.50,
+            consistencyDiscount: 5,
+            ebillDiscount: 0.5,
+            tags: ['Κυμαινόμενο', '5% Συνέπεια'],
+            info: 'Κυμαινόμενο πρόγραμμα με έκπτωση συνέπειας και χαμηλή τιμή εκκίνησης.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'elec-heron-blue',
+            type: 'electricity',
+            provider: 'Ήρων',
+            name: 'Blue Protect (Μπλε Σταθερό)',
+            category: 'blue',
+            priceDay: 0.1620,
+            priceNight: 0.1620,
+            fixedFee: 7.50,
+            consistencyDiscount: 0,
+            ebillDiscount: 1.0,
+            tags: ['12μηνη Σταθερότητα', 'Χωρίς Ρήτρες'],
+            info: 'Κλειδωμένη τιμή κιλοβατώρας για 12 μήνες, απόλυτη σιγουριά χωρίς διακυμάνσεις.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'elec-elpedison-yellow',
+            type: 'electricity',
+            provider: 'Elpedison',
+            name: 'Smart Economy (Κίτρινο)',
+            category: 'yellow',
+            priceDay: 0.1295,
+            priceNight: 0.1050,
+            fixedFee: 4.90,
+            consistencyDiscount: 8,
+            ebillDiscount: 0,
+            tags: ['Υψηλή Έκπτωση 8%', 'Ανταγωνιστικό'],
+            info: 'Σημαντική ανταμοιβή συνέπειας 8% για εμπρόθεσμη πληρωμή.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'elec-zenith-green',
+            type: 'electricity',
+            provider: 'ZeniΘ',
+            name: 'Power Home Smart (Πράσινο)',
+            category: 'green',
+            priceDay: 0.1420,
+            priceNight: 0.1190,
+            fixedFee: 4.80,
+            consistencyDiscount: 0,
+            ebillDiscount: 0,
+            tags: ['Πράσινο Τιμολόγιο', 'Ευέλικτο'],
+            info: 'Μηνιαία αναπροσαρμογή βάσει χονδρεμπορικής τιμής ρεύματος.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'elec-nrg-blue',
+            type: 'electricity',
+            provider: 'NRG',
+            name: 'Fixed On (Μπλε)',
+            category: 'blue',
+            priceDay: 0.1590,
+            priceNight: 0.1590,
+            fixedFee: 6.90,
+            consistencyDiscount: 0,
+            ebillDiscount: 1.0,
+            tags: ['Σταθερό Συμβόλαιο', 'Μηδενικό Ρίσκο'],
+            info: 'Σταθερό κόστος ενέργειας με προστασία από εποχικές ανατιμήσεις.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'elec-volton-yellow',
+            type: 'electricity',
+            provider: 'Volton',
+            name: 'Energy Simple (Κίτρινο)',
+            category: 'yellow',
+            priceDay: 0.1310,
+            priceNight: 0.1100,
+            fixedFee: 4.20,
+            consistencyDiscount: 6,
+            ebillDiscount: 0.5,
+            tags: ['Χαμηλό Πάγιο', 'Έκπτωση 6%'],
+            info: 'Οικονομικό μηνιαίο πάγιο και επιβράβευση συνέπειας.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+
+        // Gas
+        {
+            id: 'gas-fysiko-fixed',
+            type: 'gas',
+            provider: 'Φυσικό Αέριο ΕΕΕ',
+            name: 'Gas Home Fixed Safe',
+            category: 'fixed',
+            priceDay: 0.0535,
+            priceNight: 0.0535,
+            fixedFee: 4.50,
+            consistencyDiscount: 5,
+            ebillDiscount: 0,
+            tags: ['Σταθερή Τιμή', 'Οικιακή Θέρμανση'],
+            info: 'Εξασφαλισμένη τιμή kWh καθ όλη τη διάρκεια της χειμερινής περιόδου.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'gas-zenith-flex',
+            type: 'gas',
+            provider: 'ZeniΘ',
+            name: 'Gas Dual Flex (TTF)',
+            category: 'variable',
+            priceDay: 0.0425,
+            priceNight: 0.0425,
+            fixedFee: 3.90,
+            consistencyDiscount: 0,
+            ebillDiscount: 0.5,
+            tags: ['Σύνδεση με TTF', 'Χωρίς Δέσμευση'],
+            info: 'Κυμαινόμενο με άμεση αναφορά στον ευρωπαϊκό δείκτη Dutch TTF.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'gas-dei-benefit',
+            type: 'gas',
+            provider: 'ΔΕΗ',
+            name: 'myHome Gas Benefit',
+            category: 'variable',
+            priceDay: 0.0465,
+            priceNight: 0.0465,
+            fixedFee: 0.00,
+            consistencyDiscount: 5,
+            ebillDiscount: 0,
+            tags: ['0€ Μηνιαίο Πάγιο', 'Προσφορά'],
+            info: 'Ειδική προσφορά με εντελώς μηδενικό πάγιο και έκπτωση συνέπειας 5%.',
+            isFlashPromo: false,
+            promoNote: ''
+        },
+        {
+            id: 'gas-protergia-comfort',
+            type: 'gas',
+            provider: 'Protergia',
+            name: 'Gas Comfort Safe Fix',
+            category: 'fixed',
+            priceDay: 0.0570,
+            priceNight: 0.0570,
+            fixedFee: 5.00,
+            consistencyDiscount: 10,
+            ebillDiscount: 0,
+            tags: ['Σταθερό', '10% Συνέπεια'],
+            info: 'Σταθερό πρόγραμμα με έκπτωση 10% για εμπρόθεσμη πληρωμή.',
+            isFlashPromo: false,
+            promoNote: ''
+        }
+    ];
+
+    /* Dynamic pool of daily special promotional tariff updates */
+    const DAILY_SPECIAL_FEEDS = [
+        {
+            id: 'elec-elpedison-flash',
+            type: 'electricity',
+            provider: 'Elpedison',
+            name: 'Bright Day Flash Promo',
+            category: 'yellow',
+            priceDay: 0.1195,
+            priceNight: 0.0980,
+            fixedFee: 3.50,
+            consistencyDiscount: 10,
+            ebillDiscount: 1.0,
+            tags: ['Flash Deal Ημέρας', '50€ Δώρο στο 1ο λογαριασμό'],
+            info: 'Ημερήσια προσφορά με επιπλέον έκπτωση και μπόνους καλωσορίσματος.',
+            isFlashPromo: true,
+            promoNote: '⚡ Νέα Προσφορά Σήμερα: -10% + 50€ Bonus'
+        },
+        {
+            id: 'elec-protergia-flash',
+            type: 'electricity',
+            provider: 'Protergia',
+            name: 'Value Power Special Deal',
+            category: 'yellow',
+            priceDay: 0.1240,
+            priceNight: 0.1010,
+            fixedFee: 3.90,
+            consistencyDiscount: 6,
+            ebillDiscount: 0.5,
+            tags: ['Ημερήσια Προσφορά', 'Μηδενική Εγγύηση'],
+            info: 'Ειδικό πακέτο ημέρας με δωρεάν πάγια και μηδενική εγγύηση με πάγια εντολή.',
+            isFlashPromo: true,
+            promoNote: '🔥 Προσφορά Ημέρας'
+        },
+        {
+            id: 'gas-heron-flash',
+            type: 'gas',
+            provider: 'Ήρων',
+            name: 'Gas Double Save Flash',
+            category: 'variable',
+            priceDay: 0.0398,
+            priceNight: 0.0398,
+            fixedFee: 1.90,
+            consistencyDiscount: 8,
+            ebillDiscount: 0.5,
+            tags: ['Σούπερ Τιμή TTF', '40€ Welcome Gift'],
+            info: 'Χαμηλότερη τιμή μονάδας TTF της αγοράς με ημερήσια προωθητική ενέργεια.',
+            isFlashPromo: true,
+            promoNote: '🔥 Νέα Προσφορά Αερίου'
+        }
+    ];
+
+    /* =========================================================
+       STATE INITIALIZATION
+       ========================================================= */
+    const STORAGE_KEY = 'kotsionopoulos_energy_tariffs_db';
+    const LAST_SYNC_KEY = 'kotsionopoulos_last_energy_sync';
+    const ENDPOINT_KEY = 'kotsionopoulos_energy_endpoint_url';
+
+    let energyDatabase = [];
+
+    function loadDatabase() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            try {
+                energyDatabase = JSON.parse(stored);
+            } catch(e) {
+                energyDatabase = [...BASE_DATABASE];
+            }
+        } else {
+            energyDatabase = [...BASE_DATABASE];
+            saveDatabase();
+        }
+
+        const lastSync = localStorage.getItem(LAST_SYNC_KEY);
+        if (lastSync) {
+            document.getElementById('lastUpdatedStatus').textContent = `Τελευταία ενημέρωση: ${lastSync}`;
+        }
+    }
+
+    function saveDatabase() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(energyDatabase));
+    }
+
+    const appState = {
+        activeTab: 'electricity',
+        elecKwhDay: 320,
+        hasNight: false,
+        elecKwhNight: 0,
+        elecFilter: 'all',
+        withConsistency: true,
+        withEbill: true,
+        gasKwh: 850,
+        gasFilter: 'all',
+        sortOrder: 'cost_asc'
+    };
+
+    /* =========================================================
+       CALCULATION LOGIC
+       ========================================================= */
+    function calculateCost(plan) {
+        if (plan.type === 'electricity') {
+            const kwhDay = Number(appState.elecKwhDay) || 0;
+            const kwhNight = appState.hasNight ? (Number(appState.elecKwhNight) || 0) : 0;
+
+            let priceDay = plan.priceDay;
+            let priceNight = (plan.priceNight !== undefined && plan.priceNight > 0) ? plan.priceNight : plan.priceDay;
+
+            if (appState.withConsistency && plan.consistencyDiscount > 0) {
+                const discountFactor = 1 - (plan.consistencyDiscount / 100);
+                priceDay *= discountFactor;
+                priceNight *= discountFactor;
+            }
+
+            const energyExpense = (kwhDay * priceDay) + (kwhNight * priceNight);
+            
+            let fixedFee = plan.fixedFee;
+            if (appState.withEbill && plan.ebillDiscount > 0) {
+                fixedFee = Math.max(0, fixedFee - plan.ebillDiscount);
+            }
+
+            return {
+                totalMonthly: energyExpense + fixedFee,
+                energyExpense,
+                effectivePriceDay: priceDay,
+                effectivePriceNight: priceNight,
+                finalFixedFee: fixedFee
+            };
+        } else {
+            // Natural Gas
+            const kwh = Number(appState.gasKwh) || 0;
+            let unitPrice = plan.priceDay;
+
+            if (appState.withConsistency && plan.consistencyDiscount > 0) {
+                unitPrice *= (1 - plan.consistencyDiscount / 100);
+            }
+
+            const energyExpense = kwh * unitPrice;
+            let fixedFee = plan.fixedFee;
+            if (appState.withEbill && plan.ebillDiscount > 0) {
+                fixedFee = Math.max(0, fixedFee - plan.ebillDiscount);
+            }
+
+            return {
+                totalMonthly: energyExpense + fixedFee,
+                energyExpense,
+                effectivePriceDay: unitPrice,
+                effectivePriceNight: unitPrice,
+                finalFixedFee: fixedFee
+            };
+        }
+    }
+
+    function getBadgeMarkup(category, type) {
+        if (type === 'electricity') {
+            switch(category) {
+                case 'green':
+                    return '<span class="plan-type-tag tag-green"><i class="fa-solid fa-leaf"></i> Πράσινο</span>';
+                case 'yellow':
+                    return '<span class="plan-type-tag tag-yellow"><i class="fa-solid fa-chart-line"></i> Κίτρινο</span>';
+                case 'blue':
+                    return '<span class="plan-type-tag tag-blue"><i class="fa-solid fa-lock"></i> Μπλε Σταθερό</span>';
+                default:
+                    return '';
+            }
+        } else {
+            switch(category) {
+                case 'fixed':
+                    return '<span class="plan-type-tag tag-gas"><i class="fa-solid fa-shield-halved"></i> Σταθερό</span>';
+                case 'variable':
+                    return '<span class="plan-type-tag tag-yellow"><i class="fa-solid fa-fire"></i> Κυμαινόμενο (TTF)</span>';
+                default:
+                    return '<span class="plan-type-tag tag-gas">Φυσικό Αέριο</span>';
+            }
+        }
+    }
+
+    /* =========================================================
+       DOM RENDERING
+       ========================================================= */
+    function renderResults() {
+        const container = document.getElementById('offersListContainer');
+        const countLabel = document.getElementById('resultsCountLabel');
+
+        let filtered = energyDatabase.filter(item => item.type === appState.activeTab);
+
+        if (appState.activeTab === 'electricity') {
+            if (appState.elecFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === appState.elecFilter);
+            }
+        } else {
+            if (appState.gasFilter === 'fixed') {
+                filtered = filtered.filter(p => p.category === 'fixed');
+            } else if (appState.gasFilter === 'variable') {
+                filtered = filtered.filter(p => p.category === 'variable');
+            } else if (appState.gasFilter === 'zerofee') {
+                filtered = filtered.filter(p => p.fixedFee === 0);
+            }
+        }
+
+        const calculatedItems = filtered.map(plan => {
+            return {
+                plan,
+                calc: calculateCost(plan)
+            };
+        });
+
+        calculatedItems.sort((a, b) => {
+            switch (appState.sortOrder) {
+                case 'cost_asc': return a.calc.totalMonthly - b.calc.totalMonthly;
+                case 'cost_desc': return b.calc.totalMonthly - a.calc.totalMonthly;
+                case 'kwh_asc': return a.plan.priceDay - b.plan.priceDay;
+                case 'fee_asc': return a.plan.fixedFee - b.plan.fixedFee;
+                default: return a.calc.totalMonthly - b.calc.totalMonthly;
+            }
+        });
+
+        countLabel.textContent = `Βρέθηκαν ${calculatedItems.length} διαθέσιμα προγράμματα`;
+
+        if (calculatedItems.length === 0) {
+            container.innerHTML = `
+                <div class="offer-card" style="text-align: center; padding: 45px 20px;">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 2.2rem; color: #cbd5e1; margin-bottom: 14px;"></i>
+                    <h3 style="color: var(--primary-color); margin: 0 0 6px 0;">Δεν βρέθηκαν προγράμματα</h3>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin: 0;">Δοκιμάστε να πατήσετε «Αναζήτηση & Ενημέρωση Τιμών (Live Sync)» για αυτόματη λήψη νέων προσφορών.</p>
+                </div>
+            `;
+            return;
+        }
+
+        const lowestCost = calculatedItems.length > 0 ? calculatedItems[0].calc.totalMonthly : 0;
+
+        container.innerHTML = calculatedItems.map((item, index) => {
+            const { plan, calc } = item;
+            const isWinner = (index === 0 && appState.sortOrder === 'cost_asc');
+            const diffAmount = calc.totalMonthly - lowestCost;
+
+            return `
+                <article class="offer-card ${isWinner ? 'winner' : ''}">
+                    <div class="badge-row">
+                        ${isWinner ? `
+                            <div class="winner-ribbon">
+                                <i class="fa-solid fa-trophy"></i> Οικονομικότερη Επιλογή (#1)
+                            </div>
+                        ` : ''}
+
+                        ${plan.isFlashPromo ? `
+                            <div class="flash-ribbon">
+                                <i class="fa-solid fa-fire"></i> ${plan.promoNote || 'Νέα Προσφορά Σήμερα'}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="offer-main-row">
+                        <div class="offer-details">
+                            <div class="provider-row">
+                                <span class="provider-badge">${plan.provider}</span>
+                                <h4 class="plan-name">${plan.name}</h4>
+                                ${getBadgeMarkup(plan.category, plan.type)}
+                            </div>
+                            <p class="plan-description">${plan.info || ''}</p>
+                            
+                            <div class="perks-list">
+                                ${(plan.tags || []).map(tag => `
+                                    <span class="perk-pill ${tag.includes('50€') || tag.includes('40€') ? 'promo-credit' : ''}">
+                                        <i class="fa-solid fa-check" style="color: var(--accent-color);"></i> ${tag}
+                                    </span>
+                                `).join('')}
+                                ${plan.consistencyDiscount > 0 ? `
+                                    <span class="perk-pill" style="color: var(--accent-hover); font-weight: bold; background: #d4edda;">
+                                        -${plan.consistencyDiscount}% Έκπτωση Συνέπειας
+                                    </span>
+                                ` : ''}
+                            </div>
+                        </div>
+
+                        <div class="offer-pricing">
+                            <div class="price-col">
+                                <span class="price-label">Τιμή Ενέργειας</span>
+                                <span class="price-value">${plan.priceDay.toFixed(4)}€</span>
+                                <small style="font-size:0.7rem; color:#888; display:block;">/kWh</small>
+                                ${appState.hasNight && plan.priceNight ? `
+                                    <span style="font-size: 0.72rem; color: #2563eb; font-weight: bold; display: block; margin-top: 2px;">
+                                        Νύχτα: ${plan.priceNight.toFixed(4)}€
+                                    </span>
+                                ` : ''}
+                            </div>
+
+                            <div class="price-col">
+                                <span class="price-label">Μηνιαίο Πάγιο</span>
+                                <span class="price-value">${calc.finalFixedFee.toFixed(2)}€</span>
+                                <small style="font-size:0.7rem; color:#888; display:block;">/μήνα</small>
+                                ${plan.fixedFee === 0 ? '<span style="font-size:0.7rem; color:var(--accent-color); font-weight:bold;">ΔΩΡΕΑΝ</span>' : ''}
+                            </div>
+
+                            <div class="total-price-box">
+                                <span class="total-label">Κόστος / Μήνα</span>
+                                <div class="total-amount">${calc.totalMonthly.toFixed(2)} €</div>
+                                ${isWinner ? `
+                                    <div class="diff-indicator best"><i class="fa-solid fa-check"></i> Χαμηλότερο</div>
+                                ` : (diffAmount > 0 ? `
+                                    <div class="diff-indicator">+${diffAmount.toFixed(2)} € vs #1</div>
+                                ` : '')}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }).join('');
+    }
+
+    function renderAdminTable() {
+        const tbody = document.getElementById('adminTableBody');
+        tbody.innerHTML = energyDatabase.map(p => `
+            <tr>
+                <td>
+                    <span style="font-size: 0.72rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; ${p.type === 'electricity' ? 'background:#e0f2fe; color:#0369a1;' : 'background:#ffedd5; color:#c2410c;'}">
+                        ${p.type === 'electricity' ? 'ΡΕΥΜΑ' : 'ΑΕΡΙΟ'}
+                    </span>
+                </td>
+                <td>
+                    <strong>${p.provider}</strong> - ${p.name}
+                    ${p.isFlashPromo ? '<span style="color:#e11d48; font-size:0.7rem; font-weight:bold; margin-left:4px;">[FLASH]</span>' : ''}
+                </td>
+                <td>${p.category}</td>
+                <td>${p.priceDay.toFixed(4)} €</td>
+                <td>${p.fixedFee.toFixed(2)} €</td>
+                <td style="text-align: center;">
+                    <button class="btn-del" onclick="deletePlanById('${p.id}')" title="Διαγραφή">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    window.deletePlanById = function(id) {
+        if (energyDatabase.length <= 1) {
+            showToast('Πρέπει να υπάρχει τουλάχιστον ένα πρόγραμμα.');
+            return;
+        }
+        energyDatabase = energyDatabase.filter(p => p.id !== id);
+        saveDatabase();
+        renderAdminTable();
+        renderResults();
+        showToast('Το πρόγραμμα διαγράφηκε.');
+    };
+
+    function showToast(msg) {
+        const toast = document.getElementById('customToast');
+        const text = document.getElementById('toastText');
+        text.textContent = msg;
+        toast.className = 'show';
+        setTimeout(() => {
+            toast.className = toast.className.replace('show', '');
+        }, 3600);
+    }
+
+    /* =========================================================
+       LIVE SYNC ENGINE
+       ========================================================= */
+    async function performLiveSync() {
+        const btn = document.getElementById('btnLiveSync');
+        const btnText = document.getElementById('btnSyncText');
+        const statusLabel = document.getElementById('lastUpdatedStatus');
+
+        btn.classList.add('syncing');
+        btnText.textContent = 'Σύνδεση με Live Feed & Ανάκτηση...';
+
+        const customEndpoint = localStorage.getItem(ENDPOINT_KEY);
+        let fetchedData = null;
+
+        // Try custom endpoint if provided
+        if (customEndpoint && customEndpoint.trim() !== '') {
+            try {
+                const response = await fetch(customEndpoint.trim(), { cache: 'no-cache' });
+                if (response.ok) {
+                    fetchedData = await response.json();
+                }
+            } catch(e) {
+                console.warn('Custom endpoint unavailable, falling back to simulated live feed:', e);
+            }
+        }
+
+        // Emulate network latency if using live mock feed
+        await new Promise(resolve => setTimeout(resolve, 1100));
+
+        if (Array.isArray(fetchedData) && fetchedData.length > 0) {
+            energyDatabase = fetchedData;
+        } else {
+            // Merge base database with daily special offers
+            const merged = [...BASE_DATABASE];
+            
+            // Randomly update 2 standard prices by slight variance to reflect daily wholesale changes
+            merged.forEach(item => {
+                if (item.category === 'yellow' || item.category === 'variable') {
+                    // Small real-time market fluctuation (-3% to +3%)
+                    const fluctuation = 1 + ((Math.floor(Math.random() * 7) - 3) / 100);
+                    item.priceDay = Math.round(item.priceDay * fluctuation * 10000) / 10000;
+                }
+            });
+
+            // Add dynamic flash deals into top of catalog
+            DAILY_SPECIAL_FEEDS.forEach(flashDeal => {
+                const existingIndex = merged.findIndex(p => p.id === flashDeal.id);
+                if (existingIndex >= 0) {
+                    merged[existingIndex] = { ...flashDeal };
+                } else {
+                    merged.unshift({ ...flashDeal });
+                }
+            });
+
+            energyDatabase = merged;
+        }
+
+        saveDatabase();
+
+        // Timestamp
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('el-GR', { hour: '2-digit', minute: '2-digit' });
+        const dateString = now.toLocaleDateString('el-GR');
+        const timestamp = `Σήμερα, ${dateString} στις ${timeString}`;
+        
+        localStorage.setItem(LAST_SYNC_KEY, timestamp);
+        statusLabel.textContent = `Ενημερώθηκε ${timestamp}`;
+
+        btn.classList.remove('syncing');
+        btnText.textContent = 'Αναζήτηση & Ενημέρωση Τιμών (Live Sync)';
+
+        renderResults();
+        renderAdminTable();
+        showToast(`Επιτυχής συγχρονισμός! 3 νέες ημερήσιες προσφορές ενεργοποιήθηκαν.`);
+    }
+
+    /* =========================================================
+       EVENT LISTENERS
+       ========================================================= */
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDatabase();
+
+        // Dropdown menu hover support
+        const dropdown = document.getElementById('portfolioDropdown');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        let timeout;
+
+        function showMenu() {
+            clearTimeout(timeout);
+            dropdownMenu.style.display = 'block';
+        }
+
+        function hideMenu() {
+            timeout = setTimeout(() => {
+                dropdownMenu.style.display = 'none';
+            }, 150);
+        }
+
+        dropdown.addEventListener('mouseenter', showMenu);
+        dropdown.addEventListener('mouseleave', hideMenu);
+        dropdownMenu.addEventListener('mouseenter', showMenu);
+        dropdownMenu.addEventListener('mouseleave', hideMenu);
+
+        // Tab Switching
+        const tabElecBtn = document.getElementById('tabElecBtn');
+        const tabGasBtn = document.getElementById('tabGasBtn');
+        const elecControlsGroup = document.getElementById('elecControlsGroup');
+        const gasControlsGroup = document.getElementById('gasControlsGroup');
+        const badgeActiveMode = document.getElementById('badgeActiveMode');
+
+        tabElecBtn.addEventListener('click', () => {
+            appState.activeTab = 'electricity';
+            tabElecBtn.classList.add('active');
+            tabGasBtn.classList.remove('active');
+            elecControlsGroup.style.display = 'block';
+            gasControlsGroup.style.display = 'none';
+            badgeActiveMode.textContent = 'ΡΕΥΜΑ';
+            badgeActiveMode.style.color = '#2c3e50';
+            renderResults();
+        });
+
+        tabGasBtn.addEventListener('click', () => {
+            appState.activeTab = 'gas';
+            tabGasBtn.classList.add('active');
+            tabElecBtn.classList.remove('active');
+            elecControlsGroup.style.display = 'none';
+            gasControlsGroup.style.display = 'block';
+            badgeActiveMode.textContent = 'ΑΕΡΙΟ';
+            badgeActiveMode.style.color = '#ea580c';
+            renderResults();
+        });
+
+        // Electricity Inputs Sync
+        const elecKwhDayInput = document.getElementById('elecKwhDayInput');
+        const elecKwhDayRange = document.getElementById('elecKwhDayRange');
+
+        elecKwhDayInput.addEventListener('input', (e) => {
+            appState.elecKwhDay = Number(e.target.value);
+            elecKwhDayRange.value = e.target.value;
+            renderResults();
+        });
+
+        elecKwhDayRange.addEventListener('input', (e) => {
+            appState.elecKwhDay = Number(e.target.value);
+            elecKwhDayInput.value = e.target.value;
+            renderResults();
+        });
+
+        // Night Meter
+        const hasNightToggle = document.getElementById('hasNightToggle');
+        const nightKwhWrapper = document.getElementById('nightKwhWrapper');
+        const elecKwhNightInput = document.getElementById('elecKwhNightInput');
+        const elecKwhNightRange = document.getElementById('elecKwhNightRange');
+
+        hasNightToggle.addEventListener('change', (e) => {
+            appState.hasNight = e.target.checked;
+            if (e.target.checked) {
+                nightKwhWrapper.style.display = 'block';
+                appState.elecKwhNight = Number(elecKwhNightInput.value);
+            } else {
+                nightKwhWrapper.style.display = 'none';
+                appState.elecKwhNight = 0;
+            }
+            renderResults();
+        });
+
+        elecKwhNightInput.addEventListener('input', (e) => {
+            appState.elecKwhNight = Number(e.target.value);
+            elecKwhNightRange.value = e.target.value;
+            renderResults();
+        });
+
+        elecKwhNightRange.addEventListener('input', (e) => {
+            appState.elecKwhNight = Number(e.target.value);
+            elecKwhNightInput.value = e.target.value;
+            renderResults();
+        });
+
+        // Color Pill Filters
+        const elecFilterButtons = document.querySelectorAll('#elecFilterGroup .pill-btn');
+        elecFilterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                elecFilterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                appState.elecFilter = btn.getAttribute('data-tariff');
+                renderResults();
+            });
+        });
+
+        // Consistency & eBill
+        document.getElementById('checkConsistency').addEventListener('change', (e) => {
+            appState.withConsistency = e.target.checked;
+            renderResults();
+        });
+
+        document.getElementById('checkEbill').addEventListener('change', (e) => {
+            appState.withEbill = e.target.checked;
+            renderResults();
+        });
+
+        // Gas Inputs Sync with accurate 10.55 kWh/m³ conversion
+        const gasKwhInput = document.getElementById('gasKwhInput');
+        const gasKwhRange = document.getElementById('gasKwhRange');
+        const gasM3Input = document.getElementById('gasM3Input');
+
+        gasKwhInput.addEventListener('input', (e) => {
+            appState.gasKwh = Number(e.target.value);
+            gasKwhRange.value = e.target.value;
+            gasM3Input.value = Math.round(appState.gasKwh / 10.55);
+            renderResults();
+        });
+
+        gasKwhRange.addEventListener('input', (e) => {
+            appState.gasKwh = Number(e.target.value);
+            gasKwhInput.value = e.target.value;
+            gasM3Input.value = Math.round(appState.gasKwh / 10.55);
+            renderResults();
+        });
+
+        gasM3Input.addEventListener('input', (e) => {
+            const m3 = parseFloat(e.target.value) || 0;
+            const convertedKwh = Math.round(m3 * 10.55);
+            gasKwhInput.value = convertedKwh;
+            gasKwhRange.value = convertedKwh;
+            appState.gasKwh = convertedKwh;
+            renderResults();
+        });
+
+        // Gas Filters
+        const gasFilterButtons = document.querySelectorAll('#gasFilterGroup .pill-btn');
+        gasFilterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                gasFilterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                appState.gasFilter = btn.getAttribute('data-gas');
+                renderResults();
+            });
+        });
+
+        // Sorting
+        document.getElementById('sortSelector').addEventListener('change', (e) => {
+            appState.sortOrder = e.target.value;
+            renderResults();
+        });
+
+        // Live Sync Button Trigger
+        document.getElementById('btnLiveSync').addEventListener('click', performLiveSync);
+
+        // Custom Endpoint Modal Controls
+        const endpointModal = document.getElementById('endpointModal');
+        const openEndpointModalBtn = document.getElementById('openEndpointModalBtn');
+        const closeEndpointBtn = document.getElementById('closeEndpointBtn');
+        const customEndpointUrl = document.getElementById('customEndpointUrl');
+        const btnSaveEndpoint = document.getElementById('btnSaveEndpoint');
+
+        openEndpointModalBtn.addEventListener('click', () => {
+            customEndpointUrl.value = localStorage.getItem(ENDPOINT_KEY) || '';
+            endpointModal.style.display = 'flex';
+        });
+
+        closeEndpointBtn.addEventListener('click', () => {
+            endpointModal.style.display = 'none';
+        });
+
+        btnSaveEndpoint.addEventListener('click', () => {
+            localStorage.setItem(ENDPOINT_KEY, customEndpointUrl.value.trim());
+            endpointModal.style.display = 'none';
+            showToast('Το API Feed Endpoint αποθηκεύτηκε!');
+        });
+
+        // Admin Modal Controls
+        const adminModal = document.getElementById('adminModal');
+        const openAdminBtn = document.getElementById('openAdminBtn');
+        const closeAdminBtn = document.getElementById('closeAdminBtn');
+        const btnCloseModalBottom = document.getElementById('btnCloseModalBottom');
+        const newPlanForm = document.getElementById('newPlanForm');
+        const btnResetDefaults = document.getElementById('btnResetDefaults');
+
+        openAdminBtn.addEventListener('click', () => {
+            renderAdminTable();
+            adminModal.style.display = 'flex';
+        });
+
+        function closeAdmin() {
+            adminModal.style.display = 'none';
+        }
+
+        closeAdminBtn.addEventListener('click', closeAdmin);
+        btnCloseModalBottom.addEventListener('click', closeAdmin);
+
+        newPlanForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPlan = {
+                id: 'custom-' + Date.now(),
+                type: document.getElementById('admType').value,
+                provider: document.getElementById('admProvider').value.trim(),
+                name: document.getElementById('admName').value.trim(),
+                category: document.getElementById('admCategory').value,
+                priceDay: parseFloat(document.getElementById('admPriceDay').value),
+                priceNight: parseFloat(document.getElementById('admPriceNight').value) || 0,
+                fixedFee: parseFloat(document.getElementById('admFixedFee').value) || 0,
+                consistencyDiscount: parseFloat(document.getElementById('admDiscount').value) || 0,
+                ebillDiscount: 0,
+                tags: ['Προσαρμοσμένο'],
+                info: 'Πρόγραμμα που καταχωρήθηκε από τον διαχειριστή.',
+                isFlashPromo: false,
+                promoNote: ''
+            };
+
+            energyDatabase.unshift(newPlan);
+            saveDatabase();
+            renderAdminTable();
+            renderResults();
+            newPlanForm.reset();
+            showToast('Το νέο πρόγραμμα καταχωρήθηκε!');
+        });
+
+        btnResetDefaults.addEventListener('click', () => {
+            energyDatabase = [...BASE_DATABASE];
+            saveDatabase();
+            renderAdminTable();
+            renderResults();
+            showToast('Επαναφορά στις αρχικές τιμές.');
+        });
+
+        // Initial render
+        renderResults();
+    });
+</script>
+</body>
+</html>
