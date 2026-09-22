@@ -1,111 +1,166 @@
 {
-    "last_update": "2026-09-22 04:54",
+    "last_update": "2026-09-22 09:56",
     "beaches": {
         "Παράλιο Άστρος": {
             "lat": 37.4168,
             "lon": 22.7661,
-            "wind_kph": 10.2,
-            "wind_dir": 288,
+            "wind_kph": 7.6,
+            "wind_dir": 95,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Ξηροπήγαδο": {
             "lat": 37.4619,
             "lon": 22.7448,
-            "wind_kph": 10.2,
-            "wind_dir": 288,
+            "wind_kph": 7.6,
+            "wind_dir": 95,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Κυβέρι": {
             "lat": 37.5186,
             "lon": 22.7302,
-            "wind_kph": 7.6,
-            "wind_dir": 289,
+            "wind_kph": 6.0,
+            "wind_dir": 73,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Άγιος Ανδρέας (Αρκαδία)": {
             "lat": 37.3451,
             "lon": 22.7752,
-            "wind_kph": 8.1,
-            "wind_dir": 238,
+            "wind_kph": 7.2,
+            "wind_dir": 84,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Κρυονέρι (Αρκαδία)": {
             "lat": 37.3182,
             "lon": 22.8123,
-            "wind_kph": 7.8,
-            "wind_dir": 257,
+            "wind_kph": 7.9,
+            "wind_dir": 114,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Παραλία Τυρού": {
             "lat": 37.2435,
             "lon": 22.8565,
-            "wind_kph": 8.3,
-            "wind_dir": 272,
+            "wind_kph": 10.2,
+            "wind_dir": 132,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Ζαρίτσι (Τυρός)": {
             "lat": 37.2854,
             "lon": 22.8451,
-            "wind_kph": 7.8,
-            "wind_dir": 257,
+            "wind_kph": 7.9,
+            "wind_dir": 114,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Πλάκα Λεωνιδίου": {
             "lat": 37.1483,
             "lon": 22.8932,
-            "wind_kph": 9.9,
-            "wind_dir": 237,
+            "wind_kph": 7.3,
+            "wind_dir": 79,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
         "Γύθειο (Μαυροβούνι)": {
             "lat": 36.7385,
             "lon": 22.568,
-            "wind_kph": 4.7,
-            "wind_dir": 302,
-            "beaufort": 1,
+            "wind_kph": 14.5,
+            "wind_dir": 150,
+            "beaufort": 3,
+            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
+            "flag": "🟢 Πράσινη Σημαία",
+            "color": "#27ae60",
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
+        },
+        "Κυπαρισσία": {
+            "lat": 37.2525,
+            "lon": 21.6625,
+            "wind_kph": 7.4,
+            "wind_dir": 247,
+            "beaufort": 2,
+            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
+            "flag": "🟢 Πράσινη Σημαία",
+            "color": "#27ae60",
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
+        },
+        "Γαλησσάς (Σύρος)": {
+            "lat": 37.4185,
+            "lon": 24.8775,
+            "wind_kph": 23.2,
+            "wind_dir": 13,
+            "beaufort": 4,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
             "wind_type": "Εύνοια (Offshore/Side)"
         },
-        "Κυπαρισσία": {
-            "lat": 37.2525,
-            "lon": 21.6625,
-            "wind_kph": 3.6,
-            "wind_dir": 174,
-            "beaufort": 1,
+        "Κολυμπήθρα (Τήνος)": {
+            "lat": 37.6335,
+            "lon": 25.1485,
+            "wind_kph": 20.3,
+            "wind_dir": 13,
+            "beaufort": 4,
+            "status": "ΜΕΤΡΙΟΣ ΚΥΜΑΤΙΣΜΟΣ (Ελαφρύς κυματισμός)",
+            "flag": "🟡 Κίτρινη Σημαία",
+            "color": "#f1c40f",
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
+        },
+        "Super Paradise (Μύκονος)": {
+            "lat": 37.4111,
+            "lon": 25.3681,
+            "wind_kph": 36.0,
+            "wind_dir": 3,
+            "beaufort": 5,
+            "status": "ΜΕΤΡΙΟΣ ΚΥΜΑΤΙΣΜΟΣ (Ελαφρύς κυματισμός)",
+            "flag": "🟡 Κίτρινη Σημαία",
+            "color": "#f1c40f",
+            "wind_type": "Εύνοια (Offshore/Side)"
+        },
+        "Ορνός (Μύκονος)": {
+            "lat": 37.4215,
+            "lon": 25.321,
+            "wind_kph": 35.8,
+            "wind_dir": 10,
+            "beaufort": 5,
+            "status": "ΜΕΤΡΙΟΣ ΚΥΜΑΤΙΣΜΟΣ (Ελαφρύς κυματισμός)",
+            "flag": "🟡 Κίτρινη Σημαία",
+            "color": "#f1c40f",
+            "wind_type": "Εύνοια (Offshore/Side)"
+        },
+        "Άγιος Προκόπιος (Νάξος)": {
+            "lat": 37.0765,
+            "lon": 25.3515,
+            "wind_kph": 28.1,
+            "wind_dir": 4,
+            "beaufort": 4,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
@@ -114,75 +169,75 @@
         "Καμάρι (Σαντορίνη)": {
             "lat": 36.3765,
             "lon": 25.4855,
-            "wind_kph": 9.8,
-            "wind_dir": 306,
+            "wind_kph": 11.1,
+            "wind_dir": 324,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
             "wind_type": "Εύνοια (Offshore/Side)"
         },
-        "Χρυσή Άμμος (Άνδρος)": {
-            "lat": 37.8925,
-            "lon": 24.7585,
-            "wind_kph": 24.9,
-            "wind_dir": 37,
-            "beaufort": 4,
-            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
-            "flag": "🟢 Πράσινη Σημαία",
-            "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
-        },
-        "Κολυμπήθρες (Πάρος)": {
-            "lat": 37.1385,
-            "lon": 25.2345,
-            "wind_kph": 17.2,
-            "wind_dir": 10,
-            "beaufort": 3,
+        "Καραθώνα (Ναύπλιο)": {
+            "lat": 37.5451,
+            "lon": 22.8182,
+            "wind_kph": 1.6,
+            "wind_dir": 243,
+            "beaufort": 0,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
             "wind_type": "Κόντρα Άνεμος (Onshore)"
         },
-        "Καμάρες (Σίφνος)": {
-            "lat": 36.9885,
-            "lon": 24.6755,
-            "wind_kph": 15.8,
-            "wind_dir": 1,
-            "beaufort": 3,
-            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
-            "flag": "🟢 Πράσινη Σημαία",
-            "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
-        },
-        "Καλαμάτα - Ανατολική Παραλία": {
-            "lat": 37.0231,
-            "lon": 22.1251,
-            "wind_kph": 5.9,
-            "wind_dir": 14,
-            "beaufort": 1,
-            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
-            "flag": "🟢 Πράσινη Σημαία",
-            "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
-        },
-        "Βοϊδοκοιλιά (Μεσσηνία)": {
-            "lat": 36.9632,
-            "lon": 21.6611,
-            "wind_kph": 8.4,
-            "wind_dir": 329,
+        "Ζαχάρω (Ηλεία)": {
+            "lat": 37.4812,
+            "lon": 21.6111,
+            "wind_kph": 8.8,
+            "wind_dir": 199,
             "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Κόντρα Άνεμος (Onshore)"
+            "wind_type": "Εύνοια (Offshore/Side)"
+        },
+        "Κουρούτα (Αμαλιάδα)": {
+            "lat": 37.7712,
+            "lon": 21.2911,
+            "wind_kph": 7.2,
+            "wind_dir": 198,
+            "beaufort": 2,
+            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
+            "flag": "🟢 Πράσινη Σημαία",
+            "color": "#27ae60",
+            "wind_type": "Εύνοια (Offshore/Side)"
+        },
+        "Καλογριά (Αχαΐα)": {
+            "lat": 38.1611,
+            "lon": 21.3651,
+            "wind_kph": 8.5,
+            "wind_dir": 62,
+            "beaufort": 2,
+            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
+            "flag": "🟢 Πράσινη Σημαία",
+            "color": "#27ae60",
+            "wind_type": "Εύνοια (Offshore/Side)"
+        },
+        "Ξυλόκαστρο (Κορινθία)": {
+            "lat": 38.0791,
+            "lon": 22.6311,
+            "wind_kph": 11.0,
+            "wind_dir": 101,
+            "beaufort": 2,
+            "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
+            "flag": "🟢 Πράσινη Σημαία",
+            "color": "#27ae60",
+            "wind_type": "Εύνοια (Offshore/Side)"
         },
         "Βουλιαγμένη (Αττική)": {
             "lat": 37.8111,
             "lon": 23.7781,
-            "wind_kph": 4.9,
+            "wind_kph": 9.8,
             "wind_dir": 36,
-            "beaufort": 1,
+            "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
@@ -191,20 +246,20 @@
         "Μπάτης (Παλαιό Φάληρο)": {
             "lat": 37.9221,
             "lon": 23.6911,
-            "wind_kph": 0.7,
-            "wind_dir": 180,
-            "beaufort": 0,
+            "wind_kph": 7.6,
+            "wind_dir": 3,
+            "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Κόντρα Άνεμος (Onshore)"
+            "wind_type": "Εύνοια (Offshore/Side)"
         },
         "Επανωμή (Θεσσαλονίκη)": {
             "lat": 40.3811,
             "lon": 22.8911,
-            "wind_kph": 20.8,
-            "wind_dir": 346,
-            "beaufort": 4,
+            "wind_kph": 15.5,
+            "wind_dir": 355,
+            "beaufort": 3,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
@@ -213,9 +268,9 @@
         "Φαλάσαρνα (Χανιά)": {
             "lat": 35.5111,
             "lon": 23.5781,
-            "wind_kph": 5.9,
-            "wind_dir": 256,
-            "beaufort": 1,
+            "wind_kph": 14.2,
+            "wind_dir": 261,
+            "beaufort": 3,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
@@ -224,8 +279,8 @@
         "Ελαφονήσι (Χανιά)": {
             "lat": 35.2711,
             "lon": 23.5411,
-            "wind_kph": 16.6,
-            "wind_dir": 336,
+            "wind_kph": 19.4,
+            "wind_dir": 310,
             "beaufort": 3,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
@@ -235,13 +290,13 @@
         "Πρέβελη (Ρέθυμνο)": {
             "lat": 35.1511,
             "lon": 24.4711,
-            "wind_kph": 14.3,
-            "wind_dir": 25,
-            "beaufort": 3,
+            "wind_kph": 10.6,
+            "wind_dir": 204,
+            "beaufort": 2,
             "status": "ΗΡΕΜΗ ΘΑΛΑΣΣΑ (Ασφαλής Κολύμβηση)",
             "flag": "🟢 Πράσινη Σημαία",
             "color": "#27ae60",
-            "wind_type": "Εύνοια (Offshore/Side)"
+            "wind_type": "Κόντρα Άνεμος (Onshore)"
         }
     }
 }
