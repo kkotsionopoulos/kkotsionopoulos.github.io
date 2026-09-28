@@ -205,8 +205,8 @@
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 12px 28px;
-            font-size: 1em;
+            padding: 12px 24px;
+            font-size: 0.95em;
             font-weight: bold;
             border-radius: 25px;
             cursor: pointer;
@@ -219,10 +219,20 @@
             transform: translateY(-2px);
         }
 
-        .btn-start:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
+        .btn-secondary {
+            background-color: #34495e !important;
+        }
+
+        .btn-secondary:hover {
+            background-color: #2c3e50 !important;
+        }
+
+        .btn-warning {
+            background-color: #e67e22 !important;
+        }
+
+        .btn-warning:hover {
+            background-color: #d35400 !important;
         }
 
         /* --- QUIZ PLAY VIEW --- */
@@ -324,6 +334,56 @@
             margin-bottom: 25px;
         }
 
+        .results-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* Review Mistakes Box */
+        .review-container {
+            margin-top: 30px;
+            text-align: left;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+            display: none;
+        }
+
+        .review-item {
+            background: #fafafa;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 15px;
+        }
+
+        .review-question {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .review-answer {
+            font-size: 0.9em;
+            margin: 4px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .review-user-wrong {
+            background-color: #fde8e8;
+            color: #c0392b;
+            font-weight: 500;
+        }
+
+        .review-correct {
+            background-color: #e8f8f0;
+            color: #1b7a43;
+            font-weight: 600;
+        }
+
         .error-message {
             color: var(--danger-color);
             font-size: 0.9em;
@@ -378,8 +438,8 @@
         <div class="form-group">
             <label for="questionCount">Πλήθος Ερωτήσεων:</label>
             <select id="questionCount">
-                <option value="20">20 τυχαίες ερωτήσεις (Σύντομο τεστ)</option>
-                <option value="50">50 τυχαίες ερωτήσεις (Προσομοίωση)</option>
+                <option value="20">20 ερωτήσεις (Σύντομο τεστ)</option>
+                <option value="50">50 ερωτήσεις (Προσομοίωση)</option>
                 <option value="all">Όλες οι διαθέσιμες ερωτήσεις</option>
             </select>
         </div>
@@ -433,7 +493,22 @@
                 <span class="score-percent" id="scorePercent">0%</span>
             </div>
             <div class="score-detail" id="scoreDetail">--</div>
-            <button class="btn-action" onclick="resetQuiz()">Επιστροφή στις Ρυθμίσεις</button>
+
+            <div class="results-actions">
+                <button class="btn-action btn-warning" id="retryWrongBtn" style="display:none;" onclick="retryWrongQuestions()">
+                    🔄 Επανάληψη Λαθών (<span id="wrongCountBadge">0</span>)
+                </button>
+                <button class="btn-action btn-secondary" id="showSolutionsBtn" style="display:none;" onclick="toggleSolutionsReview()">
+                    👁️ Προβολή Λαθών & Λύσεων
+                </button>
+                <button class="btn-action" onclick="resetQuiz()">⚙️ Νέο Τεστ</button>
+            </div>
+
+            <!-- Λίστα επανεξέτασης λαθών -->
+            <div id="reviewContainer" class="review-container">
+                <h3 style="color: var(--primary-color); margin-top: 0;">Αναλυτική Επισκόπηση Λανθασμένων Απαντήσεων:</h3>
+                <div id="reviewList"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -469,6 +544,7 @@
 
     let questionsPool = [];
     let currentQuestions = [];
+    let incorrectQuestions = []; // Αποθήκευση λαθών
     let currentIndex = 0;
     let score = 0;
     let timerInterval = null;
@@ -502,50 +578,18 @@
                 throw new Error('Το αρχείο ερωτήσεων είναι κενό.');
             }
 
-            // Αντιγραφή ερωτήσεων
             let list = [...questionsPool];
 
-            // Ανακάτεμα εάν επιλέχθηκε random
             if (order === 'random') {
                 list.sort(() => Math.random() - 0.5);
             }
 
-            // Περιορισμός πλήθους
             if (countOption !== 'all') {
                 const limit = parseInt(countOption, 10);
                 list = list.slice(0, limit);
             }
 
-            currentQuestions = list;
-            currentIndex = 0;
-            score = 0;
-
-            // Χρονόμετρο
-            const timerBadge = document.getElementById('timerBadge');
-            if (timerOption === 'on') {
-                const minutes = parseInt(document.getElementById('timeLimit').value, 10) || 20;
-                timeLeft = minutes * 60;
-                timerBadge.style.display = 'inline-block';
-                renderTimer();
-                clearInterval(timerInterval);
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    renderTimer();
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        finishQuiz();
-                    }
-                }, 1000);
-            } else {
-                timerBadge.style.display = 'none';
-                clearInterval(timerInterval);
-            }
-
-            document.getElementById('settingsScreen').style.display = 'none';
-            document.getElementById('quizScreen').style.display = 'block';
-            document.getElementById('resultsScreen').style.display = 'none';
-
-            loadQuestion();
+            launchQuizWithQuestions(list, timerOption);
 
         } catch (err) {
             errorMsg.innerText = err.message;
@@ -554,6 +598,40 @@
             startBtn.disabled = false;
             startBtn.innerText = 'Έναρξη Εξέτασης →';
         }
+    }
+
+    function launchQuizWithQuestions(questionsList, timerOption) {
+        currentQuestions = questionsList;
+        currentIndex = 0;
+        score = 0;
+        incorrectQuestions = [];
+
+        // Ρύθμιση Χρονομέτρου
+        const timerBadge = document.getElementById('timerBadge');
+        if (timerOption === 'on') {
+            const minutes = parseInt(document.getElementById('timeLimit').value, 10) || 20;
+            timeLeft = minutes * 60;
+            timerBadge.style.display = 'inline-block';
+            renderTimer();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                renderTimer();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        } else {
+            timerBadge.style.display = 'none';
+            clearInterval(timerInterval);
+        }
+
+        document.getElementById('settingsScreen').style.display = 'none';
+        document.getElementById('quizScreen').style.display = 'block';
+        document.getElementById('resultsScreen').style.display = 'none';
+
+        loadQuestion();
     }
 
     function renderTimer() {
@@ -584,7 +662,6 @@
         const q = currentQuestions[currentIndex];
         const buttons = document.querySelectorAll('.option-btn');
 
-        // Κλείδωμα επιλογών και επισήμανση
         buttons.forEach((b, idx) => {
             b.disabled = true;
             if (idx === q.correct) {
@@ -596,6 +673,13 @@
             score++;
         } else {
             btnElement.classList.add('wrong');
+            // Αποθήκευση της λανθασμένης ερώτησης μαζί με την επιλογή του χρήστη
+            incorrectQuestions.push({
+                question: q.question,
+                options: q.options,
+                correct: q.correct,
+                userAnswer: selectedIndex
+            });
         }
 
         const nextBtn = document.getElementById('nextBtn');
@@ -624,6 +708,71 @@
         const percentage = Math.round((score / currentQuestions.length) * 100);
         document.getElementById('scorePercent').innerText = `${percentage}%`;
         document.getElementById('scoreDetail').innerText = `Απαντήσατε σωστά σε ${score} από τις ${currentQuestions.length} ερωτήσεις.`;
+
+        // Έλεγχος αν υπάρχουν λάθη
+        const retryBtn = document.getElementById('retryWrongBtn');
+        const showSolutionsBtn = document.getElementById('showSolutionsBtn');
+        const reviewContainer = document.getElementById('reviewContainer');
+        
+        // Απόκρυψη review container στην αρχή της προβολής
+        reviewContainer.style.display = 'none';
+
+        if (incorrectQuestions.length > 0) {
+            retryBtn.style.display = 'inline-block';
+            document.getElementById('wrongCountBadge').innerText = incorrectQuestions.length;
+            showSolutionsBtn.style.display = 'inline-block';
+            buildSolutionsReview();
+        } else {
+            retryBtn.style.display = 'none';
+            showSolutionsBtn.style.display = 'none';
+        }
+    }
+
+    // Κατασκευή της λίστας λαθών & σωστών απαντήσεων
+    function buildSolutionsReview() {
+        const reviewList = document.getElementById('reviewList');
+        reviewList.innerHTML = '';
+
+        incorrectQuestions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'review-item';
+
+            const userText = item.userAnswer !== null ? item.options[item.userAnswer] : 'Δεν απαντήθηκε';
+            const correctText = item.options[item.correct];
+
+            div.innerHTML = `
+                <div class="review-question">${index + 1}. ${item.question}</div>
+                <div class="review-answer review-user-wrong">❌ Η απάντησή σας: ${userText}</div>
+                <div class="review-answer review-correct">✔ Ορθή απάντηση: ${correctText}</div>
+            `;
+            reviewList.appendChild(div);
+        });
+    }
+
+    // Toggle εμφάνισης λύσεων
+    function toggleSolutionsReview() {
+        const reviewContainer = document.getElementById('reviewContainer');
+        const btn = document.getElementById('showSolutionsBtn');
+        if (reviewContainer.style.display === 'none' || reviewContainer.style.display === '') {
+            reviewContainer.style.display = 'block';
+            btn.innerText = '🔼 Απόκρυψη Λαθών & Λύσεων';
+        } else {
+            reviewContainer.style.display = 'none';
+            btn.innerText = '👁️ Προβολή Λαθών & Λύσεων';
+        }
+    }
+
+    // Επανάληψη μόνο των λαθών
+    function retryWrongQuestions() {
+        // Φτιάχνουμε νέα λίστα καθαρών ερωτήσεων μόνο από τα λάθη
+        const retryList = incorrectQuestions.map(item => ({
+            question: item.question,
+            options: item.options,
+            correct: item.correct
+        }));
+
+        const timerOption = document.querySelector('input[name="timerOption"]:checked').value;
+        launchQuizWithQuestions(retryList, timerOption);
     }
 
     function resetQuiz() {
