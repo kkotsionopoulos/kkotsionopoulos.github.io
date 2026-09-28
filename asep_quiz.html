@@ -9,6 +9,7 @@
             --primary-color: #2c3e50;
             --accent-color: #27ae60;
             --danger-color: #e74c3c;
+            --selected-color: #2980b9;
             --text-color: #333;
             --bg-color: #f4f7f6;
         }
@@ -214,16 +215,23 @@
             text-align: center;
         }
 
-        .btn-start:hover, .btn-action:hover {
+        .btn-start:hover, .btn-action:hover:not(:disabled) {
             background-color: #219150;
             transform: translateY(-2px);
+        }
+
+        .btn-start:disabled, .btn-action:disabled {
+            background-color: #bdc3c7 !important;
+            cursor: not-allowed;
+            transform: none !important;
+            color: #7f8c8d !important;
         }
 
         .btn-secondary {
             background-color: #34495e !important;
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background-color: #2c3e50 !important;
         }
 
@@ -231,7 +239,7 @@
             background-color: #e67e22 !important;
         }
 
-        .btn-warning:hover {
+        .btn-warning:hover:not(:disabled) {
             background-color: #d35400 !important;
         }
 
@@ -286,8 +294,16 @@
         }
 
         .option-btn:hover:not(:disabled) {
-            border-color: var(--accent-color);
+            border-color: var(--selected-color);
             background: #f0f7f3;
+        }
+
+        /* Επιλεγμένη απάντηση πριν την καταχώριση */
+        .option-btn.selected {
+            background-color: #ebf5fb !important;
+            border-color: var(--selected-color) !important;
+            color: #1b4f72;
+            font-weight: 600;
         }
 
         .option-btn.correct {
@@ -301,6 +317,59 @@
             background-color: #f8d7da !important;
             border-color: var(--danger-color) !important;
             color: #721c24;
+        }
+
+        /* Πλοήγηση Ερώτησης (Προηγούμενη - Καταχώριση - Επόμενη) */
+        .quiz-navigation-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 18px;
+        }
+
+        .btn-confirm {
+            background-color: #27ae60;
+            color: white;
+            font-size: 1em;
+            padding: 11px 22px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-confirm:hover:not(:disabled) {
+            background-color: #1e8449;
+            transform: scale(1.03);
+        }
+
+        .btn-nav {
+            background-color: #ecf0f1;
+            color: var(--primary-color);
+            border: 1px solid #bdc3c7;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: 0.2s;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background-color: #bdc3c7;
+        }
+
+        .btn-nav:disabled, .btn-confirm:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* --- RESULTS VIEW --- */
@@ -480,8 +549,13 @@
             <div class="options-list" id="optionsContainer"></div>
         </div>
 
-        <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
-            <button class="btn-action" id="nextBtn" style="display:none;" onclick="nextQuestion()">Επόμενη Ερώτηση →</button>
+        <!-- Μπάρα Πλοήγησης: Προηγούμενη - Επιβεβαίωση (ν) - Επόμενη -->
+        <div class="quiz-navigation-bar">
+            <button class="btn-nav" id="prevBtn" onclick="prevQuestion()" disabled>← Προηγούμενη</button>
+            <button class="btn-confirm" id="confirmBtn" onclick="confirmAnswer()" disabled>
+                <span>✔</span> Καταχώριση
+            </button>
+            <button class="btn-nav" id="nextBtn" onclick="nextQuestion()" disabled>Επόμενη →</button>
         </div>
     </div>
 
@@ -544,9 +618,8 @@
 
     let questionsPool = [];
     let currentQuestions = [];
-    let incorrectQuestions = [];
+    let userAnswers = []; // Καταγραφή απαντήσεων: { selectedIndex: null, isConfirmed: false }
     let currentIndex = 0;
-    let score = 0;
     let timerInterval = null;
     let timeLeft = 0;
 
@@ -571,7 +644,6 @@
         }
     }
 
-    // Κλήση κατά τη φόρτωση της σελίδας για την αρχική ενότητα
     window.addEventListener('DOMContentLoaded', updateTotalQuestionsCount);
 
     function toggleTimerInput(show) {
@@ -592,7 +664,6 @@
 
         try {
             const fileName = fileEndpoints[category];
-            // Αν έχουν ήδη φορτωθεί από το updateTotalQuestionsCount, τα επαναχρησιμοποιούμε
             if (!questionsPool || questionsPool.length === 0) {
                 const response = await fetch(fileName);
                 if (!response.ok) {
@@ -630,8 +701,12 @@
     function launchQuizWithQuestions(questionsList, timerOption) {
         currentQuestions = questionsList;
         currentIndex = 0;
-        score = 0;
-        incorrectQuestions = [];
+        
+        // Αρχικοποίηση πίνακα απαντήσεων για κάθε ερώτηση
+        userAnswers = questionsList.map(() => ({
+            selectedIndex: null,
+            isConfirmed: false
+        }));
 
         const timerBadge = document.getElementById('timerBadge');
         if (timerOption === 'on') {
@@ -668,9 +743,10 @@
 
     function loadQuestion() {
         const q = currentQuestions[currentIndex];
+        const state = userAnswers[currentIndex];
+
         document.getElementById('questionCounter').innerText = `Ερώτηση ${currentIndex + 1} από ${currentQuestions.length}`;
         document.getElementById('questionText').innerText = q.question;
-        document.getElementById('nextBtn').style.display = 'none';
 
         const optContainer = document.getElementById('optionsContainer');
         optContainer.innerHTML = '';
@@ -679,46 +755,100 @@
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = optionText;
-            btn.onclick = () => selectOption(idx, btn);
+
+            // Αν έχει ήδη επιβεβαιωθεί αυτή η ερώτηση στο παρελθόν
+            if (state.isConfirmed) {
+                btn.disabled = true;
+                if (idx === q.correct) {
+                    btn.classList.add('correct');
+                } else if (idx === state.selectedIndex) {
+                    btn.classList.add('wrong');
+                }
+            } else {
+                // Αν είχε απλώς επιλεγεί χωρίς επιβεβαίωση
+                if (state.selectedIndex === idx) {
+                    btn.classList.add('selected');
+                }
+                btn.onclick = () => selectOption(idx);
+            }
+
             optContainer.appendChild(btn);
         });
+
+        updateNavControls();
     }
 
-    function selectOption(selectedIndex, btnElement) {
-        const q = currentQuestions[currentIndex];
-        const buttons = document.querySelectorAll('.option-btn');
+    // Επιλογή απάντησης (χωρίς άμεση καταχώριση)
+    function selectOption(idx) {
+        userAnswers[currentIndex].selectedIndex = idx;
 
-        buttons.forEach((b, idx) => {
-            b.disabled = true;
-            if (idx === q.correct) {
-                b.classList.add('correct');
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach((btn, i) => {
+            if (i === idx) {
+                btn.classList.add('selected');
+            } else {
+                btn.classList.remove('selected');
             }
         });
 
-        if (selectedIndex === q.correct) {
-            score++;
-        } else {
-            btnElement.classList.add('wrong');
-            incorrectQuestions.push({
-                question: q.question,
-                options: q.options,
-                correct: q.correct,
-                userAnswer: selectedIndex
-            });
-        }
+        // Ενεργοποιούμε το κουμπί καταχώρισης (✔)
+        document.getElementById('confirmBtn').disabled = false;
+    }
 
+    // Πάτημα στο κουμπί «✔ Καταχώριση»
+    function confirmAnswer() {
+        const state = userAnswers[currentIndex];
+        if (state.selectedIndex === null || state.isConfirmed) return;
+
+        state.isConfirmed = true;
+        const q = currentQuestions[currentIndex];
+        const buttons = document.querySelectorAll('.option-btn');
+
+        buttons.forEach((btn, idx) => {
+            btn.disabled = true;
+            btn.classList.remove('selected');
+            if (idx === q.correct) {
+                btn.classList.add('correct');
+            } else if (idx === state.selectedIndex) {
+                btn.classList.add('wrong');
+            }
+        });
+
+        updateNavControls();
+    }
+
+    function updateNavControls() {
+        const state = userAnswers[currentIndex];
+        const prevBtn = document.getElementById('prevBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
         const nextBtn = document.getElementById('nextBtn');
+
+        // Κουμπί Προηγούμενης: Ενεργό αν δεν είμαστε στην 1η ερώτηση
+        prevBtn.disabled = (currentIndex === 0);
+
+        // Κουμπί Καταχώρισης (✔): Ενεργό μόνο αν υπάρχει επιλεγμένη απάντηση και ΔΕΝ έχει επιβεβαιωθεί ακόμα
+        confirmBtn.disabled = (state.selectedIndex === null || state.isConfirmed);
+
+        // Κουμπί Επόμενης / Ολοκλήρωσης: Ενεργό μόνο αν έχει επιβεβαιωθεί η απάντηση
+        nextBtn.disabled = !state.isConfirmed;
+
         if (currentIndex === currentQuestions.length - 1) {
-            nextBtn.innerText = 'Ολοκλήρωση & Αποτέλεσμα';
+            nextBtn.innerText = 'Ολοκλήρωση 🏁';
         } else {
-            nextBtn.innerText = 'Επόμενη Ερώτηση →';
+            nextBtn.innerText = 'Επόμενη →';
         }
-        nextBtn.style.display = 'inline-block';
+    }
+
+    function prevQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            loadQuestion();
+        }
     }
 
     function nextQuestion() {
-        currentIndex++;
-        if (currentIndex < currentQuestions.length) {
+        if (currentIndex < currentQuestions.length - 1) {
+            currentIndex++;
             loadQuestion();
         } else {
             finishQuiz();
@@ -729,6 +859,23 @@
         clearInterval(timerInterval);
         document.getElementById('quizScreen').style.display = 'none';
         document.getElementById('resultsScreen').style.display = 'block';
+
+        let score = 0;
+        let incorrectQuestions = [];
+
+        currentQuestions.forEach((q, idx) => {
+            const state = userAnswers[idx];
+            if (state && state.selectedIndex === q.correct) {
+                score++;
+            } else {
+                incorrectQuestions.push({
+                    question: q.question,
+                    options: q.options,
+                    correct: q.correct,
+                    userAnswer: state ? state.selectedIndex : null
+                });
+            }
+        });
 
         const percentage = Math.round((score / currentQuestions.length) * 100);
         document.getElementById('scorePercent').innerText = `${percentage}%`;
@@ -744,18 +891,21 @@
             retryBtn.style.display = 'inline-block';
             document.getElementById('wrongCountBadge').innerText = incorrectQuestions.length;
             showSolutionsBtn.style.display = 'inline-block';
-            buildSolutionsReview();
+            buildSolutionsReview(incorrectQuestions);
+
+            // Αποθήκευση λανθασμένων για το retry
+            window.latestIncorrect = incorrectQuestions;
         } else {
             retryBtn.style.display = 'none';
             showSolutionsBtn.style.display = 'none';
         }
     }
 
-    function buildSolutionsReview() {
+    function buildSolutionsReview(mistakes) {
         const reviewList = document.getElementById('reviewList');
         reviewList.innerHTML = '';
 
-        incorrectQuestions.forEach((item, index) => {
+        mistakes.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = 'review-item';
 
@@ -784,7 +934,9 @@
     }
 
     function retryWrongQuestions() {
-        const retryList = incorrectQuestions.map(item => ({
+        if (!window.latestIncorrect || window.latestIncorrect.length === 0) return;
+
+        const retryList = window.latestIncorrect.map(item => ({
             question: item.question,
             options: item.options,
             correct: item.correct
