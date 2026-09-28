@@ -759,10 +759,13 @@
             // Αν έχει ήδη επιβεβαιωθεί αυτή η ερώτηση στο παρελθόν
             if (state.isConfirmed) {
                 btn.disabled = true;
-                if (idx === q.correct) {
-                    btn.classList.add('correct');
-                } else if (idx === state.selectedIndex) {
-                    btn.classList.add('wrong');
+                if (state.selectedIndex === idx) {
+                    // Αν ήταν σωστή, γίνεται πράσινη. Αν ήταν λάθος, κοκκινίζει ΜΟΝΟ αυτή που πάτησε
+                    if (idx === q.correct) {
+                        btn.classList.add('correct');
+                    } else {
+                        btn.classList.add('wrong');
+                    }
                 }
             } else {
                 // Αν είχε απλώς επιλεγεί χωρίς επιβεβαίωση
@@ -777,6 +780,7 @@
 
         updateNavControls();
     }
+
 
     // Επιλογή απάντησης (χωρίς άμεση καταχώριση)
     function selectOption(idx) {
@@ -807,16 +811,19 @@
         buttons.forEach((btn, idx) => {
             btn.disabled = true;
             btn.classList.remove('selected');
-            if (idx === q.correct) {
-                btn.classList.add('correct');
-            } else if (idx === state.selectedIndex) {
-                btn.classList.add('wrong');
+
+            // Ελέγχουμε μόνο την επιλογή του χρήστη
+            if (idx === state.selectedIndex) {
+                if (idx === q.correct) {
+                    btn.classList.add('correct'); // Σωστό -> Πράσινο
+                } else {
+                    btn.classList.add('wrong');   // Λάθος -> Κόκκινο (η σωστή ΔΕΝ πρασινίζει)
+                }
             }
         });
 
         updateNavControls();
     }
-
     function updateNavControls() {
         const state = userAnswers[currentIndex];
         const prevBtn = document.getElementById('prevBtn');
