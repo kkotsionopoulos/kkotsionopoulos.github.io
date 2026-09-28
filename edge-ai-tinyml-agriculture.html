@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge AI & TinyML στη Γεωργία | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Edge AI & TinyML: Έξυπνοι Αγροτικοί Σταθμοί Χωρίς Εξάρτηση από το Cloud</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Σεπτέμβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η εξέλιξη του Internet of Things (IoT) στον πρωτογενή τομέα στηρίχθηκε κατά βάση στη συγκέντρωση ανεπεξέργαστων μετρήσεων πεδίου και την αποστολή τους σε κεντρικούς διακομιστές (Cloud). Εντούτοις, σε απομακρυσμένες αγροτικές περιοχές με ασθενές ή ανύπαρκτο σήμα κινητής τηλεφωνίας, το μοντέλο αυτό εμφανίζει σοβαρούς περιορισμούς: υψηλή κατανάλωση ενέργειας κατά την εκπομπή, latency στις αποφάσεις και σημαντικό κόστος μεταφοράς δεδομένων. Η τεχνολογική λύση που μετασχηματίζει τη Γεωργία 5.0 είναι η <strong>Επεξεργασία στην Άκρη (Edge Computing)</strong> και η <strong>Μικροσκοπική Μηχανική Μάθηση (TinyML)</strong>.</p>
+
+        <p>Το TinyML επιτρέπει την εκτέλεση προεκπαιδευμένων νευρωνικών δικτύων απευθείας πάνω σε μικροελεγκτές χαμηλού κόστους και κατανάλωσης ισχύος κάτω του milliwatt (όπως επεξεργαστές ARM Cortex-M ή ESP32). Μέσω τεχνικών βελτιστοποίησης μοντέλων, όπως η <em>κβαντοποίηση (quantization)</em> από floating-point 32-bit σε int8 και το <em>κλάδεμα βαρών (weight pruning)</em>, πολύπλοκοι αλγόριθμοι συμπιέζονται σε μερικές εκατοντάδες kilobytes μνήμης RAM, χωρίς αξιοσημείωτη απώλεια ακρίβειας.</p>
+
+        <img src="edgeml-agriculture.jpg" alt="Μικροελεγκτής Edge AI σε αγροτικό σταθμό πεδίου" class="article-image">
+
+        <p>Στην πράξη, ένας αυτόνομος σταθμός Edge AI εξοπλισμένος με φωτοβολταϊκό πάνελ και αισθητήρες εδάφους ή μικροκάμερα δεν στέλνει συνεχώς δεδομένα στο δίκτυο. Αντίθετα, εκτελεί την ανάλυση τοπικά: αναγνωρίζει μοτίβα υδατικού ελλείμματος, υπολογίζει την πραγματική εξατμισοδιαπνοή ή εντοπίζει τα πρώιμα συμπτώματα μυκητολογικών προσβολών απευθείας στο φύλλο. Μόνο όταν διαπιστωθεί κρίσιμη απόκλιση ή ενεργοποιηθεί συναγερμός, η συσκευή εκπέμπει ένα ελαφρύ πακέτο ειδοποίησης μέσω LoRaWAN, εξοικονομώντας έως και 90% της ενέργειας της μπαταρίας.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα του Edge AI στη βιώσιμη γεωργία περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Πλήρης Αυτονομία Λειτουργίας:</strong> Δυνατότητα λήψης αποφάσεων κλειστού βρόχου (π.χ. άμεσο άνοιγμα ηλεκτροβάνας σε περίπτωση ραγδαίας πτώσης υδατικού δυναμικού) ακόμα και σε πλήρη διακοπή των τηλεπικοινωνιών.</li>
+            <li><strong>Δραστική Ενεργειακή Αποδοτικότητα:</strong> Η τοπική επεξεργασία καταναλώνει κλάσμα της ενέργειας που απαιτείται για τη συνεχή ραδιοεκπομπή raw δεδομένων, επιτρέποντας πολυετή λειτουργία με μια μικρή μπαταρία.</li>
+            <li><strong>Ακαριαίος Χρόνος Απόκρισης (Near-Zero Latency):</strong> Εφαρμογές όπως ο ψεκασμός ζιζανίων ακριβείας σε κινούμενες πλατφόρμες ή η ανίχνευση δονήσεων από έντομα απαιτούν αποφάσεις σε χιλιοστά του δευτερολέπτου, κάτι που καθιστά το Cloud ανεπαρκές.</li>
+        </ul>
+
+        <p>Η σύγκλιση της γεωπονικής γνώσης με το TinyML απελευθερώνει την ψηφιακή γεωργία από τα δεσμά των τηλεπικοινωνιακών υποδομών. Μετατρέποντας κάθε αισθητήρα σε μια αυτόνομη ευφυή μονάδα, ο σύγχρονος γεωπόνος εξασφαλίζει αξιόπιστη, ανθεκτική και αποδοτική διαχείριση των φυσικών πόρων ακόμα και στις πιο απομονωμένες καλλιέργειες του πλανήτη.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Warden, P., & Situnayake, D. (2019).</strong> <em>TinyML: Machine learning with TensorFlow Lite on Arduino and ultra-low-power microcontrollers.</em> O'Reilly Media.</li>
+            <li><strong>Ray, P. P. (2022).</strong> <em>A review on TinyML: State-of-the-art and prospects for smart agriculture.</em> Journal of King Saud University-Computer and Information Sciences, 34(4), 1595-1610.</li>
+            <li><strong>Saha, S. S., et al. (2022).</strong> <em>TinyML for precision agriculture: Low-power edge intelligence in distributed sensor networks.</em> IEEE Internet of Things Magazine, 5(3), 44-50.</li>
+            <li><strong>David, R., et al. (2021).</strong> <em>TensorFlow Lite Micro: Embedded machine learning on TinyML systems.</em> Proceedings of Machine Learning and Systems, 3, 800-811.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
