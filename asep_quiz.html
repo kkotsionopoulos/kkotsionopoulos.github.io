@@ -428,8 +428,8 @@
 
         <div class="form-group">
             <label for="categorySelect">Γνωστική Ενότητα:</label>
-            <select id="categorySelect">
-                <option value="syntagma">1. Συνταγματικό Δίκαιο</option>
+            <select id="categorySelect" onchange="updateTotalQuestionsCount()">
+                <option value="syntagma">1. Συνταγματικό & Διοικητικό Δίκαιο</option>
                 <option value="dimosia">2. Κώδικας Δημοσίων Υπαλλήλων</option>
                 <option value="europe">3. Ευρωπαϊκοί Θεσμοί & Δίκαιο</option>
             </select>
@@ -440,7 +440,7 @@
             <select id="questionCount">
                 <option value="20">20 ερωτήσεις (Σύντομο τεστ)</option>
                 <option value="50">50 ερωτήσεις (Προσομοίωση)</option>
-                <option value="all">Όλες οι διαθέσιμες ερωτήσεις</option>
+                <option value="all" id="allOptionLabel">Όλες οι διαθέσιμες ερωτήσεις</option>
             </select>
         </div>
 
@@ -504,7 +504,7 @@
                 <button class="btn-action" onclick="resetQuiz()">⚙️ Νέο Τεστ</button>
             </div>
 
-            <!-- Λίστα επανεξέτασης λαθών -->
+            <!-- Review mistakes -->
             <div id="reviewContainer" class="review-container">
                 <h3 style="color: var(--primary-color); margin-top: 0;">Αναλυτική Επισκόπηση Λανθασμένων Απαντήσεων:</h3>
                 <div id="reviewList"></div>
@@ -550,6 +550,30 @@
     let timerInterval = null;
     let timeLeft = 0;
 
+    // Ενημέρωση του label «Όλες οι διαθέσιμες ερωτήσεις (Σύνολο: X)»
+    async function updateTotalQuestionsCount() {
+        const category = document.getElementById('categorySelect').value;
+        const allOption = document.getElementById('allOptionLabel');
+        allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις (υπολογισμός...)';
+
+        try {
+            const fileName = fileEndpoints[category];
+            const response = await fetch(fileName);
+            if (response.ok) {
+                const data = await response.json();
+                questionsPool = data;
+                allOption.innerText = `Όλες οι διαθέσιμες ερωτήσεις (Σύνολο: ${data.length})`;
+            } else {
+                allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις';
+            }
+        } catch (e) {
+            allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις';
+        }
+    }
+
+    // Κλήση κατά τη φόρτωση της σελίδας για την αρχική ενότητα
+    window.addEventListener('DOMContentLoaded', updateTotalQuestionsCount);
+
     function toggleTimerInput(show) {
         document.getElementById('timerInputWrap').style.display = show ? 'block' : 'none';
     }
@@ -568,11 +592,14 @@
 
         try {
             const fileName = fileEndpoints[category];
-            const response = await fetch(fileName);
-            if (!response.ok) {
-                throw new Error(`Δεν βρέθηκε το αρχείο ${fileName}. Βεβαιωθείτε ότι υπάρχει στον φάκελο data/.`);
+            // Αν έχουν ήδη φορτωθεί από το updateTotalQuestionsCount, τα επαναχρησιμοποιούμε
+            if (!questionsPool || questionsPool.length === 0) {
+                const response = await fetch(fileName);
+                if (!response.ok) {
+                    throw new Error(`Δεν βρέθηκε το αρχείο ${fileName}. Βεβαιωθείτε ότι υπάρχει στον φάκελο data/.`);
+                }
+                questionsPool = await response.json();
             }
-            questionsPool = await response.json();
 
             if (!Array.isArray(questionsPool) || questionsPool.length === 0) {
                 throw new Error('Το αρχείο ερωτήσεων είναι κενό.');
@@ -770,6 +797,7 @@
     function resetQuiz() {
         document.getElementById('resultsScreen').style.display = 'none';
         document.getElementById('settingsScreen').style.display = 'block';
+        updateTotalQuestionsCount();
     }
 </script>
 
