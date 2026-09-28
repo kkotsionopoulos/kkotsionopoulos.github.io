@@ -298,7 +298,7 @@
             background: #f0f7f3;
         }
 
-        /* Επιλεγμένη απάντηση πριν την καταχώριση */
+        /* Επιλεγμένη απάντηση πριν την επιβεβαίωση */
         .option-btn.selected {
             background-color: #ebf5fb !important;
             border-color: var(--selected-color) !important;
@@ -317,9 +317,10 @@
             background-color: #f8d7da !important;
             border-color: var(--danger-color) !important;
             color: #721c24;
+            cursor: not-allowed !important;
         }
 
-        /* Πλοήγηση Ερώτησης (Προηγούμενη - Καταχώριση - Επόμενη) */
+        /* Πλοήγηση Ερώτησης */
         .quiz-navigation-bar {
             display: flex;
             justify-content: space-between;
@@ -411,7 +412,6 @@
             margin-bottom: 20px;
         }
 
-        /* Review Mistakes Box */
         .review-container {
             margin-top: 30px;
             text-align: left;
@@ -549,7 +549,7 @@
             <div class="options-list" id="optionsContainer"></div>
         </div>
 
-        <!-- Μπάρα Πλοήγησης: Προηγούμενη - Επιβεβαίωση (ν) - Επόμενη -->
+        <!-- Μπάρα Πλοήγησης: Προηγούμενη - Επιβεβαίωση (✔) - Επόμενη -->
         <div class="quiz-navigation-bar">
             <button class="btn-nav" id="prevBtn" onclick="prevQuestion()" disabled>← Προηγούμενη</button>
             <button class="btn-confirm" id="confirmBtn" onclick="confirmAnswer()" disabled>
@@ -578,7 +578,6 @@
                 <button class="btn-action" onclick="resetQuiz()">⚙️ Νέο Τεστ</button>
             </div>
 
-            <!-- Review mistakes -->
             <div id="reviewContainer" class="review-container">
                 <h3 style="color: var(--primary-color); margin-top: 0;">Αναλυτική Επισκόπηση Λανθασμένων Απαντήσεων:</h3>
                 <div id="reviewList"></div>
@@ -618,12 +617,11 @@
 
     let questionsPool = [];
     let currentQuestions = [];
-    let userAnswers = []; // Καταγραφή απαντήσεων: { selectedIndex: null, isConfirmed: false }
+    let userAnswers = []; // { selectedIndex, isConfirmed, wrongAttempts: [], hadMistake: false }
     let currentIndex = 0;
     let timerInterval = null;
     let timeLeft = 0;
 
-    // Ενημέρωση του label «Όλες οι διαθέσιμες ερωτήσεις (Σύνολο: X)»
     async function updateTotalQuestionsCount() {
         const category = document.getElementById('categorySelect').value;
         const allOption = document.getElementById('allOptionLabel');
@@ -702,10 +700,11 @@
         currentQuestions = questionsList;
         currentIndex = 0;
         
-        // Αρχικοποίηση πίνακα απαντήσεων για κάθε ερώτηση
         userAnswers = questionsList.map(() => ({
             selectedIndex: null,
-            isConfirmed: false
+            isConfirmed: false,
+            wrongAttempts: [],
+            hadMistake: false
         }));
 
         const timerBadge = document.getElementById('timerBadge');
@@ -756,19 +755,19 @@
             btn.className = 'option-btn';
             btn.innerText = optionText;
 
-            // Αν έχει ήδη επιβεβαιωθεί αυτή η ερώτηση στο παρελθόν
-            if (state.isConfirmed) {
+            if (state.wrongAttempts && state.wrongAttempts.includes(idx)) {
+                // Προηγούμενη αποτυχημένη προσπάθεια -> παραμένει κόκκινο και κλειδωμένο
+                btn.classList.add('wrong');
                 btn.disabled = true;
-                if (state.selectedIndex === idx) {
-                    // Αν ήταν σωστή, γίνεται πράσινη. Αν ήταν λάθος, κοκκινίζει ΜΟΝΟ αυτή που πάτησε
-                    if (idx === q.correct) {
-                        btn.classList.add('correct');
-                    } else {
-                        btn.classList.add('wrong');
-                    }
-                }
+            } else if (state.isConfirmed && idx === q.correct) {
+                // Επιβεβαιωμένη σωστή απάντηση -> πράσινο
+                btn.classList.add('correct');
+                btn.disabled = true;
+            } else if (state.isConfirmed) {
+                // Η ερώτηση έχει λυθεί οριστικά -> κλειδώνουν όλες
+                btn.disabled = true;
             } else {
-                // Αν είχε απλώς επιλεγεί χωρίς επιβεβαίωση
+                // Ενεργή επιλογή
                 if (state.selectedIndex === idx) {
                     btn.classList.add('selected');
                 }
@@ -781,13 +780,15 @@
         updateNavControls();
     }
 
-
-    // Επιλογή απάντησης (χωρίς άμεση καταχώριση)
     function selectOption(idx) {
-        userAnswers[currentIndex].selectedIndex = idx;
+        const state = userAnswers[currentIndex];
+        if (state.isConfirmed || (state.wrongAttempts && state.wrongAttempts.includes(idx))) return;
+
+        state.selectedIndex = idx;
 
         const buttons = document.querySelectorAll('.option-btn');
         buttons.forEach((btn, i) => {
+            if (state.wrongAttempts && state.wrongAttempts.includes(i)) return;
             if (i === idx) {
                 btn.classList.add('selected');
             } else {
@@ -795,48 +796,59 @@
             }
         });
 
-        // Ενεργοποιούμε το κουμπί καταχώρισης (✔)
         document.getElementById('confirmBtn').disabled = false;
     }
 
-    // Πάτημα στο κουμπί «✔ Καταχώριση»
     function confirmAnswer() {
         const state = userAnswers[currentIndex];
         if (state.selectedIndex === null || state.isConfirmed) return;
 
-        state.isConfirmed = true;
         const q = currentQuestions[currentIndex];
         const buttons = document.querySelectorAll('.option-btn');
 
-        buttons.forEach((btn, idx) => {
-            btn.disabled = true;
-            btn.classList.remove('selected');
-
-            // Ελέγχουμε μόνο την επιλογή του χρήστη
-            if (idx === state.selectedIndex) {
+        if (state.selectedIndex === q.correct) {
+            // Σωστή επιλογή!
+            state.isConfirmed = true;
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                btn.classList.remove('selected');
                 if (idx === q.correct) {
-                    btn.classList.add('correct'); // Σωστό -> Πράσινο
-                } else {
-                    btn.classList.add('wrong');   // Λάθος -> Κόκκινο (η σωστή ΔΕΝ πρασινίζει)
+                    btn.classList.add('correct');
                 }
+            });
+        } else {
+            // Λάθος επιλογή! Επιτρέπεται νέα προσπάθεια
+            state.hadMistake = true;
+            if (!state.wrongAttempts) state.wrongAttempts = [];
+            state.wrongAttempts.push(state.selectedIndex);
+
+            const wrongBtn = buttons[state.selectedIndex];
+            if (wrongBtn) {
+                wrongBtn.classList.remove('selected');
+                wrongBtn.classList.add('wrong');
+                wrongBtn.disabled = true;
             }
-        });
+
+            // Επαναφορά τρέχουσας επιλογής ώστε ο χρήστης να διαλέξει άλλη
+            state.selectedIndex = null;
+        }
 
         updateNavControls();
     }
+
     function updateNavControls() {
         const state = userAnswers[currentIndex];
         const prevBtn = document.getElementById('prevBtn');
         const confirmBtn = document.getElementById('confirmBtn');
         const nextBtn = document.getElementById('nextBtn');
 
-        // Κουμπί Προηγούμενης: Ενεργό αν δεν είμαστε στην 1η ερώτηση
+        // Προηγούμενη: ενεργή αν δεν είμαστε στην 1η ερώτηση
         prevBtn.disabled = (currentIndex === 0);
 
-        // Κουμπί Καταχώρισης (✔): Ενεργό μόνο αν υπάρχει επιλεγμένη απάντηση και ΔΕΝ έχει επιβεβαιωθεί ακόμα
+        // Καταχώριση (✔): ενεργή μόνο όταν έχει επιλεγεί κουμπί και η ερώτηση δεν έχει ολοκληρωθεί
         confirmBtn.disabled = (state.selectedIndex === null || state.isConfirmed);
 
-        // Κουμπί Επόμενης / Ολοκλήρωσης: Ενεργό μόνο αν έχει επιβεβαιωθεί η απάντηση
+        // Επόμενη: ξεκλειδώνει ΜΟΝΟ όταν βρεθεί η σωστή απάντηση
         nextBtn.disabled = !state.isConfirmed;
 
         if (currentIndex === currentQuestions.length - 1) {
@@ -872,21 +884,24 @@
 
         currentQuestions.forEach((q, idx) => {
             const state = userAnswers[idx];
-            if (state && state.selectedIndex === q.correct) {
+            // Πόντος δίνεται μόνο αν απαντήθηκε σωστά με την 1η προσπάθεια
+            if (state && state.isConfirmed && !state.hadMistake) {
                 score++;
             } else {
                 incorrectQuestions.push({
                     question: q.question,
                     options: q.options,
                     correct: q.correct,
-                    userAnswer: state ? state.selectedIndex : null
+                    userAnswer: (state && state.wrongAttempts && state.wrongAttempts.length > 0) 
+                        ? state.wrongAttempts[0] 
+                        : null
                 });
             }
         });
 
         const percentage = Math.round((score / currentQuestions.length) * 100);
         document.getElementById('scorePercent').innerText = `${percentage}%`;
-        document.getElementById('scoreDetail').innerText = `Απαντήσατε σωστά σε ${score} από τις ${currentQuestions.length} ερωτήσεις.`;
+        document.getElementById('scoreDetail').innerText = `Απαντήσατε σωστά με την πρώτη προσπάθεια σε ${score} από τις ${currentQuestions.length} ερωτήσεις.`;
 
         const retryBtn = document.getElementById('retryWrongBtn');
         const showSolutionsBtn = document.getElementById('showSolutionsBtn');
@@ -900,7 +915,6 @@
             showSolutionsBtn.style.display = 'inline-block';
             buildSolutionsReview(incorrectQuestions);
 
-            // Αποθήκευση λανθασμένων για το retry
             window.latestIncorrect = incorrectQuestions;
         } else {
             retryBtn.style.display = 'none';
@@ -921,7 +935,7 @@
 
             div.innerHTML = `
                 <div class="review-question">${index + 1}. ${item.question}</div>
-                <div class="review-answer review-user-wrong">❌ Η απάντησή σας: ${userText}</div>
+                <div class="review-answer review-user-wrong">❌ Αρχική λάθος επιλογή: ${userText}</div>
                 <div class="review-answer review-correct">✔ Ορθή απάντηση: ${correctText}</div>
             `;
             reviewList.appendChild(div);
