@@ -535,16 +535,16 @@
         dropdownTimeout = setTimeout(() => { dropdownMenu.style.display = 'none'; }, 150);
     });
 
-    // --- ΑΝΤΙΣΤΟΙΧΙΣΗ JSON ΑΡΧΕΙΩΝ ---
+    // --- ΑΝΤΙΣΤΟΙΧΙΣΗ JSON ΑΡΧΕΙΩΝ ΣΤΟΝ ΦΑΚΕΛΟ data/ ---
     const fileEndpoints = {
-        'syntagma': 'questions_syntagma.json',
-        'dimosia': 'questions_dimosia.json',
-        'europe': 'questions_europe.json'
+        'syntagma': 'data/questions_syntagma.json',
+        'dimosia':  'data/questions_dimosia.json',
+        'europe':   'data/questions_europe.json'
     };
 
     let questionsPool = [];
     let currentQuestions = [];
-    let incorrectQuestions = []; // Αποθήκευση λαθών
+    let incorrectQuestions = [];
     let currentIndex = 0;
     let score = 0;
     let timerInterval = null;
@@ -570,7 +570,7 @@
             const fileName = fileEndpoints[category];
             const response = await fetch(fileName);
             if (!response.ok) {
-                throw new Error(`Δεν βρέθηκε το αρχείο ${fileName}. Βεβαιωθείτε ότι υπάρχει στον ίδιο φάκελο.`);
+                throw new Error(`Δεν βρέθηκε το αρχείο ${fileName}. Βεβαιωθείτε ότι υπάρχει στον φάκελο data/.`);
             }
             questionsPool = await response.json();
 
@@ -606,7 +606,6 @@
         score = 0;
         incorrectQuestions = [];
 
-        // Ρύθμιση Χρονομέτρου
         const timerBadge = document.getElementById('timerBadge');
         if (timerOption === 'on') {
             const minutes = parseInt(document.getElementById('timeLimit').value, 10) || 20;
@@ -673,7 +672,6 @@
             score++;
         } else {
             btnElement.classList.add('wrong');
-            // Αποθήκευση της λανθασμένης ερώτησης μαζί με την επιλογή του χρήστη
             incorrectQuestions.push({
                 question: q.question,
                 options: q.options,
@@ -709,12 +707,10 @@
         document.getElementById('scorePercent').innerText = `${percentage}%`;
         document.getElementById('scoreDetail').innerText = `Απαντήσατε σωστά σε ${score} από τις ${currentQuestions.length} ερωτήσεις.`;
 
-        // Έλεγχος αν υπάρχουν λάθη
         const retryBtn = document.getElementById('retryWrongBtn');
         const showSolutionsBtn = document.getElementById('showSolutionsBtn');
         const reviewContainer = document.getElementById('reviewContainer');
         
-        // Απόκρυψη review container στην αρχή της προβολής
         reviewContainer.style.display = 'none';
 
         if (incorrectQuestions.length > 0) {
@@ -728,7 +724,6 @@
         }
     }
 
-    // Κατασκευή της λίστας λαθών & σωστών απαντήσεων
     function buildSolutionsReview() {
         const reviewList = document.getElementById('reviewList');
         reviewList.innerHTML = '';
@@ -749,7 +744,6 @@
         });
     }
 
-    // Toggle εμφάνισης λύσεων
     function toggleSolutionsReview() {
         const reviewContainer = document.getElementById('reviewContainer');
         const btn = document.getElementById('showSolutionsBtn');
@@ -762,9 +756,7 @@
         }
     }
 
-    // Επανάληψη μόνο των λαθών
     function retryWrongQuestions() {
-        // Φτιάχνουμε νέα λίστα καθαρών ερωτήσεων μόνο από τα λάθη
         const retryList = incorrectQuestions.map(item => ({
             question: item.question,
             options: item.options,
