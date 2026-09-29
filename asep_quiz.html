@@ -298,7 +298,7 @@
             background: #f0f7f3;
         }
 
-        /* Επιλεγμένη απάντηση πριν την επιβεβαίωση */
+        /* Επιλεγμένη απάντηση πριν την καταχώριση */
         .option-btn.selected {
             background-color: #ebf5fb !important;
             border-color: var(--selected-color) !important;
@@ -320,7 +320,7 @@
             cursor: not-allowed !important;
         }
 
-        /* Πλοήγηση Ερώτησης */
+        /* Μπάρα Πλοήγησης Ερώτησης */
         .quiz-navigation-bar {
             display: flex;
             justify-content: space-between;
@@ -549,7 +549,7 @@
             <div class="options-list" id="optionsContainer"></div>
         </div>
 
-        <!-- Μπάρα Πλοήγησης: Προηγούμενη - Επιβεβαίωση (✔) - Επόμενη -->
+        <!-- Μπάρα Πλοήγησης -->
         <div class="quiz-navigation-bar">
             <button class="btn-nav" id="prevBtn" onclick="prevQuestion()" disabled>← Προηγούμενη</button>
             <button class="btn-confirm" id="confirmBtn" onclick="confirmAnswer()" disabled>
@@ -617,7 +617,7 @@
 
     let questionsPool = [];
     let currentQuestions = [];
-    let userAnswers = []; // { selectedIndex, isConfirmed, wrongAttempts: [], hadMistake: false }
+    let userAnswers = []; // { selectedIndex, hasAnswered, isCorrect, wrongAttempts: [], firstWrongAnswer: null }
     let currentIndex = 0;
     let timerInterval = null;
     let timeLeft = 0;
@@ -702,9 +702,10 @@
         
         userAnswers = questionsList.map(() => ({
             selectedIndex: null,
-            isConfirmed: false,
-            wrongAttempts: [],
-            hadMistake: false
+            hasAnswered: false,       // Έγινε τουλάχιστον 1 καταχώριση (ξεκλειδώνει το Next)
+            isCorrect: false,         // Βρέθηκε η σωστή απάντηση
+            wrongAttempts: [],        // Ποιες επιλογές απαντήθηκαν λάθος
+            firstWrongAnswer: null    // Η 1η λανθασμένη επιλογή για το review
         }));
 
         const timerBadge = document.getElementById('timerBadge');
@@ -756,18 +757,18 @@
             btn.innerText = optionText;
 
             if (state.wrongAttempts && state.wrongAttempts.includes(idx)) {
-                // Προηγούμενη αποτυχημένη προσπάθεια -> παραμένει κόκκινο και κλειδωμένο
+                // Προηγούμενη αποτυχημένη επιλογή -> κόκκινο & κλειδωμένο
                 btn.classList.add('wrong');
                 btn.disabled = true;
-            } else if (state.isConfirmed && idx === q.correct) {
-                // Επιβεβαιωμένη σωστή απάντηση -> πράσινο
+            } else if (state.isCorrect && idx === q.correct) {
+                // Έχει βρεθεί η σωστή -> πράσινο
                 btn.classList.add('correct');
                 btn.disabled = true;
-            } else if (state.isConfirmed) {
-                // Η ερώτηση έχει λυθεί οριστικά -> κλειδώνουν όλες
+            } else if (state.isCorrect) {
+                // Η ερώτηση ολοκληρώθηκε σωστά -> κλείδωμα των υπολοίπων
                 btn.disabled = true;
             } else {
-                // Ενεργή επιλογή
+                // Επιλογή που παραμένει διαθέσιμη
                 if (state.selectedIndex === idx) {
                     btn.classList.add('selected');
                 }
@@ -782,7 +783,7 @@
 
     function selectOption(idx) {
         const state = userAnswers[currentIndex];
-        if (state.isConfirmed || (state.wrongAttempts && state.wrongAttempts.includes(idx))) return;
+        if (state.isCorrect || (state.wrongAttempts && state.wrongAttempts.includes(idx))) return;
 
         state.selectedIndex = idx;
 
@@ -801,14 +802,17 @@
 
     function confirmAnswer() {
         const state = userAnswers[currentIndex];
-        if (state.selectedIndex === null || state.isConfirmed) return;
+        if (state.selectedIndex === null || state.isCorrect) return;
 
         const q = currentQuestions[currentIndex];
         const buttons = document.querySelectorAll('.option-btn');
 
+        // Έγινε προσπάθεια απάντησης: επιτρέπεται πλέον η μετάβαση στην επόμενη ερώτηση
+        state.hasAnswered = true;
+
         if (state.selectedIndex === q.correct) {
-            // Σωστή επιλογή!
-            state.isConfirmed = true;
+            // Σωστή απάντηση
+            state.isCorrect = true;
             buttons.forEach((btn, idx) => {
                 btn.disabled = true;
                 btn.classList.remove('selected');
@@ -817,10 +821,13 @@
                 }
             });
         } else {
-            // Λάθος επιλογή! Επιτρέπεται νέα προσπάθεια
-            state.hadMistake = true;
+            // Λάθος απάντηση: κοκκινίζει μόνο αυτό το κουμπί, τα υπόλοιπα παραμένουν ανοιχτά
             if (!state.wrongAttempts) state.wrongAttempts = [];
             state.wrongAttempts.push(state.selectedIndex);
+
+            if (state.firstWrongAnswer === null) {
+                state.firstWrongAnswer = state.selectedIndex;
+            }
 
             const wrongBtn = buttons[state.selectedIndex];
             if (wrongBtn) {
@@ -829,7 +836,7 @@
                 wrongBtn.disabled = true;
             }
 
-            // Επαναφορά τρέχουσας επιλογής ώστε ο χρήστης να διαλέξει άλλη
+            // Μηδενισμός επιλογής ώστε να μπορεί να επιλέξει άλλη αν μείνει στην ερώτηση
             state.selectedIndex = null;
         }
 
@@ -845,11 +852,11 @@
         // Προηγούμενη: ενεργή αν δεν είμαστε στην 1η ερώτηση
         prevBtn.disabled = (currentIndex === 0);
 
-        // Καταχώριση (✔): ενεργή μόνο όταν έχει επιλεγεί κουμπί και η ερώτηση δεν έχει ολοκληρωθεί
-        confirmBtn.disabled = (state.selectedIndex === null || state.isConfirmed);
+        // Καταχώριση (✔): ενεργή μόνο όταν υπάρχει επιλογή και η ερώτηση δεν έχει λυθεί σωστά
+        confirmBtn.disabled = (state.selectedIndex === null || state.isCorrect);
 
-        // Επόμενη: ξεκλειδώνει ΜΟΝΟ όταν βρεθεί η σωστή απάντηση
-        nextBtn.disabled = !state.isConfirmed;
+        // Επόμενη: ξεκλειδώνει αμέσως μόλις απαντηθεί (είτε σωστά είτε λάθος)
+        nextBtn.disabled = !state.hasAnswered;
 
         if (currentIndex === currentQuestions.length - 1) {
             nextBtn.innerText = 'Ολοκλήρωση 🏁';
@@ -885,16 +892,23 @@
         currentQuestions.forEach((q, idx) => {
             const state = userAnswers[idx];
             // Πόντος δίνεται μόνο αν απαντήθηκε σωστά με την 1η προσπάθεια
-            if (state && state.isConfirmed && !state.hadMistake) {
+            if (state && state.isCorrect && (!state.wrongAttempts || state.wrongAttempts.length === 0)) {
                 score++;
             } else {
+                let userChoice = null;
+                if (state) {
+                    if (state.firstWrongAnswer !== null) {
+                        userChoice = state.firstWrongAnswer;
+                    } else if (state.wrongAttempts && state.wrongAttempts.length > 0) {
+                        userChoice = state.wrongAttempts[0];
+                    }
+                }
+
                 incorrectQuestions.push({
                     question: q.question,
                     options: q.options,
                     correct: q.correct,
-                    userAnswer: (state && state.wrongAttempts && state.wrongAttempts.length > 0) 
-                        ? state.wrongAttempts[0] 
-                        : null
+                    userAnswer: userChoice
                 });
             }
         });
