@@ -501,7 +501,7 @@
         <div class="form-group">
             <label for="categorySelect">Γνωστική Ενότητα:</label>
             <select id="categorySelect" onchange="updateTotalQuestionsCount()">
-                <option value="syntagma">1. Συνταγματικό & Διοικητικό Δίκαιο</option>
+                <option value="syntagma">1. Συνταγματικό Δίκαιο</option>
                 <option value="dimosia">2. Διοικητικό Δίκαιο</option>
                 <option value="europe">3. Ευρωπαϊκοί Θεσμοί & Δίκαιο</option>
             </select>
@@ -633,7 +633,6 @@
 
         try {
             const fileName = fileEndpoints[category];
-            // Προσθήκη ?t= για αποφυγή cache από browser ή GitHub Pages
             const response = await fetch(`${fileName}?t=${Date.now()}`);
             if (response.ok) {
                 const data = await response.json();
@@ -674,7 +673,6 @@
 
         try {
             const fileName = fileEndpoints[category];
-            // Πάντα φρέσκια ανάκτηση του επιλεγμένου αρχείου
             const response = await fetch(`${fileName}?t=${Date.now()}`);
             if (!response.ok) {
                 throw new Error(`Δεν βρέθηκε το αρχείο "${fileName}". Ελέγξτε αν υπάρχει στον φάκελο data/ του GitHub με αυτό ακριβώς το όνομα.`);
