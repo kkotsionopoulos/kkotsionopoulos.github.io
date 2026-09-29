@@ -319,7 +319,6 @@
             cursor: not-allowed !important;
         }
 
-        /* Μπάρα Πλοήγησης Ερώτησης */
         .quiz-navigation-bar {
             display: flex;
             justify-content: space-between;
@@ -454,9 +453,14 @@
 
         .error-message {
             color: var(--danger-color);
-            font-size: 0.9em;
-            margin-top: 10px;
+            font-size: 0.95em;
+            margin-top: 15px;
+            font-weight: bold;
             display: none;
+            background: #fde8e8;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
@@ -548,7 +552,6 @@
             <div class="options-list" id="optionsContainer"></div>
         </div>
 
-        <!-- Μπάρα Πλοήγησης -->
         <div class="quiz-navigation-bar">
             <button class="btn-nav" id="prevBtn" onclick="prevQuestion()" disabled>← Προηγούμενη</button>
             <button class="btn-confirm" id="confirmBtn" onclick="confirmAnswer()" disabled>
@@ -614,31 +617,41 @@
         'europe':   'data/questions_europe.json'
     };
 
-    let questionsPool = [];
     let currentQuestions = [];
     let userAnswers = [];
     let currentIndex = 0;
     let timerInterval = null;
     let timeLeft = 0;
 
+    // Ενημέρωση καταμέτρησης ερωτήσεων στο dropdown
     async function updateTotalQuestionsCount() {
         const category = document.getElementById('categorySelect').value;
         const allOption = document.getElementById('allOptionLabel');
-        allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις (υπολογισμός...)';
+        const errorMsg = document.getElementById('errorMessage');
+        allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις (φόρτωση...)';
+        errorMsg.style.display = 'none';
 
         try {
             const fileName = fileEndpoints[category];
-            const response = await fetch(fileName);
+            // Προσθήκη ?t= για αποφυγή cache από browser ή GitHub Pages
+            const response = await fetch(`${fileName}?t=${Date.now()}`);
             if (response.ok) {
                 const data = await response.json();
-                questionsPool = data;
                 allOption.innerText = `Όλες οι διαθέσιμες ερωτήσεις (Σύνολο: ${data.length})`;
             } else {
                 allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις';
+                showError(`Προσοχή: Δεν βρέθηκε το αρχείο "${fileName}". Βεβαιωθείτε ότι υπάρχει στον φάκελο data/ στο GitHub.`);
             }
         } catch (e) {
             allOption.innerText = 'Όλες οι διαθέσιμες ερωτήσεις';
+            showError(`Σφάλμα φόρτωσης του αρχείου (${e.message}). Ελέγξτε αν το αρχείο υπάρχει ή αν περιέχει συντακτικό λάθος.`);
         }
+    }
+
+    function showError(msg) {
+        const errorBox = document.getElementById('errorMessage');
+        errorBox.innerText = msg;
+        errorBox.style.display = 'block';
     }
 
     window.addEventListener('DOMContentLoaded', updateTotalQuestionsCount);
@@ -661,19 +674,19 @@
 
         try {
             const fileName = fileEndpoints[category];
-            if (!questionsPool || questionsPool.length === 0) {
-                const response = await fetch(fileName);
-                if (!response.ok) {
-                    throw new Error(`Δεν βρέθηκε το αρχείο ${fileName}. Βεβαιωθείτε ότι υπάρχει στον φάκελο data/.`);
-                }
-                questionsPool = await response.json();
+            // Πάντα φρέσκια ανάκτηση του επιλεγμένου αρχείου
+            const response = await fetch(`${fileName}?t=${Date.now()}`);
+            if (!response.ok) {
+                throw new Error(`Δεν βρέθηκε το αρχείο "${fileName}". Ελέγξτε αν υπάρχει στον φάκελο data/ του GitHub με αυτό ακριβώς το όνομα.`);
             }
+            
+            const rawPool = await response.json();
 
-            if (!Array.isArray(questionsPool) || questionsPool.length === 0) {
+            if (!Array.isArray(rawPool) || rawPool.length === 0) {
                 throw new Error('Το αρχείο ερωτήσεων είναι κενό.');
             }
 
-            let list = [...questionsPool];
+            let list = [...rawPool];
 
             if (order === 'random') {
                 list.sort(() => Math.random() - 0.5);
@@ -687,8 +700,7 @@
             launchQuizWithQuestions(list, timerOption);
 
         } catch (err) {
-            errorMsg.innerText = err.message;
-            errorMsg.style.display = 'block';
+            showError(err.message);
         } finally {
             startBtn.disabled = false;
             startBtn.innerText = 'Έναρξη Εξέτασης →';
