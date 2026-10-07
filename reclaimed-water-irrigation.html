@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ανακτημένο Νερό & Άρδευση Ακριβείας | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Επαναχρησιμοποίηση Ανακτημένου Νερού: Ασφαλής Άρδευση με Αισθητήρες IoT & Κυκλική Οικονομία</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Οκτώβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ένταση των περιόδων ξηρασίας στη λεκάνη της Μεσογείου και η υπερεκμετάλλευση των υπόγειων υδροφορέων καθιστούν τη χρήση συμβατικού αρδευτικού νερού ολοένα και πιο επισφαλή. Στο πλαίσιο του Ευρωπαϊκού Κανονισμού (ΕΕ) 2020/741 για τις ελάχιστες απαιτήσεις επαναχρησιμοποίησης των υδάτων, η αξιοποίηση <strong>Ανακτημένου Νερού (Reclaimed Water)</strong> από εγκαταστάσεις επεξεργασίας λυμάτων αναδεικνύεται σε στρατηγική επιλογή. Παρά τα προφανή οφέλη εξοικονόμησης, η ασφαλής εισαγωγή μη συμβατικών υδάτων στην αγροτική παραγωγή απαιτεί αυστηρό έλεγχο και σύγχρονα εργαλεία Γεωργίας Ακριβείας.</p>
+
+        <p>Το ανακτημένο νερό περιέχει συχνά αξιόλογες ποσότητες θρεπτικών συστατικών, όπως διαλυτό άζωτο και φώσφορο, λειτουργώντας ως φυσικό μέσο υδρολίπανσης (fertigation). Ταυτόχρονα όμως, ενέχει κινδύνους όπως η συσσώρευση αλάτων (κυρίως νατρίου και χλωρίου), η μεταβολή του pH του εδάφους και η παρουσία ιχνοστοιχείων ή παθογόνων μικροοργανισμών (όπως <em>Escherichia coli</em>). Η αποφυγή αυτών των κινδύνων επιτυγχάνεται μέσω <strong>αυτοματοποιημένων σταθμών ελέγχου ποιότητας νερού στην κεφαλή άρδευσης</strong>.</p>
+
+        <img src="wastewater-irrigation.jpg" alt="Μονάδα φιλτραρίσματος ανακτημένου νερού και σύστημα υπόγειας στάγδην άρδευσης" class="article-image">
+
+        <p>Η ψηφιακή παρακολούθηση βασίζεται σε συστοιχίες αισθητήρων IoT που μετρούν συνεχώς την <strong>Ηλεκτρική Αγωγιμότητα (EC)</strong>, το <strong>pH</strong>, το δυναμικό οξειδοαναγωγής (ORP) και τη θολότητα (turbidity). Σε συνδυασμό με ηλεκτρομαγνητικές βαλβίδες ανάμειξης, το σύστημα αναμειγνύει δυναμικά το ανακτημένο νερό με συμβατικό νερό γεώτρησης, διατηρώντας την αλατότητα κάτω από τα κρίσιμα κατώφλια αντοχής της συγκεκριμένης καλλιέργειας. Επιπλέον, η επιλογή της <strong>Υπόγειας Στάγδην Άρδευσης (Subsurface Drip Irrigation - SDI)</strong> εξαλείφει την επαφή του νερού με το υπέργειο τμήμα του φυτού και τους καρπούς, εκμηδενίζοντας τον κίνδυνο μικροβιακής επιμόλυνσης.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της ασφαλούς χρήσης ανακτημένου νερού περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Εξοικονόμηση Πόσιμων Υδάτινων Αποθεμάτων:</strong> Μείωση της άντλησης από υπόγειους υδροφορείς έως και 100% κατά τις κρίσιμες καλοκαιρινές περιόδους άρδευσης.</li>
+            <li><strong>Μείωση Εισροών Ανόργανων Λιπασμάτων:</strong> Αξιοποίηση του υπολειμματικού αζώτου και φωσφόρου που περιέχονται στα επεξεργασμένα λύματα, μειώνοντας τις δαπάνες χημικής λίπανσης κατά 15% έως 30%.</li>
+            <li><strong>Προστασία Εδαφικής Δομής μέσω Smart Leaching:</strong> Δυνατότητα προγραμματισμού αυτόματων εκπλύσεων των αλάτων με καθαρό νερό, όταν οι θαμμένοι αισθητήρες εδάφους καταγράψουν επικίνδυνη άνοδο του λόγου προσρόφησης νατρίου (SAR).</li>
+        </ul>
+
+        <p>Η επαναχρησιμοποίηση επεξεργασμένων υδάτων δεν συνιστά απλώς μια λύση ανάγκης, αλλά μια ολοκληρωμένη εφαρμογή κυκλικής βιοοικονομίας. Συνδυάζοντας την προηγμένη τεχνολογία αισθητήρων, τα πρωτόκολλα IoT και την ορθή γεωπονική διαχείριση, ο πρωτογενής τομέας εξασφαλίζει την παραγωγική του επιβίωση χωρίς να διακυβεύεται η υγεία του εδάφους και η ασφάλεια των καταναλωτών.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>European Parliament & Council (2020).</strong> <em>Regulation (EU) 2020/741 on minimum requirements for water reuse.</em> Official Journal of the European Union, L 177, 32-55.</li>
+            <li><strong>Pedrero, F., et al. (2010).</strong> <em>Use of treated municipal wastewater in irrigated agriculture—Review of some practices in Spain and Greece.</em> Agricultural Water Management, 97(9), 1233-1241.</li>
+            <li><strong>Ungureanu, N., Vladuț, V., & Voicu, G. (2020).</strong> <em>Water scarcity and wastewater reuse in agriculture.</em> World Academy of Science, Engineering and Technology, 14(3), 90-97.</li>
+            <li><strong>Minhas, P. S., et al. (2020).</strong> <em>Coping with water scarcity: Need for rethinking on wastewater use in agriculture.</em> Agricultural Water Management, 241, 106362.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
