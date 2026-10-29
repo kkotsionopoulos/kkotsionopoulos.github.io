@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ηλεκτρομαγνητική Χαρτογράφηση Εδάφους (EMI) | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Ηλεκτρομαγνητική Χαρτογράφηση Εδάφους (EMI): Οριοθέτηση Ζωνών Διαχείρισης Ακριβείας</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Οκτώβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η ανομοιομορφία των εδαφικών ιδιοτήτων εντός ενός αγροτεμαχίου αποτελεί τον πρωταρχικό παράγοντα διακύμανσης των αποδόσεων και της αποτελεσματικότητας των εισροών. Παραδοσιακά, η αποτύπωση της εδαφικής παραλλακτικότητας στηριζόταν σε δειγματοληψίες πλέγματος (grid sampling) και εργαστηριακές αναλύσεις, μια προσέγγιση κοστοβόρα, χρονοβόρα και με χαμηλή χωρική πυκνότητα. Η σύγχρονη γεωργία ακριβείας ξεπερνά αυτόν τον περιορισμό μέσω γεωφυσικών μεθόδων εγγύς τηλεπισκόπησης, με κυρίαρχη την <strong>Ηλεκτρομαγνητική Επαγωγή (Electromagnetic Induction - EMI)</strong>.</p>
+
+        <p>Οι αισθητήρες EMI λειτουργούν χωρίς άμεση ηλεκτρική επαφή με το έδαφος: ένας πρωτεύων πομπός εκπέμπει ένα εναλλασσόμενο ηλεκτρομαγνητικό πεδίο χαμηλής συχνότητας, επάγοντας δευτερογενή δινορεύματα στο έδαφος. Το επαγόμενο μαγνητικό πεδίο καταγράφεται από έναν ή περισσότερους δέκτες σε διαφορετικές αποστάσεις, επιτρέποντας τον υπολογισμό της <strong>Φαινόμενης Ηλεκτρικής Αγωγιμότητας (Apparent Electrical Conductivity - ECa)</strong> σε διαφορετικά βάθη του εδαφικού προφίλ (π.χ. 0-0.5m και 0-1.5m). Η τιμή της ECa αποτελεί ολοκληρωμένη συνάρτηση κρίσιμων παραμέτρων: της μηχανικής σύστασης (περιεκτικότητα σε άργιλο), της υγρασίας, της αλατότητας και του βάθους του ριζοστρώματος.</p>
+
+        <img src="soil-emi-mapping.jpg" alt="Χαρτογράφηση εδάφους με αισθητήρα ηλεκτρομαγνητικής επαγωγής (EMI)" class="article-image">
+
+        <p>Συνδέοντας τη διάταξη EMI με δέκτη υψηλής ακρίβειας RTK-GPS σε κινούμενη πλατφόρμα (όπως quad ή ελαφρύ ελκυστήρα), δημιουργούνται χωρικά πυκνοί χάρτες ECa με ανάλυση χιλιάδων σημείων ανά στρέμμα. Με την εφαρμογή γεωστατιστικών εργαλείων και αλγορίθμων ομαδοποίησης (k-means clustering), το αγροτεμάχιο διαιρείται σε ομοιογενείς <strong>Ζώνες Διαχείρισης (Management Zones)</strong>. Η στοχευμένη δειγματοληψία πραγματοποιείται πλέον μόνο στα αντιπροσωπευτικά σημεία κάθε ζώνης, μειώνοντας τις απαιτούμενες χημικές αναλύσεις έως και 80%.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της οριοθέτησης ζωνών μέσω EMI περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Ορθολογική Καθοδήγηση Μεταβλητής Σποράς και Λίπανσης (VRA):</strong> Ζώνες με υψηλή συγκέντρωση αργίλου και μεγαλύτερη ικανότητα ανταλλαγής κατιόντων (CEC) διαφοροποιούνται αυτόματα στις δόσεις φωσφόρου, καλίου και στην πυκνότητα σποράς σε σύγκριση με αμμώδεις ζώνες.</li>
+            <li><strong>Βελτιστοποίηση Σχεδιασμού Άρδευσης:</strong> Ο σαφής διαχωρισμός ζωνών με διαφορετική υδατοϊκανότητα και σημείο μάρανσης επιτρέπει τη διαφοροποιημένη διάταξη των αρδευτικών τομέων και τη σωστή τοποθέτηση τηλεμετρικών αισθητήρων υγρασίας IoT.</li>
+            <li><strong>Έγκαιρη Ανίχνευση Αλάτωσης:</strong> Σε παράκτιες ή εντατικά αρδευόμενες περιοχές, η διαχρονική παρακολούθηση της ECa αποκαλύπτει τις εστίες συγκέντρωσης αλάτων πριν εμφανιστούν τοξικότητες στις καλλιέργειες.</li>
+        </ul>
+
+        <p>Η ηλεκτρομαγνητική χαρτογράφηση μετατρέπει το έδαφος από ένα «μαύρο κουτί» σε έναν απόλυτα χαρτογραφημένο φυσικό πόρο. Για τον γεωπόνο-μηχανικό, η γνώση της εδαφικής παραλλακτικότητας σε βάθος αποτελεί το σταθερό θεμέλιο πάνω στο οποίο οικοδομούνται όλες οι υπόλοιπες ψηφιακές εφαρμογές ακριβείας, διασφαλίζοντας την αειφορία και την οικονομική αποδοτικότητα της παραγωγής.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Corwin, D. L., & Lesch, S. M. (2005).</strong> <em>Apparent soil electrical conductivity measurements in agriculture.</em> Computers and Electronics in Agriculture, 46(1-3), 11-43.</li>
+            <li><strong>Sudduth, K. A., et al. (2005).</strong> <em>Relating apparent electrical conductivity to soil properties across the north-central USA.</em> Computers and Electronics in Agriculture, 46(1-3), 263-283.</li>
+            <li><strong>Moral, F. J., Terrón, J. M., & Silva, J. R. M. (2010).</strong> <em>Delineation of management zones using mobile measurements of soil apparent electrical conductivity and multivariate geostatistical techniques.</em> Experimental Agriculture, 46(3), 335-343.</li>
+            <li><strong>Doolittle, J. A., & Brevik, E. C. (2014).</strong> <em>The use of electromagnetic induction techniques in soils studies.</em> Geoderma, 223, 33-45.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>

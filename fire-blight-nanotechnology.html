@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Βακτηριακό Κάψιμο & Νανοβιοτεχνολογία | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Βακτηριακό Κάψιμο (Erwinia amylovora): Νανοφορείς Χιτοζάνης & Βιολογική Αντιμετώπιση</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Οκτώβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Το βακτηριακό κάψιμο, προκαλούμενο από το Gram-αρνητικό βακτήριο <em>Erwinia amylovora</em>, αποτελεί μία από τις πιο καταστροφικές ασθένειες των μηλοειδών (μηλιά, αχλαδιά, κυδωνιά) παγκοσμίως, ικανή να νεκρώσει ολόκληρα δένδρα εντός μίας μόνο καλλιεργητικής περιόδου. Η αντιμετώπισή του υπήρξε ιστορικά προβληματική: η χρήση αντιβιοτικών (στρεπτομυκίνη) απαγορεύεται αυστηρά στην Ευρωπαϊκή Ένωση λόγω κινδύνου ανάπτυξης ανθεκτικότητας, ενώ τα παραδοσιακά χαλκούχα σκευάσματα προκαλούν συχνά σοβαρή φυτοτοξικότητα και σκουριόχρωση (russeting) στα άνθη και τους νεαρούς καρπούς. Η σύγχρονη νανοβιοτεχνολογία προσφέρει πλέον μια επιστημονικά τεκμηριωμένη διέξοδο μέσω των <strong>νανοφορέων χιτοζάνης</strong> και της στοχευμένης βιολογικής καταπολέμησης.</p>
+
+        <p>Η κρισιμότερη φάση μόλυνσης εντοπίζεται κατά την περίοδο της άνθησης, όταν το βακτήριο αποικίζει τα στίγματα των ανθέων και εισέρχεται μέσω των νεκταρίων στο αγγειακό σύστημα του φυτού. Τα νανοσωματίδια χιτοζάνης (Chitosan Nanoparticles - CNPs), ενός φυσικού βιοπολυμερούς προερχόμενου από την αποακετυλίωση της χιτίνης, παρουσιάζουν διπλή προστατευτική δράση: διαθέτουν ενδογενή αντιβακτηριακή ισχύ διαταράσσοντας την αρνητικά φορτισμένη κυτταρική μεμβράνη του παθογόνου, ενώ ταυτόχρονα λειτουργούν ως διεγέρτες της <strong>Επαγόμενης Συστηματικής Ανθεκτικότητας (Systemic Acquired Resistance - SAR)</strong> του φυτού.</p>
+
+        <img src="fire-blight-nanotech.jpg" alt="Προσβολή από Erwinia amylovora και στοχευμένη νανοτεχνολογική αντιμετώπιση" class="article-image">
+
+        <p>Η εξέλιξη της μεθόδου συνίσταται στην ενθυλάκωση <strong>αντιμικροβιακών πεπτιδίων (AMPs)</strong> ή δευτερογενών μεταβολιτών ανταγωνιστικών βακτηρίων (όπως τα στελέχη <em>Bacillus subtilis</em> και <em>Pseudomonas fluorescens</em>) εντός των νανοσωματιδίων χιτοζάνης. Σε συνδυασμό με μικροβιακά βιοεπιφανειοδραστικά (ραμνολιπίδια), το ψεκαστικό διάλυμα επιτυγχάνει εξαιρετική διασπορά και προσκόλληση στη μορφολογία των ανθέων, αποτρέποντας την έκπλυση από ανοιξιάτικες βροχές. Ο νανοφορέας διασπάται σταδιακά με ελεγχόμενο ρυθμό, διατηρώντας υψηλή συγκέντρωση δραστικής ουσίας στην ανθοταξία καθ' όλη τη διάρκεια του ευαίσθητου παραθύρου μόλυνσης.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα αυτής της νανοβιολογικής προσέγγισης περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Πλήρης Αποφυγή Φυτοτοξικότητας:</strong> Σε αντίθεση με τον χαλκό, η χιτοζάνη είναι βιοσυμβατή και βιοδιασπώμενη, αποτρέποντας τη νέκρωση των γυρεοκόκκων και τη δημιουργία στιγμάτων στους καρπούς.</li>
+            <li><strong>Αναστολή Σχηματισμού Βιοϋμενίου (Biofilm Inhibition):</strong> Η επιφανειακή αλληλεπίδραση των CNPs εμποδίζει την παραγωγή του εξωπολυσακχαρίτη αμυλοβοράνης (amylovoran), αποτρέποντας την απόφραξη των αγγείων του ξύλου από το βακτήριο.</li>
+            <li><strong>Συμβατότητα με Προγνωστικά Μοντέλα (Maryblyt / Cougarblight):</strong> Η εφαρμογή των νανοσκευασμάτων συντονίζεται με τα ψηφιακά συστήματα έγκαιρης προειδοποίησης, εξασφαλίζοντας στοχευμένες παρεμβάσεις μόνο όταν οι αθροιστικές βαθμοημέρες και η διαβροχή υποδεικνύουν πραγματικό κίνδυνο επιδημίας.</li>
+        </ul>
+
+        <p>Η αξιοποίηση της νανοτεχνολογίας για τον έλεγχο του <em>Erwinia amylovora</em> αποδεικνύει ότι η σύγχρονη φυτοπροστασία μπορεί να συνδυάσει υψηλή αποτελεσματικότητα χωρίς τη χρήση βαρέων μετάλλων ή αντιβιοτικών. Για τον γεωπόνο του μέλλοντος, η μετάβαση σε έξυπνα βιοπολυμερή και φυσικούς ανταγωνιστές θωρακίζει τη βιωσιμότητα των οπωρώνων και προστατεύει το οικοσύστημα.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>van der Zwet, T., Orolaza-Halbrendt, N., & Zeller, W. (2012).</strong> <em>Fire blight: History, biology, and management.</em> APS Press, St. Paul, MN.</li>
+            <li><strong>Malandraki, I., et al. (2020).</strong> <em>Chitosan-based formulations as protective barriers against bacterial pathogens in pomaceous fruit trees.</em> Plant Pathology, 69(7), 1302-1311.</li>
+            <li><strong>Sundin, G. W., & Wang, N. (2018).</strong> <em>Antibiotic resistance in plant-pathogenic bacteria.</em> Annual Review of Phytopathology, 56, 161-180.</li>
+            <li><strong>Kashyap, P. L., et al. (2015).</strong> <em>Chitosan nanoparticles: A promising tool in sustainable crop protection against fungal and bacterial wilt.</em> International Journal of Biological Macromolecules, 77, 45-51.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
