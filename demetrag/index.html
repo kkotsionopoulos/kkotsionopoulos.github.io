@@ -6,6 +6,10 @@
   <title>DemetrAg — Βοηθός Αγρού</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .field-card { transition: all 0.2s ease-in-out; }
+    .field-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+  </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans">
   <div class="min-h-screen flex flex-col">
@@ -83,8 +87,8 @@
 
         <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm text-xs">
           <div class="font-bold text-slate-800 mb-2">Σημειώσεις Αγρού</div>
-          <div class="p-2 bg-amber-50 rounded-lg border border-amber-100 text-[11px] text-amber-900">
-            <strong>P-517 / P-518 (Αραβόσιτος)</strong>: Έλεγχος υγρασίας σπόρου πριν τη βροχή της Κυριακής[cite: 7].
+          <div class="p-2.5 bg-amber-50 rounded-lg border border-amber-100 text-[11px] text-amber-900 leading-relaxed">
+            <strong>P-517 / P-518 (Αραβόσιτος)</strong>: Έλεγχος υγρασίας σπόρου πριν τη βροχή της Κυριακής.
           </div>
         </div>
       </nav>
@@ -96,9 +100,9 @@
           <div class="flex justify-between items-center">
             <div>
               <h2 class="text-base font-bold text-slate-900">Σχηματικός Χάρτης Αγροτεμαχίων</h2>
-              <p class="text-xs text-slate-500">Επιλέξτε ένα αγροτεμάχιο για προβολή λεπτομερειών</p>
+              <p class="text-xs text-slate-500">Κάντε κλικ σε οποιοδήποτε αγροτεμάχιο για ανάλυση εδάφους, ιστορικό και ενέργειες[cite: 7]</p>
             </div>
-            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">14 Αγροτεμάχια</span>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded font-medium">14 Αγροτεμάχια</span>
           </div>
 
           <!-- Τα 14 αγροτεμάχια -->
@@ -159,7 +163,7 @@
               <div class="text-[9px] text-emerald-300 uppercase font-bold">Οικονομικο Διακυβευμα</div>
               <div class="text-2xl font-black text-amber-400">+2.056 €</div>
             </div>
-            <div class="text-right text-[10px] text-slate-300">
+            <div class="text-right text-[10px] text-slate-300 leading-tight">
               Αποφυγή απώλειας 2%/εβδ.[cite: 7, 8]<br>λόγω παραμονής[cite: 7]
             </div>
           </div>
@@ -189,7 +193,68 @@
     </div>
   </div>
 
-  <!-- Modal Καταγραφής -->
+  <!-- Modal Λεπτομερειών Αγροτεμαχίου (Field Detail Popup) -->
+  <div id="field-detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-slate-100">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-3">
+          <span id="modal-field-badge" class="w-4 h-4 rounded-full"></span>
+          <div>
+            <h3 id="modal-field-title" class="font-bold text-slate-900 text-base leading-tight">Αγροτεμάχιο</h3>
+            <p id="modal-field-crop" class="text-xs text-slate-500 font-medium">Καλλιέργεια</p>
+          </div>
+        </div>
+        <button onclick="closeFieldModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <!-- Field Specs Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-slate-500 block text-[10px]">Έκταση</span>
+          <strong id="modal-field-area" class="text-slate-900 text-sm">--</strong>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-slate-500 block text-[10px]">Δείκτης NDVI</span>
+          <strong id="modal-field-ndvi" class="text-emerald-700 text-sm">--</strong>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-slate-500 block text-[10px]">pH Εδάφους</span>
+          <strong id="modal-field-ph" class="text-slate-900 text-sm">--</strong>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 col-span-2 sm:col-span-2">
+          <span class="text-slate-500 block text-[10px]">Τύπος Εδάφους</span>
+          <strong id="modal-field-soil" class="text-slate-800 text-xs">--</strong>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <span class="text-slate-500 block text-[10px]">Στόχος Απόδοσης</span>
+          <strong id="modal-field-yield" class="text-slate-900 text-xs">--</strong>
+        </div>
+      </div>
+
+      <!-- History & Operational Advice -->
+      <div class="space-y-2 text-xs">
+        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+          <strong class="text-emerald-950 block mb-1">Προτεινόμενη Ενέργεια[cite: 7]:</strong>
+          <span id="modal-field-advice" class="text-emerald-900 text-[11px] leading-relaxed">--</span>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+          <strong class="text-slate-800 block mb-1">Τελευταία Επέμβαση:</strong>
+          <span id="modal-field-lastop" class="text-slate-600 text-[11px]">--</span>
+        </div>
+      </div>
+
+      <!-- Footer Action -->
+      <div class="flex justify-between items-center pt-3 border-t border-slate-100">
+        <button onclick="closeFieldModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">Κλείσιμο</button>
+        <button id="modal-btn-record-field" onclick="recordWorkForCurrentField()" class="px-4 py-2 text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl flex items-center space-x-2 transition">
+          <i class="fa-solid fa-microphone"></i>
+          <span>Καταγραφή σε αυτόν τον αγρό</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Φωνητικής / Γραπτής Καταγραφής -->
   <div id="record-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-slate-100">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
@@ -200,7 +265,7 @@
         <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <p class="text-xs text-slate-500">
+      <p class="text-xs text-slate-500 leading-relaxed">
         Μιλήστε ή γράψτε: <em>«Έριξα 100 κιλά ανά εκτάριο NPK 15-15-15 στο P-101»</em>[cite: 7]
       </p>
 
@@ -235,12 +300,12 @@
     </div>
   </div>
 
-  <!-- Ενσωματωμένη όλη η λογική διαχείρισης και λειτουργίας -->
   <script type="module">
     import { STATIC_FARM, STATIC_WEATHER } from './js/model.js';
 
     window.farmData = STATIC_FARM;
     window.weatherData = STATIC_WEATHER;
+    let selectedFieldForWork = null;
     let parsedDraft = null;
     let recognition = null;
 
@@ -283,7 +348,8 @@
       container.innerHTML = '';
       window.farmData.parcels.forEach(field => {
         const card = document.createElement('div');
-        card.className = "border border-slate-200 rounded-xl p-3 flex flex-col justify-between bg-white cursor-pointer hover:shadow-md transition";
+        card.className = "field-card border border-slate-200 rounded-xl p-3 flex flex-col justify-between bg-white cursor-pointer hover:border-emerald-500 transition";
+        card.onclick = () => window.openFieldModal(field.id);
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-start">
@@ -292,13 +358,58 @@
             </div>
             <p class="text-[11px] text-slate-500 mt-1">${field.area_ha} ha (${(field.area_ha * 10).toFixed(0)} στρ.)</p>
           </div>
-          <div class="mt-2 text-[10px] font-medium text-slate-600 border-t border-slate-100 pt-1">
-            ${field.status}
+          <div class="mt-2 text-[10px] font-medium text-slate-600 border-t border-slate-100 pt-1 flex justify-between items-center">
+            <span>${field.status}</span>
+            <i class="fa-solid fa-chevron-right text-[8px] text-slate-400"></i>
           </div>
         `;
         container.appendChild(card);
       });
     }
+
+    // Modal Λεπτομερειών Αγρού
+    window.openFieldModal = function(fieldId) {
+      const field = window.farmData.parcels.find(f => f.id === fieldId || f.name === fieldId);
+      if (!field) return;
+
+      selectedFieldForWork = field;
+      document.getElementById('modal-field-title').innerText = `${field.name} (${field.id})`;
+      document.getElementById('modal-field-crop').innerText = `Καλλιέργεια: ${field.crop} — Κατάσταση: ${field.status}`;
+      document.getElementById('modal-field-badge').style.backgroundColor = field.color;
+      document.getElementById('modal-field-area').innerText = `${field.area_ha} ha (${(field.area_ha * 10).toFixed(0)} στρ.)`;
+      document.getElementById('modal-field-ndvi').innerText = field.ndvi || '0.45';
+      document.getElementById('modal-field-ph').innerText = '6.8 (Ιδανικό)';
+      document.getElementById('modal-field-soil').innerText = 'Αργιλοπηλώδες (Clay Loam), Οργ. ουσία 2.4%';
+      document.getElementById('modal-field-yield').innerText = field.crop === 'Αραβόσιτος' ? '11.5 t/ha' : '7.8 t/ha';
+      
+      // Δυναμικές συμβουλές
+      let adviceText = "Κανονική βλαστική ανάπτυξη. Δεν απαιτείται άμεση επέμβαση.";
+      let lastOpText = "15 Οκτωβρίου: Προφυτρωτικός ψεκασμός & λίπανση.";
+      if (field.crop === 'Αραβόσιτος') {
+        adviceText = "Συγκομιδή άμεσα εντός 48 ωρών για αποφυγή απώλειας 2%/εβδομάδα λόγω επερχόμενων βροχών[cite: 7].";
+        lastOpText = "28 Σεπτεμβρίου: Έλεγχος ωρίμανσης και υγρασίας καρπού.";
+      } else if (field.status.includes('Κατεργασία') || field.status.includes('Προετοιμασία')) {
+        adviceText = "Συνιστάται κατεργασία εδάφους και διασπορά 100 kg/ha NPK 15-15-15 πριν τη σπορά[cite: 7].";
+        lastOpText = "10 Οκτωβρίου: Καθαρισμός υπολειμμάτων προηγούμενης καλλιέργειας.";
+      }
+      
+      document.getElementById('modal-field-advice').innerText = adviceText;
+      document.getElementById('modal-field-lastop').innerText = lastOpText;
+
+      document.getElementById('field-detail-modal').classList.remove('hidden');
+    };
+
+    window.closeFieldModal = function() {
+      document.getElementById('field-detail-modal').classList.add('hidden');
+    };
+
+    window.recordWorkForCurrentField = function() {
+      if (!selectedFieldForWork) return;
+      window.closeFieldModal();
+      window.openModal();
+      document.getElementById('task-input').value = `Εφαρμογή 100 kg/ha NPK 15-15-15 στο ${selectedFieldForWork.name}`;
+      window.parseAndPreview();
+    };
 
     function renderStock() {
       const container = document.getElementById('stock-container');
@@ -361,7 +472,7 @@
       container.innerHTML = '';
       window.farmData.parcels.forEach(f => {
         const card = document.createElement('div');
-        card.className = "p-3 bg-slate-50 rounded-xl border border-slate-200";
+        card.className = "p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between";
         card.innerHTML = `
           <div class="font-bold text-xs">${f.name} (${f.crop})</div>
           <div class="text-base font-black text-emerald-700 mt-1">${f.ndvi}</div>
@@ -452,7 +563,7 @@
       }
 
       let matchedField = window.farmData.parcels.find(f => text.includes(f.name.toLowerCase()) || text.includes(f.id.toLowerCase()));
-      if (!matchedField) matchedField = window.farmData.parcels[2];
+      if (!matchedField) matchedField = selectedFieldForWork || window.farmData.parcels[2];
 
       let matchedProduct = Object.keys(window.farmData.stock).find(p => text.includes(p.toLowerCase()));
       if (!matchedProduct) matchedProduct = "NPK 15-15-15";
