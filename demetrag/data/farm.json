@@ -1,0 +1,22 @@
+{
+  "farm_id": "FARM-00455",
+  "name": "Loiret Demonstration Farm",
+  "total_area_ha": 86.2,
+  "crops": ["Wheat", "Barley", "Rapeseed", "Maize", "Sunflower"],
+  "stock": {
+    "NPK 15-15-15": { "quantity": 1200, "unit": "kg" },
+    "Urea 46-0-0": { "quantity": 800, "unit": "kg" },
+    "Cherokee Herbicide": { "quantity": 45, "unit": "L" },
+    "Amistar Fungicide": { "quantity": 20, "unit": "L" }
+  },
+  "fields": [
+    { "id": "F-01", "name": "P-517", "area_ha": 6.8, "crop": "Maize", "status": "Ready to Harvest", "color": "#d97706" },
+    { "id": "F-02", "name": "P-518", "area_ha": 5.2, "crop": "Maize", "status": "Ready to Harvest", "color": "#d97706" },
+    { "id": "F-03", "name": "P-101", "area_ha": 12.4, "crop": "Wheat", "status": "Sown", "color": "#16a34a" },
+    { "id": "F-04", "name": "P-102", "area_ha": 10.1, "crop": "Wheat", "status": "Prepared", "color": "#ca8a04" },
+    { "id": "F-05", "name": "P-201", "area_ha": 8.5, "crop": "Barley", "status": "Sown", "color": "#16a34a" },
+    { "id": "F-06", "name": "P-301", "area_ha": 14.2, "crop": "Rapeseed", "status": "Vegetative", "color": "#15803d" },
+    { "id": "F-07", "name": "P-401", "area_ha": 11.0, "crop": "Sunflower", "status": "Fallow", "color": "#a16207" },
+    { "id": "F-08", "name": "P-103", "area_ha": 18.0, "crop": "Wheat", "status": "Tillage Needed", "color": "#ea580c" }
+  ]
+}
