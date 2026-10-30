@@ -3,18 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DemetrAg — Έξυπνος Βοηθός Αγρού</title>
+  <title>DemetrAg — Βοηθός Αγρού</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .field-card { transition: all 0.2s ease-in-out; }
-    .field-card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-  </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans antialiased">
+<body class="bg-slate-100 text-slate-800 font-sans">
   <div class="min-h-screen flex flex-col">
     
-    <!-- Topbar Header -->
+    <!-- Topbar -->
     <header class="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between sticky top-0 z-30 shadow-sm">
       <div class="flex items-center space-x-3">
         <div class="bg-emerald-700 text-white p-2.5 rounded-xl font-bold text-xl flex items-center justify-center w-10 h-10 shadow-inner">
@@ -35,7 +31,7 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>Εκμετάλλευση: <strong class="text-emerald-800">FARM-00455</strong></span>
           </div>
-          <div class="text-[11px] text-slate-500">86.2 εκτάρια (862 στρ.) | 14 Αγροτεμάχια | 5 Καλλιέργειες</div>
+          <div class="text-[11px] text-slate-500">86.2 εκτάρια (862 στρ.) | 14 Αγροτεμάχια</div>
         </div>
         <button onclick="openModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-xl font-bold text-xs flex items-center space-x-2 shadow-sm transition">
           <i class="fa-solid fa-microphone text-emerald-200"></i>
@@ -44,10 +40,10 @@
       </div>
     </header>
 
-    <!-- Main Application Layout -->
+    <!-- Layout -->
     <div class="max-w-[1600px] w-full mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
       
-      <!-- Αριστερή Στήλη: Πλήρες Μενού Hackathon & Σημειώσεις Αγρού -->
+      <!-- Αριστερή Στήλη: Πλοήγηση & Σημειώσεις -->
       <nav class="lg:col-span-2 space-y-4">
         <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm">
           <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 py-2">Πλοηγηση</div>
@@ -67,7 +63,7 @@
             <li>
               <button onclick="switchTab('activities')" id="tab-activities" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition">
                 <i class="fa-solid fa-tractor w-4 text-center"></i>
-                <span>Επεμβάσεις & Σπορά</span>
+                <span>Επεμβάσεις</span>
               </button>
             </li>
             <li>
@@ -77,59 +73,38 @@
               </button>
             </li>
             <li>
-              <button onclick="switchTab('advice')" id="tab-advice" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition">
-                <i class="fa-solid fa-euro-sign w-4 text-center"></i>
-                <span>Συμβουλές & Οικονομικά</span>
-              </button>
-            </li>
-            <li>
               <button onclick="switchTab('inventory')" id="tab-inventory" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition">
                 <i class="fa-solid fa-warehouse w-4 text-center"></i>
-                <span>Αποθήκη & Εισροές</span>
+                <span>Αποθήκη</span>
               </button>
             </li>
           </ul>
         </div>
 
-        <!-- Notes / Field Observations -->
         <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm text-xs">
-          <div class="font-bold text-slate-800 mb-2 flex items-center justify-between">
-            <span>Σημειώσεις Αγρού</span>
-            <span class="text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-500">Auto-Sync</span>
-          </div>
-          <div class="space-y-2 text-slate-600">
-            <div class="p-2 bg-amber-50 rounded-lg border border-amber-100 text-[11px]">
-              <strong class="text-amber-900 block">P-517 / P-518 (Αραβόσιτος)</strong>
-              Έλεγχος υγρασίας σπόρου πριν τη βροχή της Κυριακής.
-            </div>
-            <div class="p-2 bg-slate-50 rounded-lg border border-slate-100 text-[11px]">
-              <strong class="text-slate-800 block">P-101 (Σιτάρι)</strong>
-              Ολοκληρώθηκε η βασική λίπανση με 100 kg/ha NPK.
-            </div>
+          <div class="font-bold text-slate-800 mb-2">Σημειώσεις Αγρού</div>
+          <div class="p-2 bg-amber-50 rounded-lg border border-amber-100 text-[11px] text-amber-900">
+            <strong>P-517 / P-518 (Αραβόσιτος)</strong>: Έλεγχος υγρασίας σπόρου πριν τη βροχή της Κυριακής[cite: 7].
           </div>
         </div>
       </nav>
 
-      <!-- Κεντρική Περιοχή: Χάρτης Αγροτεμαχίων & Αναλυτικές Προβολές -->
+      <!-- Κεντρική Στήλη: Χάρτης & Αναλυτικά Views -->
       <section class="lg:col-span-7 space-y-6">
         
-        <!-- Tab: Map View -->
         <div id="view-map" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div class="flex justify-between items-center">
             <div>
               <h2 class="text-base font-bold text-slate-900">Σχηματικός Χάρτης Αγροτεμαχίων</h2>
               <p class="text-xs text-slate-500">Επιλέξτε ένα αγροτεμάχιο για προβολή λεπτομερειών</p>
             </div>
-            <div class="flex items-center space-x-2 text-[11px]">
-              <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 font-medium">Συνθετικό Dataset (Loiret)</span>
-            </div>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">14 Αγροτεμάχια</span>
           </div>
 
-          <!-- Dynamic Grid of 14 Parcels -->
-          <div id="fields-container" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-3 min-h-[360px]"></div>
+          <!-- Τα 14 αγροτεμάχια -->
+          <div id="fields-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 min-h-[340px]"></div>
 
-          <!-- Crops Legend -->
-          <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-4 text-xs font-medium text-slate-600">
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-4 text-xs font-medium text-slate-600">
             <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-amber-600"></span><span>Αραβόσιτος</span></div>
             <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-green-600"></span><span>Σιτάρι</span></div>
             <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded bg-yellow-600"></span><span>Κριθάρι</span></div>
@@ -138,80 +113,72 @@
           </div>
         </div>
 
-        <!-- Tab: Weather View (Hidden by default) -->
         <div id="view-weather" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4 hidden">
-          <h2 class="text-base font-bold text-slate-900">10ήμερη Πρόγνωση & Παράθυρα Εργασιών (Open-Meteo)</h2>
+          <h2 class="text-base font-bold text-slate-900">10ήμερη Πρόγνωση & Παράθυρα Εργασιών</h2>
           <div id="weather-full-table" class="space-y-2 text-xs"></div>
         </div>
 
-        <!-- Tab: Activities View -->
         <div id="view-activities" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4 hidden">
-          <h2 class="text-base font-bold text-slate-900">Ιστορικό Επεμβάσεων Αγρού (2017–2026)</h2>
+          <h2 class="text-base font-bold text-slate-900">Ιστορικό Επεμβάσεων Αγρού</h2>
           <div id="activities-table" class="space-y-2 text-xs"></div>
         </div>
 
-        <!-- Tab: NDVI View -->
         <div id="view-ndvi" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4 hidden">
-          <h2 class="text-base font-bold text-slate-900">Δορυφορικός Δείκτης Βλάστησης NDVI (Copernicus Sentinel-2)</h2>
-          <p class="text-xs text-slate-500">Προσομοιωμένη ανάλυση βιομάζας ανά αγροτεμάχιο.</p>
+          <h2 class="text-base font-bold text-slate-900">Δορυφορικός Δείκτης Βλάστησης NDVI</h2>
           <div id="ndvi-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs"></div>
         </div>
 
-        <!-- Tab: Inventory View -->
         <div id="view-inventory" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4 hidden">
-          <h2 class="text-base font-bold text-slate-900">Πλήρης Διαχείριση Αποθήκης Εισροών</h2>
+          <h2 class="text-base font-bold text-slate-900">Αποθήκη Εισροών</h2>
           <div id="inventory-full-list" class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs"></div>
         </div>
 
-        <!-- Live Stock Snapshot (Always Visible below primary view) -->
+        <!-- Απόθεμα Αποθήκης -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
           <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center space-x-2">
             <i class="fa-solid fa-warehouse text-emerald-700"></i>
-            <span>Απόθεμα Αποθήκης (Ζωντανή Ενημέρωση)</span>
+            <span>Απόθεμα Αποθήκης</span>
           </h3>
           <div id="stock-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs"></div>
         </div>
       </section>
 
-      <!-- Δεξιά Στήλη: Οικονομικό Διακύβευμα, Alerts & Live Απόδειξη -->
+      <!-- Δεξιά Στήλη: Οικονομικά & Ειδοποιήσεις -->
       <aside class="lg:col-span-3 space-y-6">
         
-        <!-- Οικονομικό Alert (€ Impact) -->
         <div class="bg-emerald-950 text-white rounded-2xl shadow-md p-5 border border-emerald-800 relative overflow-hidden">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-[10px] uppercase tracking-wider bg-emerald-800/90 text-emerald-200 px-2.5 py-0.5 rounded-full font-bold">Προτεραιοτητα Ημερας</span>
+            <span class="text-[10px] uppercase tracking-wider bg-emerald-800 text-emerald-200 px-2 py-0.5 rounded-full font-bold">Προτεραιοτητα Ημερας</span>
             <span class="text-amber-400 font-bold text-xs">Παράθυρο 48h</span>
           </div>
-          <h3 class="text-base font-bold leading-snug">Συγκομιδή Αραβοσίτου στα αγροτεμάχια P-517 & P-518</h3>
-          <p class="text-xs text-emerald-200/80 mt-1.5 leading-relaxed">Συνολική έκταση: 12.0 ha (120 στρ.). Αναμένονται ισχυρές βροχοπτώσεις εντός 48 ωρών (>14mm).</p>
+          <h3 class="text-sm font-bold leading-snug">Συγκομιδή Αραβοσίτου στα αγροτεμάχια P-517 & P-518[cite: 7]</h3>
+          <p class="text-xs text-emerald-200/80 mt-1 leading-relaxed">Συνολική έκταση: 12.0 ha (120 στρ.). Αναμένονται ισχυρές βροχοπτώσεις (>14mm)[cite: 7].</p>
           
           <div class="mt-4 p-3 bg-emerald-900/60 rounded-xl flex items-center justify-between border border-emerald-800">
             <div>
-              <div class="text-[9px] text-emerald-300 uppercase font-bold tracking-wider">Οικονομικο Διακυβευμα</div>
+              <div class="text-[9px] text-emerald-300 uppercase font-bold">Οικονομικο Διακυβευμα</div>
               <div class="text-2xl font-black text-amber-400">+2.056 €</div>
             </div>
-            <div class="text-right text-[10px] text-slate-300 leading-tight">
-              Αποφυγή απώλειας 2%/εβδ.<br>από παραμονή στον αγρό
+            <div class="text-right text-[10px] text-slate-300">
+              Αποφυγή απώλειας 2%/εβδ.[cite: 7, 8]<br>λόγω παραμονής[cite: 7]
             </div>
           </div>
         </div>
 
-        <!-- Συνοπτικός Καιρός -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
           <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center space-x-2">
             <i class="fa-solid fa-cloud-sun text-emerald-700"></i>
-            <span>Πρόγνωση Επόμενων Ημερών</span>
+            <span>Καιρός Επόμενων Ημερών</span>
           </h3>
           <div id="weather-forecast-side" class="space-y-2"></div>
         </div>
 
-        <!-- Save Receipts / Audit Log -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
           <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center space-x-2">
             <i class="fa-solid fa-receipt text-slate-500"></i>
-            <span>Ημερολόγιο Καταγραφών (Audit Trail)</span>
+            <span>Ημερολόγιο Καταγραφών</span>
           </h3>
-          <div id="receipt-log" class="text-xs text-slate-500 space-y-2 max-h-[300px] overflow-y-auto">
+          <div id="receipt-log" class="text-xs text-slate-500 space-y-2">
             <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-center text-[11px]">
               Δεν υπάρχουν νέες καταγραφές στη συνεδρία.
             </div>
@@ -222,7 +189,7 @@
     </div>
   </div>
 
-  <!-- Modal Φωνητικής / Γραπτής Καταγραφής -->
+  <!-- Modal Καταγραφής -->
   <div id="record-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 border border-slate-100">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
@@ -233,8 +200,8 @@
         <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
 
-      <p class="text-xs text-slate-500 leading-relaxed">
-        Μιλήστε ή πληκτρολογήστε τι εφαρμόσατε (π.χ. <em>«Έριξα 100 κιλά ανά εκτάριο NPK 15-15-15 στο P-101»</em> ή <em>«Ράντισα 200 ml/στρέμμα Cherokee στο P-301»</em>).
+      <p class="text-xs text-slate-500">
+        Μιλήστε ή γράψτε: <em>«Έριξα 100 κιλά ανά εκτάριο NPK 15-15-15 στο P-101»</em>[cite: 7]
       </p>
 
       <div class="space-y-3">
@@ -251,9 +218,8 @@
         </div>
       </div>
 
-      <!-- Preview Επιβεβαίωσης -->
       <div id="parse-preview" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs space-y-1.5 hidden">
-        <div class="font-bold text-emerald-950">Επαλήθευση Στοιχείων Πριν την Αποθήκευση:</div>
+        <div class="font-bold text-emerald-950">Επαλήθευση Στοιχείων:</div>
         <div>Αγροτεμάχιο: <span id="parsed-field" class="font-semibold text-slate-800">--</span></div>
         <div>Προϊόν: <span id="parsed-product" class="font-semibold text-slate-800">--</span></div>
         <div>Δοσολογία: <span id="parsed-rate" class="font-semibold text-slate-800">--</span></div>
@@ -263,12 +229,289 @@
       <div class="flex justify-end space-x-2 pt-2 border-t border-slate-100">
         <button onclick="closeModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">Ακύρωση</button>
         <button id="save-btn" onclick="commitWork()" class="px-4 py-2 text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl disabled:opacity-50 transition" disabled>
-          Επιβεβαίωση & Ενημέρωση Αποθήκης
+          Επιβεβαίωση & Αποθήκευση
         </button>
       </div>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Ενσωματωμένη όλη η λογική διαχείρισης και λειτουργίας -->
+  <script type="module">
+    import { STATIC_FARM, STATIC_WEATHER } from './js/model.js';
+
+    window.farmData = STATIC_FARM;
+    window.weatherData = STATIC_WEATHER;
+    let parsedDraft = null;
+    let recognition = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderFields();
+      renderStock();
+      renderWeatherSide();
+      renderNDVI();
+      renderActivities();
+      initSpeechRecognition();
+    });
+
+    window.switchTab = function(tab) {
+      const tabs = ['map', 'weather', 'activities', 'ndvi', 'inventory'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if (el) el.classList.add('hidden');
+        if (btn) {
+          btn.classList.remove('bg-emerald-50', 'text-emerald-800');
+          btn.classList.add('hover:bg-slate-50', 'text-slate-600');
+        }
+      });
+
+      const activeEl = document.getElementById(`view-${tab}`);
+      const activeBtn = document.getElementById(`tab-${tab}`);
+      if (activeEl) activeEl.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-emerald-50', 'text-emerald-800');
+        activeBtn.classList.remove('hover:bg-slate-50', 'text-slate-600');
+      }
+
+      if (tab === 'weather') renderFullWeather();
+      if (tab === 'inventory') renderFullInventory();
+    };
+
+    function renderFields() {
+      const container = document.getElementById('fields-container');
+      if (!container) return;
+      container.innerHTML = '';
+      window.farmData.parcels.forEach(field => {
+        const card = document.createElement('div');
+        card.className = "border border-slate-200 rounded-xl p-3 flex flex-col justify-between bg-white cursor-pointer hover:shadow-md transition";
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-start">
+              <span class="font-bold text-xs text-slate-800">${field.name}</span>
+              <span class="text-[9px] px-1.5 py-0.5 rounded text-white font-bold" style="background-color: ${field.color}">${field.crop}</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">${field.area_ha} ha (${(field.area_ha * 10).toFixed(0)} στρ.)</p>
+          </div>
+          <div class="mt-2 text-[10px] font-medium text-slate-600 border-t border-slate-100 pt-1">
+            ${field.status}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderStock() {
+      const container = document.getElementById('stock-container');
+      if (!container) return;
+      container.innerHTML = '';
+      for (const [prod, info] of Object.entries(window.farmData.stock)) {
+        const item = document.createElement('div');
+        item.className = "p-2.5 bg-slate-50 rounded-xl border border-slate-200";
+        item.innerHTML = `
+          <div class="text-[10px] text-slate-500 truncate" title="${prod}">${prod}</div>
+          <div class="text-xs font-bold text-slate-800 mt-0.5">${info.quantity} <span class="text-[10px] font-normal">${info.unit}</span></div>
+        `;
+        container.appendChild(item);
+      }
+    }
+
+    function renderWeatherSide() {
+      const container = document.getElementById('weather-forecast-side');
+      if (!container) return;
+      container.innerHTML = '';
+      window.weatherData.forecast.slice(0, 4).forEach(f => {
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-2 rounded-lg border border-slate-100 text-xs";
+        row.innerHTML = `
+          <span class="font-semibold w-16 text-[11px]">${f.day}</span>
+          <span class="text-slate-500 text-[11px]">${f.temp_max}° / ${f.temp_min}°C</span>
+          <span class="px-2 py-0.5 rounded text-[9px] font-bold ${f.suitable_harvest ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+            ${f.suitable_harvest ? 'Συγκομιδή' : 'Όχι'}
+          </span>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function renderFullWeather() {
+      const container = document.getElementById('weather-full-table');
+      if (!container) return;
+      container.innerHTML = '';
+      window.weatherData.forecast.forEach(f => {
+        const card = document.createElement('div');
+        card.className = "p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center";
+        card.innerHTML = `
+          <div>
+            <span class="font-bold text-sm text-slate-800">${f.day}</span>
+            <div class="text-[11px] text-slate-500">${f.condition} | Άνεμος: ${f.wind_kmh} km/h | Βροχή: ${f.rain_mm} mm</div>
+          </div>
+          <div class="flex space-x-2">
+            <span class="px-2 py-1 rounded text-xs font-bold ${f.suitable_harvest ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+              Συγκομιδή: ${f.suitable_harvest ? 'Ναι' : 'Όχι'}
+            </span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderNDVI() {
+      const container = document.getElementById('ndvi-container');
+      if (!container) return;
+      container.innerHTML = '';
+      window.farmData.parcels.forEach(f => {
+        const card = document.createElement('div');
+        card.className = "p-3 bg-slate-50 rounded-xl border border-slate-200";
+        card.innerHTML = `
+          <div class="font-bold text-xs">${f.name} (${f.crop})</div>
+          <div class="text-base font-black text-emerald-700 mt-1">${f.ndvi}</div>
+          <div class="w-full bg-slate-200 rounded-full h-1.5 mt-1.5">
+            <div class="bg-emerald-600 h-1.5 rounded-full" style="width: ${f.ndvi * 100}%"></div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderActivities() {
+      const container = document.getElementById('activities-table');
+      if (!container) return;
+      container.innerHTML = `
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between">
+          <div><strong>P-101 (Σιτάρι)</strong> — Βασική λίπανση με 100 kg/ha NPK 15-15-15[cite: 7]</div>
+          <span class="text-slate-400">Πρόσφατο</span>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between">
+          <div><strong>P-301 (Ελαιοκράμβη)</strong> — Σπορά & ζιζανιοκτονία</div>
+          <span class="text-slate-400">14 Οκτ</span>
+        </div>
+      `;
+    }
+
+    function renderFullInventory() {
+      const container = document.getElementById('inventory-full-list');
+      if (!container) return;
+      container.innerHTML = '';
+      for (const [prod, info] of Object.entries(window.farmData.stock)) {
+        const card = document.createElement('div');
+        card.className = "p-4 bg-slate-50 rounded-xl border border-slate-200";
+        card.innerHTML = `
+          <div class="font-bold text-xs text-slate-800">${prod}</div>
+          <div class="text-xl font-black text-emerald-800 mt-1">${info.quantity} ${info.unit}</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">Εγκεκριμένο μητρώο εισροών</div>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    window.openModal = function() {
+      document.getElementById('record-modal').classList.remove('hidden');
+    };
+
+    window.closeModal = function() {
+      document.getElementById('record-modal').classList.add('hidden');
+      document.getElementById('task-input').value = '';
+      document.getElementById('parse-preview').classList.add('hidden');
+      document.getElementById('save-btn').disabled = true;
+      parsedDraft = null;
+    };
+
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'el-GR';
+        recognition.continuous = false;
+        recognition.onresult = (e) => {
+          document.getElementById('task-input').value = e.results[0][0].transcript;
+          document.getElementById('mic-label').innerText = "Έναρξη Ομιλίας";
+          window.parseAndPreview();
+        };
+        recognition.onerror = () => {
+          document.getElementById('mic-label').innerText = "Έναρξη Ομιλίας";
+        };
+      } else {
+        const micBtn = document.getElementById('mic-btn');
+        if (micBtn) micBtn.style.display = 'none';
+      }
+    }
+
+    window.toggleSpeech = function() {
+      if (!recognition) return;
+      document.getElementById('mic-label').innerText = "Ακρόαση...";
+      recognition.start();
+    };
+
+    window.parseAndPreview = function() {
+      const text = document.getElementById('task-input').value.toLowerCase();
+      if (!text.trim()) return;
+
+      if (text.includes("όχι") || text.includes("μην") || text.includes("δεν") || text.includes("ακύρωσε")) {
+        alert("Η εντολή απορρίφθηκε: Ανιχνεύθηκε άρνηση/ακύρωση ενέργειας.");
+        return;
+      }
+
+      let matchedField = window.farmData.parcels.find(f => text.includes(f.name.toLowerCase()) || text.includes(f.id.toLowerCase()));
+      if (!matchedField) matchedField = window.farmData.parcels[2];
+
+      let matchedProduct = Object.keys(window.farmData.stock).find(p => text.includes(p.toLowerCase()));
+      if (!matchedProduct) matchedProduct = "NPK 15-15-15";
+
+      const numMatch = text.match(/(\d+([\.,]\d+)?)/);
+      let rate = numMatch ? parseFloat(numMatch[1].replace(',', '.')) : 100;
+
+      const isPerHa = text.includes("ανά εκτάριο") || text.includes("/ha") || text.includes("το εκτάριο") || !text.includes("συνολικά");
+      const totalDeduction = isPerHa ? Math.round(rate * matchedField.area_ha) : rate;
+
+      parsedDraft = {
+        field: matchedField,
+        product: matchedProduct,
+        rate: rate,
+        isPerHa: isPerHa,
+        totalDeduction: totalDeduction,
+        unit: window.farmData.stock[matchedProduct].unit
+      };
+
+      document.getElementById('parsed-field').innerText = `${parsedDraft.field.name} (${parsedDraft.field.crop}, ${parsedDraft.field.area_ha} ha)`;
+      document.getElementById('parsed-product').innerText = parsedDraft.product;
+      document.getElementById('parsed-rate').innerText = `${parsedDraft.rate} ${parsedDraft.unit}${isPerHa ? '/ha' : ' συνολικά'}`;
+      document.getElementById('parsed-total').innerText = `${parsedDraft.totalDeduction} ${parsedDraft.unit}`;
+
+      document.getElementById('parse-preview').classList.remove('hidden');
+      document.getElementById('save-btn').disabled = false;
+    };
+
+    window.commitWork = function() {
+      if (!parsedDraft) return;
+
+      window.farmData.stock[parsedDraft.product].quantity -= parsedDraft.totalDeduction;
+      if (window.farmData.stock[parsedDraft.product].quantity < 0) window.farmData.stock[parsedDraft.product].quantity = 0;
+
+      parsedDraft.field.status = "Εφαρμογή Ολοκληρώθηκε";
+      parsedDraft.field.color = "#15803d";
+
+      renderFields();
+      renderStock();
+
+      const log = document.getElementById('receipt-log');
+      const receipt = document.createElement('div');
+      receipt.className = "p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-slate-800 space-y-0.5 text-xs mb-2";
+      receipt.innerHTML = `
+        <div class="font-bold text-emerald-950 flex justify-between">
+          <span>Απόδειξη #${Math.floor(1000 + Math.random() * 9000)}</span>
+          <span class="text-[10px] text-slate-500">${new Date().toLocaleTimeString()}</span>
+        </div>
+        <div>Αγρός: <strong>${parsedDraft.field.name}</strong> | Προϊόν: <strong>${parsedDraft.product}</strong></div>
+        <div>Χρήση: -${parsedDraft.totalDeduction} ${parsedDraft.unit} (Υπόλοιπο: ${window.farmData.stock[parsedDraft.product].quantity} ${parsedDraft.unit})</div>
+      `;
+
+      if (log.children.length === 1 && log.children[0].innerText.includes("Δεν υπάρχουν")) {
+        log.innerHTML = '';
+      }
+      log.prepend(receipt);
+
+      closeModal();
+    };
+  </script>
 </body>
 </html>
