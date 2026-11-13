@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ανίχνευση Βαρέων Μετάλλων & IoT | Κωνσταντίνος Κωτσιονόπουλος</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #2c3e50 !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            height: 50px; 
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 6px 12px;
+            color: white !important;
+            border: 1.5px solid #27ae60;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- ARTICLE CONTAINER --- */
+        .container {
+            max-width: 800px; 
+            margin: 100px auto 30px auto; 
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .article-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .article-header h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .article-content ul {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+            background: #fdfdfd;
+            padding: 20px 20px 20px 40px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            color: var(--primary-color);
+        }
+
+        .article-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            margin: 35px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+
+        /* --- REFERENCES SECTION --- */
+        .references {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .references h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+        }
+
+        .references ol {
+            padding-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--accent-color);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+            margin-top: 50px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .container { padding: 25px; width: 90%; margin-top: 80px; }
+            .article-header h1 { font-size: 1.6em; }
+            .nav-links a { font-size: 0.75em; padding: 5px 8px; }
+            .nav-links { gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-links">
+            <a href="index.html">Βιογραφικό</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Επικοινωνία</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="article-header">
+        <h1>Ηλεκτροχημικοί Αισθητήρες (SPE): Επιτόπια Ανίχνευση Βαρέων Μετάλλων σε Αρδευτικά Δίκτυα</h1>
+        <div class="article-meta">Γράφτηκε από: Κωνσταντίνος Κωτσιονόπουλος | Γεωπόνος MSc | Νοέμβριος 2026</div>
+    </div>
+
+    <div class="article-content">
+        <p>Η εντατικοποίηση των ανθρώπινων δραστηριοτήτων και η αυξανόμενη χρήση μη συμβατικών υδάτων (όπως επεξεργασμένα υγρά απόβλητα και επιφανειακές απορροές) έχουν καταστήσει τη μόλυνση των αρδευτικών δικτύων από βαρέα μέταλλα μία από τις σοβαρότερες απειλές για τη βιωσιμότητα της γεωργίας. Ιόντα μολύβδου (Pb²⁺), καδμίου (Cd²⁺), αρσενικού (As³⁺) και χαλκού (Cu²⁺) δεν αποδομούνται, αλλά συσσωρεύονται στο εδαφικό προφίλ, προκαλώντας φυτοτοξικότητα και εισερχόμενα στην τροφική αλυσίδα. Παραδοσιακά, ο προσδιορισμός τους απαιτεί μεταφορά δειγμάτων σε αναλυτικά εργαστήρια και χρήση εξοπλισμού όπως ICP-MS ή AAS—μια διαδικασία δαπανηρή και ασύμβατη με την άμεση διαχείριση πεδίου. Η τεχνολογία των <strong>Ηλεκτροχημικών Αισθητήρων (Electrochemical Sensors)</strong> προσφέρει πλέον μια αξιόπιστη, επιτόπια λύση.</p>
+
+        <p>Στην αιχμή αυτής της τεχνολογίας βρίσκονται τα <strong>Εκτυπωμένα Ηλεκτρόδια (Screen-Printed Electrodes - SPEs)</strong>, τα οποία κατασκευάζονται μέσω μαζικής εκτύπωσης αγώγιμων μελανιών άνθρακα, χρυσού ή νανοσωλήνων άνθρακα (CNTs) σε εύκαμπτα πολυμερικά υποστρώματα. Τα ηλεκτρόδια τροποποιούνται επιφανειακά με νανοσωματίδια βισμούθιου ή χηλικούς υποδοχείς, προσφέροντας υψηλή εκλεκτικότητα και αποφεύγοντας τα τοξικά ηλεκτρόδια υδραργύρου του παρελθόντος. Η αναλυτική μέθοδος που χρησιμοποιείται είναι η <strong>Βολταμπερομετρία Αναδιαλυτικής Απόθεσης (Anodic Stripping Voltammetry - ASV)</strong>: τα μεταλλικά κατιόντα προ-συμπυκνώνονται ηλεκτροχημικά στην επιφάνεια του ηλεκτροδίου εργασίας και στη συνέχεια οξειδώνονται διαδοχικά, παράγοντας χαρακτηριστικές κορυφές ρεύματος ανάλογες της συγκέντρωσής τους.</p>
+
+        <img src="heavy-metals-sensing.jpg" alt="Φορητή ηλεκτροχημική διάταξη ανίχνευσης βαρέων μετάλλων σε αρδευτικό νερό" class="article-image">
+
+        <p>Η ενσωμάτωση των αισθητήρων αυτών σε <strong>αυτόνομους κόμβους τηλεμετρίας IoT</strong> μεταμορφώνει τον ποιοτικό έλεγχο των υδάτων. Ειδικές μικρορευστομηχανικές διατάξεις (microfluidic flow cells) δειγματοληπτούν αυτόματα από τον κεντρικό αγωγό άρδευσης, εκτελούν τον κύκλο μέτρησης και διαβιβάζουν τα αποτελέσματα μέσω πρωτοκόλλων LoRaWAN ή NB-IoT σε πραγματικό χρόνο. Εάν η συγκέντρωση οποιουδήποτε μετάλλου υπερβεί τα αυστηρά όρια του FAO/ΠΟΥ (όπως 5 ppb για το κάδμιο ή 10 ppb για το αρσενικό), το σύστημα διακόπτει αυτόματα την παροχή μέσω ηλεκτροβάνας, αποτρέποντας τη μόλυνση των αγροτεμαχίων.</p>
+
+        <p>Τα επιστημονικά τεκμηριωμένα πλεονεκτήματα της επιτόπιας ηλεκτροχημικής ανίχνευσης περιλαμβάνουν:</p>
+
+        <ul>
+            <li><strong>Ανίχνευση σε Επίπεδο Ιχνών (Trace-level Detection):</strong> Τα όρια ανίχνευσης (LOD) των σύγχρονων τροποποιημένων SPEs κυμαίνονται σε υπο-ppb επίπεδα (μg/L), εφάμιλλα των κλασικών φασματοσκοπικών μεθόδων εργαστηρίου.</li>
+            <li><strong>Προστασία της Εδαφικής Υγείας:</strong> Η αποτροπή της εισόδου τοξικών μετάλλων διατηρεί ανέπαφη τη δραστηριότητα του εδαφικού μικροβιώματος και αποτρέπει τη μη αναστρέψιμη δέσμευση ρύπων στον αργιλοχουμικό κολλοειδή δεσμό.</li>
+            <li><strong>Χαμηλό Λειτουργικό Κόστος:</strong> Τα εκτυπωμένα ηλεκτρόδια έχουν ελάχιστο κόστος κατασκευής και δεν απαιτούν χρήση τοξικών οργανικών διαλυτών, επιτρέποντας πυκνό δίκτυο συνεχούς ελέγχου σε επίπεδο τοπικών οργανισμών εγγείων βελτιώσεων (ΤΟΕΒ).</li>
+        </ul>
+
+        <p>Η εισαγωγή των ηλεκτροχημικών αισθητήρων στα σύγχρονα αρδευτικά δίκτυα κλείνει ένα κρίσιμο κενό στην αλυσίδα ασφάλειας της Γεωργίας Ακριβείας. Εξασφαλίζοντας ότι το νερό που φτάνει στη ριζοσφαίρα είναι απαλλαγμένο από τοξικά μέταλλα, ο σύγχρονος γεωπόνος προστατεύει το παραγωγικό κεφάλαιο, συμμορφώνεται με τα υψηλότερα πρότυπα ασφάλειας τροφίμων και προάγει μια αυθεντικά βιώσιμη κυκλική οικονομία.</p>
+    </div>
+
+    <!-- ΒΙΒΛΙΟΓΡΑΦΙΚΕΣ ΑΝΑΦΟΡΕΣ -->
+    <div class="references">
+        <h4>Επιστημονικές Πηγές:</h4>
+        <ol>
+            <li><strong>Aragay, G., Pons, J., & Merkoçi, A. (2011).</strong> <em>Recent trends in macro-, micro-, and nanomaterial-based tools and strategies for heavy-metal detection.</em> Chemical Reviews, 111(5), 3433-3458.</li>
+            <li><strong>Kokkinos, C., Economou, A., & Prodromidis, M. I. (2016).</strong> <em>Electrochemical sensors and biosensors based on screen-printed electrodes.</em> Comprehensive Analytical Chemistry, 74, 1-44.</li>
+            <li><strong>Bansod, B., et al. (2017).</strong> <em>A review on IoT sensing for heavy metal detection in water: Agricultural and environmental perspective.</em> IEEE Sensors Journal, 17(12), 3625-3640.</li>
+            <li><strong>FAO/WHO (2019).</strong> <em>Guidelines for the safe use of wastewater, excreta and greywater in agriculture.</em> World Health Organization & Food and Agriculture Organization Report.</li>
+        </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">← Επιστροφή στο Blog</a>
+</div>
+
+<footer>
+    <p>© 2026 Κωνσταντίνος Κωτσιονόπουλος | Γεωπονικό Blog</p>
+</footer>
+
+</body>
+</html>
