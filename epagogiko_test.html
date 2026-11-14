@@ -1,0 +1,2420 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="tool">
+  <meta name="design-style" content="carbon">
+  <title>Επαγωγικός Συλλογισμός ΑΣΕΠ — Προσομοιωτής Εξάσκησης 80 Ερωτήσεων</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Carbon palette tokens */
+      --background: #ffffff;
+      --surface-container-low: #f4f4f4;
+      --surface-container: #f4f4f4;
+      --surface-container-high: #e0e0e0;
+      --surface-elevated: #ffffff;
+
+      --on-surface: #161616;
+      --on-surface-variant: #525252;
+
+      --outline: #8d8d8d;
+      --outline-variant: #e0e0e0;
+
+      --primary: #0f62fe;
+      --primary-hover: #0353e9;
+      --on-primary: #ffffff;
+      --primary-container: #d0e2ff;
+      --on-primary-container: #161616;
+
+      --secondary: #6f6f6f;
+      --tertiary: #198038;
+      --tertiary-container: #defbe6;
+      --error: #da1e28;
+      --error-container: #fff1f1;
+      --on-error: #ffffff;
+
+      --data-1: #0f62fe;
+      --data-2: #6929c4;
+      --data-3: #005d5d;
+      --data-4: #9f1853;
+      --data-context: #8d8d8d;
+
+      /* Semantic tokens */
+      --positive: #198038;
+      --warning: #b28600;
+      --warning-container: #fcf4d6;
+      --focus: #0f62fe;
+
+      /* Fonts */
+      --font-headline: 'IBM Plex Sans', sans-serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-label: 'IBM Plex Mono', monospace;
+
+      /* Type scale (Focused Tool) */
+      --display-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.25rem;
+      --rounded-full: 0.75rem;
+
+      /* Effects */
+      --shadow-1: 0 2px 6px rgb(0 0 0 / 0.1);
+      --shadow-2: 0 4px 12px rgb(0 0 0 / 0.12);
+      --rule: 1px solid var(--outline-variant);
+      --field-rule: 1px solid var(--outline);
+      --indicator: 2px solid var(--primary);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .app-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .app-shell * { min-width: 0; }
+
+    /* Top Header */
+    .top-header {
+      border-bottom: var(--rule);
+      padding-bottom: var(--space-md);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .eyebrow {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-xs);
+    }
+    .app-title {
+      font-family: var(--font-headline);
+      font-size: var(--display-size);
+      font-weight: 300;
+      line-height: 1.18;
+      margin: 0;
+    }
+    .app-title strong { font-weight: 600; }
+    .app-subtitle {
+      margin: var(--space-xs) 0 0;
+      color: var(--on-surface-variant);
+      font-size: var(--body-size);
+      max-width: 68ch;
+    }
+    .header-actions {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .kpi-tile {
+      background: var(--surface-container);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .kpi-tile.is-primary {
+      border-bottom: var(--indicator);
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.04em;
+    }
+    .kpi-val {
+      font-family: var(--font-label);
+      font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.85rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--on-surface);
+    }
+    .kpi-sub {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .progress-track {
+      height: 4px;
+      background: var(--surface-container-high);
+      width: 100%;
+      margin-top: var(--space-xs);
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width var(--dur-short) var(--ease-out);
+      width: 0%;
+    }
+
+    /* Navigation Tabs & Mode Bar */
+    .tabs-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      border-bottom: var(--rule);
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .tab-group {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      cursor: pointer;
+      color: var(--on-surface-variant);
+      font-size: var(--body-size);
+      font-weight: 400;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .tab-btn:hover {
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .tab-btn.is-active {
+      color: var(--on-surface);
+      font-weight: 600;
+      border-bottom: var(--indicator);
+    }
+    .tab-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: 0 var(--space-sm);
+      height: 20px;
+      line-height: 20px;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .tab-badge.is-error {
+      background: var(--error-container);
+      color: var(--error);
+    }
+
+    /* Filter Bar */
+    .filter-panel {
+      background: var(--surface-container);
+      padding: var(--space-md);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .carbon-select {
+      height: 40px;
+      background: var(--surface-elevated);
+      border: 0;
+      border-bottom: var(--field-rule);
+      padding: 0 var(--space-xl) 0 var(--space-md);
+      font-size: var(--body-size);
+      color: var(--on-surface);
+      border-radius: 0;
+      cursor: pointer;
+    }
+    .timer-controls {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .timer-readout {
+      font-family: var(--font-label);
+      font-size: var(--subhead-size);
+      font-weight: 500;
+      padding: 0 var(--space-md);
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      background: var(--surface-elevated);
+      border-bottom: var(--field-rule);
+      min-width: 96px;
+      justify-content: center;
+    }
+    .timer-readout.is-warn {
+      color: var(--error);
+      background: var(--error-container);
+    }
+
+    /* Buttons */
+    .btn {
+      height: 40px;
+      padding: 0 var(--space-lg);
+      border-radius: 0;
+      border: 1px solid transparent;
+      font-size: var(--body-size);
+      font-weight: 400;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn-secondary:hover:not(:disabled) { background: var(--primary-container); color: var(--on-primary-container); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--primary);
+      padding: 0 var(--space-md);
+    }
+    .btn-ghost:hover:not(:disabled) { background: var(--surface-container-high); }
+    .btn-danger {
+      background: transparent;
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .btn-danger:hover:not(:disabled) { background: var(--error-container); }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* Main Workspace Grid */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Question Stage */
+    .question-stage {
+      background: var(--surface-container);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      border-bottom: var(--rule);
+      padding-bottom: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .meta-tags {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 var(--space-sm);
+      border-radius: var(--rounded-full);
+      font-size: var(--label-size);
+      font-weight: 500;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .tag-easy { background: var(--tertiary-container); color: var(--tertiary); }
+    .tag-medium { background: var(--warning-container); color: var(--on-surface); }
+    .tag-hard { background: var(--error-container); color: var(--error); }
+    .q-index {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .q-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.25;
+    }
+    .q-prompt {
+      margin: var(--space-xs) 0 0;
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+
+    /* Stimulus Canvas */
+    .stimulus-box {
+      background: var(--surface-elevated);
+      border: var(--rule);
+      padding: var(--space-lg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 230px;
+    }
+    .stimulus-box svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Options Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .option-card {
+      background: var(--surface-elevated);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-sm);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 136px;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+      position: relative;
+      text-align: left;
+    }
+    .option-card:hover:not(:disabled) {
+      background: var(--surface-container-low);
+      box-shadow: inset 0 -2px 0 var(--primary);
+    }
+    .option-card.is-selected {
+      box-shadow: inset 0 0 0 2px var(--primary);
+      background: var(--primary-container);
+    }
+    .option-card.is-correct {
+      box-shadow: inset 0 0 0 2px var(--tertiary);
+      background: var(--tertiary-container);
+    }
+    .option-card.is-wrong {
+      box-shadow: inset 0 0 0 2px var(--error);
+      background: var(--error-container);
+    }
+    .option-card:disabled { cursor: default; }
+    .option-head {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .option-svg-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-xs) 0;
+    }
+    .option-svg-wrap svg {
+      width: 88px;
+      height: 88px;
+      display: block;
+    }
+
+    /* Explanation Drawer */
+    .explanation-box {
+      background: var(--surface-elevated);
+      border-left: 3px solid var(--primary);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .explanation-box.is-correct { border-left-color: var(--tertiary); }
+    .explanation-box.is-wrong { border-left-color: var(--error); }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .exp-verdict {
+      font-weight: 600;
+      font-size: var(--subhead-size);
+    }
+    .exp-verdict.is-correct { color: var(--tertiary); }
+    .exp-verdict.is-wrong { color: var(--error); }
+    .exp-steps {
+      margin: 0;
+      padding-left: var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+      max-width: 65ch;
+    }
+    .exp-rule-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+
+    /* Stage Footer Nav */
+    .stage-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: var(--rule);
+      padding-top: var(--space-md);
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    /* Sidebar Navigator & Breakdown */
+    .side-panel {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .side-card {
+      background: var(--surface-container);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .side-title {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      margin: 0;
+      border-bottom: var(--rule);
+      padding-bottom: var(--space-xs);
+    }
+    .nav-matrix {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-xs);
+    }
+    .nav-cell {
+      height: 36px;
+      border: 1px solid var(--outline-variant);
+      background: var(--surface-elevated);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      cursor: pointer;
+      color: var(--on-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-cell:hover { background: var(--surface-container-high); }
+    .nav-cell.is-current {
+      box-shadow: inset 0 0 0 2px var(--primary);
+      font-weight: 600;
+    }
+    .nav-cell.is-correct {
+      background: var(--tertiary-container);
+      color: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+    .nav-cell.is-wrong {
+      background: var(--error-container);
+      color: var(--error);
+      border-color: var(--error);
+    }
+    .legend-row {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      border: 1px solid var(--outline);
+    }
+    .sw-correct { background: var(--tertiary-container); border-color: var(--tertiary); }
+    .sw-wrong { background: var(--error-container); border-color: var(--error); }
+    .sw-current { background: var(--surface-elevated); border-color: var(--primary); }
+
+    /* Category Stats Table */
+    .cat-list {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .cat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--label-size);
+      padding: var(--space-xs) 0;
+      border-bottom: var(--rule);
+    }
+    .cat-row:last-child { border-bottom: 0; }
+    .cat-stat { font-family: var(--font-label); font-weight: 500; }
+
+    /* Methodology & Empty State */
+    .empty-state {
+      background: var(--surface-container);
+      padding: var(--space-xl);
+      text-align: left;
+      display: grid;
+      gap: var(--space-sm);
+      border-left: 3px solid var(--primary);
+    }
+    .hidden { display: none !important; }
+
+    /* Inline Notice */
+    .inline-notice {
+      background: var(--surface-container);
+      border-left: 3px solid var(--primary);
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--label-size);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Footer Sources */
+    .sources-footer {
+      border-top: var(--rule);
+      padding-top: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: var(--label-size);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    /* SVG Token Classes */
+    .svg-stroke { stroke: var(--on-surface); fill: none; }
+    .svg-fill { fill: var(--on-surface); stroke: var(--on-surface); }
+    .svg-muted { stroke: var(--outline); fill: none; }
+    .svg-accent { stroke: var(--primary); fill: var(--primary); }
+    .svg-white { fill: var(--background); stroke: var(--on-surface); }
+    .svg-gray { fill: var(--surface-container-high); stroke: var(--on-surface); }
+    .svg-grid-bg { fill: var(--background); stroke: var(--outline-variant); }
+    .svg-qmark { fill: var(--primary); font-family: var(--font-label); font-weight: 600; }
+
+    @media (max-width: 960px) {
+      .workspace-grid { grid-template-columns: 1fr; }
+      .filter-panel { grid-template-columns: 1fr 1fr; }
+      .timer-controls { grid-column: 1 / -1; }
+    }
+    @media (max-width: 640px) {
+      .app-shell { padding: var(--space-sm); }
+      .top-header { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .filter-panel { grid-template-columns: 1fr; }
+      .options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Header -->
+    <header class="top-header">
+      <div>
+        <div class="eyebrow">ΠΡΟΕΤΟΙΜΑΣΙΑ 3ου ΠΑΝΕΛΛΗΝΙΟΥ ΔΙΑΓΩΝΙΣΜΟΥ ΑΣΕΠ • 80 ΔΙΑΝΥΣΜΑΤΙΚΑ ΘΕΜΑΤΑ</div>
+        <h1 class="app-title">Επαγωγικός Συλλογισμός — <strong>Εργαστήριο Εξάσκησης</strong></h1>
+        <p class="app-subtitle">Οπτικά μοτίβα τύπου Mensa, SHL, πλέγματα 3×3 και 2×2, περιστροφές, αριθμητικές συμμετρίες και πράξεις επικάλυψης XOR/AND με βήμα-προς-βήμα ανάλυση.</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn btn-secondary" id="btn-export-csv" onclick="exportProgressCsv()">Εξαγωγή CSV</button>
+        <button type="button" class="btn btn-danger" id="btn-reset-all" onclick="handleResetClick(this)">Μηδενισμός προόδου</button>
+      </div>
+    </header>
+
+    <!-- KPI Strip -->
+    <section class="kpi-grid" aria-label="Στατιστικά προόδου">
+      <div class="kpi-tile is-primary">
+        <span class="kpi-label">ΣΥΝΟΛΙΚΟ ΣΚΟΡ</span>
+        <span class="kpi-val" id="kpi-score">0 / 0</span>
+        <span class="kpi-sub" id="kpi-accuracy">Ποσοστό ευστοχίας: —</span>
+      </div>
+      <div class="kpi-tile">
+        <span class="kpi-label">ΚΑΛΥΨΗ ΤΡΑΠΕΖΑΣ</span>
+        <span class="kpi-val" id="kpi-progress">0 / 80</span>
+        <div class="progress-track"><div class="progress-fill" id="kpi-progress-bar"></div></div>
+      </div>
+      <div class="kpi-tile">
+        <span class="kpi-label">ΕΡΩΤΗΣΕΙΣ ΓΙΑ ΕΠΑΝΑΛΗΨΗ</span>
+        <span class="kpi-val" id="kpi-mistakes">0</span>
+        <span class="kpi-sub">Λανθασμένες απαντήσεις στην ανασκόπηση</span>
+      </div>
+      <div class="kpi-tile">
+        <span class="kpi-label">ΧΡΟΝΟΜΕΤΡΟ ΕΞΕΤΑΣΗΣ</span>
+        <span class="kpi-val" id="kpi-timer">00:00</span>
+        <span class="kpi-sub" id="kpi-pace-label">Ελεύθερος ρυθμός εξάσκησης</span>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-bar" aria-label="Λειτουργίες εφαρμογής">
+      <div class="tab-group" role="tablist">
+        <button type="button" class="tab-btn is-active" id="tab-practice" role="tab" aria-selected="true" onclick="switchMode('practice')">
+          Εξάσκηση Τράπεζας <span class="tab-badge" id="badge-filtered-count">80</span>
+        </button>
+        <button type="button" class="tab-btn" id="tab-mistakes" role="tab" aria-selected="false" onclick="switchMode('mistakes')">
+          Ανασκόπηση Λαθών <span class="tab-badge is-error" id="badge-mistakes-count">0</span>
+        </button>
+        <button type="button" class="tab-btn" id="tab-strategy" role="tab" aria-selected="false" onclick="switchMode('strategy')">
+          Μεθοδολογία Επίλυσης
+        </button>
+      </div>
+    </nav>
+
+    <!-- Filters & Timer Controls -->
+    <section class="filter-panel" id="filter-panel" aria-label="Φίλτρα και χρονόμετρο">
+      <div class="field-group">
+        <label class="field-label" for="filter-category">ΚΑΤΗΓΟΡΙΑ ΘΕΜΑΤΩΝ</label>
+        <select class="carbon-select" id="filter-category" onchange="applyFilters()">
+          <option value="all">Όλες οι κατηγορίες (80 ερωτήσεις)</option>
+          <option value="grids">1. Πλέγματα 3×3 &amp; 2×2 (20)</option>
+          <option value="sequences">2. Ακολουθίες &amp; Περιστροφές (20)</option>
+          <option value="numerical">3. Αριθμητικά Μοτίβα &amp; Συμμετρία (20)</option>
+          <option value="boolean">4. Λογική Επικάλυψη &amp; Boolean (20)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="filter-difficulty">ΕΠΙΠΕΔΟ ΔΥΣΚΟΛΙΑΣ</label>
+        <select class="carbon-select" id="filter-difficulty" onchange="applyFilters()">
+          <option value="all">Όλα τα επίπεδα</option>
+          <option value="easy">Εύκολο</option>
+          <option value="medium">Μέτριο</option>
+          <option value="hard">Δύσκολο</option>
+        </select>
+      </div>
+      <div class="timer-controls">
+        <div class="field-group">
+          <label class="field-label" for="pace-select">ΡΥΘΜΟΣ ΑΣΕΠ</label>
+          <select class="carbon-select" id="pace-select" onchange="setPaceLimit(this.value)">
+            <option value="0">Χωρίς όριο</option>
+            <option value="45">45 δευτ. / ερώτηση (SHL)</option>
+            <option value="60">60 δευτ. / ερώτηση (ΑΣΕΠ)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <span class="field-label">ΧΡΟΝΟΣ ΕΡΩΤΗΣΗΣ</span>
+          <div class="timer-readout" id="q-timer-readout">00:00</div>
+        </div>
+        <button type="button" class="btn btn-secondary" id="btn-timer-toggle" onclick="toggleTimerPause()">Παύση</button>
+      </div>
+    </section>
+
+    <div class="inline-notice hidden" id="status-notice" role="status">
+      <span id="status-notice-text"></span>
+      <button type="button" class="btn btn-ghost" onclick="hideNotice()">Κλείσιμο</button>
+    </div>
+
+    <!-- Practice / Mistakes Workspace -->
+    <main class="workspace-grid" id="workspace-main">
+      <section class="question-stage" id="question-stage" aria-live="polite">
+        <div id="stage-content"></div>
+      </section>
+
+      <aside class="side-panel" aria-label="Πλοήγηση ερωτήσεων και ανάλυση">
+        <div class="side-card">
+          <h2 class="side-title">Πίνακας Ερωτήσεων</h2>
+          <div class="nav-matrix" id="nav-matrix"></div>
+          <div class="legend-row">
+            <span class="legend-item"><span class="legend-swatch sw-current"></span>Τρέχουσα</span>
+            <span class="legend-item"><span class="legend-swatch sw-correct"></span>Σωστή</span>
+            <span class="legend-item"><span class="legend-swatch sw-wrong"></span>Λάθος</span>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h2 class="side-title">Επίδοση ανά Κατηγορία</h2>
+          <div class="cat-list" id="cat-breakdown"></div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Strategy Guide Tab Content -->
+    <section class="question-stage hidden" id="strategy-panel">
+      <div class="question-meta">
+        <h2 class="q-title">Μεθοδολογία &amp; Στρατηγική Επίλυσης ΑΣΕΠ</h2>
+        <span class="q-index">ΒΑΣΙΣΜΕΝΟ ΣΤΑ ΠΡΟΤΥΠΑ SHL &amp; MENSA</span>
+      </div>
+      <div class="cat-list">
+        <div class="explanation-box">
+          <div class="exp-verdict">Βήμα 1 — Απομόνωση Στοιχείων (Μην κοιτάς το σχήμα συνολικά)</div>
+          <p class="q-prompt">Εστίασε σε ένα χαρακτηριστικό τη φορά: πρώτα το πλαίσιο/πλήθος, μετά τη θέση, έπειτα την περιστροφή και τέλος το χρώμα ή τη σκίαση. Σε πολυεπίπεδες ασκήσεις, δύο φαινομενικά ίδια σχήματα μπορεί να υπακούν σε διαφορετικούς ρυθμούς.</p>
+        </div>
+        <div class="explanation-box">
+          <div class="exp-verdict">Βήμα 2 — Οριζόντια, Κάθετη &amp; Διαγώνια Σάρωση (Πλέγματα 3×3 &amp; 2×2)</div>
+          <p class="q-prompt">Στις μήτρες 3×3 έλεγξε πρώτα τις γραμμές και τις στήλες. Αν καμία δεν δίνει σαφή κανόνα (όπως στα τεστ Mensa Νορβηγίας/Φινλανδίας), έλεγξε τις διαγωνίους από πάνω-δεξιά προς κάτω-αριστερά. Στα πλέγματα 2×2 τα δεδομένα είναι περιορισμένα: σύγκρινε κάθε χαρακτηριστικό σε ζεύγη.</p>
+        </div>
+        <div class="explanation-box">
+          <div class="exp-verdict">Βήμα 3 — Μέτρηση &amp; Διατήρηση Ισορροπίας</div>
+          <p class="q-prompt">Μέτρα πλευρές πολυγώνων, κουκίδες, γραμμές και αναλογίες μαύρων/λευκών στοιχείων. Συχνά ένα «πολύπλοκο» γεωμετρικό μοτίβο κρύβει έναν απλό αριθμητικό κανόνα (+1 πλευρά, σταθερό άθροισμα ανά γραμμή ή άρτιο/περιττό πλήθος).</p>
+        </div>
+        <div class="explanation-box">
+          <div class="exp-verdict">Βήμα 4 — Λογικές Πράξεις Επικάλυψης (XOR / AND / OR / XNOR)</div>
+          <p class="q-prompt">Όταν το τρίτο σχήμα της γραμμής συνδυάζει τα δύο προηγούμενα: στο <strong>XOR</strong> τα κοινά στοιχεία εξαφανίζονται και μένουν τα μοναδικά· στο <strong>AND</strong> διατηρούνται μόνο τα κοινά· στο <strong>OR</strong> συγχωνεύονται όλα· στο <strong>XNOR</strong> ίδια χρώματα δίνουν λευκό και διαφορετικά μαύρο.</p>
+        </div>
+        <div class="explanation-box">
+          <div class="exp-verdict">Βήμα 5 — Μέθοδος Αποκλεισμού υπό Πίεση Χρόνου (45″–60″)</div>
+          <p class="q-prompt">Μόλις βρεις έναν βέβαιο κανόνα, απέκλεισε αμέσως τις επιλογές (Α, Β, Γ, Δ) που τον παραβιάζουν. Μην επιβραβεύεις τη μερική ορθότητα: η σωστή απάντηση πρέπει να ικανοποιεί όλους τους ενεργούς κανόνες ταυτόχρονα.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sources Footer -->
+    <footer class="sources-footer">
+      <span>Πηγές περιεχομένου: Διαγωνισμοί ΑΣΕΠ (σειρά 1ο–7ο Μέρος, πρότυπα SHL &amp; Mensa Νορβηγίας/Φινλανδίας), Εισαγωγή στον Επαγωγικό Συλλογισμό (Arnos), Σύνθεση Φροντιστήρια, SmartASEP, GoLearn, Proetoimasia-ASEP &amp; Panellinios-Diagonismos.</span>
+      <span>Εφαρμογή εξάσκησης • Όλα τα σχήματα παράγονται δυναμικά σε SVG</span>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    // =========================================================================
+    // 1. SVG PRIMITIVE & DIAGRAM ENGINE
+    // =========================================================================
+    function svgWrap(inner, w, h, vb) {
+      const vw = vb ? vb : w;
+      const vh = vb ? vb : h;
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vw} ${vh}" width="${w}" height="${h}" aria-hidden="true">${inner}</svg>`;
+    }
+
+    function polyPoints(cx, cy, r, sides, rotDeg) {
+      const pts = [];
+      const offset = (rotDeg || 0) * Math.PI / 180;
+      for (let i = 0; i < sides; i++) {
+        const a = offset - Math.PI / 2 + (i * 2 * Math.PI) / sides;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+      }
+      return pts.join(' ');
+    }
+
+    function starPoints(cx, cy, rOut, rIn, spikes, rotDeg) {
+      const pts = [];
+      const offset = (rotDeg || 0) * Math.PI / 180;
+      for (let i = 0; i < spikes * 2; i++) {
+        const r = i % 2 === 0 ? rOut : rIn;
+        const a = offset - Math.PI / 2 + (i * Math.PI) / spikes;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
+      }
+      return pts.join(' ');
+    }
+
+    function drawShape(type, cx, cy, size, fillMode, rot) {
+      const fillAttr = fillMode === 'black' ? 'var(--on-surface)' :
+        fillMode === 'gray' ? 'var(--outline)' :
+        fillMode === 'blue' ? 'var(--primary)' : 'var(--background)';
+      const strokeAttr = 'var(--on-surface)';
+      const sw = 2;
+      const r = size;
+      const tr = rot ? ` transform="rotate(${rot} ${cx} ${cy})"` : '';
+
+      if (type === 'circle') {
+        return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'square') {
+        return `<rect x="${cx - r}" y="${cy - r}" width="${r * 2}" height="${r * 2}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"${tr}/>`;
+      }
+      if (type === 'diamond') {
+        return `<polygon points="${polyPoints(cx, cy, r * 1.15, 4, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'triangle') {
+        return `<polygon points="${polyPoints(cx, cy, r * 1.15, 3, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'pentagon') {
+        return `<polygon points="${polyPoints(cx, cy, r * 1.1, 5, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'hexagon') {
+        return `<polygon points="${polyPoints(cx, cy, r * 1.1, 6, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'heptagon') {
+        return `<polygon points="${polyPoints(cx, cy, r * 1.1, 7, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'octagon') {
+        return `<polygon points="${polyPoints(cx, cy, r * 1.1, 8, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'cross') {
+        const d = r * 0.85;
+        return `<g${tr}><line x1="${cx - d}" y1="${cy}" x2="${cx + d}" y2="${cy}" stroke="${strokeAttr}" stroke-width="2.6"/><line x1="${cx}" y1="${cy - d}" x2="${cx}" y2="${cy + d}" stroke="${strokeAttr}" stroke-width="2.6"/></g>`;
+      }
+      if (type === 'xshape') {
+        const d = r * 0.72;
+        return `<g${tr}><line x1="${cx - d}" y1="${cy - d}" x2="${cx + d}" y2="${cy + d}" stroke="${strokeAttr}" stroke-width="2.6"/><line x1="${cx + d}" y1="${cy - d}" x2="${cx - d}" y2="${cy + d}" stroke="${strokeAttr}" stroke-width="2.6"/></g>`;
+      }
+      if (type === 'star') {
+        return `<polygon points="${starPoints(cx, cy, r * 1.15, r * 0.5, 5, rot || 0)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="${sw}"/>`;
+      }
+      if (type === 'arrow') {
+        const len = r * 1.1;
+        return `<g${tr}><line x1="${cx}" y1="${cy + len}" x2="${cx}" y2="${cy - len}" stroke="${strokeAttr}" stroke-width="2.4"/><polygon points="${cx},${cy - len - 3} ${cx - 5},${cy - len + 6} ${cx + 5},${cy - len + 6}" fill="${strokeAttr}"/></g>`;
+      }
+      if (type === 'dot') {
+        return `<circle cx="${cx}" cy="${cy}" r="${Math.max(3.5, r * 0.45)}" fill="${fillAttr}" stroke="${strokeAttr}" stroke-width="1.5"/>`;
+      }
+      if (type === 'lshape') {
+        return `<g${tr}><polyline points="${cx - r},${cy - r} ${cx - r},${cy + r} ${cx + r},${cy + r}" fill="none" stroke="${strokeAttr}" stroke-width="2.8" stroke-linecap="square"/></g>`;
+      }
+      if (type === 'tshape') {
+        return `<g${tr}><line x1="${cx - r}" y1="${cy - r * 0.6}" x2="${cx + r}" y2="${cy - r * 0.6}" stroke="${strokeAttr}" stroke-width="2.8"/><line x1="${cx}" y1="${cy - r * 0.6}" x2="${cx}" y2="${cy + r}" stroke="${strokeAttr}" stroke-width="2.8"/></g>`;
+      }
+      if (type === 'arc') {
+        return `<g${tr}><path d="M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}" fill="${fillMode === 'black' ? 'var(--on-surface)' : 'none'}" stroke="${strokeAttr}" stroke-width="2.5"/></g>`;
+      }
+      return '';
+    }
+
+    // =========================================================================
+    // 2. CELL RENDERERS FOR ALL QUESTION FAMILIES (100x100 local coords)
+    // =========================================================================
+    function renderCellContent(spec) {
+      if (!spec || spec.isQuestionMark) {
+        return `<rect x="2" y="2" width="96" height="96" fill="var(--primary-container)" stroke="var(--primary)" stroke-width="2" stroke-dasharray="5 3"/><text x="50" y="60" text-anchor="middle" font-size="34" class="svg-qmark">?</text>`;
+      }
+      let out = `<rect x="2" y="2" width="96" height="96" fill="var(--background)" stroke="var(--outline-variant)" stroke-width="1.5"/>`;
+
+      if (spec.kind === 'layered') {
+        if (spec.outer) out += drawShape(spec.outer.type, 50, 50, spec.outer.size || 32, spec.outer.fill || 'white', spec.outer.rot || 0);
+        if (spec.inner) out += drawShape(spec.inner.type, 50, 50, spec.inner.size || 14, spec.inner.fill || 'black', spec.inner.rot || 0);
+        if (spec.cornerDot !== undefined && spec.cornerDot !== null) {
+          const coords = [[20, 20], [80, 20], [80, 80], [20, 80]];
+          const pt = coords[spec.cornerDot % 4];
+          out += `<circle cx="${pt[0]}" cy="${pt[1]}" r="5.5" fill="${spec.dotFill === 'white' ? 'var(--background)' : 'var(--on-surface)'}" stroke="var(--on-surface)" stroke-width="1.5"/>`;
+        }
+      } else if (spec.kind === 'dualHand') {
+        // Synthesi-style black & white rods forming an angle around center dot
+        const r = 34;
+        const bRad = (spec.blackDeg - 90) * Math.PI / 180;
+        const wRad = (spec.whiteDeg - 90) * Math.PI / 180;
+        const bx = 50 + r * Math.cos(bRad), by = 50 + r * Math.sin(bRad);
+        const wx = 50 + r * Math.cos(wRad), wy = 50 + r * Math.sin(wRad);
+        out += `<line x1="50" y1="50" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="var(--on-surface)" stroke-width="5" stroke-linecap="round"/>`;
+        out += `<line x1="50" y1="50" x2="${wx.toFixed(1)}" y2="${wy.toFixed(1)}" stroke="var(--on-surface)" stroke-width="5" stroke-linecap="round"/>`;
+        out += `<line x1="50" y1="50" x2="${wx.toFixed(1)}" y2="${wy.toFixed(1)}" stroke="var(--background)" stroke-width="2.4" stroke-linecap="round"/>`;
+        out += `<circle cx="50" cy="50" r="6" fill="var(--primary)" stroke="var(--on-surface)" stroke-width="1.5"/>`;
+      } else if (spec.kind === 'grid3x3dots') {
+        // 3x3 mini-cells inside a 100x100 cell
+        for (let r = 0; r < 3; r++) {
+          for (let c = 0; c < 3; c++) {
+            const idx = r * 3 + c;
+            const x = 14 + c * 24;
+            const y = 14 + r * 24;
+            const active = spec.cells[idx];
+            const fill = active === 1 ? 'var(--on-surface)' : active === 2 ? 'var(--primary)' : 'var(--background)';
+            out += `<rect x="${x}" y="${y}" width="24" height="24" fill="${fill}" stroke="var(--outline)" stroke-width="1"/>`;
+          }
+        }
+      } else if (spec.kind === 'boolLines') {
+        // 9-segment stencil in 100x100 box: indices 0..8
+        const segs = [
+          [20, 20, 80, 20], // 0 top
+          [80, 20, 80, 80], // 1 right
+          [20, 80, 80, 80], // 2 bottom
+          [20, 20, 20, 80], // 3 left
+          [20, 50, 80, 50], // 4 h-mid
+          [50, 20, 50, 80], // 5 v-mid
+          [20, 20, 80, 80], // 6 diag1
+          [80, 20, 20, 80], // 7 diag2
+          [50, 20, 80, 50]  // 8 corner-cut
+        ];
+        out += `<rect x="20" y="20" width="60" height="60" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="2 2"/>`;
+        spec.segs.forEach(i => {
+          const s = segs[i];
+          if (s) out += `<line x1="${s[0]}" y1="${s[1]}" x2="${s[2]}" y2="${s[3]}" stroke="var(--on-surface)" stroke-width="3" stroke-linecap="round"/>`;
+        });
+        if (spec.centerDot) {
+          out += `<circle cx="50" cy="50" r="5" fill="var(--primary)"/>`;
+        }
+      } else if (spec.kind === 'multiPos') {
+        // Multiple items placed at 3x3 anchor points inside 100x100
+        const pos = [
+          [24, 24], [50, 24], [76, 24],
+          [24, 50], [50, 50], [76, 50],
+          [24, 76], [50, 76], [76, 76]
+        ];
+        if (spec.frame) out += `<rect x="14" y="14" width="72" height="72" fill="none" stroke="var(--outline-variant)" stroke-width="1"/>`;
+        spec.items.forEach(it => {
+          const p = pos[it.pos];
+          out += drawShape(it.type, p[0], p[1], it.size || 9, it.fill || 'black', it.rot || 0);
+        });
+      } else if (spec.kind === 'countShapes') {
+        const n = spec.count;
+        const cols = n <= 3 ? n : n <= 6 ? 3 : 3;
+        const rows = Math.ceil(n / cols);
+        for (let i = 0; i < n; i++) {
+          const r = Math.floor(i / cols);
+          const c = i % cols;
+          const x = 50 + (c - (cols - 1) / 2) * 24;
+          const y = 50 + (r - (rows - 1) / 2) * 24;
+          out += drawShape(spec.type, x, y, 7.5, spec.fill || 'black', spec.rot || 0);
+        }
+      } else if (spec.kind === 'hexRing') {
+        // Arnos-style hexagon with items in 6 sectors
+        out += `<polygon points="${polyPoints(50, 50, 38, 6, 0)}" fill="none" stroke="var(--on-surface)" stroke-width="2"/>`;
+        for (let i = 0; i < 6; i++) {
+          const a = -Math.PI / 2 + (i * Math.PI) / 3;
+          const x = 50 + 22 * Math.cos(a);
+          const y = 50 + 22 * Math.sin(a);
+          const item = spec.slots[i];
+          if (item) out += drawShape(item.type, x, y, 5.5, item.fill || 'black', item.rot || 0);
+        }
+      } else if (spec.kind === 'numBox') {
+        if (spec.bg === 'dark') {
+          out = `<rect x="2" y="2" width="96" height="96" fill="var(--on-surface)" stroke="var(--on-surface)" stroke-width="1.5"/>`;
+          out += `<text x="50" y="60" text-anchor="middle" font-family="var(--font-label)" font-size="28" font-weight="600" fill="var(--background)">${spec.val}</text>`;
+        } else {
+          out += `<text x="50" y="60" text-anchor="middle" font-family="var(--font-label)" font-size="28" font-weight="600" fill="var(--on-surface)">${spec.val}</text>`;
+        }
+      } else if (spec.kind === 'polyWithDots') {
+        out += drawShape(spec.poly, 50, 50, 30, spec.polyFill || 'white', spec.rot || 0);
+        for (let i = 0; i < spec.dots; i++) {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / Math.max(1, spec.dots);
+          const dx = spec.dots === 1 ? 50 : 50 + 12 * Math.cos(a);
+          const dy = spec.dots === 1 ? 50 : 50 + 12 * Math.sin(a);
+          out += `<circle cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="3.6" fill="var(--primary)"/>`;
+        }
+      } else if (spec.kind === 'asymMirror') {
+        // Asymmetric geometric figure built on a 4x4 internal point grid for clear mirroring
+        const gPts = spec.pts.map(p => `${20 + p[0] * 20},${20 + p[1] * 20}`).join(' ');
+        out += `<polygon points="${gPts}" fill="${spec.fill === 'black' ? 'var(--on-surface)' : 'var(--primary-container)'}" stroke="var(--on-surface)" stroke-width="2.2"/>`;
+        if (spec.marker) {
+          out += `<circle cx="${20 + spec.marker[0] * 20}" cy="${20 + spec.marker[1] * 20}" r="4.5" fill="var(--error)"/>`;
+        }
+      } else if (spec.kind === 'xnorCol') {
+        // 3 vertical circles/squares (input1, input2, output)
+        const shapes = spec.vals;
+        for (let i = 0; i < shapes.length; i++) {
+          const y = shapes.length === 3 ? 22 + i * 28 : 34 + i * 32;
+          out += drawShape(spec.shape || 'circle', 50, y, 10, shapes[i], 0);
+        }
+      } else if (spec.kind === 'vignette') {
+        // Corner shape + central rotated shape + indicator bar
+        const corners = [[18, 18], [82, 18], [82, 82], [18, 82]];
+        if (spec.cShape) {
+          const cp = corners[spec.cPos % 4];
+          out += drawShape(spec.cShape, cp[0], cp[1], 7, spec.cFill || 'black', 0);
+        }
+        if (spec.main) {
+          out += drawShape(spec.main.type, 50, 50, spec.main.size || 20, spec.main.fill || 'white', spec.main.rot || 0);
+        }
+        if (spec.barDeg !== undefined) {
+          const rad = (spec.barDeg - 90) * Math.PI / 180;
+          out += `<line x1="50" y1="50" x2="${(50 + 36 * Math.cos(rad)).toFixed(1)}" y2="${(50 + 36 * Math.sin(rad)).toFixed(1)}" stroke="var(--primary)" stroke-width="3"/>`;
+        }
+      }
+
+      return out;
+    }
+
+    function renderStimulusSVG(q) {
+      if (q.layout === 'grid3x3') {
+        let inner = '';
+        for (let i = 0; i < 9; i++) {
+          const r = Math.floor(i / 3);
+          const c = i % 3;
+          inner += `<g transform="translate(${c * 108}, ${r * 108})">${renderCellContent(q.cells[i])}</g>`;
+        }
+        return svgWrap(inner, 330, 330, 316);
+      }
+      if (q.layout === 'grid2x2') {
+        let inner = '';
+        for (let i = 0; i < 4; i++) {
+          const r = Math.floor(i / 2);
+          const c = i % 2;
+          inner += `<g transform="translate(${c * 112}, ${r * 112})">${renderCellContent(q.cells[i])}</g>`;
+        }
+        return svgWrap(inner, 250, 250, 212);
+      }
+      if (q.layout === 'sequence') {
+        const n = q.cells.length;
+        const w = n * 106 - 6;
+        let inner = '';
+        for (let i = 0; i < n; i++) {
+          inner += `<g transform="translate(${i * 106}, 0)">${renderCellContent(q.cells[i])}</g>`;
+          if (i < n - 1) {
+            inner += `<text x="${i * 106 + 101}" y="55" text-anchor="middle" font-size="14" fill="var(--outline)">→</text>`;
+          }
+        }
+        return svgWrap(inner, Math.min(640, w), 116, `${w}" height="100" viewBox="0 0 ${w} 100`);
+      }
+      if (q.layout === 'analogy') {
+        // A : B :: C : ?
+        let inner = '';
+        const xs = [0, 114, 248, 362];
+        for (let i = 0; i < 4; i++) {
+          inner += `<g transform="translate(${xs[i]}, 0)">${renderCellContent(q.cells[i])}</g>`;
+        }
+        inner += `<text x="107" y="55" text-anchor="middle" font-size="16" font-weight="600" fill="var(--on-surface)">:</text>`;
+        inner += `<text x="231" y="55" text-anchor="middle" font-size="16" font-weight="600" fill="var(--primary)">::</text>`;
+        inner += `<text x="355" y="55" text-anchor="middle" font-size="16" font-weight="600" fill="var(--on-surface)">:</text>`;
+        return svgWrap(inner, 500, 115, '462" viewBox="0 0 462 100');
+      }
+      return '';
+    }
+
+    function renderSequenceSafe(q) {
+      const n = q.cells.length;
+      const w = n * 108 - 8;
+      let inner = '';
+      for (let i = 0; i < n; i++) {
+        inner += `<g transform="translate(${i * 108}, 0)">${renderCellContent(q.cells[i])}</g>`;
+        if (i < n - 1) {
+          inner += `<text x="${i * 108 + 102}" y="55" text-anchor="middle" font-size="13" fill="var(--outline)">→</text>`;
+        }
+      }
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} 100" width="100%" style="max-width:${w * 1.05}px;height:auto;" aria-hidden="true">${inner}</svg>`;
+    }
+
+    function renderStimulus(q) {
+      if (q.layout === 'sequence') return renderSequenceSafe(q);
+      if (q.layout === 'analogy') {
+        let inner = '';
+        const xs = [0, 116, 252, 368];
+        for (let i = 0; i < 4; i++) {
+          inner += `<g transform="translate(${xs[i]}, 0)">${renderCellContent(q.cells[i])}</g>`;
+        }
+        inner += `<text x="108" y="56" text-anchor="middle" font-size="16" font-weight="600" fill="var(--on-surface)">→</text>`;
+        inner += `<text x="234" y="56" text-anchor="middle" font-size="16" font-weight="600" fill="var(--primary)">::</text>`;
+        inner += `<text x="360" y="56" text-anchor="middle" font-size="16" font-weight="600" fill="var(--on-surface)">→</text>`;
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 468 100" width="100%" style="max-width:520px;height:auto;" aria-hidden="true">${inner}</svg>`;
+      }
+      if (q.layout === 'grid2x2') {
+        let inner = '';
+        for (let i = 0; i < 4; i++) {
+          const r = Math.floor(i / 2);
+          const c = i % 2;
+          inner += `<g transform="translate(${c * 110}, ${r * 110})">${renderCellContent(q.cells[i])}</g>`;
+        }
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="230" height="230" aria-hidden="true">${inner}</svg>`;
+      }
+      let inner = '';
+      for (let i = 0; i < 9; i++) {
+        const r = Math.floor(i / 3);
+        const c = i % 3;
+        inner += `<g transform="translate(${c * 106}, ${r * 106})">${renderCellContent(q.cells[i])}</g>`;
+      }
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 312 312" width="320" height="320" aria-hidden="true">${inner}</svg>`;
+    }
+
+    function renderOptionSVG(spec) {
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="88" height="88" aria-hidden="true">${renderCellContent(spec)}</svg>`;
+    }
+
+    // =========================================================================
+    // 3. DETERMINISTIC 80-QUESTION GENERATOR (20 x 4 CATEGORIES)
+    // =========================================================================
+    const SHAPE_NAMES_EL = {
+      circle: 'κύκλος', square: 'τετράγωνο', triangle: 'τρίγωνο', diamond: 'ρόμβος',
+      pentagon: 'πεντάγωνο', hexagon: 'εξάγωνο', heptagon: 'επτάγωνο', octagon: 'οκτάγωνο',
+      cross: 'σταυρός', xshape: 'σύμβολο Χ', star: 'αστέρι', arrow: 'βέλος',
+      dot: 'κουκίδα', lshape: 'γωνία L', tshape: 'σύμβολο Τ', arc: 'τόξο'
+    };
+    const FILL_NAMES_EL = { white: 'λευκό', black: 'μαύρο', gray: 'γκρι', blue: 'μπλε' };
+    const CORNER_NAMES_EL = ['πάνω αριστερά', 'πάνω δεξιά', 'κάτω δεξιά', 'κάτω αριστερά'];
+
+    function makeShuffledOptions(correctSpec, distractorSpecs, seed) {
+      const all = [
+        { spec: correctSpec, isCorrect: true },
+        { spec: distractorSpecs[0], isCorrect: false },
+        { spec: distractorSpecs[1], isCorrect: false },
+        { spec: distractorSpecs[2], isCorrect: false }
+      ];
+      // Deterministic Fisher-Yates shuffle based on seed
+      let s = (seed * 9301 + 49297) % 233280;
+      for (let i = all.length - 1; i > 0; i--) {
+        s = (s * 9301 + 49297) % 233280;
+        const j = s % (i + 1);
+        const tmp = all[i];
+        all[i] = all[j];
+        all[j] = tmp;
+      }
+      const correctIndex = all.findIndex(x => x.isCorrect);
+      return { options: all.map(x => x.spec), correctIndex };
+    }
+
+    function diffLabel(idxInCat) {
+      if (idxInCat < 7) return 'easy';
+      if (idxInCat < 14) return 'medium';
+      return 'hard';
+    }
+
+    // --- CATEGORY 1: Πλέγματα 3x3 & 2x2 (20 ερωτήσεις) ---
+    function buildGridsCategory() {
+      const qs = [];
+      const outerSets = [
+        ['circle', 'square', 'triangle'],
+        ['square', 'diamond', 'hexagon'],
+        ['triangle', 'pentagon', 'circle'],
+        ['hexagon', 'circle', 'square']
+      ];
+      const innerSets = [
+        ['cross', 'dot', 'diamond'],
+        ['triangle', 'circle', 'square'],
+        ['star', 'cross', 'triangle'],
+        ['dot', 'xshape', 'square']
+      ];
+
+      for (let i = 0; i < 20; i++) {
+        const diff = diffLabel(i);
+        const id = `G-${String(i + 1).padStart(2, '0')}`;
+
+        if (i < 5) {
+          // 3x3 Raven: Latin-square outer + inner shape + corner dot rotation
+          const outers = outerSets[i % outerSets.length];
+          const inners = innerSets[i % innerSets.length];
+          const fills = ['white', 'gray', 'black'];
+          const cells = [];
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              cells.push({
+                kind: 'layered',
+                outer: { type: outers[(r + c) % 3], size: 32, fill: fills[(r + c * 2) % 3] === 'black' ? 'white' : fills[(r + c * 2) % 3] },
+                inner: { type: inners[(r * 2 + c) % 3], size: 12, fill: fills[(r + c) % 3] === 'gray' ? 'black' : fills[(r + c) % 3] },
+                cornerDot: (r + c + i) % 4
+              });
+            }
+          }
+          const ans = cells[8];
+          cells[8] = { isQuestionMark: true };
+          const d1 = { ...ans, outer: { ...ans.outer, type: outers[0] === ans.outer.type ? outers[1] : outers[0] } };
+          const d2 = { ...ans, inner: { ...ans.inner, type: inners[0] === ans.inner.type ? inners[1] : inners[0] } };
+          const d3 = { ...ans, cornerDot: (ans.cornerDot + 2) % 4 };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 101);
+          qs.push({
+            id, category: 'grids', difficulty: diff, layout: 'grid3x3',
+            title: `Μήτρα Raven 3×3 — Κατανομή Σχημάτων (${i + 1})`,
+            prompt: `Εντοπίστε το σχήμα που συμπληρώνει τη θέση «?» στον πίνακα 3×3.`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Λατινικό τετράγωνο (γραμμές & στήλες) + περιμετρική κουκίδα`,
+            steps: [
+              `Εξωτερικό σχήμα: Κάθε γραμμή και στήλη περιέχει τα 3 εξωτερικά σχήματα ακριβώς μία φορά. Άρα στην κάτω δεξιά θέση απαιτείται ${SHAPE_NAMES_EL[ans.outer.type]}.`,
+              `Εσωτερικό σύμβολο: Ακολουθεί επίσης κυκλική κατανομή (μία φορά ανά γραμμή/στήλη), δίνοντας ${SHAPE_NAMES_EL[ans.inner.type]} (${FILL_NAMES_EL[ans.inner.fill]}).`,
+              `Γωνιακή κουκίδα: Μετακινείται δεξιόστροφα κατά +1 γωνία σε κάθε βήμα της γραμμής, καταλήγοντας ${CORNER_NAMES_EL[ans.cornerDot]}.`
+            ]
+          });
+        } else if (i < 10) {
+          // 2x2 Limited-Data Grids (GoLearn / ASEP style)
+          const k = i - 5;
+          const shapes2 = [['triangle', 'pentagon'], ['square', 'hexagon'], ['circle', 'diamond'], ['pentagon', 'heptagon'], ['triangle', 'octagon']][k];
+          const rotStep = [90, 45, 180, 90, 135][k];
+          const startRot = [0, 45, 0, 90, 0][k];
+          const c0 = { kind: 'vignette', main: { type: shapes2[0], size: 22, fill: 'white', rot: startRot }, cShape: 'dot', cPos: 0, barDeg: startRot };
+          const c1 = { kind: 'vignette', main: { type: shapes2[1], size: 22, fill: 'black', rot: (startRot + rotStep) % 360 }, cShape: 'dot', cPos: 1, barDeg: (startRot + rotStep) % 360 };
+          const c2 = { kind: 'vignette', main: { type: shapes2[0], size: 22, fill: 'white', rot: (startRot + 180) % 360 }, cShape: 'dot', cPos: 3, barDeg: (startRot + 180) % 360 };
+          const ans = { kind: 'vignette', main: { type: shapes2[1], size: 22, fill: 'black', rot: (startRot + 180 + rotStep) % 360 }, cShape: 'dot', cPos: 2, barDeg: (startRot + 180 + rotStep) % 360 };
+          const d1 = { ...ans, main: { ...ans.main, fill: 'white' } };
+          const d2 = { ...ans, cPos: 0, main: { ...ans.main, rot: startRot } };
+          const d3 = { ...ans, barDeg: (ans.barDeg + 90) % 360, main: { ...ans.main, type: shapes2[0] } };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 202);
+          qs.push({
+            id, category: 'grids', difficulty: diff, layout: 'grid2x2',
+            title: `Πλέγμα 2×2 — Περιορισμένα Δεδομένα (${k + 1})`,
+            prompt: `Στα πλέγματα 2×2 το σχήμα 1 μετασχηματίζεται στο 2 με τον ίδιο κανόνα που το 3 δίνει το «?».`,
+            cells: [c0, c1, c2, { isQuestionMark: true }],
+            options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Οριζόντιος μετασχηματισμός 2×2 (σχήμα + χρώμα + δείκτης)`,
+            steps: [
+              `Κανόνας σχήματος & χρώματος: Σε κάθε γραμμή το ${SHAPE_NAMES_EL[shapes2[0]]} (λευκό) μετατρέπεται σε ${SHAPE_NAMES_EL[shapes2[1]]} (μαύρο).`,
+              `Κανόνας περιστροφής: Ο μπλε δείκτης και το σχήμα στρέφονται δεξιόστροφα κατά +${rotStep}° από την αριστερή στη δεξιά στήλη.`,
+              `Κουκίδα γωνίας: Μετατοπίζεται οριζόντια από την αριστερή στη δεξιά πλευρά (${CORNER_NAMES_EL[c2.cPos]} → ${CORNER_NAMES_EL[ans.cPos]}).`
+            ]
+          });
+        } else if (i < 15) {
+          // Synthesi-style 3x3 continuous flow (row wraps to next row!)
+          const k = i - 10;
+          const bStep = [45, 90, 45, -45, 90][k];
+          const wStep = [-45, -45, 90, 90, -90][k];
+          const cells = [];
+          for (let idx = 0; idx < 9; idx++) {
+            cells.push({
+              kind: 'dualHand',
+              blackDeg: ((idx * bStep) % 360 + 360) % 360,
+              whiteDeg: ((135 + idx * wStep) % 360 + 360) % 360
+            });
+          }
+          const ans = cells[8];
+          cells[8] = { isQuestionMark: true };
+          const d1 = { kind: 'dualHand', blackDeg: (ans.blackDeg + 45) % 360, whiteDeg: ans.whiteDeg };
+          const d2 = { kind: 'dualHand', blackDeg: ans.blackDeg, whiteDeg: (ans.whiteDeg + 90) % 360 };
+          const d3 = { kind: 'dualHand', blackDeg: ans.whiteDeg, whiteDeg: ans.blackDeg };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 303);
+          qs.push({
+            id, category: 'grids', difficulty: diff, layout: 'grid3x3',
+            title: `Συνεχής Ροή 3×3 — Δύο Περιστρεφόμενες Ράβδοι (${k + 1})`,
+            prompt: `Η αλληλουχία δεν σταματά στο τέλος κάθε γραμμής, αλλά συνεχίζεται στη γραμμή από κάτω. Ποιο σχήμα αντιστοιχεί στο «?» ;`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Συνεχής ροή 9 θέσεων + ανεξάρτητη περιστροφή 2 ράβδων`,
+            steps: [
+              `Παρατηρήστε τη μαύρη (συμπαγή) και τη λευκή (εσώκλειστη) ράβδο γύρω από την κεντρική κουκίδα.`,
+              `Η μαύρη ράβδος περιστρέφεται κατά ${bStep > 0 ? `+${bStep}° δεξιόστροφα` : `${Math.abs(bStep)}° αριστερόστροφα`} από κελί σε κελί σε όλο το πλέγμα 1→9.`,
+              `Η λευκή ράβδος περιστρέφεται ανεξάρτητα κατά ${wStep > 0 ? `+${wStep}° δεξιόστροφα` : `${Math.abs(wStep)}° αριστερόστροφα`}, καταλήγοντας στις ${ans.whiteDeg}° ενώ η μαύρη στις ${ans.blackDeg}°.`
+            ]
+          });
+        } else {
+          // Mensa Norway Diagonal Correspondence 3x3 (Hard)
+          const k = i - 15;
+          // Diagonal index d = (r - c + 3) % 3 shares the same rule!
+          const diagShapes = [
+            ['triangle', 'square', 'hexagon'],
+            ['circle', 'diamond', 'star'],
+            ['pentagon', 'triangle', 'square'],
+            ['hexagon', 'circle', 'diamond'],
+            ['square', 'pentagon', 'triangle']
+          ][k];
+          const diagRot = [0, 45, 90];
+          const cells = [];
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              const d = (r - c + 3) % 3; // main diagonal has d=0: (0,0), (1,1), (2,2)
+              const step = c; // changes along diagonal
+              cells.push({
+                kind: 'multiPos',
+                frame: true,
+                items: [
+                  { type: diagShapes[d], pos: 4, size: 12, fill: d === 0 ? 'black' : 'white', rot: diagRot[d] },
+                  { type: 'dot', pos: (d * 3 + r) % 9, size: 6, fill: 'blue' }
+                ]
+              });
+            }
+          }
+          // Let's make the diagonal pattern super crisp: items in cells sharing (r - c + 3)%3 share the main shape & corner parity, while inner dot moves
+          const ans = cells[8];
+          cells[8] = { isQuestionMark: true };
+          const d1 = { kind: 'multiPos', frame: true, items: [{ type: diagShapes[1], pos: 4, size: 12, fill: 'black', rot: 0 }, { type: 'dot', pos: 2, size: 6, fill: 'blue' }] };
+          const d2 = { kind: 'multiPos', frame: true, items: [{ type: diagShapes[0], pos: 4, size: 12, fill: 'white', rot: 45 }, { type: 'dot', pos: 2, size: 6, fill: 'blue' }] };
+          const d3 = { kind: 'multiPos', frame: true, items: [{ type: diagShapes[0], pos: 4, size: 12, fill: 'black', rot: 0 }, { type: 'dot', pos: 6, size: 6, fill: 'blue' }] };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 404);
+          qs.push({
+            id, category: 'grids', difficulty: 'hard', layout: 'grid3x3',
+            title: `Διαγώνια Αντιστοίχιση Τύπου Mensa (${k + 1})`,
+            prompt: `Εξετάστε προσεκτικά τις διαγωνίους του πλέγματος 3×3 (μέθοδος Mensa Νορβηγίας) για να βρείτε το «?».`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Διαγώνιος κανόνας Mensa (κύρια & παράπλευρες διαγώνιοι)`,
+            steps: [
+              `Οι γραμμές και οι στήλες δεν διατηρούν σταθερό σχήμα· το κλειδί βρίσκεται στις διαγωνίους από πάνω-αριστερά προς κάτω-δεξιά.`,
+              `Κάθε διαγώνιος ορίζει σταθερό κεντρικό σχήμα και χρώμα: η κύρια διαγώνιος ((1,1) → (2,2) → (3,3)) έχει μαύρο ${SHAPE_NAMES_EL[diagShapes[0]]}.`,
+              `Η μπλε κουκίδα μετατοπίζεται κατά +1 θέση κατακόρυφα σε κάθε βήμα της διαγωνίου (θέση 0 → 1 → 2).`
+            ]
+          });
+        }
+      }
+      return qs;
+    }
+
+    // --- CATEGORY 2: Ακολουθίες & Περιστροφές (20 ερωτήσεις) ---
+    function buildSequencesCategory() {
+      const qs = [];
+      for (let i = 0; i < 20; i++) {
+        const diff = diffLabel(i);
+        const id = `S-${String(i + 1).padStart(2, '0')}`;
+
+        if (i < 7) {
+          // Constant rotation + corner bounce/move (GoLearn / SHL)
+          const stepDeg = [90, -90, 45, 180, -45, 90, 135][i];
+          const initDeg = [0, 90, 45, 0, 180, 45, 0][i];
+          const cShapes = ['circle', 'square', 'triangle', 'diamond', 'star', 'dot', 'cross'];
+          const mShapes = ['triangle', 'arrow', 'tshape', 'lshape', 'pentagon', 'arrow', 'triangle'];
+          const cells = [];
+          for (let f = 0; f < 5; f++) {
+            cells.push({
+              kind: 'vignette',
+              cShape: cShapes[i],
+              cPos: f % 2 === 0 ? 0 : 1, // alternating top-left / top-right (GoLearn example)
+              cFill: f % 2 === 0 ? 'black' : 'white',
+              main: { type: mShapes[i], size: 22, fill: 'white', rot: ((initDeg + f * stepDeg) % 360 + 360) % 360 }
+            });
+          }
+          const ans = {
+            kind: 'vignette',
+            cShape: cShapes[i],
+            cPos: 5 % 2 === 0 ? 0 : 1,
+            cFill: 'white',
+            main: { type: mShapes[i], size: 22, fill: 'white', rot: ((initDeg + 5 * stepDeg) % 360 + 360) % 360 }
+          };
+          cells.push({ isQuestionMark: true });
+          const d1 = { ...ans, cPos: 0, cFill: 'black' };
+          const d2 = { ...ans, main: { ...ans.main, rot: (ans.main.rot + 90) % 360 } };
+          const d3 = { ...ans, main: { ...ans.main, rot: (ans.main.rot + 180) % 360 }, cFill: 'black' };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 505);
+          qs.push({
+            id, category: 'sequences', difficulty: diff, layout: 'sequence',
+            title: `Σταθερή Περιστροφή & Εναλλαγή Θέσης (${i + 1})`,
+            prompt: `Απομονώστε το κεντρικό σχήμα από το γωνιακό εικονίδιο για να βρείτε το 6ο βήμα της ακολουθίας.`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Σταθερή περιστροφή ${stepDeg > 0 ? `+${stepDeg}°` : `${stepDeg}°`} + εναλλαγή θέσης/χρώματος`,
+            steps: [
+              `Κανόνας 1 (Γωνιακό στοιχείο): Το ${SHAPE_NAMES_EL[cShapes[i]]} εναλλάσσεται ανάμεσα στη θέση πάνω-αριστερά (μαύρο) και πάνω-δεξιά (λευκό). Στην 6η θέση θα είναι πάνω-δεξιά, λευκό.`,
+              `Κανόνας 2 (Κεντρικό σχήμα): Το ${SHAPE_NAMES_EL[mShapes[i]]} περιστρέφεται σταθερά κατά ${Math.abs(stepDeg)}° ${stepDeg > 0 ? 'δεξιόστροφα' : 'αριστερόστροφα'} σε κάθε βήμα.`,
+              `Συνδυάζοντας τους δύο ανεξάρτητους κανόνες, η τελική γωνία κλίσης είναι ${ans.main.rot}°.`
+            ]
+          });
+        } else if (i < 14) {
+          // Accelerating rotation (+45, +90, +135, +180...) or Hex ring addition (Arnos)
+          const k = i - 7;
+          if (k < 4) {
+            // Accelerating rotation (+45, +90, +135, +180, +225)
+            const base = [45, 30, 45, 90][k];
+            const angles = [0];
+            for (let f = 1; f <= 5; f++) {
+              angles.push((angles[f - 1] + f * base) % 360);
+            }
+            const mType = ['arrow', 'lshape', 'tshape', 'triangle'][k];
+            const cells = angles.slice(0, 5).map((deg, idx) => ({
+              kind: 'vignette',
+              main: { type: mType, size: 22, fill: idx % 2 === 0 ? 'black' : 'white', rot: deg },
+              cShape: 'dot', cPos: idx % 4, cFill: 'blue'
+            }));
+            const ans = {
+              kind: 'vignette',
+              main: { type: mType, size: 22, fill: 'white', rot: angles[5] },
+              cShape: 'dot', cPos: 5 % 4, cFill: 'blue'
+            };
+            cells.push({ isQuestionMark: true });
+            const d1 = { ...ans, main: { ...ans.main, rot: (angles[4] + base) % 360 } };
+            const d2 = { ...ans, main: { ...ans.main, fill: 'black', rot: (angles[5] + 90) % 360 } };
+            const d3 = { ...ans, cPos: 3 };
+            const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 606);
+            qs.push({
+              id, category: 'sequences', difficulty: 'medium', layout: 'sequence',
+              title: `Επιταχυνόμενη Περιστροφή (+${base}°, +${base * 2}°, …)`,
+              prompt: `Παρατηρήστε πώς αυξάνεται η γωνία περιστροφής από βήμα σε βήμα και εντοπίστε το 6ο σχήμα.`,
+              cells, options: pack.options, correctIndex: pack.correctIndex,
+              ruleTag: `Μεταβλητή γωνία περιστροφής (επιτάχυνση κατά +${base}°/βήμα)`,
+              steps: [
+                `Τα διαδοχικά βήματα περιστροφής αυξάνονται προοδευτικά: +${base}°, +${base * 2}°, +${base * 3}°, +${base * 4}°.`,
+                `Άρα από το 5ο στο 6ο σχήμα η επιπλέον περιστροφή είναι +${base * 5}°, φέρνοντας το ${SHAPE_NAMES_EL[mType]} στις ${angles[5]}°.`,
+                `Ταυτόχρονα το γέμισμα εναλλάσσεται (μαύρο/λευκό → λευκό) και η κουκίδα προχωρά 1 γωνία δεξιόστροφα (θέση ${CORNER_NAMES_EL[ans.cPos]}).`
+              ]
+            });
+          } else {
+            // Arnos-style Hexagon progressive addition
+            const m = k - 4;
+            const seqShapes = [
+              { type: 'circle', fill: 'white' },
+              { type: 'square', fill: 'black' },
+              { type: 'triangle', fill: 'white' },
+              { type: 'diamond', fill: 'black' },
+              { type: 'star', fill: 'white' },
+              { type: 'cross', fill: 'black' }
+            ];
+            const rotStart = m * 1;
+            const buildHex = (count) => {
+              const slots = [null, null, null, null, null, null];
+              for (let s = 0; s < count; s++) {
+                slots[(rotStart + s) % 6] = seqShapes[s];
+              }
+              return { kind: 'hexRing', slots };
+            };
+            const cells = [buildHex(1), buildHex(2), { isQuestionMark: true }, buildHex(4), buildHex(5)];
+            const ans = buildHex(3);
+            const d1 = { kind: 'hexRing', slots: ans.slots.map((x, idx) => idx === (rotStart + 2) % 6 ? { type: 'triangle', fill: 'black' } : x) };
+            const d2 = buildHex(2);
+            const d3 = { kind: 'hexRing', slots: [seqShapes[2], seqShapes[0], seqShapes[1], null, null, null] };
+            const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 707);
+            qs.push({
+              id, category: 'sequences', difficulty: 'medium', layout: 'sequence',
+              title: `Προσθετική Διαδικασία σε Εξάγωνο (${m + 1})`,
+              prompt: `Αξιοποιήστε τόσο το «παρελθόν» (1–2) όσο και το «μέλλον» (4–5) για να βρείτε το 3ο εξάγωνο.`,
+              cells, options: pack.options, correctIndex: pack.correctIndex,
+              ruleTag: `Σταθερότητα υπαρχόντων + δεξιόστροφη προσθήκη νέου σχήματος`,
+              steps: [
+                `Κανόνας 1 (Προσθετική διαδικασία): Σε κάθε βήμα προστίθεται +1 νέο διαφορετικό σχήμα (1 → 2 → 3 → 4 → 5).`,
+                `Κανόνας 2 (Σταθερότητα & Φορά): Τα ήδη υπάρχοντα σχήματα παραμένουν ακίνητα στη θέση τους, ενώ η προσθήκη προχωρά δεξιόστροφα.`,
+                `Από το 4ο σχήμα φαίνεται ξεκάθαρα ότι το 3ο νέο στοιχείο που προστέθηκε είναι λευκό τρίγωνο στη θέση ${(rotStart + 2) % 6 + 1}.`
+              ]
+            });
+          }
+        } else {
+          // Hard: Two-speed dual element movement in 3x3 anchor grid (ASEP video 2 & 7 style)
+          const k = i - 14;
+          const sqPath = [0, 1, 2, 5, 8, 7, 6, 3]; // clockwise perimeter 8 steps
+          const triPath = [0, 4, 8, 0, 4, 8]; // diagonal sweep
+          const sqStart = k % 8;
+          const cells = [];
+          for (let f = 0; f < 5; f++) {
+            const pSq = sqPath[(sqStart + f * 2) % 8]; // 2 steps per frame!
+            const pTri = triPath[f];
+            const items = [{ type: 'square', pos: pSq, size: 8, fill: 'black' }];
+            if (pSq !== pTri) items.unshift({ type: 'triangle', pos: pTri, size: 8, fill: 'white' });
+            cells.push({ kind: 'multiPos', frame: true, items });
+          }
+          const ansSq = sqPath[(sqStart + 5 * 2) % 8];
+          const ansTri = triPath[5];
+          const ansItems = [{ type: 'square', pos: ansSq, size: 8, fill: 'black' }];
+          if (ansSq !== ansTri) ansItems.unshift({ type: 'triangle', pos: ansTri, size: 8, fill: 'white' });
+          const ans = { kind: 'multiPos', frame: true, items: ansItems };
+          cells.push({ isQuestionMark: true });
+          const d1 = { kind: 'multiPos', frame: true, items: [{ type: 'triangle', pos: ansTri, size: 8, fill: 'white' }, { type: 'square', pos: sqPath[(sqStart + 9) % 8], size: 8, fill: 'black' }] };
+          const d2 = { kind: 'multiPos', frame: true, items: [{ type: 'triangle', pos: (ansTri + 4) % 9, size: 8, fill: 'white' }, { type: 'square', pos: ansSq, size: 8, fill: 'black' }] };
+          const d3 = { kind: 'multiPos', frame: true, items: [{ type: 'triangle', pos: ansTri, size: 8, fill: 'black' }, { type: 'square', pos: ansSq, size: 8, fill: 'white' }] };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 808);
+          qs.push({
+            id, category: 'sequences', difficulty: 'hard', layout: 'sequence',
+            title: `Κίνηση Δύο Ταχυτήτων & Επικάλυψη (${k + 1})`,
+            prompt: `Δύο σχήματα κινούνται με διαφορετικό ρυθμό. Όταν συμπίπτουν, το μαύρο τετράγωνο καλύπτει το τρίγωνο.`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Περιμετρικό άλμα (+2 θέσεις) + διαγώνιος κύκλος 3 βημάτων`,
+            steps: [
+              `Μαύρο τετράγωνο: Κινείται δεξιόστροφα στην περίμετρο 8 θέσεων με βήμα +2 θέσεις ανά καρέ.`,
+              `Λευκό τρίγωνο: Κινείται στη διαγώνιο (πάνω-αριστερά → κέντρο → κάτω-δεξιά) επαναλαμβάνοντας τον κύκλο των 3 θέσεων.`,
+              `Στο 6ο βήμα το τετράγωνο φτάνει στη θέση ${ansSq + 1} και το τρίγωνο στη θέση ${ansTri + 1} (αν συμπέσουν, φαίνεται μόνο το τετράγωνο).`
+            ]
+          });
+        }
+      }
+      return qs;
+    }
+
+    // --- CATEGORY 3: Αριθμητικά Μοτίβα & Συμμετρία (20 ερωτήσεις) ---
+    function buildNumericalCategory() {
+      const qs = [];
+      for (let i = 0; i < 20; i++) {
+        const diff = diffLabel(i);
+        const id = `N-${String(i + 1).padStart(2, '0')}`;
+
+        if (i < 7) {
+          // Polygon sides + inner dot count 3x3 (Easy)
+          const polys = ['triangle', 'square', 'pentagon', 'hexagon', 'heptagon', 'octagon'];
+          const startP = i % 3;
+          const cells = [];
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              const pIdx = startP + c + (r === 2 ? 1 : 0);
+              const dots = r + c + 1;
+              cells.push({
+                kind: 'polyWithDots',
+                poly: polys[pIdx % polys.length],
+                dots: dots,
+                polyFill: (r + c) % 2 === 0 ? 'white' : 'gray'
+              });
+            }
+          }
+          const ans = cells[8];
+          cells[8] = { isQuestionMark: true };
+          const d1 = { ...ans, dots: ans.dots - 1 };
+          const d2 = { ...ans, poly: polys[(startP + 2) % polys.length] };
+          const d3 = { ...ans, polyFill: ans.polyFill === 'white' ? 'gray' : 'white' };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 909);
+          qs.push({
+            id, category: 'numerical', difficulty: diff, layout: 'grid3x3',
+            title: `Αύξηση Πλευρών Πολυγώνου & Κουκίδων (${i + 1})`,
+            prompt: `Μετρήστε τις πλευρές κάθε πολυγώνου και τις εσωτερικές κουκίδες για να βρείτε το «?».`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Πλήθος πλευρών (+1) + αριθμητική πρόοδος κουκίδων`,
+            steps: [
+              `Πλευρές πολυγώνου: Σε κάθε γραμμή από αριστερά προς δεξιά προστίθεται +1 πλευρά (άρα στην 3η γραμμή απαιτείται ${SHAPE_NAMES_EL[ans.poly]}).`,
+              `Πλήθος κουκίδων: Σε κάθε γραμμή και στήλη οι κουκίδες αυξάνονται κατά +1, άρα στη θέση (3,3) περιμένουμε 5 κουκίδες.`,
+              `Σκίαση: Εναλλάσσεται σκακιέρα (λευκό/γκρι), δίνοντας ${FILL_NAMES_EL[ans.polyFill]} πολύγωνο.`
+            ]
+          });
+        } else if (i < 14) {
+          // Numerical grid & parity / row sums / signed black-white (Medium)
+          const k = i - 7;
+          if (k < 4) {
+            // Row sum = constant or Col3 = Col1 + Col2
+            const base = [12, 18, 24, 15][k];
+            const nums = [
+              [3, 4, base - 7],
+              [5, 2, base - 7],
+              [6, 3, base - 9]
+            ];
+            const cells = [];
+            for (let r = 0; r < 3; r++) {
+              for (let c = 0; c < 3; c++) {
+                cells.push({ kind: 'numBox', val: nums[r][c], bg: c === 2 ? 'dark' : 'light' });
+              }
+            }
+            const ans = cells[8];
+            cells[8] = { isQuestionMark: true };
+            const d1 = { kind: 'numBox', val: ans.val + 2, bg: 'dark' };
+            const d2 = { kind: 'numBox', val: ans.val - 1, bg: 'dark' };
+            const d3 = { kind: 'numBox', val: ans.val, bg: 'light' };
+            const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 1010);
+            qs.push({
+              id, category: 'numerical', difficulty: 'medium', layout: 'grid3x3',
+              title: `Σταθερό Άθροισμα Γραμμής (${base})`,
+              prompt: `Ανακαλύψτε τη μαθηματική σχέση ανάμεσα στα λευκά και τα μαύρα τετράγωνα κάθε γραμμής.`,
+              cells, options: pack.options, correctIndex: pack.correctIndex,
+              ruleTag: `Σταθερό άθροισμα γραμμής (Σ = ${base}) + οπτική κωδικοποίηση`,
+              steps: [
+                `Εξετάζοντας την 1η γραμμή: ${nums[0][0]} + ${nums[0][1]} + ${nums[0][2]} = ${base}.`,
+                `Επιβεβαιώνουμε στη 2η γραμμή: ${nums[1][0]} + ${nums[1][1]} + ${nums[1][2]} = ${base}.`,
+                `Άρα στην 3η γραμμή: ${nums[2][0]} + ${nums[2][1]} + ? = ${base} ⇒ ? = ${ans.val} (σε μαύρο πλαίσιο, όπως όλη η 3η στήλη).`
+              ]
+            });
+          } else {
+            // Arnos-style parity / average relation in 3x3
+            const m = k - 4;
+            const mult = [2, 3, 4][m];
+            const shift = [1, -1, 2][m];
+            const pairs = [[4, 3], [6, 5], [5, 7]];
+            const cells = [];
+            for (let r = 0; r < 3; r++) {
+              const a = pairs[r][0], b = pairs[r][1];
+              cells.push({ kind: 'numBox', val: a, bg: 'light' });
+              cells.push({ kind: 'numBox', val: b, bg: 'light' });
+              cells.push({ kind: 'numBox', val: a * mult + b + shift, bg: 'dark' });
+            }
+            const ans = cells[8];
+            cells[8] = { isQuestionMark: true };
+            const d1 = { kind: 'numBox', val: ans.val + 3, bg: 'dark' };
+            const d2 = { kind: 'numBox', val: ans.val - 2, bg: 'dark' };
+            const d3 = { kind: 'numBox', val: pairs[2][0] * mult + pairs[2][1], bg: 'dark' };
+            const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 1111);
+            qs.push({
+              id, category: 'numerical', difficulty: 'medium', layout: 'grid3x3',
+              title: `Αριθμητικός Τελεστής Πίνακα (${m + 1})`,
+              prompt: `Η 3η στήλη (μαύρα πλαίσια) παράγεται από τις δύο πρώτες με έναν σταθερό κανόνα πράξεων.`,
+              cells, options: pack.options, correctIndex: pack.correctIndex,
+              ruleTag: `Συνδυασμός πράξεων: ${mult}×Α + Β ${shift >= 0 ? `+ ${shift}` : `- ${Math.abs(shift)}`}`,
+              steps: [
+                `Στην 1η γραμμή: ${mult} × ${pairs[0][0]} + ${pairs[0][1]} ${shift >= 0 ? `+ ${shift}` : `- ${Math.abs(shift)}`} = ${cells[2].val}.`,
+                `Στη 2η γραμμή επαληθεύεται: ${mult} × ${pairs[1][0]} + ${pairs[1][1]} ${shift >= 0 ? `+ ${shift}` : `- ${Math.abs(shift)}`} = ${cells[5].val}.`,
+                `Εφαρμόζουμε στην 3η γραμμή: ${mult} × ${pairs[2][0]} + ${pairs[2][1]} ${shift >= 0 ? `+ ${shift}` : `- ${Math.abs(shift)}`} = ${ans.val}.`
+              ]
+            });
+          }
+        } else {
+          // Hard: Horizontal, Vertical & Double Mirroring (Asymmetric Figures)
+          const k = i - 14;
+          const shapesPts = [
+            [[0, 0], [2, 0], [3, 1], [1, 1], [1, 3], [0, 3]], // F-like
+            [[0, 0], [3, 0], [3, 1], [1, 1], [1, 2], [2, 3], [0, 3]],
+            [[1, 0], [3, 0], [3, 3], [2, 3], [2, 1], [0, 2]],
+            [[0, 1], [2, 0], [2, 2], [3, 2], [3, 3], [0, 3]],
+            [[0, 0], [1, 0], [3, 2], [3, 3], [1, 3], [0, 2]],
+            [[1, 0], [3, 1], [2, 2], [3, 3], [0, 3], [0, 1]]
+          ];
+          const basePts = shapesPts[k];
+          const flipX = (pts) => pts.map(p => [3 - p[0], p[1]]);
+          const flipY = (pts) => pts.map(p => [p[0], 3 - p[1]]);
+          const baseMarker = basePts[0];
+          const mFlipX = p => [3 - p[0], p[1]];
+          const mFlipY = p => [p[0], 3 - p[1]];
+
+          // Analogy A -> B :: C -> ? (Horizontal flip across row, then vertical flip in 2nd row!)
+          const cA = { kind: 'asymMirror', pts: basePts, marker: baseMarker, fill: 'white' };
+          const cB = { kind: 'asymMirror', pts: flipX(basePts), marker: mFlipX(baseMarker), fill: 'black' };
+          const cC = { kind: 'asymMirror', pts: flipY(basePts), marker: mFlipY(baseMarker), fill: 'white' };
+          const ansPts = flipX(flipY(basePts));
+          const ans = { kind: 'asymMirror', pts: ansPts, marker: mFlipX(mFlipY(baseMarker)), fill: 'black' };
+
+          const d1 = { kind: 'asymMirror', pts: flipY(basePts), marker: mFlipY(baseMarker), fill: 'black' };
+          const d2 = { kind: 'asymMirror', pts: flipX(basePts), marker: mFlipX(baseMarker), fill: 'black' };
+          const d3 = { kind: 'asymMirror', pts: ansPts, marker: mFlipX(mFlipY(baseMarker)), fill: 'white' };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 1212);
+          qs.push({
+            id, category: 'numerical', difficulty: 'hard', layout: 'analogy',
+            title: `Κατοπτρισμός & Αντιστροφή Χρώματος (${k + 1})`,
+            prompt: `Το 1ο σχήμα μετασχηματίζεται στο 2ο μέσω άξονα συμμετρίας. Εφαρμόστε τον ίδιο μετασχηματισμό στο 3ο σχήμα.`,
+            cells: [cA, cB, cC, { isQuestionMark: true }],
+            options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Κατακόρυφος κατοπτρισμός (αριστερά↔δεξιά) + χρωματική αντιστροφή`,
+            steps: [
+              `Κανόνας 1 (Άξονας συμμετρίας): Από το 1ο στο 2ο σχήμα γίνεται κατακόρυφος κατοπτρισμός (ό,τι είναι αριστερά περνάει δεξιά στον καθρέπτη), μεταφέροντας και την κόκκινη κουκίδα αναφοράς.`,
+              `Κανόνας 2 (Αντιστροφή πλήρωσης): Το ανοιχτόχρωμο σχήμα γίνεται σκούρο μαύρο.`,
+              `Εφαρμόζοντας τον ίδιο κατακόρυφο καθρεπτισμό και μαύρη πλήρωση στο 3ο σχήμα, προκύπτει η σωστή απάντηση.`
+            ]
+          });
+        }
+      }
+      return qs;
+    }
+
+    // --- CATEGORY 4: Λογική Επικάλυψη & Boolean Πράξεις (20 ερωτήσεις) ---
+    function buildBooleanCategory() {
+      const qs = [];
+      for (let i = 0; i < 20; i++) {
+        const diff = diffLabel(i);
+        const id = `B-${String(i + 1).padStart(2, '0')}`;
+
+        if (i < 7) {
+          // XOR on line segments in 3x3 (Mensa Norway / Finland style)
+          const rowDefs = [
+            [[0, 4, 5], [4, 6]],
+            [[1, 3, 7], [3, 5]],
+            [[0, 2, 6], [2, 7]],
+            [[0, 1, 5], [1, 4]],
+            [[2, 3, 4], [3, 6]],
+            [[0, 3, 5], [0, 7]],
+            [[1, 2, 4], [2, 5]]
+          ][i];
+          const xorArr = (a, b) => {
+            const set = new Set();
+            a.forEach(x => set.add(x));
+            b.forEach(x => set.has(x) ? set.delete(x) : set.add(x));
+            return Array.from(set).sort((x, y) => x - y);
+          };
+          const r1c1 = rowDefs[0], r1c2 = rowDefs[1], r1c3 = xorArr(r1c1, r1c2);
+          const r2c1 = [0, 1, 2], r2c2 = [1, 3, 4], r2c3 = xorArr(r2c1, r2c2);
+          const r3c1 = [0, 3, 6, 7], r3c2 = [3, 5, 6], r3c3 = xorArr(r3c1, r3c2);
+
+          const cells = [
+            { kind: 'boolLines', segs: r1c1 }, { kind: 'boolLines', segs: r1c2 }, { kind: 'boolLines', segs: r1c3 },
+            { kind: 'boolLines', segs: r2c1 }, { kind: 'boolLines', segs: r2c2 }, { kind: 'boolLines', segs: r2c3 },
+            { kind: 'boolLines', segs: r3c1 }, { kind: 'boolLines', segs: r3c2 }, { isQuestionMark: true }
+          ];
+          const ans = { kind: 'boolLines', segs: r3c3 };
+          const d1 = { kind: 'boolLines', segs: Array.from(new Set([...r3c1, ...r3c2])) }; // OR mistake
+          const d2 = { kind: 'boolLines', segs: r3c1.filter(x => r3c2.includes(x)) }; // AND mistake
+          const d3 = { kind: 'boolLines', segs: xorArr(r3c3, [4]) };
+          const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 1313);
+          qs.push({
+            id, category: 'boolean', difficulty: diff, layout: 'grid3x3',
+            title: `Υπέρθεση XOR — Ακύρωση Κοινών Γραμμών (${i + 1})`,
+            prompt: `Συνδυάστε τα δύο πρώτα σχήματα κάθε γραμμής για να βρείτε το τρίτο σχήμα («?»).`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Λογική πράξη XOR (τα κοινά τμήματα εξαφανίζονται)`,
+            steps: [
+              `Παρατηρούμε στις δύο πρώτες γραμμές ότι όταν επικαλύπτουμε την 1η και 2η στήλη, οι γραμμές που υπάρχουν ΚΑΙ στα δύο σχήματα διαγράφονται.`,
+              `Όσες γραμμές εμφανίζονται ΜΟΝΟ σε ένα από τα δύο σχήματα παραμένουν στην 3η στήλη (πύλη XOR).`,
+              `Στην 3η γραμμή διαγράφουμε τις κοινές γραμμές και κρατάμε τις μοναδικές, απορρίπτοντας την απλή ένωση (OR) και την τομή (AND).`
+            ]
+          });
+        } else if (i < 14) {
+          // AND / OR / XOR on 3x3 pixel/dot grids (Mensa Finland / ASEP)
+          const k = i - 7;
+          const mode = k < 3 ? 'AND' : k < 5 ? 'OR' : 'XOR';
+          const op = (a, b) => a.map((v, idx) => {
+            if (mode === 'AND') return (v && b[idx]) ? 1 : 0;
+            if (mode === 'OR') return (v || b[idx]) ? 1 : 0;
+            return (v ^ b[idx]) ? 1 : 0;
+          });
+          const g11 = [1, 0, 1, 0, 1, 0, 1, 0, 0];
+          const g12 = [1, 1, 0, 0, 1, 1, 0, 0, 1];
+          const g21 = [0, 1, 1, 1, 0, 0, 0, 1, 1];
+          const g22 = [1, 1, 0, 1, 1, 0, 0, 0, 1];
+          const g31 = [1, 1, 0, 0, 1, 1, 1, 0, 0];
+          const g32 = [0, 1, 1, 1, 1, 0, 0, 0, 1];
+          if (k % 2 === 1) { g31[2] = 1; g32[6] = 1; }
+          const g33 = op(g31, g32);
+          const cells = [
+            { kind: 'grid3x3dots', cells: g11 }, { kind: 'grid3x3dots', cells: g12 }, { kind: 'grid3x3dots', cells: op(g11, g12) },
+            { kind: 'grid3x3dots', cells: g21 }, { kind: 'grid3x3dots', cells: g22 }, { kind: 'grid3x3dots', cells: op(g21, g22) },
+            { kind: 'grid3x3dots', cells: g31 }, { kind: 'grid3x3dots', cells: g32 }, { isQuestionMark: true }
+          ];
+          const ans = { kind: 'grid3x3dots', cells: g33 };
+          const wrong1 = g33.map((v, idx) => idx === 4 ? (v ? 0 : 1) : v);
+          const wrong2 = g31.map((v, idx) => mode === 'AND' ? ((v || g32[idx]) ? 1 : 0) : ((v && g32[idx]) ? 1 : 0));
+          const wrong3 = g33.map((v, idx) => idx === 0 ? (v ? 0 : 1) : v);
+          const pack = makeShuffledOptions(ans, [
+            { kind: 'grid3x3dots', cells: wrong1 },
+            { kind: 'grid3x3dots', cells: wrong2 },
+            { kind: 'grid3x3dots', cells: wrong3 }
+          ], i + 1414);
+          const modeExplain = mode === 'AND'
+            ? 'Μόνο τα τετραγωνάκια που είναι μαύρα ΚΑΙ στα δύο πρώτα σχήματα παραμένουν μαύρα (AND).'
+            : mode === 'OR'
+            ? 'Κάθε τετραγωνάκι που είναι μαύρο σε τουλάχιστον ένα από τα δύο πρώτα σχήματα μεταφέρεται στο τρίτο (OR).'
+            : 'Τα κοινά μαύρα τετραγωνάκια αλληλοαναιρούνται (γίνονται λευκά), ενώ τα μοναδικά παραμένουν μαύρα (XOR).';
+          qs.push({
+            id, category: 'boolean', difficulty: 'medium', layout: 'grid3x3',
+            title: `Λογική Πύλη ${mode} σε Πλέγμα 3×3 (${k + 1})`,
+            prompt: `Εφαρμόστε τη λογική πράξη ${mode} ανάμεσα στις δύο πρώτες στήλες κάθε γραμμής.`,
+            cells, options: pack.options, correctIndex: pack.correctIndex,
+            ruleTag: `Boolean άλγεβρα πλέγματος: Πράξη ${mode}`,
+            steps: [
+              `Ελέγξτε τις 2 πρώτες γραμμές κελί προς κελί (9 θέσεις ανά τετράγωνο).`,
+              modeExplain,
+              `Εφαρμόζοντας τη λογική ${mode} στην 3η γραμμή (συμπεριλαμβανομένου του κεντρικού κελιού), προκύπτει το ακριβές μοτίβο.`
+            ]
+          });
+        } else {
+          // Hard: XNOR Gates (ASEP Video 7) OR Rotate-then-XOR (Mensa Finland Q32)
+          const k = i - 14;
+          if (k < 3) {
+            // XNOR gate: same color -> white, different color -> black!
+            const xnor = (a, b) => a === b ? 'white' : 'black';
+            const r1 = [['white', 'white'], ['black', 'black'], ['white', 'black']];
+            const r2 = [['black', 'white'], ['white', 'black'], ['black', 'black']];
+            const r3 = [['white', 'black'], ['black', 'black'], null];
+            if (k === 1) r3[0] = ['black', 'black'];
+            if (k === 2) r3[1] = ['white', 'black'];
+            const mkCol = (pair, outColor) => ({ kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: [pair[0], pair[1], outColor] });
+            const cells = [
+              mkCol(r1[0], xnor(r1[0][0], r1[0][1])), mkCol(r1[1], xnor(r1[1][0], r1[1][1])), mkCol(r1[2], xnor(r1[2][0], r1[2][1])),
+              mkCol(r2[0], xnor(r2[0][0], r2[0][1])), mkCol(r2[1], xnor(r2[1][0], r2[1][1])), mkCol(r2[2], xnor(r2[2][0], r2[2][1])),
+              mkCol(r3[0], xnor(r3[0][0], r3[0][1])), mkCol(r3[1], xnor(r3[1][0], r3[1][1])), { isQuestionMark: true }
+            ];
+            // Row logic across columns: top circles combine left-to-right!
+            // Actually even clearer: in each cell, top & middle are inputs, bottom is XNOR output, AND across row top input = previous output
+            const ansPair = [xnor(r3[0][0], r3[1][0]), xnor(r3[0][1], r3[1][1])];
+            const ans = mkCol(ansPair, xnor(ansPair[0], ansPair[1]));
+            const d1 = mkCol(ansPair, ans.vals[2] === 'white' ? 'black' : 'white');
+            const d2 = mkCol([ansPair[0] === 'white' ? 'black' : 'white', ansPair[1]], xnor(ansPair[0] === 'white' ? 'black' : 'white', ansPair[1]));
+            const d3 = mkCol([ansPair[0], ansPair[1] === 'white' ? 'black' : 'white'], 'gray');
+            // Let's make row 1 & 2 strictly follow col3 = XNOR(col1, col2) for ALL 3 positions!
+            const fixedRows = [
+              [['white', 'black', 'white'], ['white', 'white', 'black']],
+              [['black', 'white', 'black'], ['white', 'white', 'black']],
+              [['black', 'black', 'white'], ['white', 'black', 'black']]
+            ];
+            if (k === 1) fixedRows[2][0] = ['white', 'black', 'white'];
+            if (k === 2) fixedRows[2][1] = ['black', 'black', 'white'];
+            const fCells = [];
+            fixedRows.forEach((rw, rIdx) => {
+              const c3 = [xnor(rw[0][0], rw[1][0]), xnor(rw[0][1], rw[1][1]), xnor(rw[0][2], rw[1][2])];
+              fCells.push({ kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: rw[0] });
+              fCells.push({ kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: rw[1] });
+              fCells.push(rIdx === 2 ? { isQuestionMark: true } : { kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: c3 });
+            });
+            const trueC3 = [xnor(fixedRows[2][0][0], fixedRows[2][1][0]), xnor(fixedRows[2][0][1], fixedRows[2][1][1]), xnor(fixedRows[2][0][2], fixedRows[2][1][2])];
+            const fAns = { kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: trueC3 };
+            const fd1 = { kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: trueC3.map(v => v === 'white' ? 'black' : 'white') };
+            const fd2 = { kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: [trueC3[0], trueC3[1] === 'white' ? 'black' : 'white', trueC3[2]] };
+            const fd3 = { kind: 'xnorCol', shape: k === 1 ? 'square' : 'circle', vals: [trueC3[0] === 'white' ? 'black' : 'white', trueC3[1], trueC3[2]] };
+            const fPack = makeShuffledOptions(fAns, [fd1, fd2, fd3], i + 1515);
+            qs.push({
+              id, category: 'boolean', difficulty: 'hard', layout: 'grid3x3',
+              title: `Πύλη XNOR — Ισοδυναμία Χρωμάτων (${k + 1})`,
+              prompt: `Ανακαλύψτε τον κανόνα χρωματικού συνδυασμού ανά στάθμη (πάνω, μέση, κάτω) στις 3 στήλες.`,
+              cells: fCells, options: fPack.options, correctIndex: fPack.correctIndex,
+              ruleTag: `Πύλη XNOR: Ίδια χρώματα → λευκό · Διαφορετικά → μαύρο`,
+              steps: [
+                `Παρατηρούμε τις δύο πρώτες γραμμές: όταν οι 2 είσοδοι έχουν ΙΔΙΟ χρώμα (λευκό+λευκό ή μαύρο+μαύρο), το αποτέλεσμα στην 3η στήλη είναι λευκό.`,
+                `Όταν οι είσοδοι έχουν ΔΙΑΦΟΡΕΤΙΚΟ χρώμα (λευκό+μαύρο ή μαύρο+λευκό), το αποτέλεσμα είναι μαύρο (λογική πύλη XNOR).`,
+                `Ελέγχουμε χωριστά τις 3 θέσεις (πάνω: ${trueC3[0] === 'white' ? 'λευκό' : 'μαύρο'}, μέση: ${trueC3[1] === 'white' ? 'λευκό' : 'μαύρο'}, κάτω: ${trueC3[2] === 'white' ? 'λευκό' : 'μαύρο'}).`
+              ]
+            });
+          } else {
+            // Rotate middle 90 deg CCW, then XOR with col1 (Mensa Finland Q32!)
+            const rot90CCWMap = { 0: 3, 1: 0, 2: 1, 3: 2, 4: 5, 5: 4, 6: 7, 7: 6 };
+            const rotSegs = (arr) => arr.map(s => rot90CCWMap[s] !== undefined ? rot90CCWMap[s] : s);
+            const xorArr = (a, b) => {
+              const set = new Set();
+              a.forEach(x => set.add(x));
+              b.forEach(x => set.has(x) ? set.delete(x) : set.add(x));
+              return Array.from(set).sort((x, y) => x - y);
+            };
+            const m = k - 3;
+            const rData = [
+              [[0, 1, 4], [0, 3]],
+              [[2, 3, 5], [1, 2]],
+              [[0, 2, 4 + m % 2], [0, 1, 5]]
+            ];
+            const cells = [];
+            rData.forEach((rw, rIdx) => {
+              const c3 = xorArr(rw[0], rotSegs(rw[1]));
+              cells.push({ kind: 'boolLines', segs: rw[0] });
+              cells.push({ kind: 'boolLines', segs: rw[1], centerDot: true });
+              cells.push(rIdx === 2 ? { isQuestionMark: true } : { kind: 'boolLines', segs: c3 });
+            });
+            const trueSegs = xorArr(rData[2][0], rotSegs(rData[2][1]));
+            const ans = { kind: 'boolLines', segs: trueSegs };
+            const d1 = { kind: 'boolLines', segs: xorArr(rData[2][0], rData[2][1]) }; // forgot rotation!
+            const d2 = { kind: 'boolLines', segs: Array.from(new Set([...rData[2][0], ...rotSegs(rData[2][1])])) }; // rotated + OR
+            const d3 = { kind: 'boolLines', segs: xorArr(trueSegs, [3]) };
+            const pack = makeShuffledOptions(ans, [d1, d2, d3], i + 1616);
+            qs.push({
+              id, category: 'boolean', difficulty: 'hard', layout: 'grid3x3',
+              title: `Σύνθετη Πράξη: Περιστροφή 90° + XOR (${m + 1})`,
+              prompt: `Αυτό το θέμα συνδυάζει δύο κανόνες (πρότυπο Φινλανδίας): η μεσαία στήλη μετασχηματίζεται πριν από την επικάλυψη.`,
+              cells, options: pack.options, correctIndex: pack.correctIndex,
+              ruleTag: `Περιστροφή 90° αριστερόστροφα μεσαίου σχήματος + XOR`,
+              steps: [
+                `Κανόνας 1 (Μετασχηματισμός μεσαίας στήλης): Το μεσαίο σχήμα (με τη μπλε κουκίδα) περιστρέφεται κατά 90° αριστερόστροφα.`,
+                `Κανόνας 2 (XOR): Το 1ο σχήμα και το περιστρεμμένο 2ο σχήμα συνδυάζονται με XOR — οι κοινές γραμμές σβήνονται και μένουν μόνο οι μοναδικές.`,
+                `Η παγίδα της επιλογής χωρίς περιστροφή αποφεύγεται αν περιστρέψουμε νοερά τις γραμμές του 2ου κελιού πριν τη διαγραφή των κοινών.`
+              ]
+            });
+          }
+        }
+      }
+      return qs;
+    }
+
+    const QUESTIONS = [
+      ...buildGridsCategory(),
+      ...buildSequencesCategory(),
+      ...buildNumericalCategory(),
+      ...buildBooleanCategory()
+    ];
+
+    const CATEGORY_META = {
+      grids: { label: '1. Πλέγματα 3×3 & 2×2', short: 'Πλέγματα 3×3 & 2×2' },
+      sequences: { label: '2. Ακολουθίες & Περιστροφές', short: 'Ακολουθίες & Περιστροφές' },
+      numerical: { label: '3. Αριθμητικά Μοτίβα & Συμμετρία', short: 'Αριθμητικά & Συμμετρία' },
+      boolean: { label: '4. Λογική Επικάλυψη & Boolean', short: 'Επικάλυψη & Boolean' }
+    };
+    const DIFF_LABELS = { easy: 'Εύκολο', medium: 'Μέτριο', hard: 'Δύσκολο' };
+    const LETTERS = ['Α', 'Β', 'Γ', 'Δ'];
+
+    // =========================================================================
+    // 4. APPLICATION STATE & PERSISTENCE
+    // =========================================================================
+    let appState = {
+      mode: 'practice',         // 'practice' | 'mistakes' | 'strategy'
+      categoryFilter: 'all',
+      difficultyFilter: 'all',
+      currentQuestionId: QUESTIONS[0].id,
+      answers: {},              // { [id]: { selectedIndex, isCorrect, timeSpent } }
+      paceLimitSec: 0,          // 0 | 45 | 60
+      totalElapsedSec: 0
+    };
+
+    let qElapsedSec = 0;
+    let timerPaused = false;
+    let timerInterval = null;
+
+    async function saveState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState({
+            mode: appState.mode,
+            categoryFilter: appState.categoryFilter,
+            difficultyFilter: appState.difficultyFilter,
+            currentQuestionId: appState.currentQuestionId,
+            answers: appState.answers,
+            paceLimitSec: appState.paceLimitSec,
+            totalElapsedSec: appState.totalElapsedSec
+          });
+        }
+      } catch (err) {
+        // Non-fatal in preview environments
+      }
+    }
+
+    function getFilteredList() {
+      return QUESTIONS.filter(q => {
+        if (appState.mode === 'mistakes') {
+          const rec = appState.answers[q.id];
+          if (!rec || rec.isCorrect) return false;
+        }
+        if (appState.categoryFilter !== 'all' && q.category !== appState.categoryFilter) return false;
+        if (appState.difficultyFilter !== 'all' && q.difficulty !== appState.difficultyFilter) return false;
+        return true;
+      });
+    }
+
+    function formatClock(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function showNotice(msg) {
+      const box = document.getElementById('status-notice');
+      const txt = document.getElementById('status-notice-text');
+      if (box && txt) {
+        txt.textContent = msg;
+        box.classList.remove('hidden');
+      }
+    }
+
+    function hideNotice() {
+      const box = document.getElementById('status-notice');
+      if (box) box.classList.add('hidden');
+    }
+
+    // =========================================================================
+    // 5. RENDERING
+    // =========================================================================
+    function renderAll() {
+      updateKPIs();
+      updateTabsUI();
+      if (appState.mode === 'strategy') {
+        const ws = document.getElementById('workspace-main');
+        const fp = document.getElementById('filter-panel');
+        const sp = document.getElementById('strategy-panel');
+        if (ws) ws.classList.add('hidden');
+        if (fp) fp.classList.add('hidden');
+        if (sp) sp.classList.remove('hidden');
+        return;
+      }
+      const ws = document.getElementById('workspace-main');
+      const fp = document.getElementById('filter-panel');
+      const sp = document.getElementById('strategy-panel');
+      if (ws) ws.classList.remove('hidden');
+      if (fp) fp.classList.remove('hidden');
+      if (sp) sp.classList.add('hidden');
+
+      const list = getFilteredList();
+      if (list.length > 0 && !list.some(q => q.id === appState.currentQuestionId)) {
+        appState.currentQuestionId = list[0].id;
+      }
+      renderQuestionStage(list);
+      renderNavMatrix(list);
+      renderCategoryBreakdown();
+    }
+
+    function updateKPIs() {
+      const keys = Object.keys(appState.answers);
+      const answeredCount = keys.length;
+      const correctCount = keys.filter(k => appState.answers[k].isCorrect).length;
+      const mistakeCount = answeredCount - correctCount;
+      const pct = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+      const covPct = Math.round((answeredCount / QUESTIONS.length) * 100);
+
+      const elScore = document.getElementById('kpi-score');
+      const elAcc = document.getElementById('kpi-accuracy');
+      const elProg = document.getElementById('kpi-progress');
+      const elBar = document.getElementById('kpi-progress-bar');
+      const elMist = document.getElementById('kpi-mistakes');
+      const elTimer = document.getElementById('kpi-timer');
+      const elPace = document.getElementById('kpi-pace-label');
+      const elBadgM = document.getElementById('badge-mistakes-count');
+      const elBadgF = document.getElementById('badge-filtered-count');
+
+      if (elScore) elScore.textContent = `${correctCount} / ${answeredCount}`;
+      if (elAcc) elAcc.textContent = answeredCount > 0 ? `Ποσοστό ευστοχίας: ${pct}%` : `Ποσοστό ευστοχίας: —`;
+      if (elProg) elProg.textContent = `${answeredCount} / ${QUESTIONS.length}`;
+      if (elBar) elBar.style.width = `${covPct}%`;
+      if (elMist) elMist.textContent = String(mistakeCount);
+      if (elTimer) elTimer.textContent = formatClock(appState.totalElapsedSec);
+      if (elPace) {
+        elPace.textContent = appState.paceLimitSec > 0
+          ? `Στόχος ΑΣΕΠ: ${appState.paceLimitSec} δευτ./ερώτηση`
+          : `Ελεύθερος ρυθμός εξάσκησης`;
+      }
+      if (elBadgM) elBadgM.textContent = String(mistakeCount);
+
+      const practiceFiltered = QUESTIONS.filter(q => {
+        if (appState.categoryFilter !== 'all' && q.category !== appState.categoryFilter) return false;
+        if (appState.difficultyFilter !== 'all' && q.difficulty !== appState.difficultyFilter) return false;
+        return true;
+      });
+      if (elBadgF) elBadgF.textContent = String(practiceFiltered.length);
+    }
+
+    function updateTabsUI() {
+      const modes = ['practice', 'mistakes', 'strategy'];
+      modes.forEach(m => {
+        const btn = document.getElementById(`tab-${m}`);
+        if (!btn) return;
+        const active = appState.mode === m;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+
+    function renderQuestionStage(list) {
+      const stage = document.getElementById('stage-content');
+      if (!stage) return;
+
+      if (list.length === 0) {
+        if (appState.mode === 'mistakes') {
+          stage.innerHTML = `
+            <div class="empty-state">
+              <h2 class="q-title">Δεν υπάρχουν εκκρεμή λάθη</h2>
+              <p class="q-prompt">Είτε δεν έχετε δώσει ακόμη λανθασμένη απάντηση στα επιλεγμένα φίλτρα, είτε ολοκληρώσατε επιτυχώς την επανάληψη όλων των λαθών.</p>
+              <div><button type="button" class="btn btn-primary" onclick="switchMode('practice')">Επιστροφή στην Εξάσκηση</button></div>
+            </div>`;
+        } else {
+          stage.innerHTML = `
+            <div class="empty-state">
+              <h2 class="q-title">Καμία ερώτηση στα επιλεγμένα φίλτρα</h2>
+              <p class="q-prompt">Δοκιμάστε να επαναφέρετε τα φίλτρα κατηγορίας ή δυσκολίας.</p>
+              <div><button type="button" class="btn btn-primary" onclick="clearFilters()">Επαναφορά φίλτρων</button></div>
+            </div>`;
+        }
+        return;
+      }
+
+      const idx = Math.max(0, list.findIndex(q => q.id === appState.currentQuestionId));
+      const q = list[idx];
+      const rec = appState.answers[q.id] || null;
+      const diffCls = q.difficulty === 'easy' ? 'tag-easy' : q.difficulty === 'medium' ? 'tag-medium' : 'tag-hard';
+
+      let optionsHtml = '';
+      for (let o = 0; o < 4; o++) {
+        let cls = 'option-card';
+        let badgeTxt = '';
+        if (rec) {
+          if (o === q.correctIndex) {
+            cls += ' is-correct';
+            badgeTxt = 'ΣΩΣΤΟ';
+          } else if (o === rec.selectedIndex) {
+            cls += ' is-wrong';
+            badgeTxt = 'ΕΠΙΛΟΓΗ';
+          }
+        }
+        optionsHtml += `
+          <button type="button" class="${cls}" ${rec ? 'disabled' : ''} onclick="selectAnswer('${q.id}', ${o})">
+            <div class="option-head">
+              <span>${LETTERS[o]}</span>
+              <span>${badgeTxt}</span>
+            </div>
+            <div class="option-svg-wrap">${renderOptionSVG(q.options[o])}</div>
+          </button>`;
+      }
+
+      let expHtml = '';
+      if (rec) {
+        const verdictCls = rec.isCorrect ? 'is-correct' : 'is-wrong';
+        const verdictText = rec.isCorrect
+          ? `Σωστή απάντηση (${LETTERS[q.correctIndex]}) — Εύγε!`
+          : `Λανθασμένη επιλογή (${LETTERS[rec.selectedIndex]}). Η σωστή απάντηση είναι η ${LETTERS[q.correctIndex]}.`;
+        const stepsLi = q.steps.map(s => `<li>${s}</li>`).join('');
+        expHtml = `
+          <div class="explanation-box ${verdictCls}">
+            <div class="exp-header">
+              <span class="exp-verdict ${verdictCls}">${verdictText}</span>
+              <span class="exp-rule-pill">${q.ruleTag}</span>
+            </div>
+            <ol class="exp-steps">${stepsLi}</ol>
+            ${appState.mode === 'mistakes' ? `<div><button type="button" class="btn btn-secondary" onclick="retryMistakeQuestion('${q.id}')">Νέα προσπάθεια σε αυτή την ερώτηση</button></div>` : ''}
+          </div>`;
+      }
+
+      const prevDisabled = idx === 0 ? 'disabled' : '';
+      const nextDisabled = idx >= list.length - 1 ? 'disabled' : '';
+
+      stage.innerHTML = `
+        <div class="question-meta">
+          <div class="meta-tags">
+            <span class="tag">${CATEGORY_META[q.category].short}</span>
+            <span class="tag ${diffCls}">${DIFF_LABELS[q.difficulty]}</span>
+          </div>
+          <span class="q-index">ΕΡΩΤΗΣΗ ${idx + 1} / ${list.length} • ΚΩΔ. ${q.id}</span>
+        </div>
+
+        <div>
+          <h2 class="q-title">${q.title}</h2>
+          <p class="q-prompt">${q.prompt}</p>
+        </div>
+
+        <div class="stimulus-box">${renderStimulus(q)}</div>
+
+        <div>
+          <div class="field-label" style="margin-bottom: var(--space-sm);">ΕΠΙΛΕΞΤΕ ΤΗ ΣΩΣΤΗ ΑΠΑΝΤΗΣΗ (Α – Δ)</div>
+          <div class="options-grid">${optionsHtml}</div>
+        </div>
+
+        ${expHtml}
+
+        <div class="stage-footer">
+          <button type="button" class="btn btn-secondary" ${prevDisabled} onclick="stepQuestion(-1)">← Προηγούμενη</button>
+          <div class="header-actions">
+            ${rec && appState.mode === 'practice' ? `<button type="button" class="btn btn-ghost" onclick="retryMistakeQuestion('${q.id}')">Επανάληψη ερώτησης</button>` : ''}
+            <button type="button" class="btn btn-primary" ${nextDisabled} onclick="stepQuestion(1)">Επόμενη ερώτηση →</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderNavMatrix(list) {
+      const box = document.getElementById('nav-matrix');
+      if (!box) return;
+      if (list.length === 0) {
+        box.innerHTML = `<span class="kpi-sub" style="grid-column:1/-1;">Κενή λίστα</span>`;
+        return;
+      }
+      box.innerHTML = list.map((q, idx) => {
+        const rec = appState.answers[q.id];
+        let cls = 'nav-cell';
+        if (q.id === appState.currentQuestionId) cls += ' is-current';
+        if (rec) cls += rec.isCorrect ? ' is-correct' : ' is-wrong';
+        return `<button type="button" class="${cls}" title="${q.id}: ${q.title}" onclick="jumpToQuestion('${q.id}')">${idx + 1}</button>`;
+      }).join('');
+    }
+
+    function renderCategoryBreakdown() {
+      const box = document.getElementById('cat-breakdown');
+      if (!box) return;
+      const cats = ['grids', 'sequences', 'numerical', 'boolean'];
+      box.innerHTML = cats.map(c => {
+        const qs = QUESTIONS.filter(q => q.category === c);
+        const ans = qs.filter(q => appState.answers[q.id]);
+        const corr = ans.filter(q => appState.answers[q.id].isCorrect);
+        return `
+          <div class="cat-row">
+            <span>${CATEGORY_META[c].short}</span>
+            <span class="cat-stat">${corr.length}/${ans.length} (από ${qs.length})</span>
+          </div>`;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 6. INTERACTION HANDLERS (HOISTED FUNCTION DECLARATIONS)
+    // =========================================================================
+    function switchMode(mode) {
+      appState.mode = mode;
+      qElapsedSec = 0;
+      const list = getFilteredList();
+      if (list.length > 0 && !list.some(q => q.id === appState.currentQuestionId)) {
+        appState.currentQuestionId = list[0].id;
+      }
+      renderAll();
+      saveState();
+    }
+
+    function applyFilters() {
+      const catEl = document.getElementById('filter-category');
+      const diffEl = document.getElementById('filter-difficulty');
+      if (catEl) appState.categoryFilter = catEl.value;
+      if (diffEl) appState.difficultyFilter = diffEl.value;
+      const list = getFilteredList();
+      if (list.length > 0) {
+        appState.currentQuestionId = list[0].id;
+      }
+      qElapsedSec = 0;
+      renderAll();
+      saveState();
+    }
+
+    function clearFilters() {
+      appState.categoryFilter = 'all';
+      appState.difficultyFilter = 'all';
+      const catEl = document.getElementById('filter-category');
+      const diffEl = document.getElementById('filter-difficulty');
+      if (catEl) catEl.value = 'all';
+      if (diffEl) diffEl.value = 'all';
+      const list = getFilteredList();
+      if (list.length > 0) appState.currentQuestionId = list[0].id;
+      renderAll();
+      saveState();
+    }
+
+    function jumpToQuestion(qId) {
+      appState.currentQuestionId = qId;
+      qElapsedSec = 0;
+      updateQuestionClockUI();
+      renderAll();
+      saveState();
+    }
+
+    function stepQuestion(delta) {
+      const list = getFilteredList();
+      const idx = list.findIndex(q => q.id === appState.currentQuestionId);
+      const nextIdx = idx + delta;
+      if (nextIdx >= 0 && nextIdx < list.length) {
+        appState.currentQuestionId = list[nextIdx].id;
+        qElapsedSec = 0;
+        updateQuestionClockUI();
+        renderAll();
+        saveState();
+      }
+    }
+
+    function selectAnswer(qId, optIdx) {
+      const q = QUESTIONS.find(x => x.id === qId);
+      if (!q || appState.answers[qId]) return;
+      appState.answers[qId] = {
+        selectedIndex: optIdx,
+        isCorrect: optIdx === q.correctIndex,
+        timeSpent: qElapsedSec
+      };
+      renderAll();
+      saveState();
+    }
+
+    function retryMistakeQuestion(qId) {
+      delete appState.answers[qId];
+      appState.currentQuestionId = qId;
+      qElapsedSec = 0;
+      updateQuestionClockUI();
+      renderAll();
+      saveState();
+    }
+
+    function setPaceLimit(val) {
+      appState.paceLimitSec = Number(val) || 0;
+      qElapsedSec = 0;
+      updateQuestionClockUI();
+      updateKPIs();
+      saveState();
+    }
+
+    function toggleTimerPause() {
+      timerPaused = !timerPaused;
+      const btn = document.getElementById('btn-timer-toggle');
+      if (btn) btn.textContent = timerPaused ? 'Συνέχιση' : 'Παύση';
+    }
+
+    function updateQuestionClockUI() {
+      const el = document.getElementById('q-timer-readout');
+      if (!el) return;
+      if (appState.paceLimitSec > 0) {
+        const rem = Math.max(0, appState.paceLimitSec - qElapsedSec);
+        el.textContent = formatClock(rem);
+        el.classList.toggle('is-warn', rem <= 10);
+      } else {
+        el.textContent = formatClock(qElapsedSec);
+        el.classList.remove('is-warn');
+      }
+    }
+
+    function handleResetClick(btn) {
+      if (btn.dataset.armed !== 'true') {
+        btn.dataset.armed = 'true';
+        btn.textContent = 'Επιβεβαίωση μηδενισμού;';
+        setTimeout(() => {
+          if (btn.dataset.armed === 'true') {
+            btn.dataset.armed = 'false';
+            btn.textContent = 'Μηδενισμός προόδου';
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = 'false';
+      btn.textContent = 'Μηδενισμός προόδου';
+      appState.answers = {};
+      appState.totalElapsedSec = 0;
+      qElapsedSec = 0;
+      appState.mode = 'practice';
+      appState.currentQuestionId = QUESTIONS[0].id;
+      showNotice('Η πρόοδος και τα στατιστικά σας μηδενίστηκαν.');
+      renderAll();
+      saveState();
+    }
+
+    function exportProgressCsv() {
+      const header = ['Κωδικός', 'Κατηγορία', 'Δυσκολία', 'Τίτλος', 'Απάντηση Χρήστη', 'Σωστή Απάντηση', 'Αποτέλεσμα', 'Χρόνος (δευτ.)'];
+      const rows = QUESTIONS.map(q => {
+        const rec = appState.answers[q.id];
+        const uAns = rec ? LETTERS[rec.selectedIndex] : '—';
+        const cAns = LETTERS[q.correctIndex];
+        const res = rec ? (rec.isCorrect ? 'Σωστό' : 'Λάθος') : 'Αναπάντητη';
+        const t = rec ? rec.timeSpent : 0;
+        return [q.id, CATEGORY_META[q.category].short, DIFF_LABELS[q.difficulty], `"${q.title.replace(/"/g, '""')}"`, uAns, cAns, res, t].join(',');
+      });
+      const csvContent = '\uFEFF' + header.join(',') + '\n' + rows.join('\n');
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: csvContent,
+          contentType: 'text/csv',
+          encoding: 'UTF-8',
+          filename: 'asep_epagogikos_proodos.csv'
+        });
+      } else {
+        showNotice('Η εξαγωγή CSV είναι διαθέσιμη μέσα από το περιβάλλον Notebook.');
+      }
+    }
+
+    function startTimerLoop() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (timerPaused || appState.mode === 'strategy') return;
+        appState.totalElapsedSec += 1;
+        qElapsedSec += 1;
+        const kpiT = document.getElementById('kpi-timer');
+        if (kpiT) kpiT.textContent = formatClock(appState.totalElapsedSec);
+        updateQuestionClockUI();
+      }, 1000);
+    }
+
+    // =========================================================================
+    // 7. INITIALIZATION
+    // =========================================================================
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            if (saved.mode) appState.mode = saved.mode;
+            if (saved.categoryFilter) appState.categoryFilter = saved.categoryFilter;
+            if (saved.difficultyFilter) appState.difficultyFilter = saved.difficultyFilter;
+            if (saved.currentQuestionId) appState.currentQuestionId = saved.currentQuestionId;
+            if (saved.answers && typeof saved.answers === 'object') appState.answers = saved.answers;
+            if (typeof saved.paceLimitSec === 'number') appState.paceLimitSec = saved.paceLimitSec;
+            if (typeof saved.totalElapsedSec === 'number') appState.totalElapsedSec = saved.totalElapsedSec;
+          }
+        }
+      } catch (e) {
+        // Fallback to clean initial state
+      }
+
+      const catEl = document.getElementById('filter-category');
+      const diffEl = document.getElementById('filter-difficulty');
+      const paceEl = document.getElementById('pace-select');
+      if (catEl) catEl.value = appState.categoryFilter;
+      if (diffEl) diffEl.value = appState.difficultyFilter;
+      if (paceEl) paceEl.value = String(appState.paceLimitSec);
+
+      renderAll();
+      updateQuestionClockUI();
+      startTimerLoop();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

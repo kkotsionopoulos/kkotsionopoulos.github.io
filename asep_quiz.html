@@ -474,6 +474,7 @@
                 <a href="portfolio.html" class="dropbtn">Portfolio ▾</a>
                 <div class="dropdown-content" id="dropdownMenu">
                     <a href="asep_quiz.html">📝 Quiz ΑΣΕΠ</a>
+                    <a href="epagogiko_test.html">🧠 Επαγωγικός Συλλογισμός</a>
                     <a href="vine_watch.html">VineWatch (Περονόσπορος)</a>
                     <a href="fire_page.html">🔥 FireWatch (Πυρκαγιά)</a>
                     <a href="spray-about.html">💧 SprayGuard (Έλεγχος Δόσης)</a>
@@ -504,15 +505,15 @@
                 <option value="syntagma">1. Συνταγματικό Δίκαιο</option>
                 <option value="dimosia">2. Διοικητικό Δίκαιο</option>
                 <option value="europe">3. Ευρωπαϊκοί Θεσμοί & Δίκαιο</option>
-				<option value="oikonomia">4. Οικονομικές Επιστήμες</option>
-				<option value="pliroforiki">5. Πληροφορική και Ψηφιακή Διακυβέρνηση</option>
-				<option value="istoria">6. Σύγχρονη Ιστορία της Ελλάδος</option>
-				<option value="ypallilikos">7. Κώδικας Κατάστασης Πολιτικών Διοικητικών Υπαλλήλων</option>
-				<option value="gdpr">8. Γενικός Κανονισμός Προστασίας Δεδομένων (GDPR)</option>
-				<option value="dioikisi">9. Διοίκηση Επιχειρήσεων και Οργανισμών</option>
-				<option value="hr">10. Διοίκηση Ανθρώπινου Δυναμικού</option>
-				<option value="symperifora">11. Κώδικας Συμπεριφοράς Δημοσίων Υπαλλήλων</option>
-				<option value="epagogiko">12. Επαγωγικός Λογισμός</option>
+                <option value="oikonomia">4. Οικονομικές Επιστήμες</option>
+                <option value="pliroforiki">5. Πληροφορική και Ψηφιακή Διακυβέρνηση</option>
+                <option value="istoria">6. Σύγχρονη Ιστορία της Ελλάδος</option>
+                <option value="ypallilikos">7. Κώδικας Κατάστασης Πολιτικών Διοικητικών Υπαλλήλων</option>
+                <option value="gdpr">8. Γενικός Κανονισμός Προστασίας Δεδομένων (GDPR)</option>
+                <option value="dioikisi">9. Διοίκηση Επιχειρήσεων και Οργανισμών</option>
+                <option value="hr">10. Διοίκηση Ανθρώπινου Δυναμικού</option>
+                <option value="symperifora">11. Κώδικας Συμπεριφοράς Δημοσίων Υπαλλήλων</option>
+                <option value="epagogiko">12. Επαγωγικός Λογισμός</option>
             </select>
         </div>
 
@@ -546,6 +547,15 @@
         </div>
 
         <button class="btn-start" id="startBtn" onclick="startQuiz()">Έναρξη Εξέτασης →</button>
+
+        <!-- ΓΡΗΓΟΡΗ ΜΕΤΑΒΑΣΗ ΣΤΟΝ ΕΠΑΓΩΓΙΚΟ ΣΥΛΛΟΓΙΣΜΟ -->
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
+            <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">Χρειάζεστε εξάσκηση σε οπτικά μοτίβα &amp; μήτρες;</p>
+            <a href="epagogiko_test.html" class="btn-action btn-secondary" style="text-decoration: none; display: inline-block; font-size: 0.9em; background-color: #2980b9 !important; color: white !important;">
+                🧠 Μετάβαση στον Προσομοιωτή Επαγωγικού Λογισμού (80 Θέματα) ↗
+            </a>
+        </div>
+
         <div id="errorMessage" class="error-message"></div>
     </div>
 
@@ -625,14 +635,14 @@
         'dimosia':  'data/questions_dimosia.json',
         'europe':   'data/questions_europe.json',
         'oikonomia': 'data/questions_oikonomia.json',
-		'pliroforiki': 'data/questions_pliroforiki.json',
-		'istoria':     'data/questions_istoria.json',
-		'ypallilikos': 'data/questions_ypallilikos.json',
-		'gdpr':        'data/questions_gdpr.json',
-		'dioikisi':    'data/questions_dioikisi.json',
-		'hr':          'data/questions_hr.json',
-		'symperifora': 'data/questions_symperifora.json',
-		'epagogiko':   'data/questions_epagogiko.json'
+        'pliroforiki': 'data/questions_pliroforiki.json',
+        'istoria':     'data/questions_istoria.json',
+        'ypallilikos': 'data/questions_ypallilikos.json',
+        'gdpr':        'data/questions_gdpr.json',
+        'dioikisi':    'data/questions_dioikisi.json',
+        'hr':          'data/questions_hr.json',
+        'symperifora': 'data/questions_symperifora.json',
+        'epagogiko':   'data/questions_epagogiko.json'
     };
 
     let currentQuestions = [];
